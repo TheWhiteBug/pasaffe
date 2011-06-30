@@ -1,0 +1,8 @@
+[Desktop Entry]
+_Name=Pasaffe
+_Comment=Pasaffe application
+Categories=GNOME;Utility;
+Exec=pasaffe
+Icon=pasaffe
+Terminal=false
+Type=Application
