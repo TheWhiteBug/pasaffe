@@ -7,9 +7,9 @@
   <title type="text">Pasaffe</title>
   <desc>The <app>Pasaffe</app> help.</desc>
   <credit type="author">
-    <name>Your Name</name>
-    <email>Your E-mail</email>
-    <years>2010</years>
+    <name>Marc Deslauriers</name>
+    <email>marcdeslauriers@canonical.com</email>
+    <years>2011</years>
   </credit>
   <license href="http://creativecommons.org/licenses/by-sa/3.0/">
   <p>Creative Commons Attribution-Share Alike 3.0 Unported License</p>

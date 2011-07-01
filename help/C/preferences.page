@@ -5,9 +5,9 @@
 <info>
   <link type="guide" xref="index#contents"/>
   <credit type="author">
-    <name>Your Name</name>
-    <email>Your E-mail</email>
-    <years>2010</years>
+    <name>Marc Deslauriers</name>
+    <email>marcdeslauriers@canonical.com</email>
+    <years>2011</years>
   </credit>
   <desc>Optional short description of Preferences for contents page</desc>
 </info>
