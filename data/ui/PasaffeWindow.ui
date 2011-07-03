@@ -13,6 +13,8 @@
     <columns>
       <!-- column-name entry_name -->
       <column type="gchararray"/>
+      <!-- column-name UUID -->
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="PasaffeWindow" id="pasaffe_window">

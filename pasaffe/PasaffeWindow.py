@@ -40,15 +40,24 @@ class PasaffeWindow(Window):
 
         # Read database
         self.passfile = PassSafeFile("/tmp/test.psafe3", "ubuntu")
+        #print self.passfile.records
         for record in self.passfile.records:
-            self.ui.liststore1.append([record[3]])
+            self.ui.liststore1.append([record[3],record[1]])
 
         # Select first item by default
-        self.ui.treeview1.set_cursor('0')
+        #self.ui.treeview1.set_cursor('0')
 
-    def _display_data(self, entry):
+        data_buffer = gtk.TextBuffer()
+        data_buffer.set_text('''Welcome to Pasaffe!
+
+Click an item on the left to see details.
+''')
+        self.ui.textview1.set_buffer(data_buffer)
+
+
+    def _display_data(self, entry_uuid):
         for record in self.passfile.records:
-            if record[3] == entry:
+            if record[1] == entry_uuid:
                 data_buffer = gtk.TextBuffer()
                 data_buffer.set_text('''Title: %s
 Notes: %s
@@ -59,8 +68,8 @@ Password: %s
 
     def on_treeview1_cursor_changed(self, treeview):
         treemodel, treeiter = treeview.get_selection().get_selected()
-        entry = treemodel.get_value(treeiter, 0)
-        self._display_data(entry)
+        entry_uuid = treemodel.get_value(treeiter, 1)
+        self._display_data(entry_uuid)
 
     def on_treeview1_row_activated(self, treeview, path, view_column):
         print "on_treeview1_row_activated called"
