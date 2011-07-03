@@ -38,36 +38,29 @@ class PasaffeWindow(Window):
         self.AboutDialog = AboutPasaffeDialog
         self.PreferencesDialog = PreferencesPasaffeDialog
 
-        # Code for other initialization actions should be added here.
-
         # Read database
         self.passfile = PassSafeFile("/tmp/test.psafe3", "ubuntu")
         for record in self.passfile.records:
             self.ui.liststore1.append([record[3]])
 
-        data_buf = self.ui.textview1.get_buffer()
-        print "data buf is %s" % data_buf
-        data_buf.set_text="blah blah!"
-
-        #data_buffer = gtk.TextBuffer()
-        #data_buffer.set_text="This is a test\nblahblah"
-        #self.ui.textview1.set_buffer(data_buffer)
-
+        # Select first item by default
+        self.ui.treeview1.set_cursor('0')
 
     def _display_data(self, entry):
-        print "Entry is %s" % entry
         for record in self.passfile.records:
             if record[3] == entry:
                 data_buffer = gtk.TextBuffer()
-                data_buffer.set_text="This is a test\n%s" % entry
+                data_buffer.set_text('''Title: %s
+Notes: %s
+Username: %s
+Password: %s
+''' % (record[3], record[5], record[4], record[6]))
                 self.ui.textview1.set_buffer(data_buffer)
 
     def on_treeview1_cursor_changed(self, treeview):
-        tree_selection = treeview.get_selection()
-        treemodel, treeiter = tree_selection.get_selected()
+        treemodel, treeiter = treeview.get_selection().get_selected()
         entry = treemodel.get_value(treeiter, 0)
-        #print "Entry is %s" % entry
         self._display_data(entry)
 
     def on_treeview1_row_activated(self, treeview, path, view_column):
-        print "yeah, baby"
+        print "on_treeview1_row_activated called"
