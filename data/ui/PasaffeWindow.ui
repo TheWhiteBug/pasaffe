@@ -14,14 +14,6 @@
       <!-- column-name entry_name -->
       <column type="gchararray"/>
     </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Blah blah</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">sdsdsd</col>
-      </row>
-    </data>
   </object>
   <object class="PasaffeWindow" id="pasaffe_window">
     <property name="can_focus">False</property>

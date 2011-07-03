@@ -25,11 +25,12 @@ logger = logging.getLogger('pasaffe')
 from pasaffe_lib import Window
 from pasaffe.AboutPasaffeDialog import AboutPasaffeDialog
 from pasaffe.PreferencesPasaffeDialog import PreferencesPasaffeDialog
+from pasaffe_lib.readdb import PassSafeFile
 
 # See pasaffe_lib.Window.py for more details about how this class works
 class PasaffeWindow(Window):
     __gtype_name__ = "PasaffeWindow"
-    
+
     def finish_initializing(self, builder): # pylint: disable=E1002
         """Set up the main window"""
         super(PasaffeWindow, self).finish_initializing(builder)
@@ -39,5 +40,7 @@ class PasaffeWindow(Window):
 
         # Code for other initialization actions should be added here.
 
-        # Try and add a value
-        self.ui.liststore1.append(['jhjhjh'])
+        # Read database
+        passfile = PassSafeFile("/tmp/test.psafe3", "ubuntu")
+        for record in passfile.records:
+            self.ui.liststore1.append([record[3]])
