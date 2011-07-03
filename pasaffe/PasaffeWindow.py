@@ -39,3 +39,5 @@ class PasaffeWindow(Window):
 
         # Code for other initialization actions should be added here.
 
+        # Try and add a value
+        self.ui.liststore1.append(['jhjhjh'])
