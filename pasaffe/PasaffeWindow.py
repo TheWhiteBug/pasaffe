@@ -41,6 +41,33 @@ class PasaffeWindow(Window):
         # Code for other initialization actions should be added here.
 
         # Read database
-        passfile = PassSafeFile("/tmp/test.psafe3", "ubuntu")
-        for record in passfile.records:
+        self.passfile = PassSafeFile("/tmp/test.psafe3", "ubuntu")
+        for record in self.passfile.records:
             self.ui.liststore1.append([record[3]])
+
+        data_buf = self.ui.textview1.get_buffer()
+        print "data buf is %s" % data_buf
+        data_buf.set_text="blah blah!"
+
+        #data_buffer = gtk.TextBuffer()
+        #data_buffer.set_text="This is a test\nblahblah"
+        #self.ui.textview1.set_buffer(data_buffer)
+
+
+    def _display_data(self, entry):
+        print "Entry is %s" % entry
+        for record in self.passfile.records:
+            if record[3] == entry:
+                data_buffer = gtk.TextBuffer()
+                data_buffer.set_text="This is a test\n%s" % entry
+                self.ui.textview1.set_buffer(data_buffer)
+
+    def on_treeview1_cursor_changed(self, treeview):
+        tree_selection = treeview.get_selection()
+        treemodel, treeiter = tree_selection.get_selected()
+        entry = treemodel.get_value(treeiter, 0)
+        #print "Entry is %s" % entry
+        self._display_data(entry)
+
+    def on_treeview1_row_activated(self, treeview, path, view_column):
+        print "yeah, baby"
