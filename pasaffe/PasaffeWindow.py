@@ -64,3 +64,6 @@ Password: %s
 
     def on_treeview1_row_activated(self, treeview, path, view_column):
         print "on_treeview1_row_activated called"
+
+    def on_save_clicked(self, toolbutton):
+        print "on_save_clicked called"
