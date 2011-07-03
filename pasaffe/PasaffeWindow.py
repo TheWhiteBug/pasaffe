@@ -24,6 +24,7 @@ logger = logging.getLogger('pasaffe')
 
 from pasaffe_lib import Window
 from pasaffe.AboutPasaffeDialog import AboutPasaffeDialog
+from pasaffe.EditDetailsDialog import EditDetailsDialog
 from pasaffe.PreferencesPasaffeDialog import PreferencesPasaffeDialog
 from pasaffe_lib.readdb import PassSafeFile
 
@@ -36,6 +37,7 @@ class PasaffeWindow(Window):
         super(PasaffeWindow, self).finish_initializing(builder)
 
         self.AboutDialog = AboutPasaffeDialog
+        self.EditDetailsDialog = EditDetailsDialog
         self.PreferencesDialog = PreferencesPasaffeDialog
 
         # Read database
@@ -65,6 +67,7 @@ Username: %s
 Password: %s
 ''' % (record[3], record[5], record[4], record[6]))
                 self.ui.textview1.set_buffer(data_buffer)
+                break
 
     def on_treeview1_cursor_changed(self, treeview):
         treemodel, treeiter = treeview.get_selection().get_selected()
@@ -72,7 +75,28 @@ Password: %s
         self._display_data(entry_uuid)
 
     def on_treeview1_row_activated(self, treeview, path, view_column):
-        print "on_treeview1_row_activated called"
+        treemodel, treeiter = treeview.get_selection().get_selected()
+        entry_uuid = treemodel.get_value(treeiter, 1)
+
+        if self.EditDetailsDialog is not None:
+            details = self.EditDetailsDialog()
+
+            for record in self.passfile.records:
+                if record[1] == entry_uuid:
+                    details.ui.name_entry.set_text(record[3])
+                    details.ui.notes_entry.set_text(record[5])
+                    details.ui.username_entry.set_text(record[4])
+                    details.ui.password_entry.set_text(record[6])
+                    break
+
+            response = details.run()
+            if response == gtk.RESPONSE_OK:
+                record[3] = details.ui.name_entry.get_text()
+                record[5] = details.ui.notes_entry.get_text()
+                record[4] = details.ui.username_entry.get_text()
+                record[6] = details.ui.password_entry.get_text()
+            details.destroy()
+            self._display_data(entry_uuid)
 
     def on_save_clicked(self, toolbutton):
         print "on_save_clicked called"
