@@ -57,12 +57,17 @@ class PasaffeWindow(Window):
     def _display_data(self, entry_uuid):
         for record in self.passfile.records:
             if record[1] == entry_uuid:
+                last_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
+                                   time.localtime(struct.unpack("<I",
+                                       record[12])[0]))
                 data_buffer = gtk.TextBuffer()
                 data_buffer.set_text('''Title: %s
 Notes: %s
 Username: %s
 Password: %s
-''' % (record[3], record[5], record[4], record[6]))
+
+Last updated: %s
+''' % (record[3], record[5], record[4], record[6], last_updated))
                 self.ui.textview1.set_buffer(data_buffer)
                 break
 
@@ -161,7 +166,7 @@ Click an item on the left to see details.
         uuid = os.urandom(16)
         timestamp = struct.pack("<I", time.time())
         new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
-                     7: timestamp, 8: timestamp, 13: timestamp}
+                     7: timestamp, 8: timestamp, 12: timestamp}
         self.passfile.records.append(new_entry)
 
         new_iter=self.ui.liststore1.append(['',uuid])
