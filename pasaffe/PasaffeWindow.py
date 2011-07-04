@@ -69,8 +69,9 @@ class PasaffeWindow(Window):
                 try:
                     self.passfile = PassSafeFile(self.db_filename, password)
                 except ValueError:
-                    print "we're in the exception, self_passfile = %s" % self.passfile
                     password_dialog.ui.password_error_label.set_property("visible", True)
+                    password_dialog.ui.password_entry.set_text("")
+                    password_dialog.ui.password_entry.grab_focus()
             else:
                 password = False
                 break
