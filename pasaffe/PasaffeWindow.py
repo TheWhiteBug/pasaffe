@@ -40,6 +40,8 @@ class PasaffeWindow(Window):
         self.EditDetailsDialog = EditDetailsDialog
         self.PreferencesDialog = PreferencesPasaffeDialog
 
+        self.needs_saving = False
+
         # Read database
         self.passfile = PassSafeFile("/tmp/test.psafe3", "ubuntu")
         #print self.passfile.records
@@ -92,11 +94,16 @@ Password: %s
             response = details.run()
             if response == gtk.RESPONSE_OK:
                 record[3] = details.ui.name_entry.get_text()
+                treemodel.set_value(treeiter, 0, record[3])
                 record[5] = details.ui.notes_entry.get_text()
                 record[4] = details.ui.username_entry.get_text()
                 record[6] = details.ui.password_entry.get_text()
+                # FIXME: actually check is anything was modified
+                self.needs_saving = True
             details.destroy()
+
             self._display_data(entry_uuid)
 
     def on_save_clicked(self, toolbutton):
         print "on_save_clicked called"
+        print "needs saving: %s" % self.needs_saving
