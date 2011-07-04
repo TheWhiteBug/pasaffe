@@ -87,35 +87,47 @@ Click an item on the left to see details.
         self._display_data(entry_uuid)
 
     def edit_entry(self, entry_uuid):
+        record_dict = { 3 : 'name_entry',
+                        4 : 'username_entry',
+                        5 : 'notes_entry',
+                        6 : 'password_entry' }
+
         if self.EditDetailsDialog is not None:
             details = self.EditDetailsDialog()
 
             for record in self.passfile.records:
                 if record[1] == entry_uuid:
-                    details.ui.name_entry.set_text(record[3])
-                    details.ui.notes_entry.set_text(record[5])
-                    details.ui.username_entry.set_text(record[4])
-                    details.ui.password_entry.set_text(record[6])
+                    for record_type, widget_name in record_dict.items():
+                        details.builder.get_object(widget_name).set_text(record[record_type])
                     break
 
             response = details.run()
             if response == gtk.RESPONSE_OK:
-                record[3] = details.ui.name_entry.get_text()
-                record[5] = details.ui.notes_entry.get_text()
-                record[4] = details.ui.username_entry.get_text()
-                record[6] = details.ui.password_entry.get_text()
+                data_changed = False
+                timestamp = struct.pack("<I", time.time())
+                for record_type, widget_name in record_dict.items():
+                    new_value = details.builder.get_object(widget_name).get_text()
+                    if record[record_type] != new_value:
+                        data_changed = True
+                        record[record_type] = new_value
 
-                # Update the name in the tree
-                item = self.ui.treeview1.get_model().get_iter_first()
-                while (item != None):
-                    if self.ui.liststore1.get_value(item, 1) == entry_uuid:
-                        self.ui.liststore1.set_value(item, 0, record[3])
-                        break
-                    else:
-                        item = self.ui.treeview1.get_model().iter_next(item)
+                        # Update the name in the tree
+                        if record_type == 3:
+                            item = self.ui.treeview1.get_model().get_iter_first()
+                            while (item != None):
+                                if self.ui.liststore1.get_value(item, 1) == entry_uuid:
+                                    self.ui.liststore1.set_value(item, 0, new_value)
+                                    break
+                                else:
+                                    item = self.ui.treeview1.get_model().iter_next(item)
 
-                # FIXME: actually check is anything was modified
-                self.needs_saving = True
+                        # Update the password changed date
+                        if record_type == 6:
+                            record[8] = timestamp
+
+                if data_changed == True:
+                    self.needs_saving = True
+                    record[12] = timestamp
 
             details.destroy()
             self._display_data(entry_uuid)
