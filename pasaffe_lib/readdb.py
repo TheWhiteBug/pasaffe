@@ -34,8 +34,7 @@ class PassSafeFile:
             self.cipher = pytwofish.Twofish()
             self.cipher_block_size = self.cipher.get_block_size()
         else:
-            print >>sys.stderr, "Sorry, we don't support %s yet." % cipher
-            sys.exit(1)
+            raise ValueError("Sorry, we don't support %s yet." % cipher)
 
         if filename != None:
             self.readfile(filename, password)
@@ -45,13 +44,11 @@ class PassSafeFile:
         try:
             dbfile = open(filename, 'r')
         except Exception:
-            print >>sys.stderr, "Could not open %s. Aborting." % filename
-            sys.exit(1)
+            raise RuntimeError("Could not open %s. Aborting." % filename)
 
         tag = dbfile.read(4)
         if tag != "PWS3":
-            print >>sys.stderr, "File %s is not a password safe database. Aborting." % filename
-            sys.exit(1)
+            raise RuntimeError("File %s is not a password safe database. Aborting." % filename)
 
         self._readkeys(dbfile, password)
         # Don't need the password anymore, clear it out
@@ -66,8 +63,7 @@ class PassSafeFile:
         try:
             dbfile = open(filename, 'wb')
         except Exception:
-            print >>sys.stderr, "Could not create %s. Aborting." % filename
-            sys.exit(1)
+            raise RuntimeError("Could not create %s. Aborting." % filename)
 
         dbfile.write("PWS3")
         self._writekeys(dbfile, password)
@@ -107,8 +103,7 @@ class PassSafeFile:
         stretched_key = self._keystretch(password, self.keys['SALT'], self.keys['ITER'])
         #print "stretched pass is %s" % stretched_key.encode("hex")
         if hashlib.sha256(stretched_key).digest() != self.keys['HP']:
-            print >>sys.stderr, "Password supplied doesn't match database. Aborting."
-            sys.exit(1)
+            raise ValueError("Password supplied doesn't match database. Aborting.")
 
         self.cipher.set_key(stretched_key)
         self.keys['K'] = self.cipher.decrypt(self.keys['B1']) + self.cipher.decrypt(self.keys['B2'])
@@ -137,8 +132,7 @@ class PassSafeFile:
         while(1):
             status, field_type, field_data = self._readfield(dbfile)
             if status == False:
-                print >>sys.stderr, "Malformed file, was expecting more data in header"
-                sys.exit(1)
+                raise RuntimeError("Malformed file, was expecting more data in header")
             if field_type == 0xff:
                 #print "_readheader: Found end field"
                 break
@@ -204,8 +198,7 @@ class PassSafeFile:
                 #print "_readfield: extra block"
                 status, data = self._readblock(dbfile)
                 if status == False:
-                    print >>sys.stderr, "Malformed file, was expecting more data"
-                    sys.exit(1)
+                    raise RuntimeError("Malformed file, was expecting more data")
                 field_data += data[0:field_length]
                 field_length -= self.cipher_block_size
 
@@ -275,8 +268,7 @@ class PassSafeFile:
     def _validatehmac(self, dbfile):
         hmac = dbfile.read(32)
         if hmac != self.hmac.digest():
-            print >>sys.stderr, "Malformed file, HMAC didn't match!"
-            sys.exit(1)
+            raise RuntimeError("Malformed file, HMAC didn't match!")
         else:
             #print "_validatehmac: HMAC Matched!"
             self.hmac = None

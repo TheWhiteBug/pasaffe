@@ -19,13 +19,14 @@ from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
 import gtk
-import os, struct, time, shutil
+import os, struct, time, shutil, sys
 import logging
 logger = logging.getLogger('pasaffe')
 
 from pasaffe_lib import Window
 from pasaffe.AboutPasaffeDialog import AboutPasaffeDialog
 from pasaffe.EditDetailsDialog import EditDetailsDialog
+from pasaffe.PasswordEntryDialog import PasswordEntryDialog
 from pasaffe.PreferencesPasaffeDialog import PreferencesPasaffeDialog
 from pasaffe_lib.readdb import PassSafeFile
 
@@ -40,13 +41,15 @@ class PasaffeWindow(Window):
         self.AboutDialog = AboutPasaffeDialog
         self.EditDetailsDialog = EditDetailsDialog
         self.PreferencesDialog = PreferencesPasaffeDialog
+        self.PasswordEntryDialog = PasswordEntryDialog
 
         self.needs_saving = False
+        self.passfile = None
 
-        # Read database
         self.db_filename = "/tmp/test.psafe3"
-        self.passfile = PassSafeFile(self.db_filename, "ubuntu")
-        #print self.passfile.records
+        self.password = self.fetch_password()
+        if self.password == False:
+            sys.exit(1)
 
         for record in self.passfile.records:
             self.ui.liststore1.append([record[3],record[1]])
@@ -55,6 +58,24 @@ class PasaffeWindow(Window):
         #self.ui.treeview1.set_cursor('0')
 
         self.display_welcome()
+
+    def fetch_password(self):
+        password = False
+        password_dialog = self.PasswordEntryDialog()
+        while self.passfile == None:
+            response = password_dialog.run()
+            if response == gtk.RESPONSE_OK:
+                password = password_dialog.ui.password_entry.get_text()
+                try:
+                    self.passfile = PassSafeFile(self.db_filename, password)
+                except ValueError:
+                    print "we're in the exception, self_passfile = %s" % self.passfile
+                    password_dialog.ui.password_error_label.set_property("visible", True)
+            else:
+                password = False
+                break
+        password_dialog.destroy()
+        return password
 
     def _display_data(self, entry_uuid):
         for record in self.passfile.records:
@@ -176,7 +197,7 @@ Click an item on the left to see details.
         if self.needs_saving == True:
             # Create backup
             shutil.copyfile(self.db_filename, self.db_filename + ".bak")
-            self.passfile.writefile(self.db_filename, "ubuntu")
+            self.passfile.writefile(self.db_filename, self.password)
             self.needs_saving = False
 
     def on_add_clicked(self, toolbutton):
