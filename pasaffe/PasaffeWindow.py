@@ -19,7 +19,7 @@ from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
 import gtk
-import os, struct, time
+import os, struct, time, shutil
 import logging
 logger = logging.getLogger('pasaffe')
 
@@ -44,8 +44,10 @@ class PasaffeWindow(Window):
         self.needs_saving = False
 
         # Read database
-        self.passfile = PassSafeFile("/tmp/test.psafe3", "ubuntu")
-        print self.passfile.records
+        self.db_filename = "/tmp/test.psafe3"
+        self.passfile = PassSafeFile(self.db_filename, "ubuntu")
+        #print self.passfile.records
+
         for record in self.passfile.records:
             self.ui.liststore1.append([record[3],record[1]])
 
@@ -159,8 +161,11 @@ Click an item on the left to see details.
         self.edit_entry(entry_uuid)
 
     def on_save_clicked(self, toolbutton):
-        print "on_save_clicked called"
-        print "needs saving: %s" % self.needs_saving
+        if self.needs_saving == True:
+            # Create backup
+            shutil.copyfile(self.db_filename, self.db_filename + ".bak")
+            self.passfile.writefile(self.db_filename, "ubuntu")
+            self.needs_saving = False
 
     def on_add_clicked(self, toolbutton):
         uuid = os.urandom(16)

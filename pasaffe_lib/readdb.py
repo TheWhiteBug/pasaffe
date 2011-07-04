@@ -284,7 +284,3 @@ class PassSafeFile:
     def _writehmac(self, dbfile):
         dbfile.write(self.hmac.digest())
         self.hmac = None
-
-#passfile = PassSafeFile("/home/mdeslaur/test.psafe3", "ubuntu")
-#passfile.writefile("/home/mdeslaur/test2.psafe3", "ubuntu")
-

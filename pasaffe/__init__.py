@@ -51,9 +51,9 @@ def main():
     preferences.db_connect()
     preferences.load()
 
-    # Run the application.    
+    # Run the application.
     window = PasaffeWindow.PasaffeWindow()
     window.show()
     gtk.main()
-    
+
     preferences.save()
