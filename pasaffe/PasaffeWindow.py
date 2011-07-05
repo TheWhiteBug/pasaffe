@@ -108,6 +108,20 @@ Click an item on the left to see details.
         entry_uuid = treemodel.get_value(treeiter, 1)
         self._display_data(entry_uuid)
 
+    def add_entry(self):
+        uuid = os.urandom(16)
+        timestamp = struct.pack("<I", time.time())
+        new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
+                     7: timestamp, 8: timestamp, 12: timestamp}
+        self.passfile.records.append(new_entry)
+
+        new_iter=self.ui.liststore1.append(['',uuid])
+        self.ui.treeview1.get_selection().select_iter(new_iter)
+        self._display_data(uuid)
+        response = self.edit_entry(uuid)
+        if response != gtk.RESPONSE_OK:
+            self.delete_entry(uuid)
+
     def edit_entry(self, entry_uuid):
         record_dict = { 3 : 'name_entry',
                         4 : 'username_entry',
@@ -194,26 +208,42 @@ Click an item on the left to see details.
         entry_uuid = treemodel.get_value(treeiter, 1)
         self.edit_entry(entry_uuid)
 
-    def on_save_clicked(self, toolbutton):
+    def save_db(self):
         if self.needs_saving == True:
             # Create backup
             shutil.copyfile(self.db_filename, self.db_filename + ".bak")
             self.passfile.writefile(self.db_filename, self.password)
             self.needs_saving = False
 
-    def on_add_clicked(self, toolbutton):
-        uuid = os.urandom(16)
-        timestamp = struct.pack("<I", time.time())
-        new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
-                     7: timestamp, 8: timestamp, 12: timestamp}
-        self.passfile.records.append(new_entry)
+    def on_save_clicked(self, toolbutton):
+        self.save_db()
 
-        new_iter=self.ui.liststore1.append(['',uuid])
-        self.ui.treeview1.get_selection().select_iter(new_iter)
-        self._display_data(uuid)
-        response = self.edit_entry(uuid)
-        if response != gtk.RESPONSE_OK:
-            self.delete_entry(uuid)
+    def on_mnu_save_activate(self, menuitem):
+        self.save_db()
+
+    def on_mnu_close_activate(self, menuitem):
+        print "TODO: implement on_mnu_close_activate()"
+
+    def on_mnu_cut_activate(self, menuitem):
+        print "TODO: implement on_mnu_cut_activate()"
+
+    def on_mnu_copy_activate(self, menuitem):
+        print "TODO: implement on_mnu_copy_activate()"
+
+    def on_mnu_paste_activate(self, menuitem):
+        print "TODO: implement on_mnu_paste_activate()"
+
+    def on_mnu_add_activate(self, menuitem):
+        self.add_entry()
+
+    def on_mnu_delete_activate(self, menuitem):
+        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+        if treeiter != None:
+            entry_uuid = treemodel.get_value(treeiter, 1)
+            self.delete_entry(entry_uuid)
+
+    def on_add_clicked(self, toolbutton):
+        self.add_entry()
 
     def on_edit_clicked(self, toolbutton):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()

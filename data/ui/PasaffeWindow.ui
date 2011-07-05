@@ -52,6 +52,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <accelerator key="s" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="on_mnu_save_activate" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -69,6 +70,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <accelerator key="w" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="on_mnu_close_activate" swapped="no"/>
                       </object>
                     </child>
                   </object>
@@ -95,6 +97,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <accelerator key="x" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="on_mnu_cut_activate" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -106,6 +109,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <accelerator key="c" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="on_mnu_copy_activate" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -117,6 +121,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <accelerator key="v" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="on_mnu_paste_activate" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -132,7 +137,9 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_action_appearance">False</property>
+                        <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_mnu_add_activate" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -144,6 +151,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <accelerator key="Delete" signal="activate"/>
+                        <signal name="activate" handler="on_mnu_delete_activate" swapped="no"/>
                       </object>
                     </child>
                     <child>
