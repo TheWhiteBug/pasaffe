@@ -49,7 +49,7 @@ class PasaffeWindow(Window):
         self.db_filename = "/tmp/test.psafe3"
         self.password = self.fetch_password()
         if self.password == False:
-            sys.exit(1)
+            gtk.main_quit()
 
         for record in self.passfile.records:
             self.ui.liststore1.append([record[3],record[1]])
@@ -222,7 +222,7 @@ Click an item on the left to see details.
         self.save_db()
 
     def on_mnu_close_activate(self, menuitem):
-        print "TODO: implement on_mnu_close_activate()"
+        gtk.main_quit()
 
     def on_mnu_cut_activate(self, menuitem):
         print "TODO: implement on_mnu_cut_activate()"

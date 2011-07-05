@@ -58,6 +58,32 @@ class PassSafeFile:
         self._validatehmac(dbfile)
         dbfile.close()
 
+    def new_db(self, password):
+        '''Creates a new database in memory'''
+        self.keys['SALT'] = os.urandom(32)
+        self.keys['ITER'] = 2048
+
+        stretched_key = self._keystretch(password, self.keys['SALT'], self.keys['ITER'])
+        self.keys['HP'] = hashlib.sha256(stretched_key).digest()
+
+        b1_rand = os.urandom(16)
+        b2_rand = os.urandom(16)
+        b3_rand = os.urandom(16)
+        b4_rand = os.urandom(16)
+        self.keys['K'] = b1_rand + b2_rand
+        self.keys['L'] = b3_rand + b4_rand
+        self.cipher.set_key(stretched_key)
+        self.keys['B1'] = self.cipher.encrypt(b1_rand)
+        self.keys['B2'] = self.cipher.encrypt(b2_rand)
+        self.keys['B3'] = self.cipher.encrypt(b3_rand)
+        self.keys['B4'] = self.cipher.encrypt(b4_rand)
+
+        self.keys['IV'] = os.urandom(16)
+        self.keys['SALT'] = os.urandom(16)
+
+        self.header[0] = '\x00\x03' # database version
+        self.header[1] = os.urandom(16) # uuid
+
     def writefile(self, filename, password):
         '''Writes database file'''
         try:
