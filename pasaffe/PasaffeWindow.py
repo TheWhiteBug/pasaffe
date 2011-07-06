@@ -27,6 +27,7 @@ from pasaffe_lib import Window
 from pasaffe.AboutPasaffeDialog import AboutPasaffeDialog
 from pasaffe.EditDetailsDialog import EditDetailsDialog
 from pasaffe.PasswordEntryDialog import PasswordEntryDialog
+from pasaffe.SaveChangesDialog import SaveChangesDialog
 from pasaffe.NewDatabaseDialog import NewDatabaseDialog
 from pasaffe.PreferencesPasaffeDialog import PreferencesPasaffeDialog
 from pasaffe_lib.readdb import PassSafeFile
@@ -43,7 +44,10 @@ class PasaffeWindow(Window):
         self.EditDetailsDialog = EditDetailsDialog
         self.PreferencesDialog = PreferencesPasaffeDialog
         self.PasswordEntryDialog = PasswordEntryDialog
+        self.SaveChangesDialog = SaveChangesDialog
         self.NewDatabaseDialog = NewDatabaseDialog
+
+        self.connect("delete-event",self.on_delete_event)
 
         self.needs_saving = False
         self.passfile = None
@@ -66,6 +70,18 @@ class PasaffeWindow(Window):
         #self.ui.treeview1.set_cursor('0')
 
         self.display_welcome()
+
+    def on_delete_event(self, widget, event):
+        if self.needs_saving == True:
+            savechanges_dialog = self.SaveChangesDialog()
+            response = savechanges_dialog.run()
+            if response == gtk.RESPONSE_OK:
+                self.save_db()
+            elif response == gtk.RESPONSE_CLOSE:
+                return False
+            else:
+                savechanges_dialog.destroy()
+                return True
 
     def fetch_password(self):
         password = False
