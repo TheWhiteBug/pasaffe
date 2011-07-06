@@ -14,7 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 ### END LICENSE
 
-import sys, struct, hashlib, operator, hmac, random
+import sys, struct, hashlib, operator, hmac, random, os
 import pytwofish
 
 class PassSafeFile:
@@ -79,7 +79,6 @@ class PassSafeFile:
         self.keys['B4'] = self.cipher.encrypt(b4_rand)
 
         self.keys['IV'] = os.urandom(16)
-        self.keys['SALT'] = os.urandom(16)
 
         self.header[0] = '\x00\x03' # database version
         self.header[1] = os.urandom(16) # uuid
@@ -117,6 +116,9 @@ class PassSafeFile:
     def _readkeys(self, dbfile, password):
         self.keys['SALT'] = dbfile.read(32)
         self.keys['ITER'] = struct.unpack("<i", dbfile.read(4))[0]
+        # Sanity check so we don't gobble up massive amounts of ram
+        if self.keys['ITER'] > 50000:
+            raise RuntimeError("Too many iterations: %s. Aborting." % self.keys['ITER'])
         #print "Number of iters is %d" % self.keys['ITER']
         self.keys['HP'] = dbfile.read(32)
         #print "hp is %s" % self.keys['HP']

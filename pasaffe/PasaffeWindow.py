@@ -27,6 +27,7 @@ from pasaffe_lib import Window
 from pasaffe.AboutPasaffeDialog import AboutPasaffeDialog
 from pasaffe.EditDetailsDialog import EditDetailsDialog
 from pasaffe.PasswordEntryDialog import PasswordEntryDialog
+from pasaffe.NewDatabaseDialog import NewDatabaseDialog
 from pasaffe.PreferencesPasaffeDialog import PreferencesPasaffeDialog
 from pasaffe_lib.readdb import PassSafeFile
 
@@ -42,12 +43,19 @@ class PasaffeWindow(Window):
         self.EditDetailsDialog = EditDetailsDialog
         self.PreferencesDialog = PreferencesPasaffeDialog
         self.PasswordEntryDialog = PasswordEntryDialog
+        self.NewDatabaseDialog = NewDatabaseDialog
 
         self.needs_saving = False
         self.passfile = None
 
-        self.db_filename = "/tmp/test.psafe3"
-        self.password = self.fetch_password()
+        self.set_database()
+
+        # If database doesn't exists, make a new one
+        if os.path.exists(self.db_filename):
+            self.password = self.fetch_password()
+        else:
+            self.password = self.new_database()
+
         if self.password == False:
             gtk.main_quit()
 
@@ -77,6 +85,37 @@ class PasaffeWindow(Window):
                 break
         password_dialog.destroy()
         return password
+
+    def new_database(self):
+        password = False
+        newdb_dialog = self.NewDatabaseDialog()
+        while password == False:
+            response = newdb_dialog.run()
+            if response == gtk.RESPONSE_OK:
+                passwordA = newdb_dialog.ui.entry1.get_text()
+                passwordB = newdb_dialog.ui.entry2.get_text()
+                if passwordA != passwordB:
+                    newdb_dialog.ui.error_label.set_property("visible", True)
+                    newdb_dialog.ui.entry1.grab_focus()
+                else:
+                    password = passwordA
+                    self.passfile = PassSafeFile()
+                    self.passfile.new_db(password)
+            else:
+                break
+
+        newdb_dialog.destroy()
+        return password
+
+    def set_database(self):
+        if os.environ.has_key('XDG_DATA_HOME'):
+            basedir = os.path.join(os.environ['XDG_DATA_HOME'], 'pasaffe')
+        else:
+            basedir = os.path.join(os.environ['HOME'], '.local/share/pasaffe')
+
+        if not os.path.exists(basedir):
+            os.mkdir(basedir, 0700)
+        self.db_filename = os.path.join(basedir, 'pasaffe.psafe3')
 
     def _display_data(self, entry_uuid):
         for record in self.passfile.records:
@@ -210,8 +249,9 @@ Click an item on the left to see details.
 
     def save_db(self):
         if self.needs_saving == True:
-            # Create backup
-            shutil.copyfile(self.db_filename, self.db_filename + ".bak")
+            # Create backup if exists
+            if os.path.exists(self.db_filename):
+                shutil.copyfile(self.db_filename, self.db_filename + ".bak")
             self.passfile.writefile(self.db_filename, self.password)
             self.needs_saving = False
 
