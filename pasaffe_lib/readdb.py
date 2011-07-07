@@ -258,7 +258,7 @@ class PassSafeFile:
                 block = ''
             else:
                 #print "_writefield: bigger than block"
-                block += field_data[index:field_free_space]
+                block += field_data[index:index+field_free_space]
                 self._writeblock(dbfile, block)
                 field_length -= field_free_space
                 if field_length == 0:
