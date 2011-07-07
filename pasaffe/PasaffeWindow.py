@@ -64,7 +64,7 @@ class PasaffeWindow(Window):
             gtk.main_quit()
 
         for record in self.passfile.records:
-            self.ui.liststore1.append([record[3],record[1]])
+            self.ui.liststore1.append([record[3],record[1].encode("hex")])
 
         # Select first item by default
         #self.ui.treeview1.set_cursor('0')
@@ -135,7 +135,7 @@ class PasaffeWindow(Window):
 
     def display_data(self, entry_uuid):
         for record in self.passfile.records:
-            if record[1] == entry_uuid:
+            if record[1] == entry_uuid.decode("hex"):
                 last_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
                                    time.localtime(struct.unpack("<I",
                                        record[12])[0]))
@@ -179,17 +179,18 @@ Password updated: %s
 
     def add_entry(self):
         uuid = os.urandom(16)
+        uuid_hex = uuid.encode("hex")
         timestamp = struct.pack("<I", time.time())
         new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
                      7: timestamp, 8: timestamp, 12: timestamp, 13: ''}
         self.passfile.records.append(new_entry)
 
-        new_iter=self.ui.liststore1.append(['',uuid])
+        new_iter=self.ui.liststore1.append(['',uuid_hex])
         self.ui.treeview1.get_selection().select_iter(new_iter)
-        self.display_data(uuid)
-        response = self.edit_entry(uuid)
+        self.display_data(uuid_hex)
+        response = self.edit_entry(uuid_hex)
         if response != gtk.RESPONSE_OK:
-            self.delete_entry(uuid)
+            self.delete_entry(uuid_hex)
 
     def edit_entry(self, entry_uuid):
         record_dict = { 3 : 'name_entry',
@@ -202,7 +203,7 @@ Password updated: %s
             details = self.EditDetailsDialog()
 
             for record in self.passfile.records:
-                if record[1] == entry_uuid:
+                if record[1] == entry_uuid.decode("hex"):
                     for record_type, widget_name in record_dict.items():
                         if record.has_key(record_type):
                             details.builder.get_object(widget_name).set_text(record[record_type])
@@ -259,7 +260,7 @@ Password updated: %s
                 item = self.ui.treeview1.get_model().iter_next(item)
 
         for record in self.passfile.records:
-            if record[1] == entry_uuid:
+            if record[1] == entry_uuid.encode("hex"):
                 self.passfile.records.remove(record)
 
         self.needs_saving = True
