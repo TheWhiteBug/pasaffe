@@ -141,12 +141,16 @@ class PasaffeWindow(Window):
                                        record[12])[0]))
                 data_buffer = gtk.TextBuffer()
                 data_buffer.set_text('''Title: %s
-Notes: %s
+URL: %s
+
 Username: %s
 Password: %s
 
+Notes:
+%s
+
 Last updated: %s
-''' % (record[3], record[5], record[4], record[6], last_updated))
+''' % (record.get(3), record.get(13), record.get(4), record.get(6), record.get(5), last_updated))
                 self.ui.textview1.set_buffer(data_buffer)
                 break
 
@@ -167,7 +171,7 @@ Click an item on the left to see details.
         uuid = os.urandom(16)
         timestamp = struct.pack("<I", time.time())
         new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
-                     7: timestamp, 8: timestamp, 12: timestamp}
+                     7: timestamp, 8: timestamp, 12: timestamp, 13: ''}
         self.passfile.records.append(new_entry)
 
         new_iter=self.ui.liststore1.append(['',uuid])
@@ -180,8 +184,9 @@ Click an item on the left to see details.
     def edit_entry(self, entry_uuid):
         record_dict = { 3 : 'name_entry',
                         4 : 'username_entry',
-                        5 : 'notes_entry',
-                        6 : 'password_entry' }
+                        5 : 'notes_buffer',
+                        6 : 'password_entry',
+                        13: 'url_entry' }
 
         if self.EditDetailsDialog is not None:
             details = self.EditDetailsDialog()
@@ -189,7 +194,8 @@ Click an item on the left to see details.
             for record in self.passfile.records:
                 if record[1] == entry_uuid:
                     for record_type, widget_name in record_dict.items():
-                        details.builder.get_object(widget_name).set_text(record[record_type])
+                        if record.has_key(record_type):
+                            details.builder.get_object(widget_name).set_text(record[record_type])
                     break
 
             response = details.run()
@@ -197,8 +203,11 @@ Click an item on the left to see details.
                 data_changed = False
                 timestamp = struct.pack("<I", time.time())
                 for record_type, widget_name in record_dict.items():
-                    new_value = details.builder.get_object(widget_name).get_text()
-                    if record[record_type] != new_value:
+                    if record_type == 5:
+                        new_value = details.builder.get_object(widget_name).get_text(*details.builder.get_object(widget_name).get_bounds())
+                    else:
+                        new_value = details.builder.get_object(widget_name).get_text()
+                    if record.get(record_type, "") != new_value:
                         data_changed = True
                         record[record_type] = new_value
 
