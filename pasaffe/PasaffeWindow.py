@@ -18,7 +18,7 @@ import gettext
 from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
-import gtk
+import gtk, pango
 import os, struct, time, shutil, sys
 import logging
 logger = logging.getLogger('pasaffe')
@@ -133,39 +133,49 @@ class PasaffeWindow(Window):
             os.mkdir(basedir, 0700)
         self.db_filename = os.path.join(basedir, 'pasaffe.psafe3')
 
-    def _display_data(self, entry_uuid):
+    def display_data(self, entry_uuid):
         for record in self.passfile.records:
             if record[1] == entry_uuid:
                 last_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
                                    time.localtime(struct.unpack("<I",
                                        record[12])[0]))
-                data_buffer = gtk.TextBuffer()
-                data_buffer.set_text('''Title: %s
-URL: %s
+                pass_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
+                                   time.localtime(struct.unpack("<I",
+                                       record[8])[0]))
+                title = record.get(3)
+                contents = '''%s
 
 Username: %s
 Password: %s
 
-Notes:
-%s
+URL: %s
 
 Last updated: %s
-''' % (record.get(3), record.get(13), record.get(4), record.get(6), record.get(5), last_updated))
-                self.ui.textview1.set_buffer(data_buffer)
+Password updated: %s
+''' % (record.get(5), record.get(4), record.get(6), record.get(13), last_updated, pass_updated)
+                self.fill_display(title, contents)
                 break
 
     def display_welcome(self):
-        data_buffer = gtk.TextBuffer()
-        data_buffer.set_text('''Welcome to Pasaffe!
+        self.fill_display("Welcome to Pasaffe!",
+                          "Pasaffe is an easy to use\npassword manager for Gnome.")
 
-Click an item on the left to see details.
-''')
+    def fill_display(self, title, contents):
+        texttagtable = gtk.TextTagTable()
+        texttag_big = gtk.TextTag("big")
+        texttag_big.set_property("weight", pango.WEIGHT_BOLD)
+        texttag_big.set_property("scale", pango.SCALE_LARGE)
+        texttagtable.add(texttag_big)
+        data_buffer = gtk.TextBuffer(texttagtable)
+        data_buffer.insert_with_tags(data_buffer.get_start_iter(), "\n" + title + "\n\n", texttag_big)
+        data_buffer.insert(data_buffer.get_end_iter(), contents)
+
         self.ui.textview1.set_buffer(data_buffer)
 
     def on_treeview1_cursor_changed(self, treeview):
         treemodel, treeiter = treeview.get_selection().get_selected()
         entry_uuid = treemodel.get_value(treeiter, 1)
-        self._display_data(entry_uuid)
+        self.display_data(entry_uuid)
 
     def add_entry(self):
         uuid = os.urandom(16)
@@ -176,7 +186,7 @@ Click an item on the left to see details.
 
         new_iter=self.ui.liststore1.append(['',uuid])
         self.ui.treeview1.get_selection().select_iter(new_iter)
-        self._display_data(uuid)
+        self.display_data(uuid)
         response = self.edit_entry(uuid)
         if response != gtk.RESPONSE_OK:
             self.delete_entry(uuid)
@@ -230,7 +240,7 @@ Click an item on the left to see details.
                     record[12] = timestamp
 
             details.destroy()
-            self._display_data(entry_uuid)
+            self.display_data(entry_uuid)
             return response
 
     def delete_entry(self, entry_uuid):
@@ -257,7 +267,7 @@ Click an item on the left to see details.
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
-            self._display_data(entry_uuid)
+            self.display_data(entry_uuid)
         else:
             self.display_welcome()
 

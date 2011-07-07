@@ -320,8 +320,6 @@
                     <property name="can_focus">True</property>
                     <property name="model">liststore1</property>
                     <property name="headers_visible">False</property>
-                    <property name="enable_grid_lines">horizontal</property>
-                    <property name="enable_tree_lines">True</property>
                     <signal name="cursor-changed" handler="on_treeview1_cursor_changed" swapped="no"/>
                     <signal name="row-activated" handler="on_treeview1_row_activated" swapped="no"/>
                     <child>
@@ -354,6 +352,8 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="editable">False</property>
+                    <property name="wrap_mode">word</property>
+                    <property name="justification">center</property>
                   </object>
                 </child>
               </object>
