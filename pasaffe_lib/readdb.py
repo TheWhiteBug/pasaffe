@@ -14,8 +14,8 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 ### END LICENSE
 
-import sys, struct, hashlib, operator, hmac, random, os
-import pytwofish
+import sys, struct, hashlib, hmac, random, os
+import pytwofishcbc
 
 class PassSafeFile:
 
@@ -23,7 +23,6 @@ class PassSafeFile:
     header = {}
     records = []
     cipher = None
-    cipher_cbc = ''
     cipher_block_size = 0
     hmac = None
 
@@ -31,7 +30,7 @@ class PassSafeFile:
         '''Reads a Password Safe v3 file'''
 
         if cipher == 'Twofish':
-            self.cipher = pytwofish.Twofish()
+            self.cipher = pytwofishcbc.TwofishCBC()
             self.cipher_block_size = self.cipher.get_block_size()
         else:
             raise ValueError("Sorry, we don't support %s yet." % cipher)
@@ -107,12 +106,6 @@ class PassSafeFile:
             password = hashlib.sha256(password).digest()
         return password
 
-    def _xor(self, string, pw):
-        result = ''
-        for k in xrange(len(string)):
-            result += chr(operator.xor(ord(string[k]), ord(pw[k])))
-        return result
-
     def _readkeys(self, dbfile, password):
         self.keys['SALT'] = dbfile.read(32)
         self.keys['ITER'] = struct.unpack("<i", dbfile.read(4))[0]
@@ -127,7 +120,7 @@ class PassSafeFile:
         self.keys['B3'] = dbfile.read(16)
         self.keys['B4'] = dbfile.read(16)
         self.keys['IV'] = dbfile.read(16)
-        self.cipher_cbc = self.keys['IV']
+        self.cipher.initCBC(self.keys['IV'])
         stretched_key = self._keystretch(password, self.keys['SALT'], self.keys['ITER'])
         #print "stretched pass is %s" % stretched_key.encode("hex")
         if hashlib.sha256(stretched_key).digest() != self.keys['HP']:
@@ -150,7 +143,7 @@ class PassSafeFile:
         dbfile.write(self.keys['B3'])
         dbfile.write(self.keys['B4'])
         dbfile.write(self.keys['IV'])
-        self.cipher_cbc = self.keys['IV']
+        self.cipher.initCBC(self.keys['IV'])
         self.cipher.set_key(stretched_key)
         self.hmac = hmac.new(self.keys['L'], digestmod=hashlib.sha256)
 
@@ -281,14 +274,11 @@ class PassSafeFile:
         block = dbfile.read(self.cipher_block_size)
         if block == 'PWS3-EOFPWS3-EOF':
             return False, block
-        decrypted_block = self._xor(self.cipher.decrypt(block), self.cipher_cbc)
-        self.cipher_cbc = block
-        return True, decrypted_block
+        return True, self.cipher.decryptCBC(block)
 
     def _writeblock(self, dbfile, block):
         #print "_writeblock: writing %s, length is %d" % (block, len(block))
-        self.cipher_cbc = self.cipher.encrypt(self._xor(block, self.cipher_cbc))
-        dbfile.write(self.cipher_cbc)
+        dbfile.write(self.cipher.encryptCBC(block))
 
     def _writeeofblock(self, dbfile):
         dbfile.write('PWS3-EOFPWS3-EOF')
