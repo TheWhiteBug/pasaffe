@@ -234,6 +234,7 @@
               <object class="GtkToolButton" id="save">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Save the passwords</property>
                 <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">Save</property>
                 <property name="use_underline">True</property>
@@ -259,6 +260,7 @@
               <object class="GtkToolButton" id="add">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Add a new password</property>
                 <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">Add</property>
                 <property name="use_underline">True</property>
@@ -273,6 +275,7 @@
               <object class="GtkToolButton" id="edit">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Edit the selected password</property>
                 <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">Edit</property>
                 <property name="use_underline">True</property>
@@ -287,6 +290,7 @@
               <object class="GtkToolButton" id="remove">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Delete the selected password</property>
                 <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">toolbutton1</property>
                 <property name="use_underline">True</property>

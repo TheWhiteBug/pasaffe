@@ -39,6 +39,7 @@
               <object class="GtkEntry" id="name_entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">The name for this entry</property>
                 <property name="invisible_char">•</property>
                 <property name="primary_icon_activatable">False</property>
                 <property name="secondary_icon_activatable">False</property>
@@ -54,6 +55,7 @@
               <object class="GtkEntry" id="username_entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">The entry's username</property>
                 <property name="invisible_char">•</property>
                 <property name="primary_icon_activatable">False</property>
                 <property name="secondary_icon_activatable">False</property>
@@ -71,6 +73,7 @@
               <object class="GtkEntry" id="password_entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">The entry's password</property>
                 <property name="invisible_char">•</property>
                 <property name="primary_icon_activatable">False</property>
                 <property name="secondary_icon_activatable">False</property>
@@ -139,6 +142,7 @@
               <object class="GtkEntry" id="url_entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">The website for this entry</property>
                 <property name="invisible_char">•</property>
                 <property name="primary_icon_activatable">False</property>
                 <property name="secondary_icon_activatable">False</property>
@@ -157,6 +161,7 @@
                 <property name="height_request">114</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Enter any notes about this entry here</property>
                 <property name="buffer">notes_buffer</property>
               </object>
               <packing>
