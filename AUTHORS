@@ -7,3 +7,7 @@ pasaffe_lib/pytwofish.py:
 Bjorn Edstrom <be@bjrn.se> 13 december 2007
 Dr Brian Gladman (gladman@seven77.demon.co.uk) 14th January 1999
 
+pasaffe_lib/blowfish.py:
+Copyright (C) 2002 Michael Gilfix <mgilfix@eecs.tufts.edu>
+(c) 2007./08. Ivan Voras <ivoras@gmail.com>
+Joel Edwards <joeledwards@gmail.com>
