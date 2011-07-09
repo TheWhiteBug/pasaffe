@@ -143,16 +143,13 @@ class PasaffeWindow(Window):
                                    time.localtime(struct.unpack("<I",
                                        record[8])[0]))
                 title = record.get(3)
-                contents = '''%s
-
-Username: %s
-Password: %s
-
-URL: %s
-
-Last updated: %s
-Password updated: %s
-''' % (record.get(5), record.get(4), record.get(6), record.get(13), last_updated, pass_updated)
+                contents = ''
+                if record.has_key(5):
+                    contents += "%s\n\n" % record.get(5)
+                contents += "Username: %s\nPassword: %s\n\n" % (record.get(4), record.get(6))
+                if record.has_key(13):
+                    contents += "URL: %s\n\n" % record.get(13)
+                contents += "Last updated: %s\nPassword updated: %s\n" % (last_updated, pass_updated)
                 self.fill_display(title, contents)
                 break
 
@@ -218,7 +215,10 @@ Password updated: %s
                         new_value = details.builder.get_object(widget_name).get_text(*details.builder.get_object(widget_name).get_bounds())
                     else:
                         new_value = details.builder.get_object(widget_name).get_text()
-                    if record.get(record_type, "") != new_value:
+                    if record_type == 5 or record_type == 13:
+                        if new_value == "" and record.has_key(record_type):
+                            del record[record_type]
+                    elif record.get(record_type, "") != new_value:
                         data_changed = True
                         record[record_type] = new_value
 

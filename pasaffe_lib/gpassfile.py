@@ -81,7 +81,7 @@ class GPassFile:
             #print "entry_name is %s" % entry_name
 
             entry_index, entry_desc = self.get_entry_string(entry_data, entry_index)
-            if entry_name != "":
+            if entry_desc != "":
                 new_entry[5] = entry_desc
             #print "entry_desc is %s" % entry_desc
 

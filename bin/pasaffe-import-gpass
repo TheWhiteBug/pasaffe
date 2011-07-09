@@ -119,10 +119,10 @@ else:
     print "Located %s passwords in the database!" % items
 
 if options.overwrite == True:
-    print "If you continue, your current database will be DELETED."
+    print "If you continue, your current Pasaffe database will be DELETED."
     response = confirm(prompt='Overwrite database?', resp=False)
 else:
-    print "If you continue, passwords will be imported."
+    print "If you continue, passwords will be imported into Pasaffe."
     response = confirm(prompt='Import to database?', resp=False)
 
 if response == False:
