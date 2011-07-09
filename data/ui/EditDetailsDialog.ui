@@ -157,12 +157,19 @@
               </packing>
             </child>
             <child>
-              <object class="GtkTextView" id="notes_textview">
-                <property name="height_request">114</property>
+              <object class="GtkScrolledWindow" id="scrolledwindow1">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="tooltip_text" translatable="yes">Enter any notes about this entry here</property>
-                <property name="buffer">notes_buffer</property>
+                <property name="hscrollbar_policy">automatic</property>
+                <property name="vscrollbar_policy">automatic</property>
+                <child>
+                  <object class="GtkTextView" id="notes_textview">
+                    <property name="height_request">114</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="buffer">notes_buffer</property>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="left_attach">1</property>
