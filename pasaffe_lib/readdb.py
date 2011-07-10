@@ -16,6 +16,8 @@
 
 import sys, struct, hashlib, hmac, random, os
 import pytwofishcbc
+import logging
+logger = logging.getLogger('pasaffe')
 
 class PassSafeFile:
 
@@ -40,6 +42,7 @@ class PassSafeFile:
 
     def readfile(self, filename, password):
         '''Parses database file'''
+        logger.debug('Opening database: %s' % filename)
         try:
             dbfile = open(filename, 'r')
         except Exception:
@@ -112,9 +115,9 @@ class PassSafeFile:
         # Sanity check so we don't gobble up massive amounts of ram
         if self.keys['ITER'] > 50000:
             raise RuntimeError("Too many iterations: %s. Aborting." % self.keys['ITER'])
-        #print "Number of iters is %d" % self.keys['ITER']
+        logger.debug("Number of iters is %d" % self.keys['ITER'])
         self.keys['HP'] = dbfile.read(32)
-        #print "hp is %s" % self.keys['HP']
+        #logger.debug("hp is %s" % self.keys['HP'])
         self.keys['B1'] = dbfile.read(16)
         self.keys['B2'] = dbfile.read(16)
         self.keys['B3'] = dbfile.read(16)
@@ -122,7 +125,7 @@ class PassSafeFile:
         self.keys['IV'] = dbfile.read(16)
         self.cipher.initCBC(self.keys['IV'])
         stretched_key = self._keystretch(password, self.keys['SALT'], self.keys['ITER'])
-        #print "stretched pass is %s" % stretched_key.encode("hex")
+        #logger.debug("stretched pass is %s" % stretched_key.encode("hex"))
         if hashlib.sha256(stretched_key).digest() != self.keys['HP']:
             raise ValueError("Password supplied doesn't match database. Aborting.")
 
@@ -130,7 +133,7 @@ class PassSafeFile:
         self.keys['K'] = self.cipher.decrypt(self.keys['B1']) + self.cipher.decrypt(self.keys['B2'])
         self.keys['L'] = self.cipher.decrypt(self.keys['B3']) + self.cipher.decrypt(self.keys['B4'])
         self.hmac = hmac.new(self.keys['L'], digestmod=hashlib.sha256)
-        #print "K is %s and L is %s" % (self.keys['K'].encode("hex"), self.keys['L'].encode("hex"))
+        #logger.debug("K is %s and L is %s" % (self.keys['K'].encode("hex"), self.keys['L'].encode("hex")))
 
     def _writekeys(self, dbfile, password):
         dbfile.write(self.keys['SALT'])
@@ -155,17 +158,17 @@ class PassSafeFile:
             if status == False:
                 raise RuntimeError("Malformed file, was expecting more data in header")
             if field_type == 0xff:
-                #print "_readheader: Found end field"
+                logger.debug("Found end field")
                 break
             else:
                 self.header[field_type] = field_data
-                #print "_readheader: Found field 0x%.2x with data: %s" % (field_type, field_data)
+                logger.debug("Found field 0x%.2x" % field_type)
 
     def _writeheader(self, dbfile):
         self.cipher.set_key(self.keys['K'])
 
         for entry in self.header.keys():
-            #print "_writeheader: Writing %.2x - %s" % (entry, self.header[entry])
+            logger.debug("Writing %.2x" % entry)
             self._writefield(dbfile, entry, self.header[entry])
 
         self._writefieldend(dbfile)
@@ -180,12 +183,12 @@ class PassSafeFile:
             if status == False:
                 break
             if field_type == 0xff:
-                #print "_readrecords: Found end field"
+                logger.debug("Found end field")
                 self.records.append(record)
                 record = {}
             else:
                 record[field_type] = field_data
-                #print "_readrecords: Found field 0x%.2x with data: %s" % (field_type, field_data)
+                logger.debug("Found field 0x%.2x" % field_type)
 
     def _writerecords(self, dbfile):
         self.cipher.set_key(self.keys['K'])
@@ -205,25 +208,25 @@ class PassSafeFile:
         field_length = struct.unpack("<I", first_block[0:4])[0]
         field_type = struct.unpack("B", first_block[4])[0]
 
-        #print "_readfield: field length is %d" % field_length
-        #print "_readfield: field_type is 0x%.2x" % field_type
+        logger.debug("field length is %d" % field_length)
+        logger.debug("field_type is 0x%.2x" % field_type)
 
         # Do we need multiple blocks?
         if field_length <= self.cipher_block_size - 5:
-            #print "_readfield: single block"
+            logger.debug("single block")
             field_data = first_block[5:5 + field_length]
         else:
             field_data = first_block[5:self.cipher_block_size]
             field_length -= self.cipher_block_size - 5
             while field_length > 0:
-                #print "_readfield: extra block"
+                logger.debug("extra block")
                 status, data = self._readblock(dbfile)
                 if status == False:
                     raise RuntimeError("Malformed file, was expecting more data")
                 field_data += data[0:field_length]
                 field_length -= self.cipher_block_size
 
-        #print "_readfield: actual data length is %d" % len(field_data)
+        logger.debug("actual data length is %d" % len(field_data))
 
         self.hmac.update(field_data)
 
@@ -238,11 +241,11 @@ class PassSafeFile:
         block += struct.pack("I", field_length)
         block += struct.pack("B", field_type)
 
-        #print "_writefield: Writing field type %.2x, data %s, length %d" % (field_type, field_data, field_length)
+        logger.debug("Writing field type %.2x, length %d" % (field_type, field_length))
 
         while field_length >= 0:
             if field_length < field_free_space:
-                #print "_writefield: smaller than block"
+                logger.debug("smaller than block")
                 block += field_data[index:index+field_length]
                 for x in range(field_free_space - field_length):
                     block += struct.pack("B", random.randint(0, 254))
@@ -250,7 +253,7 @@ class PassSafeFile:
                 field_length = -1
                 block = ''
             else:
-                #print "_writefield: bigger than block"
+                logger.debug("bigger than block")
                 block += field_data[index:index+field_free_space]
                 self._writeblock(dbfile, block)
                 field_length -= field_free_space
@@ -264,7 +267,7 @@ class PassSafeFile:
         block = struct.pack("I", 0)
         block += struct.pack("B", 0xff)
 
-        #print "_writefieldend: Writing field end"
+        logger.debug("Writing field end")
 
         for x in range(self.cipher_block_size - 5):
             block += struct.pack("B", random.randint(0, 254))
@@ -277,7 +280,7 @@ class PassSafeFile:
         return True, self.cipher.decryptCBC(block)
 
     def _writeblock(self, dbfile, block):
-        #print "_writeblock: writing %s, length is %d" % (block, len(block))
+        logger.debug("writing block, length is %d" % len(block))
         dbfile.write(self.cipher.encryptCBC(block))
 
     def _writeeofblock(self, dbfile):
@@ -288,7 +291,7 @@ class PassSafeFile:
         if hmac != self.hmac.digest():
             raise RuntimeError("Malformed file, HMAC didn't match!")
         else:
-            #print "_validatehmac: HMAC Matched!"
+            logger.debug("HMAC Matched")
             self.hmac = None
 
     def _writehmac(self, dbfile):

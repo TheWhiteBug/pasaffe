@@ -16,6 +16,8 @@
 
 import sys, struct, hashlib, os, time
 import blowfish
+import logging
+logger = logging.getLogger('pasaffe')
 
 class GPassFile:
 
@@ -57,17 +59,17 @@ class GPassFile:
 
             # We just generate a new UUID instead of using the GPass id
             entry_id = self.get_int()
-            #print "id is %s" % entry_id.encode("hex")
+            logger.debug("id is %s" % entry_id.encode("hex"))
 
             # We don't handle parents in Pasaffe for now
             parent_id = self.get_int()
-            #print "parent_id is %s" % parent_id.encode("hex")
+            logger.debug("parent_id is %s" % parent_id.encode("hex"))
 
             entry_type = self.get_string()
-            #print "entry_type is %s" % entry_type
+            logger.debug("entry_type is %s" % entry_type)
 
             entry_data = self.get_string()
-            #print "entry_data is %s" % entry_data
+            #logger.debug("entry_data is %s" % entry_data)
 
             # We don't handle anything else than standard entries for now
             if entry_type != "general":
@@ -78,43 +80,43 @@ class GPassFile:
 
             entry_index, entry_name = self.get_entry_string(entry_data, entry_index)
             new_entry[3] = entry_name
-            #print "entry_name is %s" % entry_name
+            logger.debug("entry_name is %s" % entry_name)
 
             entry_index, entry_desc = self.get_entry_string(entry_data, entry_index)
             if entry_desc != "":
                 new_entry[5] = entry_desc
-            #print "entry_desc is %s" % entry_desc
+            logger.debug("entry_desc is %s" % entry_desc)
 
             entry_index, entry_ctime = self.get_entry_int(entry_data, entry_index)
             new_entry[7] = entry_ctime
-            #print "creation time is %s" % entry_ctime
+            logger.debug("creation time is %s" % entry_ctime)
 
             entry_index, entry_mtime = self.get_entry_int(entry_data, entry_index)
             # Gpass doesn't separately track when password was modified
             new_entry[8] = entry_mtime
             new_entry[12] = entry_mtime
-            #print "modification time is %s" % entry_mtime
+            logger.debug("modification time is %s" % entry_mtime)
 
             entry_index, entry_expflag = self.get_entry_int(entry_data, entry_index)
-            #print "expiration flag is %s" % entry_expflag.encode("hex")
+            logger.debug("expiration flag is %s" % entry_expflag.encode("hex"))
 
             entry_index, entry_etime = self.get_entry_int(entry_data, entry_index)
             if struct.unpack("<I", entry_expflag)[0] != 0:
                 new_entry[10] = entry_etime
-            #print "expiration time is %s" % entry_etime
+            logger.debug("expiration time is %s" % entry_etime)
 
             entry_index, entry_username = self.get_entry_string(entry_data, entry_index)
             new_entry[4] = entry_username
-            #print "username is %s" % entry_username
+            logger.debug("username is %s" % entry_username)
 
             entry_index, entry_pass = self.get_entry_string(entry_data, entry_index)
             new_entry[6] = entry_pass
-            #print "password is %s" % entry_pass
+            #logger.debug("password is %s" % entry_pass)
 
             entry_index, entry_url = self.get_entry_string(entry_data, entry_index)
             if entry_url != "":
                 new_entry[13] = entry_url
-            #print "URL is %s" % entry_url
+            logger.debug("URL is %s" % entry_url)
 
             self.records.append(new_entry)
 
@@ -125,7 +127,7 @@ class GPassFile:
     def validate_header(self):
         gpass_magic_prefix = "GPassFile version 1.1.0"
 
-        #print "decoded_db header is %s" % self.decoded_db[:len(gpass_magic_prefix)]
+        logger.debug("decoded_db header is %s" % self.decoded_db[:len(gpass_magic_prefix)])
 
         # Check magic prefix
 		if not self.decoded_db.startswith(gpass_magic_prefix):
