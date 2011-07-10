@@ -63,11 +63,11 @@ class PasaffeWindow(Window):
         if self.password == False:
             gtk.main_quit()
 
+        entries = []
         for record in self.passfile.records:
-            self.ui.liststore1.append([record[3],record[1].encode("hex")])
-
-        # Select first item by default
-        #self.ui.treeview1.set_cursor('0')
+            entries.append([record[3],record[1].encode("hex")])
+        for record in sorted(entries, key=lambda entry: entry[0]):
+            self.ui.liststore1.append(record)
 
         self.display_welcome()
 
@@ -215,8 +215,8 @@ class PasaffeWindow(Window):
                         new_value = details.builder.get_object(widget_name).get_text(*details.builder.get_object(widget_name).get_bounds())
                     else:
                         new_value = details.builder.get_object(widget_name).get_text()
-                    if record_type == 5 or record_type == 13:
-                        if new_value == "" and record.has_key(record_type):
+
+                    if (record_type == 5 or record_type == 13) and new_value == "" and record.has_key(record_type):
                             del record[record_type]
                     elif record.get(record_type, "") != new_value:
                         data_changed = True
