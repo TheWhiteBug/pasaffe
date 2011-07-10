@@ -63,12 +63,7 @@ class PasaffeWindow(Window):
         if self.password == False:
             gtk.main_quit()
 
-        entries = []
-        for record in self.passfile.records:
-            entries.append([record[3],record[1].encode("hex")])
-        for record in sorted(entries, key=lambda entry: entry[0]):
-            self.ui.liststore1.append(record)
-
+        self.display_entries()
         self.display_welcome()
 
     def on_delete_event(self, widget, event):
@@ -133,6 +128,14 @@ class PasaffeWindow(Window):
             os.mkdir(basedir, 0700)
         self.db_filename = os.path.join(basedir, 'pasaffe.psafe3')
 
+    def display_entries(self):
+        entries = []
+        for record in self.passfile.records:
+            entries.append([record[3],record[1].encode("hex")])
+        self.ui.liststore1.clear()
+        for record in sorted(entries, key=lambda entry: entry[0]):
+            self.ui.liststore1.append(record)
+
     def display_data(self, entry_uuid):
         for record in self.passfile.records:
             if record[1] == entry_uuid.decode("hex"):
@@ -182,12 +185,19 @@ class PasaffeWindow(Window):
                      7: timestamp, 8: timestamp, 12: timestamp, 13: ''}
         self.passfile.records.append(new_entry)
 
-        new_iter=self.ui.liststore1.append(['',uuid_hex])
-        self.ui.treeview1.get_selection().select_iter(new_iter)
-        self.display_data(uuid_hex)
         response = self.edit_entry(uuid_hex)
         if response != gtk.RESPONSE_OK:
             self.delete_entry(uuid_hex)
+        else:
+            self.display_entries()
+            item = self.ui.treeview1.get_model().get_iter_first()
+            while (item != None):
+                if self.ui.liststore1.get_value(item, 1) == uuid_hex:
+                    self.ui.treeview1.get_selection().select_iter(item)
+                    self.display_data(uuid_hex)
+                    break
+                else:
+                    item = self.ui.treeview1.get_model().iter_next(item)
 
     def edit_entry(self, entry_uuid):
         record_dict = { 3 : 'name_entry',
@@ -260,7 +270,7 @@ class PasaffeWindow(Window):
                 item = self.ui.treeview1.get_model().iter_next(item)
 
         for record in self.passfile.records:
-            if record[1] == entry_uuid.encode("hex"):
+            if record[1].encode("hex") == entry_uuid:
                 self.passfile.records.remove(record)
 
         self.needs_saving = True
