@@ -96,6 +96,7 @@ class PassSafeFile:
         except Exception:
             raise RuntimeError("Could not create %s. Aborting." % filename)
 
+        os.chmod(filename, 0600)
         dbfile.write("PWS3")
         self._writekeys(dbfile)
         self._writeheader(dbfile)

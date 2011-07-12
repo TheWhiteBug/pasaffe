@@ -297,7 +297,7 @@ class PasaffeWindow(Window):
         if self.needs_saving == True:
             # Create backup if exists
             if os.path.exists(self.db_filename):
-                shutil.copyfile(self.db_filename, self.db_filename + ".bak")
+                shutil.copy(self.db_filename, self.db_filename + ".bak")
             self.passfile.writefile(self.db_filename)
             self.needs_saving = False
 
