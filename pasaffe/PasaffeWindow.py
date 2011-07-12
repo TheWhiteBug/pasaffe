@@ -61,10 +61,10 @@ class PasaffeWindow(Window):
             success = self.new_database()
 
         if success == False:
-            gtk.main_quit()
-
-        self.display_entries()
-        self.display_welcome()
+            self.connect('event-after', gtk.main_quit)
+        else:
+            self.display_entries()
+            self.display_welcome()
 
     def on_delete_event(self, widget, event):
         if self.needs_saving == True:
