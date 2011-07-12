@@ -1,0 +1,17 @@
+Before first release:
+- Add copy username/password to clipboard to menu w/keyboard shortcuts
+- Implement copy/paste menu entries
+- Add preference backend
+- Add preference to hide passwords by default
+- Test python installer
+- Validate Password Safe database version string
+- Implement other Password Safe headers
+- Add stuff to help file
+
+Other stuff to do post-release:
+- Test i18n support
+- Add support for folders/tree
+- Add keypassx import script
+- Test interopability with other password safe compatible apps
+- Add a better icon
+- Better layout for details pane
