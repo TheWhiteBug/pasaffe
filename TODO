@@ -7,6 +7,7 @@ Before first release:
 - Validate Password Safe database version string
 - Implement other Password Safe headers
 - Add stuff to help file
+- Context menu to left pane entries
 
 Other stuff to do post-release:
 - Test i18n support
