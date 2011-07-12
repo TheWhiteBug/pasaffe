@@ -56,11 +56,11 @@ class PasaffeWindow(Window):
 
         # If database doesn't exists, make a new one
         if os.path.exists(self.db_filename):
-            self.password = self.fetch_password()
+            success = self.fetch_password()
         else:
-            self.password = self.new_database()
+            success = self.new_database()
 
-        if self.password == False:
+        if success == False:
             gtk.main_quit()
 
         self.display_entries()
@@ -79,7 +79,7 @@ class PasaffeWindow(Window):
                 return True
 
     def fetch_password(self):
-        password = False
+        success = True
         password_dialog = self.PasswordEntryDialog()
         while self.passfile == None:
             response = password_dialog.run()
@@ -92,15 +92,15 @@ class PasaffeWindow(Window):
                     password_dialog.ui.password_entry.set_text("")
                     password_dialog.ui.password_entry.grab_focus()
             else:
-                password = False
+                success = False
                 break
         password_dialog.destroy()
-        return password
+        return success
 
     def new_database(self):
-        password = False
+        success = False
         newdb_dialog = self.NewDatabaseDialog()
-        while password == False:
+        while success == False:
             response = newdb_dialog.run()
             if response == gtk.RESPONSE_OK:
                 passwordA = newdb_dialog.ui.entry1.get_text()
@@ -109,14 +109,14 @@ class PasaffeWindow(Window):
                     newdb_dialog.ui.error_label.set_property("visible", True)
                     newdb_dialog.ui.entry1.grab_focus()
                 else:
-                    password = passwordA
                     self.passfile = PassSafeFile()
-                    self.passfile.new_db(password)
+                    self.passfile.new_db(passwordA)
+                    success = True
             else:
                 break
 
         newdb_dialog.destroy()
-        return password
+        return success
 
     def set_database(self):
         if os.environ.has_key('XDG_DATA_HOME'):
@@ -298,7 +298,7 @@ class PasaffeWindow(Window):
             # Create backup if exists
             if os.path.exists(self.db_filename):
                 shutil.copyfile(self.db_filename, self.db_filename + ".bak")
-            self.passfile.writefile(self.db_filename, self.password)
+            self.passfile.writefile(self.db_filename)
             self.needs_saving = False
 
     def on_save_clicked(self, toolbutton):

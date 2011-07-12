@@ -66,7 +66,12 @@ class PassSafeFile:
         self.keys['ITER'] = 2048
 
         stretched_key = self._keystretch(password, self.keys['SALT'], self.keys['ITER'])
+        # Don't need the password anymore, clear it out
+        password = ''
         self.keys['HP'] = hashlib.sha256(stretched_key).digest()
+        self.cipher.set_key(stretched_key)
+        # Don't need the stretched key anymore, clear it out
+        stretched_key = ''
 
         b1_rand = os.urandom(16)
         b2_rand = os.urandom(16)
@@ -74,7 +79,6 @@ class PassSafeFile:
         b4_rand = os.urandom(16)
         self.keys['K'] = b1_rand + b2_rand
         self.keys['L'] = b3_rand + b4_rand
-        self.cipher.set_key(stretched_key)
         self.keys['B1'] = self.cipher.encrypt(b1_rand)
         self.keys['B2'] = self.cipher.encrypt(b2_rand)
         self.keys['B3'] = self.cipher.encrypt(b3_rand)
@@ -85,7 +89,7 @@ class PassSafeFile:
         self.header[0] = '\x00\x03' # database version
         self.header[1] = os.urandom(16) # uuid
 
-    def writefile(self, filename, password):
+    def writefile(self, filename):
         '''Writes database file'''
         try:
             dbfile = open(filename, 'wb')
@@ -93,9 +97,7 @@ class PassSafeFile:
             raise RuntimeError("Could not create %s. Aborting." % filename)
 
         dbfile.write("PWS3")
-        self._writekeys(dbfile, password)
-        # Don't need the password anymore, clear it out
-        password = ''
+        self._writekeys(dbfile)
         self._writeheader(dbfile)
         self._writerecords(dbfile)
         self._writeeofblock(dbfile)
@@ -125,29 +127,30 @@ class PassSafeFile:
         self.keys['IV'] = dbfile.read(16)
         self.cipher.initCBC(self.keys['IV'])
         stretched_key = self._keystretch(password, self.keys['SALT'], self.keys['ITER'])
+        # Don't need the password anymore, clear it out
+        password = ''
         #logger.debug("stretched pass is %s" % stretched_key.encode("hex"))
         if hashlib.sha256(stretched_key).digest() != self.keys['HP']:
             raise ValueError("Password supplied doesn't match database. Aborting.")
 
         self.cipher.set_key(stretched_key)
+        # Don't need the stretched key anymore, clear it out
+        stretched_key = ''
         self.keys['K'] = self.cipher.decrypt(self.keys['B1']) + self.cipher.decrypt(self.keys['B2'])
         self.keys['L'] = self.cipher.decrypt(self.keys['B3']) + self.cipher.decrypt(self.keys['B4'])
         self.hmac = hmac.new(self.keys['L'], digestmod=hashlib.sha256)
         #logger.debug("K is %s and L is %s" % (self.keys['K'].encode("hex"), self.keys['L'].encode("hex")))
 
-    def _writekeys(self, dbfile, password):
+    def _writekeys(self, dbfile):
         dbfile.write(self.keys['SALT'])
         dbfile.write(struct.pack("i", self.keys['ITER']))
-        stretched_key = self._keystretch(password, self.keys['SALT'], self.keys['ITER'])
-        # write HP
-        dbfile.write(hashlib.sha256(stretched_key).digest())
+        dbfile.write(self.keys['HP'])
         dbfile.write(self.keys['B1'])
         dbfile.write(self.keys['B2'])
         dbfile.write(self.keys['B3'])
         dbfile.write(self.keys['B4'])
         dbfile.write(self.keys['IV'])
         self.cipher.initCBC(self.keys['IV'])
-        self.cipher.set_key(stretched_key)
         self.hmac = hmac.new(self.keys['L'], digestmod=hashlib.sha256)
 
     def _readheader(self, dbfile):
