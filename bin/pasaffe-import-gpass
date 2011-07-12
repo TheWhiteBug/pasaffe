@@ -159,7 +159,7 @@ if options.overwrite == True:
     passsafe = readdb.PassSafeFile()
     passsafe.new_db(password)
     passsafe.records=gpass.records
-    passsafe.writefile(db_filename, password)
+    passsafe.writefile(db_filename)
 
 else:
     print "You must now enter the Pasaffe database password."
@@ -168,7 +168,7 @@ else:
     passsafe = readdb.PassSafeFile(db_filename, password)
     for entry in gpass.records:
         passsafe.records.append(entry)
-    passsafe.writefile(db_filename, password)
+    passsafe.writefile(db_filename)
 
 print "Success!"
 
