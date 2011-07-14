@@ -341,6 +341,12 @@ class PasaffeWindow(Window):
         self.copy_selected_entry_item(6)
 
     def on_display_password_clicked(self, toolbutton):
+        self.display_password()
+
+    def on_mnu_display_password_activate(self, menuitem):
+        self.display_password()
+
+    def display_password(self):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
