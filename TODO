@@ -1,6 +1,4 @@
 Before first release:
-- Add copy username/password to clipboard to menu w/keyboard shortcuts
-- Implement copy/paste menu entries
 - Add preference backend
 - Add preference to hide passwords by default
 - Test python installer
