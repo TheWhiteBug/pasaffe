@@ -322,27 +322,27 @@ class PasaffeWindow(Window):
         print "TODO: implement on_mnu_paste_activate()"
 
     def on_username_copy_activate(self, menuitem):
-        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
-        if treeiter != None:
-            entry_uuid = treemodel.get_value(treeiter, 1)
-
-            for record in self.passfile.records:
-                if record[1] == entry_uuid.decode("hex"):
-                    self.copy_to_clipboard(record[4])
+        self.copy_selected_entry_item(4)
 
     def on_password_copy_activate(self, menuitem):
+        self.copy_selected_entry_item(6)
+
+    def on_copy_username_clicked(self, toolbutton):
+        self.copy_selected_entry_item(4)
+
+    def on_copy_password_clicked(self, toolbutton):
+        self.copy_selected_entry_item(6)
+
+    def copy_selected_entry_item(self, item):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
 
             for record in self.passfile.records:
                 if record[1] == entry_uuid.decode("hex"):
-                    self.copy_to_clipboard(record[6])
-
-    def copy_to_clipboard(self, item):
-        clipboard = gtk.clipboard_get()
-        clipboard.set_text(item)
-        clipboard.store()
+                    clipboard = gtk.clipboard_get()
+                    clipboard.set_text(record[item])
+                    clipboard.store()
 
     def on_mnu_add_activate(self, menuitem):
         self.add_entry()
