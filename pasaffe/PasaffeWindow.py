@@ -331,6 +331,9 @@ class PasaffeWindow(Window):
     def on_password_copy_activate(self, menuitem):
         self.copy_selected_entry_item(6)
 
+    def on_url_copy_activate(self, menuitem):
+        self.copy_selected_entry_item(13)
+
     def on_copy_username_clicked(self, toolbutton):
         self.copy_selected_entry_item(4)
 
@@ -349,7 +352,7 @@ class PasaffeWindow(Window):
             entry_uuid = treemodel.get_value(treeiter, 1)
 
             for record in self.passfile.records:
-                if record[1] == entry_uuid.decode("hex"):
+                if record[1] == entry_uuid.decode("hex") and record.has_key(item):
                     clipboard = gtk.clipboard_get()
                     clipboard.set_text(record[item])
                     clipboard.store()

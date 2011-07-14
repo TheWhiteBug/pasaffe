@@ -17,7 +17,6 @@ Other stuff to do post-release:
 - Add a better icon
 - Better layout for details pane
 - Make hidden passwords a preference
-- Add copy URL to menu
 - Add open URL to menu
 - Add timeout and lock screen
 - Add database merge functionality

@@ -19,6 +19,11 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-copy</property>
   </object>
+  <object class="GtkImage" id="image4">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-copy</property>
+  </object>
   <object class="GtkListStore" id="liststore1">
     <columns>
       <!-- column-name entry_name -->
@@ -101,7 +106,6 @@
                     <child>
                       <object class="GtkImageMenuItem" id="mnu_cut">
                         <property name="label">gtk-cut</property>
-                        <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="use_action_appearance">False</property>
@@ -126,7 +130,6 @@
                     <child>
                       <object class="GtkImageMenuItem" id="mnu_paste">
                         <property name="label">gtk-paste</property>
-                        <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="use_action_appearance">False</property>
@@ -170,6 +173,18 @@
                       <object class="GtkSeparatorMenuItem" id="separatormenuitem2">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="url_copy">
+                        <property name="label" translatable="yes">Copy URL</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="use_action_appearance">False</property>
+                        <property name="image">image4</property>
+                        <property name="use_stock">False</property>
+                        <accelerator key="u" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="on_url_copy_activate" swapped="no"/>
                       </object>
                     </child>
                     <child>
