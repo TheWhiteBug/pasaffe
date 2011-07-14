@@ -136,7 +136,7 @@ class PasaffeWindow(Window):
         for record in sorted(entries, key=lambda entry: entry[0]):
             self.ui.liststore1.append(record)
 
-    def display_data(self, entry_uuid):
+    def display_data(self, entry_uuid, show_password=False):
         for record in self.passfile.records:
             if record[1] == entry_uuid.decode("hex"):
                 last_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
@@ -149,7 +149,11 @@ class PasaffeWindow(Window):
                 contents = ''
                 if record.has_key(5):
                     contents += "%s\n\n" % record.get(5)
-                contents += "Username: %s\nPassword: %s\n\n" % (record.get(4), record.get(6))
+                contents += "Username: %s\n" % record.get(4)
+                if show_password == True:
+                    contents += "Password: %s\n\n" % record.get(6)
+                else:
+                    contents += "Password: *****\n\n"
                 if record.has_key(13):
                     contents += "URL: %s\n\n" % record.get(13)
                 contents += "Last updated: %s\nPassword updated: %s\n" % (last_updated, pass_updated)
@@ -332,6 +336,12 @@ class PasaffeWindow(Window):
 
     def on_copy_password_clicked(self, toolbutton):
         self.copy_selected_entry_item(6)
+
+    def on_display_password_clicked(self, toolbutton):
+        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+        if treeiter != None:
+            entry_uuid = treemodel.get_value(treeiter, 1)
+            self.display_data(entry_uuid, show_password=True)
 
     def copy_selected_entry_item(self, item):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
