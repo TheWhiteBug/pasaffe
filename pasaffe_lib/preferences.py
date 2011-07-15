@@ -103,11 +103,15 @@ class User_dict(dict):
         This is the callback function that is called when the keys in our
         namespace change (such as editing them with gconf-editor).
         """
-        key = entry.get_key()
-        # TODO: need to do something here
-        value = entry.get_value().get_bool()
-        #value = entry.get_value().get_string()
+        key = entry.get_key()[entry.get_key().rfind('/')+1:]
+        if (entry.get_value().type == gconf.VALUE_BOOL):
+            value = entry.get_value().get_bool()
+        if (entry.get_value().type == gconf.VALUE_INT):
+            value = entry.get_value().get_int()
+        if (entry.get_value().type == gconf.VALUE_STRING):
+            value = entry.get_value().get_string()
         logger.debug("key '%s' got changed to '%s'" % (key, value))
+        self[key] = value
 
     def __setitem__(self, key, value):
         ''' interface for dictionary

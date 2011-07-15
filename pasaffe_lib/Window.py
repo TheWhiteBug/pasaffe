@@ -35,11 +35,11 @@ class Window(gtk.Window):
     #
     # For this reason, it's recommended you leave __init__ empty and put
     # your initialization code in finish_initializing
-    
+
     def __new__(cls):
         """Special static method that's automatically called by Python when 
         constructing a new instance of this class.
-        
+
         Returns a fully instantiated BasePasaffeWindow object.
         """
         builder = get_builder('PasaffeWindow')
@@ -128,6 +128,8 @@ class Window(gtk.Window):
         logger.debug('main window received preferences changed')
         for key in data:
             logger.debug('preference changed: %s = %s' % (key, preferences[key]))
+            if self.preferences_dialog is not None:
+                self.preferences_dialog.set_widget_from_preference(key)
             if key == 'visible-passwords':
                 treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
                 if treeiter != None:
