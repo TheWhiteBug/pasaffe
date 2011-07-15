@@ -122,6 +122,11 @@ class GPassFile:
 
     def remove_padding(self):
         padding = self.decoded_db[-1]
+
+        for byte in self.decoded_db[:-ord(padding)]:
+            if byte != padding:
+                return
+
         self.decoded_db = self.decoded_db[:-ord(padding)]
 
     def validate_header(self):
