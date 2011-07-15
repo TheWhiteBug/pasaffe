@@ -53,10 +53,8 @@ class PasaffeWindow(Window):
         self.needs_saving = False
         self.passfile = None
 
-        self.set_database()
-
         # If database doesn't exists, make a new one
-        if os.path.exists(self.db_filename):
+        if os.path.exists(preferences['database-path']):
             success = self.fetch_password()
         else:
             success = self.new_database()
@@ -87,7 +85,7 @@ class PasaffeWindow(Window):
             if response == gtk.RESPONSE_OK:
                 password = password_dialog.ui.password_entry.get_text()
                 try:
-                    self.passfile = PassSafeFile(self.db_filename, password)
+                    self.passfile = PassSafeFile(preferences['database-path'], password)
                 except ValueError:
                     password_dialog.ui.password_error_label.set_property("visible", True)
                     password_dialog.ui.password_entry.set_text("")
@@ -118,16 +116,6 @@ class PasaffeWindow(Window):
 
         newdb_dialog.destroy()
         return success
-
-    def set_database(self):
-        if os.environ.has_key('XDG_DATA_HOME'):
-            basedir = os.path.join(os.environ['XDG_DATA_HOME'], 'pasaffe')
-        else:
-            basedir = os.path.join(os.environ['HOME'], '.local/share/pasaffe')
-
-        if not os.path.exists(basedir):
-            os.mkdir(basedir, 0700)
-        self.db_filename = os.path.join(basedir, 'pasaffe.psafe3')
 
     def display_entries(self):
         entries = []
@@ -301,9 +289,9 @@ class PasaffeWindow(Window):
     def save_db(self):
         if self.needs_saving == True:
             # Create backup if exists
-            if os.path.exists(self.db_filename):
-                shutil.copy(self.db_filename, self.db_filename + ".bak")
-            self.passfile.writefile(self.db_filename)
+            if os.path.exists(preferences['database-path']):
+                shutil.copy(preferences['database-path'], preferences['database-path'] + ".bak")
+            self.passfile.writefile(preferences['database-path'])
             self.needs_saving = False
 
     def on_save_clicked(self, toolbutton):

@@ -15,6 +15,7 @@
 ### END LICENSE
 
 import optparse
+import os
 
 import gettext
 from gettext import gettext as _
@@ -32,23 +33,46 @@ def parse_options():
     parser.add_option(
         "-v", "--verbose", action="count", dest="verbose",
         help=_("Show debug messages (-vv debugs pasaffe_lib also)"))
+    parser.add_option(
+        "-f", "--file", dest="filename",
+        help="set database to FILE", metavar="FILE")
     (options, args) = parser.parse_args()
 
     set_up_logging(options)
+    return options
+
+def get_database_path():
+    """Determines standard XDG location for database"""
+    if os.environ.has_key('XDG_DATA_HOME'):
+        basedir = os.path.join(os.environ['XDG_DATA_HOME'], 'pasaffe')
+    else:
+        basedir = os.path.join(os.environ['HOME'], '.local/share/pasaffe')
+
+    if not os.path.exists(basedir):
+        os.mkdir(basedir, 0700)
+
+    return os.path.join(basedir, 'pasaffe.psafe3')
 
 def main():
     'constructor for your class instances'
-    parse_options()
+    options = parse_options()
+
+    filename = get_database_path()
 
     # preferences
     # set some values for our first session
     # TODO: replace defaults with your own values
     default_preferences = {
     'visible-passwords': False,
+    'database-path': filename
     }
 
     preferences.update(default_preferences)
     preferences.load()
+
+    # Override path that was saved with path from command line
+    if options.filename != None:
+        preferences['database-path'] = options.filename
 
     # Run the application.
     window = PasaffeWindow.PasaffeWindow()
