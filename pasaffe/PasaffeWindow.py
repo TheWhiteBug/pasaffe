@@ -128,12 +128,6 @@ class PasaffeWindow(Window):
     def display_data(self, entry_uuid, show_password=False):
         for record in self.passfile.records:
             if record[1] == entry_uuid.decode("hex"):
-                last_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
-                                   time.localtime(struct.unpack("<I",
-                                       record[12])[0]))
-                pass_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
-                                   time.localtime(struct.unpack("<I",
-                                       record[8])[0]))
                 title = record.get(3)
                 contents = ''
                 if record.has_key(5):
@@ -145,7 +139,16 @@ class PasaffeWindow(Window):
                     contents += "Password: *****\n\n"
                 if record.has_key(13):
                     contents += "URL: %s\n\n" % record.get(13)
-                contents += "Last updated: %s\nPassword updated: %s\n" % (last_updated, pass_updated)
+                if record.has_key(12):
+                    last_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
+                                   time.localtime(struct.unpack("<I",
+                                   record[12])[0]))
+                    contents += "Last updated: %s\n" % last_updated
+                if record.has_key(8):
+                    pass_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
+                                   time.localtime(struct.unpack("<I",
+                                       record[8])[0]))
+                    contents += "Password updated: %s\n" % pass_updated
                 self.fill_display(title, contents)
                 break
 
