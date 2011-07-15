@@ -31,6 +31,7 @@ from pasaffe.SaveChangesDialog import SaveChangesDialog
 from pasaffe.NewDatabaseDialog import NewDatabaseDialog
 from pasaffe.PreferencesPasaffeDialog import PreferencesPasaffeDialog
 from pasaffe_lib.readdb import PassSafeFile
+from pasaffe_lib import preferences
 
 # See pasaffe_lib.Window.py for more details about how this class works
 class PasaffeWindow(Window):
@@ -150,7 +151,7 @@ class PasaffeWindow(Window):
                 if record.has_key(5):
                     contents += "%s\n\n" % record.get(5)
                 contents += "Username: %s\n" % record.get(4)
-                if show_password == True:
+                if show_password == True or preferences['visible-passwords'] == True:
                     contents += "Password: %s\n\n" % record.get(6)
                 else:
                     contents += "Password: *****\n\n"

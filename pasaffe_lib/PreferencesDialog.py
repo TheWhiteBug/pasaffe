@@ -36,7 +36,7 @@ class PreferencesDialog(gtk.Dialog):
     def __new__(cls):
         """Special static method that's automatically called by Python when 
         constructing a new instance of this class.
-        
+
         Returns a fully instantiated PreferencesDialog object.
         """
         builder = get_builder('PreferencesPasaffeDialog')
@@ -51,7 +51,7 @@ class PreferencesDialog(gtk.Dialog):
         and creating a PreferencesDialog object with it in order to
         finish initializing the start of the new PerferencesPasaffeDialog
         instance.
-        
+
         Put your initialization code in here and leave __init__ undefined.
         """
 

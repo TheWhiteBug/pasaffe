@@ -61,7 +61,7 @@ class Window(gtk.Window):
         self.preferences_dialog = None # instance
         self.AboutDialog = None # class
 
-        #preferences.connect('changed', self.on_preferences_changed)
+        preferences.connect('changed', self.on_preferences_changed)
 
         # Optional Launchpad integration
         # This shouldn't crash if not found as it is simply used for bug reporting.
@@ -128,10 +128,15 @@ class Window(gtk.Window):
         logger.debug('main window received preferences changed')
         for key in data:
             logger.debug('preference changed: %s = %s' % (key, preferences[key]))
+            if key == 'visible-passwords':
+                treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+                if treeiter != None:
+                    entry_uuid = treemodel.get_value(treeiter, 1)
+                    self.display_data(entry_uuid, show_password=preferences[key])
 
     def on_preferences_dialog_destroyed(self, widget, data=None):
         '''only affects gui
-        
+
         logically there is no difference between the user closing,
         minimising or ignoring the preferences dialog'''
         logger.debug('on_preferences_dialog_destroyed')

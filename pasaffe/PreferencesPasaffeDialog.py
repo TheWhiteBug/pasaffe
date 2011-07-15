@@ -35,7 +35,7 @@
 
 
 widget_methods = {
-    'example_entry': ['get_text', 'set_text', 'changed'],
+    'visible-passwords': ['get_active', 'set_active', 'toggled'],
 }
 
 import gettext

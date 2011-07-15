@@ -16,71 +16,70 @@
 
 """Provides a shared preferences dictionary"""
 
-#from desktopcouch.records.server import CouchDatabase
-#from desktopcouch.records.record import Record
 import gtk
 import gobject
+import gconf
+import logging
+logger = logging.getLogger('pasaffe')
+
+ROOT_DIR = '/apps/pasaffe'
 
 class User_dict(dict):
     ''' a dictionary with extra methods:
 
-    persistence: load, save and db_connect
+    persistence: load, save
     gobject signals: connect and emit.
 
     Don't use this directly. Please use the preferences instance.'''
 
     def __init__(self, *args, **kwds):
         dict.__init__(self, *args, **kwds)
-        # Set up couchdb.
-        #self._db_name = "pasaffe"
-        #self._key = None
-        #self._database = None
 
-        #self._record_type = (
-        #    "http://wiki.ubuntu.com/Quickly/RecordTypes/Pasaffe/"
-        #    "Preferences")
+        # Set up gconf
+        self.gconf_client = gconf.client_get_default()
+        self.gconf_client.add_dir(ROOT_DIR, gconf.CLIENT_PRELOAD_NONE)
+        self.gconf_client.notify_add(ROOT_DIR, self.prefs_changed_callback)
 
-        #class Publisher(gtk.Invisible): # pylint: disable=R0904
-        #    '''set up signals in a separate class
+        class Publisher(gtk.Invisible): # pylint: disable=R0904
+            '''set up signals in a separate class
 
-        #    gtk.Invisible has 230 public methods'''
-        #    __gsignals__ = {'changed' : (gobject.SIGNAL_RUN_LAST,
-        #         gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT,)),
-        #         'loaded' : (gobject.SIGNAL_RUN_LAST,
-        #         gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT,))}
+            gtk.Invisible has 230 public methods'''
+            __gsignals__ = {'changed' : (gobject.SIGNAL_RUN_LAST,
+                 gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT,)),
+                 'loaded' : (gobject.SIGNAL_RUN_LAST,
+                 gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT,))}
 
-        #publisher = Publisher()
-        #self.emit  = publisher.emit
-        #self.connect  = publisher.connect
-
-    def db_connect(self):
-        '''connect to couchdb
-
-        create if necessary'''
-        # logging.basicConfig will be called now
-        #self._database = CouchDatabase(self._db_name, create=True)
+        publisher = Publisher()
+        self.emit  = publisher.emit
+        self.connect  = publisher.connect
 
     def save(self):
-        'save to couchdb'
-        #self._database.update_fields(self._key, self)
-
+        'save to gconf'
+        for (key, value) in dict.items(self):
+            logger.debug("saving preference: %s" % key)
+            if type(value) == bool:
+                self.gconf_client.set_bool(ROOT_DIR + "/" + key, value)
+            elif type(value) == str:
+                self.gconf_client.set_string(ROOT_DIR + "/" + key, value)
+            elif type(value) == int:
+                self.gconf_client.set_int(ROOT_DIR + "/" + key, value)
  
     def load(self):
-        'load from couchdb'
-        self.update({"record_type": self._record_type})
+        'load from gconf'
+        for key in dict.keys(self):
+            logger.debug("loading preference: %s" % key)
+            if type(dict.get(self, key)) == bool:
+                value = self.gconf_client.get_bool(ROOT_DIR + "/" + key)
+            elif type(dict.get(self, key)) == str:
+                value = self.gconf_client.get_string(ROOT_DIR + "/" + key)
+            elif type(dict.get(self, key)) == int:
+                value = self.gconf_client.get_int(ROOT_DIR + "/" + key)
 
-        #results = self._database.get_records(
-        #    record_type=self._record_type, create_view=True)
+            if value != None:
+                self[key] = value
+                logger.debug("preference '%s' loaded value '%s'" % (key, value))
 
-        #if len(results.rows) == 0:
-            # No preferences have ever been saved
-            # save them before returning.
-            #self._key = self._database.put_record(Record(self))
-        #else:
-            #self.update(results.rows[0].value)
-            #del self['_rev']
-            #self._key = results.rows[0].value["_id"]
-        #self.emit('loaded', None)
+        self.emit('loaded', None)
 
     def update(self, *args, **kwds):
         ''' interface for dictionary
@@ -98,6 +97,17 @@ class User_dict(dict):
         dict.update(self, new_data)
         if changed_keys:
             self.emit('changed', tuple(changed_keys))
+
+    def prefs_changed_callback(self, client, timestamp, entry, *extra):
+        """
+        This is the callback function that is called when the keys in our
+        namespace change (such as editing them with gconf-editor).
+        """
+        key = entry.get_key()
+        # TODO: need to do something here
+        value = entry.get_value().get_bool()
+        #value = entry.get_value().get_string()
+        logger.debug("key '%s' got changed to '%s'" % (key, value))
 
     def __setitem__(self, key, value):
         ''' interface for dictionary

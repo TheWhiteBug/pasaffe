@@ -43,17 +43,16 @@ def main():
     # preferences
     # set some values for our first session
     # TODO: replace defaults with your own values
-    #default_preferences = {
-    #'example_entry': 'I remember stuff',
-    #}
-    #preferences.update(default_preferences)
-    # user's stored preferences are used for 2nd and subsequent sessions
-    #preferences.db_connect()
-    #preferences.load()
+    default_preferences = {
+    'visible-passwords': False,
+    }
+
+    preferences.update(default_preferences)
+    preferences.load()
 
     # Run the application.
     window = PasaffeWindow.PasaffeWindow()
     window.show()
     gtk.main()
 
-    #preferences.save()
+    preferences.save()
