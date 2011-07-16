@@ -30,6 +30,7 @@ from pasaffe.PasswordEntryDialog import PasswordEntryDialog
 from pasaffe.LockScreenDialog import LockScreenDialog
 from pasaffe.SaveChangesDialog import SaveChangesDialog
 from pasaffe.NewDatabaseDialog import NewDatabaseDialog
+from pasaffe.NewPasswordDialog import NewPasswordDialog
 from pasaffe.PreferencesPasaffeDialog import PreferencesPasaffeDialog
 from pasaffe_lib.readdb import PassSafeFile
 from pasaffe_lib import preferences
@@ -49,6 +50,7 @@ class PasaffeWindow(Window):
         self.LockScreenDialog = LockScreenDialog
         self.SaveChangesDialog = SaveChangesDialog
         self.NewDatabaseDialog = NewDatabaseDialog
+        self.NewPasswordDialog = NewPasswordDialog
 
         self.connect("delete-event",self.on_delete_event)
 
@@ -390,6 +392,37 @@ class PasaffeWindow(Window):
 
     def on_mnu_lock_activate(self, menuitem):
         self.lock_screen()
+
+    def on_mnu_chg_password_activate(self, menuitem):
+        success = False
+        newpass_dialog = self.NewPasswordDialog()
+        while success == False:
+            response = newpass_dialog.run()
+            if response == gtk.RESPONSE_OK:
+                old_password = newpass_dialog.ui.pass_entry1.get_text()
+                passwordA = newpass_dialog.ui.pass_entry2.get_text()
+                passwordB = newpass_dialog.ui.pass_entry3.get_text()
+                if passwordA != passwordB:
+                    newpass_dialog.ui.label3.set_text("Passwords don't match! Please try again.")
+                    newpass_dialog.ui.label3.set_property("visible", True)
+                    newpass_dialog.ui.pass_entry2.grab_focus()
+                elif passwordA == '':
+                    newpass_dialog.ui.label3.set_text("New password cannot be blank! Please try again.")
+                    newpass_dialog.ui.label3.set_property("visible", True)
+                    newpass_dialog.ui.pass_entry2.grab_focus()
+                elif not self.passfile.check_password(old_password):
+                    newpass_dialog.ui.label3.set_text("Old password is invalid! Please try again.")
+                    newpass_dialog.ui.label3.set_property("visible", True)
+                    newpass_dialog.ui.pass_entry1.grab_focus()
+                else:
+                    self.passfile.new_keys(passwordA)
+                    self.needs_saving = True
+                    self.save_db()
+                    success = True
+            else:
+                break
+
+        newpass_dialog.destroy()
 
     def lock_screen(self):
         self.disable_idle_timeout()

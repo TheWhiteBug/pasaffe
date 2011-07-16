@@ -2,7 +2,6 @@ Before first release:
 - Test python installer
 - Add stuff to help file
 - Context menu to left pane entries
-- Add change password item to menu
 
 Other stuff to do post-release:
 - Test i18n support
