@@ -14,7 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 ### END LICENSE
 
-import sys, struct, hashlib, hmac, random, os
+import sys, struct, hashlib, hmac, random, os, time
 import pytwofishcbc
 import logging
 logger = logging.getLogger('pasaffe')
@@ -71,7 +71,7 @@ class PassSafeFile:
 
         self.new_keys(password)
 
-        self.header[0] = '\x00\x03' # database version
+        self.header[0] = '\x02\x03' # database version
         self.header[1] = os.urandom(16) # uuid
 
     def new_keys(self, password):
@@ -100,6 +100,20 @@ class PassSafeFile:
 
     def writefile(self, filename):
         '''Writes database file'''
+
+        # Set username
+        self.header[7] = os.getlogin()
+        # Remove the old deprecated username field if it exists
+        if 7 in self.header:
+            del self.header[7]
+        # Set hostname
+        self.header[8] = os.uname()[1]
+        # Set timestamp
+        self.header[4] = struct.pack("<I", time.time())
+        self.header[6] = "Pasaffe v0.00"
+        # TODO: we should probably update the database version
+        # string here to at least what we use in new_db()
+
         try:
             dbfile = open(filename, 'wb')
         except Exception:

@@ -1,7 +1,5 @@
 Before first release:
 - Test python installer
-- Validate Password Safe database version string
-- Implement other Password Safe headers
 - Add stuff to help file
 - Context menu to left pane entries
 - Add change password item to menu
