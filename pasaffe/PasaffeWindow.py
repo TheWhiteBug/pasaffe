@@ -27,6 +27,7 @@ from pasaffe_lib import Window
 from pasaffe.AboutPasaffeDialog import AboutPasaffeDialog
 from pasaffe.EditDetailsDialog import EditDetailsDialog
 from pasaffe.PasswordEntryDialog import PasswordEntryDialog
+from pasaffe.LockScreenDialog import LockScreenDialog
 from pasaffe.SaveChangesDialog import SaveChangesDialog
 from pasaffe.NewDatabaseDialog import NewDatabaseDialog
 from pasaffe.PreferencesPasaffeDialog import PreferencesPasaffeDialog
@@ -45,6 +46,7 @@ class PasaffeWindow(Window):
         self.EditDetailsDialog = EditDetailsDialog
         self.PreferencesDialog = PreferencesPasaffeDialog
         self.PasswordEntryDialog = PasswordEntryDialog
+        self.LockScreenDialog = LockScreenDialog
         self.SaveChangesDialog = SaveChangesDialog
         self.NewDatabaseDialog = NewDatabaseDialog
 
@@ -66,16 +68,18 @@ class PasaffeWindow(Window):
             self.display_welcome()
 
     def on_delete_event(self, widget, event):
+        return self.save_warning()
+
+    def save_warning(self):
         if self.needs_saving == True:
             savechanges_dialog = self.SaveChangesDialog()
             response = savechanges_dialog.run()
             if response == gtk.RESPONSE_OK:
                 self.save_db()
-            elif response == gtk.RESPONSE_CLOSE:
-                return False
-            else:
+            elif response != gtk.RESPONSE_CLOSE:
                 savechanges_dialog.destroy()
                 return True
+        return False
 
     def fetch_password(self):
         success = True
@@ -304,7 +308,8 @@ class PasaffeWindow(Window):
         self.save_db()
 
     def on_mnu_close_activate(self, menuitem):
-        gtk.main_quit()
+        if self.save_warning() == False:
+            gtk.main_quit()
 
     def on_mnu_cut_activate(self, menuitem):
         print "TODO: implement on_mnu_cut_activate()"
@@ -363,6 +368,32 @@ class PasaffeWindow(Window):
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
             self.delete_entry(entry_uuid)
+
+    def on_mnu_lock_activate(self, menuitem):
+        self.lock_screen()
+
+    def lock_screen(self):
+        self.hide()
+        success = False
+        lock_dialog = self.LockScreenDialog()
+        while success == False:
+            response = lock_dialog.run()
+            if response == gtk.RESPONSE_OK:
+                password = lock_dialog.ui.locked_entry.get_text()
+                success = self.passfile.check_password(password)
+                if success == False:
+                    lock_dialog.ui.locked_error_label.set_property("visible", True)
+                    lock_dialog.ui.locked_entry.set_text("")
+                    lock_dialog.ui.locked_entry.grab_focus()
+            else:
+                lock_dialog.hide()
+                if self.save_warning() == False:
+                    gtk.main_quit()
+                    return
+                else:
+                    lock_dialog.show()
+        lock_dialog.destroy()
+        self.show()
 
     def on_add_clicked(self, toolbutton):
         self.add_entry()

@@ -17,7 +17,7 @@
 import sys, struct, hashlib, hmac, random, os, time
 import pytwofishcbc
 import logging
-logger = logging.getLogger('pasaffe')
+logger = logging.getLogger('pasaffe_lib')
 
 class PassSafeFile:
 
@@ -73,6 +73,16 @@ class PassSafeFile:
 
         self.header[0] = '\x02\x03' # database version
         self.header[1] = os.urandom(16) # uuid
+
+    def check_password(self, password):
+        '''Checks if password is valid'''
+        stretched_key = self._keystretch(password, self.keys['SALT'], self.keys['ITER'])
+        # Don't need the password anymore, clear it out
+        password = ''
+        if hashlib.sha256(stretched_key).digest() != self.keys['HP']:
+            return False
+        else:
+            return True
 
     def new_keys(self, password):
         '''Generates new keys'''
