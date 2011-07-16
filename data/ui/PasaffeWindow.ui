@@ -43,6 +43,13 @@
     <property name="stock">gtk-dialog-authentication</property>
     <property name="icon-size">1</property>
   </object>
+  <object class="GtkImage" id="image8">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="yalign">0.44999998807907104</property>
+    <property name="stock">gtk-info</property>
+    <property name="icon-size">1</property>
+  </object>
   <object class="GtkListStore" id="liststore1">
     <columns>
       <!-- column-name entry_name -->
@@ -308,6 +315,17 @@
                         <property name="image">image5</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_mnu_display_password_activate" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="mnu_info">
+                        <property name="label" translatable="yes">Database Information</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="use_action_appearance">False</property>
+                        <property name="image">image8</property>
+                        <property name="use_stock">False</property>
+                        <signal name="activate" handler="on_mnu_info_activate" swapped="no"/>
                       </object>
                     </child>
                   </object>

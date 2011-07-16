@@ -114,8 +114,8 @@ class PassSafeFile:
         # Set username
         self.header[7] = os.getlogin()
         # Remove the old deprecated username field if it exists
-        if 7 in self.header:
-            del self.header[7]
+        if 5 in self.header:
+            del self.header[5]
         # Set hostname
         self.header[8] = os.uname()[1]
         # Set timestamp

@@ -393,6 +393,27 @@ class PasaffeWindow(Window):
     def on_mnu_lock_activate(self, menuitem):
         self.lock_screen()
 
+    def on_mnu_info_activate(self, menuitem):
+        information = '<big><b>Database Information</b></big>\n\n'
+        information += 'Number of entries: %s\n' % len(self.passfile.records)
+        information += 'Database version: %s.%s\n' % (self.passfile.header[0][1].encode('hex'),self.passfile.header[0][0].encode('hex'))
+        if 7 in self.passfile.header:
+            information += 'Last saved by: %s\n' % self.passfile.header[7]
+        if 8 in self.passfile.header:
+            information += 'Last saved on host: %s\n' % self.passfile.header[8]
+        if 4 in self.passfile.header:
+            last_saved = time.strftime("%a, %d %b %Y %H:%M:%S",
+                                   time.localtime(struct.unpack("<I",
+                                   self.passfile.header[4])[0]))
+            information += 'Last save date: %s\n' % last_saved
+        if 6 in self.passfile.header:
+            information += 'Application used: %s\n' % self.passfile.header[6]
+
+        info_dialog = gtk.MessageDialog(type=gtk.MESSAGE_INFO, buttons=gtk.BUTTONS_OK)
+        info_dialog.set_markup(information)
+        info_dialog.run()
+        info_dialog.destroy()
+
     def on_mnu_chg_password_activate(self, menuitem):
         success = False
         newpass_dialog = self.NewPasswordDialog()
