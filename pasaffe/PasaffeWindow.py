@@ -18,7 +18,7 @@ import gettext
 from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
-import gtk, pango
+import gtk, pango, glib
 import os, struct, time, shutil, sys
 import logging
 logger = logging.getLogger('pasaffe')
@@ -54,6 +54,8 @@ class PasaffeWindow(Window):
 
         self.needs_saving = False
         self.passfile = None
+        self.is_locked = False
+        self.idle_id = None
 
         # If database doesn't exists, make a new one
         if os.path.exists(preferences['database-path']):
@@ -66,6 +68,9 @@ class PasaffeWindow(Window):
         else:
             self.display_entries()
             self.display_welcome()
+
+        # Set inactivity timer
+        self.set_idle_timeout()
 
     def on_delete_event(self, widget, event):
         return self.save_warning()
@@ -173,11 +178,13 @@ class PasaffeWindow(Window):
         self.ui.textview1.set_buffer(data_buffer)
 
     def on_treeview1_cursor_changed(self, treeview):
+        self.set_idle_timeout()
         treemodel, treeiter = treeview.get_selection().get_selected()
         entry_uuid = treemodel.get_value(treeiter, 1)
         self.display_data(entry_uuid)
 
     def add_entry(self):
+        self.disable_idle_timeout()
         uuid = os.urandom(16)
         uuid_hex = uuid.encode("hex")
         timestamp = struct.pack("<I", time.time())
@@ -198,6 +205,7 @@ class PasaffeWindow(Window):
                     break
                 else:
                     item = self.ui.treeview1.get_model().iter_next(item)
+        self.set_idle_timeout()
 
     def edit_entry(self, entry_uuid):
         record_dict = { 3 : 'name_entry',
@@ -207,6 +215,7 @@ class PasaffeWindow(Window):
                         13: 'url_entry' }
 
         if self.EditDetailsDialog is not None:
+            self.disable_idle_timeout()
             details = self.EditDetailsDialog()
 
             for record in self.passfile.records:
@@ -252,9 +261,11 @@ class PasaffeWindow(Window):
 
             details.destroy()
             self.display_data(entry_uuid)
+            self.set_idle_timeout()
             return response
 
     def delete_entry(self, entry_uuid):
+        self.set_idle_timeout()
         item = self.ui.treeview1.get_model().get_iter_first()
 
         while (item != None):
@@ -302,19 +313,25 @@ class PasaffeWindow(Window):
             self.needs_saving = False
 
     def on_save_clicked(self, toolbutton):
+        self.set_idle_timeout()
         self.save_db()
 
     def on_mnu_save_activate(self, menuitem):
+        self.set_idle_timeout()
         self.save_db()
 
     def on_mnu_close_activate(self, menuitem):
+        self.disable_idle_timeout()
         if self.save_warning() == False:
             gtk.main_quit()
+        else:
+            self.set_idle_timeout()
 
     def on_mnu_cut_activate(self, menuitem):
         print "TODO: implement on_mnu_cut_activate()"
 
     def on_mnu_copy_activate(self, menuitem):
+        self.set_idle_timeout()
         clipboard = gtk.clipboard_get()
         self.ui.textview1.get_buffer().copy_clipboard(clipboard)
         clipboard.store()
@@ -344,12 +361,14 @@ class PasaffeWindow(Window):
         self.display_password()
 
     def display_password(self):
+        self.set_idle_timeout()
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
             self.display_data(entry_uuid, show_password=True)
 
     def copy_selected_entry_item(self, item):
+        self.set_idle_timeout()
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
@@ -373,6 +392,8 @@ class PasaffeWindow(Window):
         self.lock_screen()
 
     def lock_screen(self):
+        self.disable_idle_timeout()
+        self.is_locked = True
         self.hide()
         success = False
         lock_dialog = self.LockScreenDialog()
@@ -394,6 +415,8 @@ class PasaffeWindow(Window):
                     lock_dialog.show()
         lock_dialog.destroy()
         self.show()
+        self.is_locked = False
+        self.set_idle_timeout()
 
     def on_add_clicked(self, toolbutton):
         self.add_entry()
@@ -409,4 +432,23 @@ class PasaffeWindow(Window):
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
             self.delete_entry(entry_uuid)
+
+    def set_idle_timeout(self):
+        if self.idle_id != None:
+            glib.source_remove(self.idle_id)
+            self.idle_id == None
+        if preferences['lock-on-idle'] == True and preferences['idle-timeout'] != 0:
+            idle_time = int(preferences['idle-timeout']*1000*60)
+            self.idle_id = glib.timeout_add(idle_time, self.idle_timeout_reached)
+
+    def idle_timeout_reached(self):
+        if self.is_locked == False:
+            self.lock_screen()
+        glib.source_remove(self.idle_id)
+        self.idle_id = None
+
+    def disable_idle_timeout(self):
+        if self.idle_id != None:
+            glib.source_remove(self.idle_id)
+            self.idle_id == None
 

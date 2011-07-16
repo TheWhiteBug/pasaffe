@@ -64,7 +64,9 @@ def main():
     # TODO: replace defaults with your own values
     default_preferences = {
     'visible-passwords': False,
-    'database-path': filename
+    'database-path': filename,
+    'lock-on-idle': True,
+    'idle-timeout': 5
     }
 
     preferences.update(default_preferences)

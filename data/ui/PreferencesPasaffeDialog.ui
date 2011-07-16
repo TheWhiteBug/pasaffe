@@ -3,6 +3,11 @@
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-requires preferences_pasaffe_dialog 1.0 -->
   <!-- interface-naming-policy project-wide -->
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="PreferencesPasaffeDialog" id="preferences_pasaffe_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -62,12 +67,9 @@
           <object class="GtkTable" id="table1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="n_columns">2</property>
+            <property name="n_rows">3</property>
             <property name="column_spacing">6</property>
             <property name="row_spacing">6</property>
-            <child>
-              <placeholder/>
-            </child>
             <child>
               <object class="GtkCheckButton" id="visible-passwords">
                 <property name="label" translatable="yes">Display Passwords by default</property>
@@ -77,6 +79,60 @@
                 <property name="use_action_appearance">False</property>
                 <property name="draw_indicator">True</property>
               </object>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="lock-on-idle">
+                <property name="label" translatable="yes">Lock database when idle</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="top_attach">1</property>
+                <property name="bottom_attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkHBox" id="hbox1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkLabel" id="timeout-label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Idle timeout (minutes)</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="idle-timeout">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="invisible_char">•</property>
+                    <property name="primary_icon_activatable">False</property>
+                    <property name="secondary_icon_activatable">False</property>
+                    <property name="primary_icon_sensitive">True</property>
+                    <property name="secondary_icon_sensitive">True</property>
+                    <property name="adjustment">adjustment1</property>
+                    <property name="numeric">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
+              </packing>
             </child>
           </object>
           <packing>
