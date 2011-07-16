@@ -2,6 +2,9 @@ Before first release:
 - Test python installer
 - Add stuff to help file
 - Context menu to left pane entries
+- Add information dialog
+- Write database as temp first, and perform sanity checking on it before
+  copying it over, for security and for stability reasons
 
 Other stuff to do post-release:
 - Test i18n support
