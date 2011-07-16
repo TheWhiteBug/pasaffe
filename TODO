@@ -5,7 +5,6 @@ Before first release:
 - Add stuff to help file
 - Context menu to left pane entries
 - Add change password item to menu
-- Validate if database key needs to change on each save
 
 Other stuff to do post-release:
 - Test i18n support

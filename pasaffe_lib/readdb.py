@@ -53,17 +53,30 @@ class PassSafeFile:
             raise RuntimeError("File %s is not a password safe database. Aborting." % filename)
 
         self._readkeys(dbfile, password)
-        # Don't need the password anymore, clear it out
-        password = ''
         self._readheader(dbfile)
         self._readrecords(dbfile)
         self._validatehmac(dbfile)
         dbfile.close()
 
+        # Now that we've read the file, but before we get rid of the
+        # password, generate new keys for our next save
+        self.new_keys(password)
+
+        # Don't need the password anymore, clear it out
+        password = ''
+
     def new_db(self, password):
         '''Creates a new database in memory'''
-        self.keys['SALT'] = os.urandom(32)
         self.keys['ITER'] = 2048
+
+        self.new_keys(password)
+
+        self.header[0] = '\x00\x03' # database version
+        self.header[1] = os.urandom(16) # uuid
+
+    def new_keys(self, password):
+        '''Generates new keys'''
+        self.keys['SALT'] = os.urandom(32)
 
         stretched_key = self._keystretch(password, self.keys['SALT'], self.keys['ITER'])
         # Don't need the password anymore, clear it out
@@ -83,11 +96,7 @@ class PassSafeFile:
         self.keys['B2'] = self.cipher.encrypt(b2_rand)
         self.keys['B3'] = self.cipher.encrypt(b3_rand)
         self.keys['B4'] = self.cipher.encrypt(b4_rand)
-
         self.keys['IV'] = os.urandom(16)
-
-        self.header[0] = '\x00\x03' # database version
-        self.header[1] = os.urandom(16) # uuid
 
     def writefile(self, filename):
         '''Writes database file'''
