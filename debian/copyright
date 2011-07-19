@@ -1,0 +1,16 @@
+Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=135
+Name: pasaffe
+Maintainer: UNKNOWN <UNKNOWN>
+Source: UNKNOWN
+
+Files: *
+Copyright: (C) 2002 Michael Gilfix <mgilfix@eecs.tufts.edu>
+Copyright: (C) 2003-2011 Rony Shapiro <ronys@users.sourceforge.net>
+Copyright: (C) 2003-2011 Rony Shapiro <ronys@users.sourceforge.net>.
+Copyright: (C) 2007./08. Ivan Voras <ivoras@gmail.com>
+Copyright: (C) 2011 Marc Deslauriers &lt;marc.deslauriers@canonical.com&gt;
+Copyright: (C) 2011 Marc Deslauriers &lt;marc.deslauriers@canonical.com&gt;</property>
+Copyright: (C) 2011 Marc Deslauriers <marc.deslauriers@canonical.com>
+License: GPL-3
+ The full text of the GPL is distributed in
+ /usr/share/common-licenses/GPL-3 on Debian systems.
