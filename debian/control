@@ -6,7 +6,7 @@ Build-Depends: cdbs (>= 0.4.43),
  python,
  python-support (>= 0.6.4),
  python-distutils-extra (>= 2.10)
-Maintainer: UNKNOWN <UNKNOWN>
+Maintainer: Marc Deslauriers <marc.deslauriers@canonical.com>
 Standards-Version: 3.8.3
 XS-Python-Version: current
 
@@ -20,5 +20,5 @@ Depends: ${misc:Depends},
  python-launchpad-integration,
  python-gtk2,
  yelp
-Description: UNKNOWN
- UNKNOWN
+Description: Password manager for GNOME
+ Pasaffe is an easy to use password manager for GNOME.
