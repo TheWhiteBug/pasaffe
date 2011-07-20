@@ -37,8 +37,6 @@ class User_dict(dict):
 
         # Set up gconf
         self.gconf_client = gconf.client_get_default()
-        self.gconf_client.add_dir(ROOT_DIR, gconf.CLIENT_PRELOAD_NONE)
-        self.gconf_client.notify_add(ROOT_DIR, self.prefs_changed_callback)
 
         class Publisher(gtk.Invisible): # pylint: disable=R0904
             '''set up signals in a separate class
@@ -66,6 +64,9 @@ class User_dict(dict):
  
     def load(self):
         'load from gconf'
+        self.gconf_client.add_dir(ROOT_DIR, gconf.CLIENT_PRELOAD_NONE)
+        self.gconf_client.notify_add(ROOT_DIR, self.prefs_changed_callback)
+
         for key in dict.keys(self):
             logger.debug("loading preference: %s" % key)
             if type(dict.get(self, key)) == bool:
