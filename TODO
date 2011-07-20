@@ -1,7 +1,5 @@
 Before first release:
-- Test python installer
 - Add stuff to help file
-- Context menu to left pane entries
 - Write database as temp first, and perform sanity checking on it before
   copying it over, for security and for stability reasons
 
@@ -15,4 +13,5 @@ Other stuff to do post-release:
 - Add open URL to menu
 - Add database merge functionality
 - Better toolbar icons
+- Context menu to left pane entries
 
