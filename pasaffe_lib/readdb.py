@@ -14,7 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 ### END LICENSE
 
-import sys, struct, hashlib, hmac, random, os, time
+import sys, struct, hashlib, hmac, random, os, time, tempfile, shutil
 import pytwofishcbc
 import logging
 logger = logging.getLogger('pasaffe_lib')
@@ -108,7 +108,7 @@ class PassSafeFile:
         self.keys['B4'] = self.cipher.encrypt(b4_rand)
         self.keys['IV'] = os.urandom(16)
 
-    def writefile(self, filename):
+    def writefile(self, filename, backup=False):
         '''Writes database file'''
 
         # Set username
@@ -120,16 +120,23 @@ class PassSafeFile:
         self.header[8] = os.uname()[1]
         # Set timestamp
         self.header[4] = struct.pack("<I", time.time())
-        self.header[6] = "Pasaffe v0.00"
+        self.header[6] = "Pasaffe v0.01"
         # TODO: we should probably update the database version
         # string here to at least what we use in new_db()
 
+        # Create backup if requested
+        if backup == True and os.path.exists(filename):
+            shutil.copy(filename, filename + ".bak")
+
+        basedir = os.path.dirname(filename)
+
         try:
-            dbfile = open(filename, 'wb')
+            dbfile = tempfile.NamedTemporaryFile(dir=basedir, delete=False)
         except Exception:
             raise RuntimeError("Could not create %s. Aborting." % filename)
 
-        os.chmod(filename, 0600)
+        tempname = dbfile.name
+
         dbfile.write("PWS3")
         self._writekeys(dbfile)
         self._writeheader(dbfile)
@@ -137,6 +144,15 @@ class PassSafeFile:
         self._writeeofblock(dbfile)
         self._writehmac(dbfile)
         dbfile.close()
+
+        # TODO: add sanity check
+        # At this point, intention was to reopen the temp file and see
+        # if we can parse it before copying it over as a sanity check,
+        # but we don't have the password anymore
+
+        # Copy it over the real database
+        shutil.copy(tempname, filename)
+        os.unlink(tempname)
 
     def _keystretch(self, password, salt, iters):
         '''Takes a password, and stretches it using iters iterations'''

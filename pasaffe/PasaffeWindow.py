@@ -19,7 +19,7 @@ from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
 import gtk, pango, glib
-import os, struct, time, shutil, sys
+import os, struct, time, sys
 import logging
 logger = logging.getLogger('pasaffe')
 
@@ -308,10 +308,7 @@ class PasaffeWindow(Window):
 
     def save_db(self):
         if self.needs_saving == True:
-            # Create backup if exists
-            if os.path.exists(preferences['database-path']):
-                shutil.copy(preferences['database-path'], preferences['database-path'] + ".bak")
-            self.passfile.writefile(preferences['database-path'])
+            self.passfile.writefile(preferences['database-path'], backup=True)
             self.needs_saving = False
 
     def on_save_clicked(self, toolbutton):
