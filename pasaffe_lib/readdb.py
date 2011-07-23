@@ -21,17 +21,17 @@ logger = logging.getLogger('pasaffe_lib')
 
 class PassSafeFile:
 
-    keys = {}
-    header = {}
-    records = []
-    cipher = None
-    cipher_block_size = 0
-    hmac = None
-
-    def __init__(self, filename=None, password=None, cipher='Twofish'):
+    def __init__(self, filename=None, password=None, req_cipher='Twofish'):
         '''Reads a Password Safe v3 file'''
 
-        if cipher == 'Twofish':
+        self.keys = {}
+        self.header = {}
+        self.records = []
+        self.cipher = None
+        self.cipher_block_size = 0
+        self.hmac = None
+
+        if req_cipher == 'Twofish':
             self.cipher = pytwofishcbc.TwofishCBC()
             self.cipher_block_size = self.cipher.get_block_size()
         else:
