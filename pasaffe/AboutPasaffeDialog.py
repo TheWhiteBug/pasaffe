@@ -22,14 +22,14 @@ import logging
 logger = logging.getLogger('pasaffe')
 
 from pasaffe_lib.AboutDialog import AboutDialog
+from pasaffe_lib import get_version
 
 # See pasaffe_lib.AboutDialog.py for more details about how this class works.
 class AboutPasaffeDialog(AboutDialog):
     __gtype_name__ = "AboutPasaffeDialog"
-    
+
     def finish_initializing(self, builder): # pylint: disable=E1002
         """Set up the about dialog"""
         super(AboutPasaffeDialog, self).finish_initializing(builder)
 
-        # Code for other initialization actions should be added here.
-
+        self.set_version(get_version())
