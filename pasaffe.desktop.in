@@ -1,6 +1,6 @@
 [Desktop Entry]
 _Name=Pasaffe
-_Comment=Pasaffe application
+_Comment=Pasaffe password manager
 Categories=GNOME;Utility;
 Exec=pasaffe
 Icon=pasaffe
