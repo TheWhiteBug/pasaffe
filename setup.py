@@ -89,11 +89,11 @@ DistUtilsExtra.auto.setup(
     name='pasaffe',
     version='0.1',
     license='GPL-3',
-    #author='Your Name',
-    #author_email='email@ubuntu.com',
-    #description='UI for managing …',
-    #long_description='Here a longer description',
-    #url='https://launchpad.net/pasaffe',
+    author='Marc Deslauriers',
+    author_email='marc.deslauriers@canonical.com',
+    description='Password manager for GNOME',
+    long_description='Pasaffe is an easy to use password manager for GNOME.',
+    url='https://launchpad.net/pasaffe',
     cmdclass={'install': InstallAndUpdateDataDirectory}
     )
 
