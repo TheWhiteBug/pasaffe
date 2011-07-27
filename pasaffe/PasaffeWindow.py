@@ -331,9 +331,10 @@ class PasaffeWindow(Window):
 
     def on_mnu_copy_activate(self, menuitem):
         self.set_idle_timeout()
-        clipboard = gtk.clipboard_get()
-        self.ui.textview1.get_buffer().copy_clipboard(clipboard)
-        clipboard.store()
+        for atom in {'CLIPBOARD', 'PRIMARY'}:
+            clipboard = gtk.clipboard_get(selection=atom)
+            self.ui.textview1.get_buffer().copy_clipboard(clipboard)
+            clipboard.store()
 
     def on_mnu_paste_activate(self, menuitem):
         print "TODO: implement on_mnu_paste_activate()"
@@ -374,9 +375,10 @@ class PasaffeWindow(Window):
 
             for record in self.passfile.records:
                 if record[1] == entry_uuid.decode("hex") and record.has_key(item):
-                    clipboard = gtk.clipboard_get()
-                    clipboard.set_text(record[item])
-                    clipboard.store()
+                    for atom in {'CLIPBOARD', 'PRIMARY'}:
+                        clipboard = gtk.clipboard_get(selection=atom)
+                        clipboard.set_text(record[item])
+                        clipboard.store()
 
     def on_mnu_add_activate(self, menuitem):
         self.add_entry()
