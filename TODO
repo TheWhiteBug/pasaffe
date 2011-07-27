@@ -12,6 +12,3 @@ List of stuff to do:
 - Add Context menu to left pane entries
 - Implement sanity check after saving db temp file
 - Add stuff to help file
-- Rename "change password" menu entry to "Change master password"
-- Fix middle click paste
-
