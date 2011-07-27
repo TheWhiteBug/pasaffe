@@ -18,6 +18,7 @@ import sys, struct, hashlib, hmac, random, os, time, tempfile, shutil
 import pytwofishcbc
 import logging
 logger = logging.getLogger('pasaffe_lib')
+from . pasaffeconfig import get_version
 
 class PassSafeFile:
 
@@ -120,7 +121,7 @@ class PassSafeFile:
         self.header[8] = os.uname()[1]
         # Set timestamp
         self.header[4] = struct.pack("<I", time.time())
-        self.header[6] = "Pasaffe v0.01"
+        self.header[6] = "Pasaffe v%s" % get_version()
         # TODO: we should probably update the database version
         # string here to at least what we use in new_db()
 
