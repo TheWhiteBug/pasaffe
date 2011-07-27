@@ -331,10 +331,9 @@ class PasaffeWindow(Window):
 
     def on_mnu_copy_activate(self, menuitem):
         self.set_idle_timeout()
-        for atom in {'CLIPBOARD', 'PRIMARY'}:
-            clipboard = gtk.clipboard_get(selection=atom)
-            self.ui.textview1.get_buffer().copy_clipboard(clipboard)
-            clipboard.store()
+        clipboard = gtk.clipboard_get()
+        self.ui.textview1.get_buffer().copy_clipboard(clipboard)
+        clipboard.store()
 
     def on_mnu_paste_activate(self, menuitem):
         print "TODO: implement on_mnu_paste_activate()"
