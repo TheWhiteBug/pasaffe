@@ -14,7 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 ### END LICENSE
 
-import sys, struct, hashlib, hmac, random, os, time, tempfile, shutil
+import sys, struct, hashlib, hmac, random, os, time, tempfile, shutil, pwd
 import pytwofishcbc
 import logging
 logger = logging.getLogger('pasaffe_lib')
@@ -113,7 +113,7 @@ class PassSafeFile:
         '''Writes database file'''
 
         # Set username
-        self.header[7] = os.getlogin()
+        self.header[7] = pwd.getpwuid(os.getuid())[0]
         # Remove the old deprecated username field if it exists
         if 5 in self.header:
             del self.header[5]
