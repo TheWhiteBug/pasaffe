@@ -1,3 +1,9 @@
+pasaffe (0.2) oneiric; urgency=low
+
+  * New release.
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Wed, 17 Aug 2011 16:41:23 -0400
+
 pasaffe (0.1) natty; urgency=low
 
   * Initial release.
