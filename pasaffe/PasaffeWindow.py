@@ -19,7 +19,7 @@ from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
 import gtk, pango, glib
-import os, struct, time, sys
+import os, struct, time, sys, webbrowser
 import logging
 logger = logging.getLogger('pasaffe')
 
@@ -53,6 +53,7 @@ class PasaffeWindow(Window):
         self.NewPasswordDialog = NewPasswordDialog
 
         self.connect("delete-event",self.on_delete_event)
+        self.ui.textview1.connect("motion-notify-event", self.textview_event_handler)
 
         self.set_save_status(False)
         self.passfile = None
@@ -141,6 +142,7 @@ class PasaffeWindow(Window):
             if record[1] == entry_uuid.decode("hex"):
                 title = record.get(3)
                 contents = ''
+                url = None
                 if record.has_key(5):
                     if show_password == True or \
                        preferences['visible-passwords'] == True or \
@@ -154,7 +156,7 @@ class PasaffeWindow(Window):
                 else:
                     contents += "Password: *****\n\n"
                 if record.has_key(13):
-                    contents += "URL: %s\n\n" % record.get(13)
+                    url = "%s\n\n" % record.get(13)
                 if record.has_key(12):
                     last_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
                                    time.localtime(struct.unpack("<I",
@@ -165,24 +167,66 @@ class PasaffeWindow(Window):
                                    time.localtime(struct.unpack("<I",
                                        record[8])[0]))
                     contents += "Password updated: %s\n" % pass_updated
-                self.fill_display(title, contents)
+                self.fill_display(title, url, contents)
                 break
 
     def display_welcome(self):
-        self.fill_display("Welcome to Pasaffe!",
+        self.fill_display("Welcome to Pasaffe!", None,
                           "Pasaffe is an easy to use\npassword manager for Gnome.")
 
-    def fill_display(self, title, contents):
+    def fill_display(self, title, url, contents):
         texttagtable = gtk.TextTagTable()
         texttag_big = gtk.TextTag("big")
         texttag_big.set_property("weight", pango.WEIGHT_BOLD)
         texttag_big.set_property("scale", pango.SCALE_LARGE)
         texttagtable.add(texttag_big)
+
+        texttag_url = gtk.TextTag("url")
+        texttag_url.set_property("foreground", "blue")
+        texttag_url.set_property("underline", pango.UNDERLINE_SINGLE)
+        texttag_url.connect("event", self.url_event_handler)
+        texttagtable.add(texttag_url)
+
         data_buffer = gtk.TextBuffer(texttagtable)
         data_buffer.insert_with_tags(data_buffer.get_start_iter(), "\n" + title + "\n\n", texttag_big)
+        if url != None:
+            data_buffer.insert(data_buffer.get_end_iter(), "\n")
+            data_buffer.insert_with_tags(data_buffer.get_end_iter(), url, texttag_url)
+            data_buffer.insert(data_buffer.get_end_iter(), "\n")
         data_buffer.insert(data_buffer.get_end_iter(), contents)
 
         self.ui.textview1.set_buffer(data_buffer)
+
+    def url_event_handler(self, tag, widget, event, iter):
+        if event.type == gtk.gdk.BUTTON_RELEASE and event.button == 1:
+            self.open_url()
+        return False
+
+    def textview_event_handler(self, textview, event):
+        x, y = textview.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, int(event.x), int(event.y))
+        iter = textview.get_iter_at_location(x, y)
+        cursor = gtk.gdk.Cursor(gtk.gdk.XTERM)
+        for tag in iter.get_tags():
+            if tag.get_property('name') == 'url':
+                cursor = gtk.gdk.Cursor(gtk.gdk.HAND2)
+                break
+        textview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(cursor)
+        return False
+
+    def open_url(self):
+        url = None 
+        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+        if treeiter != None:
+            entry_uuid = treemodel.get_value(treeiter, 1)
+            for record in self.passfile.records:
+                if record[1] == entry_uuid.decode("hex") and record.has_key(13):
+                    url = record[13]
+                    break
+        if url != None:
+            if not url.startswith('http://') and \
+               not url.startswith('https://'):
+                url = 'http://' + url
+        webbrowser.open(url)
 
     def on_treeview1_cursor_changed(self, treeview):
         self.set_idle_timeout()
@@ -423,6 +467,9 @@ class PasaffeWindow(Window):
         info_dialog.set_markup(information)
         info_dialog.run()
         info_dialog.destroy()
+
+    def on_mnu_open_url_activate(self, menuitem):
+        self.open_url()
 
     def on_mnu_chg_password_activate(self, menuitem):
         success = False
