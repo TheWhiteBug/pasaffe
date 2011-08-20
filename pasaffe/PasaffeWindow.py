@@ -142,7 +142,12 @@ class PasaffeWindow(Window):
                 title = record.get(3)
                 contents = ''
                 if record.has_key(5):
-                    contents += "%s\n\n" % record.get(5)
+                    if show_password == True or \
+                       preferences['visible-passwords'] == True or \
+                       preferences['notes-are-secrets'] == False:
+                        contents += "%s\n\n" % record.get(5)
+                    else:
+                        contents += "Additional notes are hidden.\n\n"
                 contents += "Username: %s\n" % record.get(4)
                 if show_password == True or preferences['visible-passwords'] == True:
                     contents += "Password: %s\n\n" % record.get(6)

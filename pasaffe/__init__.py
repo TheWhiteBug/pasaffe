@@ -64,6 +64,7 @@ def main():
     # TODO: replace defaults with your own values
     default_preferences = {
     'visible-passwords': False,
+    'notes-are-secrets': False,
     'database-path': filename,
     'lock-on-idle': True,
     'idle-timeout': 5

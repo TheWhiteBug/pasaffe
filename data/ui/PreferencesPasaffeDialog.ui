@@ -67,12 +67,12 @@
           <object class="GtkTable" id="table1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="n_rows">3</property>
+            <property name="n_rows">4</property>
             <property name="column_spacing">6</property>
             <property name="row_spacing">6</property>
             <child>
               <object class="GtkCheckButton" id="visible-passwords">
-                <property name="label" translatable="yes">Display Passwords by default</property>
+                <property name="label" translatable="yes">Display secrets by default</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -90,8 +90,8 @@
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
-                <property name="top_attach">1</property>
-                <property name="bottom_attach">2</property>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
               </packing>
             </child>
             <child>
@@ -130,8 +130,22 @@
                 </child>
               </object>
               <packing>
-                <property name="top_attach">2</property>
-                <property name="bottom_attach">3</property>
+                <property name="top_attach">3</property>
+                <property name="bottom_attach">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="notes-are-secrets">
+                <property name="label" translatable="yes">Notes are considered secrets</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="top_attach">1</property>
+                <property name="bottom_attach">2</property>
               </packing>
             </child>
           </object>
