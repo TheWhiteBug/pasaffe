@@ -1,6 +1,6 @@
 List of stuff to do:
 
-- Test i18n support
+- Fix and test i18n support
 - Add support for folders/tree
 - Add keypassx import script
 - Test interoperability with other password safe compatible apps
@@ -11,3 +11,5 @@ List of stuff to do:
 - Add Context menu to left pane entries
 - Implement sanity check after saving db temp file
 - Add stuff to help file
+- Fix compatibility with Ubuntu 10.04
+- Fix compatibility with Python 3
