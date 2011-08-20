@@ -184,6 +184,8 @@ class PasaffeWindow(Window):
         treemodel, treeiter = treeview.get_selection().get_selected()
         entry_uuid = treemodel.get_value(treeiter, 1)
         self.display_data(entry_uuid)
+        # Reset the show password button
+        self.ui.display_password.set_active(False)
 
     def add_entry(self):
         self.disable_idle_timeout()
@@ -353,18 +355,18 @@ class PasaffeWindow(Window):
     def on_copy_password_clicked(self, toolbutton):
         self.copy_selected_entry_item(6)
 
-    def on_display_password_clicked(self, toolbutton):
-        self.display_password()
+    def on_display_password_toggled(self, toolbutton):
+        self.display_password(toolbutton.get_active())
 
     def on_mnu_display_password_activate(self, menuitem):
         self.display_password()
 
-    def display_password(self):
+    def display_password(self, display=True):
         self.set_idle_timeout()
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
-            self.display_data(entry_uuid, show_password=True)
+            self.display_data(entry_uuid, display)
 
     def copy_selected_entry_item(self, item):
         self.set_idle_timeout()
