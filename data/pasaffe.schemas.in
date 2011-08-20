@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<gconfschemafile>
+  <schemalist>
+    <schema>
+      <key>/schemas/apps/pasaffe/idle-timeout</key>
+      <applyto>/apps/pasaffe/idle-timeout</applyto>
+      <owner>pasaffe</owner>
+      <type>int</type>
+      <default>5</default>
+      <locale name="C">
+        <short>Timeout before Pasaffe is locked</short>
+        <long>Number of minutes of inactivity before Pasaffe locks itself.</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/pasaffe/lock-on-idle</key>
+      <applyto>/apps/pasaffe/lock-on-idle</applyto>
+      <owner>pasaffe</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+        <short>Lock window after inactivity</short>
+        <long>When this is true, the Pasaffe window will automatically lock after inactivity.</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/pasaffe/notes-are-secrets</key>
+      <applyto>/apps/pasaffe/notes-are-secrets</applyto>
+      <owner>pasaffe</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+        <short>Notes are considered to be secret</short>
+        <long>When this is true, the notes field is visible only when the password is visible.</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/pasaffe/visible-passwords</key>
+      <applyto>/apps/pasaffe/visible-passwords</applyto>
+      <owner>pasaffe</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+        <short>Passwords should be visible by default</short>
+        <long>When this is true, passwords are visible in the details pane without user intervention.</long>
+      </locale>
+    </schema>
+  </schemalist>
+</gconfschemafile>
