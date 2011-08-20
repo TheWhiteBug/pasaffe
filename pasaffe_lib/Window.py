@@ -67,25 +67,25 @@ class Window(gtk.Window):
         # This shouldn't crash if not found as it is simply used for bug reporting.
         # See https://wiki.ubuntu.com/UbuntuDevelopment/Internationalisation/Coding
         # for more information about Launchpad integration.
-        try:
-            import LaunchpadIntegration
-            LaunchpadIntegration.add_items(self.ui.helpMenu, 1, True, True)
-            LaunchpadIntegration.set_sourcepackagename('pasaffe')
-        except ImportError:
-            pass
+        #try:
+        #    import LaunchpadIntegration
+        #    LaunchpadIntegration.add_items(self.ui.helpMenu, 1, True, True)
+        #    LaunchpadIntegration.set_sourcepackagename('pasaffe')
+        #except ImportError:
+        #    pass
 
         # Optional application indicator support
         # Run 'quickly add indicator' to get started.
         # More information:
         #  http://owaislone.org/quickly-add-indicator/
         #  https://wiki.ubuntu.com/DesktopExperienceTeam/ApplicationIndicators
-        try:
-            from pasaffe import indicator
-            # self is passed so methods of this class can be called from indicator.py
-            # Comment this next line out to disable appindicator
-            self.indicator = indicator.new_application_indicator(self)
-        except ImportError:
-            pass
+        #try:
+        #    from pasaffe import indicator
+        #    # self is passed so methods of this class can be called from indicator.py
+        #    # Comment this next line out to disable appindicator
+        #    self.indicator = indicator.new_application_indicator(self)
+        #except ImportError:
+        #    pass
 
     def on_mnu_contents_activate(self, widget, data=None):
         show_uri(self, "ghelp:%s" % get_help_uri())
