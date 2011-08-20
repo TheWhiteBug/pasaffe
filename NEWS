@@ -1,0 +1,36 @@
+CHANGES (UNRELEASED):
+
+ * Enhancements:
+   - Now has a NEWS file that lists changes
+
+ * Bug fixes:
+   - Disabled Launchpad integration since this isn't packaged in Ubuntu.
+
+CHANGES (0.3):
+
+ * Enhancements:
+   - Notes can now be configured to be secret, and they will be hidden when
+     the passwords are hidden.
+   - Window title will now indicate if the database has been modified and
+     needs to be saved.
+   - The "Display Password" toolbar button and menu item can now be toggled
+     on and off for an entry.
+
+ * Bug fixes:
+   - Ship a proper GConf schema
+   - Fix list being improperly created as a dict in the clipboard code
+
+CHANGES (0.2):
+
+ * Enhancements:
+   - About window now shows version number
+   - Copy will also go to PRIMARY clipboard
+   - Improved some wording in dialogs and desktop file
+   - etc.
+
+ * Bug fixes:
+   - Fix problem starting properly from launchers
+
+CHANGES (0.1):
+
+ * Initial release
