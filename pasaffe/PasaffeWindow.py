@@ -374,7 +374,7 @@ class PasaffeWindow(Window):
 
             for record in self.passfile.records:
                 if record[1] == entry_uuid.decode("hex") and record.has_key(item):
-                    for atom in {'CLIPBOARD', 'PRIMARY'}:
+                    for atom in ['CLIPBOARD', 'PRIMARY']:
                         clipboard = gtk.clipboard_get(selection=atom)
                         clipboard.set_text(record[item])
                         clipboard.store()
