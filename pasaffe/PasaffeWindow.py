@@ -54,7 +54,7 @@ class PasaffeWindow(Window):
 
         self.connect("delete-event",self.on_delete_event)
 
-        self.needs_saving = False
+        self.set_save_status(False)
         self.passfile = None
         self.is_locked = False
         self.idle_id = None
@@ -78,7 +78,7 @@ class PasaffeWindow(Window):
         return self.save_warning()
 
     def save_warning(self):
-        if self.needs_saving == True:
+        if self.get_save_status() == True:
             savechanges_dialog = self.SaveChangesDialog()
             response = savechanges_dialog.run()
             if response == gtk.RESPONSE_OK:
@@ -261,7 +261,7 @@ class PasaffeWindow(Window):
                             record[8] = timestamp
 
                 if data_changed == True:
-                    self.needs_saving = True
+                    self.set_save_status(True)
                     record[12] = timestamp
 
             details.destroy()
@@ -289,7 +289,7 @@ class PasaffeWindow(Window):
             if record[1].encode("hex") == entry_uuid:
                 self.passfile.records.remove(record)
 
-        self.needs_saving = True
+        self.set_save_status(True)
 
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
@@ -310,9 +310,9 @@ class PasaffeWindow(Window):
         self.edit_entry(entry_uuid)
 
     def save_db(self):
-        if self.needs_saving == True:
+        if self.get_save_status() == True:
             self.passfile.writefile(preferences['database-path'], backup=True)
-            self.needs_saving = False
+            self.set_save_status(False)
 
     def on_save_clicked(self, toolbutton):
         self.set_idle_timeout()
@@ -442,7 +442,7 @@ class PasaffeWindow(Window):
                     newpass_dialog.ui.pass_entry1.grab_focus()
                 else:
                     self.passfile.new_keys(passwordA)
-                    self.needs_saving = True
+                    self.set_save_status(True)
                     self.save_db()
                     success = True
             else:
@@ -511,3 +511,12 @@ class PasaffeWindow(Window):
             glib.source_remove(self.idle_id)
             self.idle_id == None
 
+    def set_save_status(self, needed=False):
+        self.needs_saving = needed
+        if needed == True:
+            self.set_title("*Pasaffe")
+        else:
+            self.set_title("Pasaffe")
+
+    def get_save_status(self):
+        return self.needs_saving
