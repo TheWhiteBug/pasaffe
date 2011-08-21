@@ -2,6 +2,8 @@ CHANGES (UNRELEASED):
 
  * Enhancements:
    - Now has a NEWS file that lists changes
+   - Entry list is now uses a case-insensitive sort
+   - A confirmation dialog has been added when deleting an entry
 
  * Bug fixes:
    - Disabled Launchpad integration since this isn't packaged in Ubuntu.
