@@ -261,6 +261,23 @@ class PasaffeWindow(Window):
                     item = self.ui.treeview1.get_model().iter_next(item)
         self.set_idle_timeout()
 
+    def remove_entry(self):
+        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+        if treeiter != None:
+            entry_uuid = treemodel.get_value(treeiter, 1)
+            entry_name = treemodel.get_value(treeiter, 0)
+
+            information = '<big><b>Are you sure you wish to remove "%s"?</b></big>\n\n' % entry_name
+            information += 'Contents of the entry will be lost.\n'
+
+            info_dialog = gtk.MessageDialog(parent=self, flags=gtk.DIALOG_MODAL, type=gtk.MESSAGE_QUESTION, buttons=gtk.BUTTONS_YES_NO)
+            info_dialog.set_markup(information)
+            result = info_dialog.run()
+            info_dialog.destroy()
+
+            if result == gtk.RESPONSE_YES:
+                self.delete_entry(entry_uuid)
+
     def edit_entry(self, entry_uuid):
         record_dict = { 3 : 'name_entry',
                         4 : 'username_entry',
@@ -439,10 +456,7 @@ class PasaffeWindow(Window):
         self.add_entry()
 
     def on_mnu_delete_activate(self, menuitem):
-        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
-        if treeiter != None:
-            entry_uuid = treemodel.get_value(treeiter, 1)
-            self.delete_entry(entry_uuid)
+        self.remove_entry()
 
     def on_mnu_lock_activate(self, menuitem):
         self.lock_screen()
@@ -539,10 +553,7 @@ class PasaffeWindow(Window):
             self.edit_entry(entry_uuid)
 
     def on_remove_clicked(self, toolbutton):
-        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
-        if treeiter != None:
-            entry_uuid = treemodel.get_value(treeiter, 1)
-            self.delete_entry(entry_uuid)
+        self.remove_entry()
 
     def set_idle_timeout(self):
         if self.idle_id != None:
