@@ -14,4 +14,3 @@ List of stuff to do:
 - Fix compatibility with Ubuntu 10.04
 - Fix compatibility with Python 3
 - Add confirmation dialog on entry delete
-- Use case insensitive sort in left pane

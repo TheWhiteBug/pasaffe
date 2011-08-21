@@ -134,7 +134,7 @@ class PasaffeWindow(Window):
         for record in self.passfile.records:
             entries.append([record[3],record[1].encode("hex")])
         self.ui.liststore1.clear()
-        for record in sorted(entries, key=lambda entry: entry[0]):
+        for record in sorted(entries, key=lambda entry: entry[0].lower()):
             self.ui.liststore1.append(record)
 
     def display_data(self, entry_uuid, show_password=False):
