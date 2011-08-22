@@ -4,9 +4,11 @@ CHANGES (UNRELEASED):
    - Now has a NEWS file that lists changes
    - Entry list is now uses a case-insensitive sort
    - A confirmation dialog has been added when deleting an entry
+   - Now compatible with Ubuntu 10.04
 
  * Bug fixes:
    - Disabled Launchpad integration since this isn't packaged in Ubuntu.
+   - Removed some warnings when using time.time()
 
 CHANGES (0.3):
 
