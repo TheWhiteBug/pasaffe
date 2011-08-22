@@ -487,6 +487,9 @@ class PasaffeWindow(Window):
     def on_mnu_open_url_activate(self, menuitem):
         self.open_url()
 
+    def on_open_url_clicked(self, toolbutton):
+        self.open_url()
+
     def on_mnu_chg_password_activate(self, menuitem):
         success = False
         newpass_dialog = self.NewPasswordDialog()

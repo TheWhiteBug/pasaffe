@@ -3,8 +3,10 @@ CHANGES (UNRELEASED):
  * Enhancements:
    - Option to treat either all data or just passwords as secrets
    - Rename options and button labels
+   - Added toolbar button and keyboard shortcut to open URL
 
  * Bug fixes:
+   - None
 
 CHANGES (0.4):
 
