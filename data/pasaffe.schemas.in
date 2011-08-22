@@ -24,25 +24,25 @@
       </locale>
     </schema>
     <schema>
-      <key>/schemas/apps/pasaffe/notes-are-secrets</key>
-      <applyto>/apps/pasaffe/notes-are-secrets</applyto>
+      <key>/schemas/apps/pasaffe/only-passwords-are-secret</key>
+      <applyto>/apps/pasaffe/only-passwords-are-secret</applyto>
       <owner>pasaffe</owner>
       <type>bool</type>
-      <default>false</default>
+      <default>true</default>
       <locale name="C">
-        <short>Notes are considered to be secret</short>
-        <long>When this is true, the notes field is visible only when the password is visible.</long>
+        <short>Only passwords are considered to be secret</short>
+        <long>When this is true, only the password field is hidden when secrets aren't visible.</long>
       </locale>
     </schema>
     <schema>
-      <key>/schemas/apps/pasaffe/visible-passwords</key>
-      <applyto>/apps/pasaffe/visible-passwords</applyto>
+      <key>/schemas/apps/pasaffe/visible-secrets</key>
+      <applyto>/apps/pasaffe/visible-secrets</applyto>
       <owner>pasaffe</owner>
       <type>bool</type>
       <default>false</default>
       <locale name="C">
-        <short>Passwords should be visible by default</short>
-        <long>When this is true, passwords are visible in the details pane without user intervention.</long>
+        <short>Secrets should be visible by default</short>
+        <long>When this is true, secrets are visible in the details pane without user intervention.</long>
       </locale>
     </schema>
   </schemalist>

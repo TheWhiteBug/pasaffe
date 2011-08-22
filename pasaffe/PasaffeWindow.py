@@ -137,36 +137,38 @@ class PasaffeWindow(Window):
         for record in sorted(entries, key=lambda entry: entry[0].lower()):
             self.ui.liststore1.append(record)
 
-    def display_data(self, entry_uuid, show_password=False):
+    def display_data(self, entry_uuid, show_secrets=False):
         for record in self.passfile.records:
             if record[1] == entry_uuid.decode("hex"):
                 title = record.get(3)
-                contents = ''
+
                 url = None
-                if record.has_key(5):
-                    if show_password == True or \
-                       preferences['visible-passwords'] == True or \
-                       preferences['notes-are-secrets'] == False:
-                        contents += "%s\n\n" % record.get(5)
-                    else:
-                        contents += "Additional notes are hidden.\n\n"
-                contents += "Username: %s\n" % record.get(4)
-                if show_password == True or preferences['visible-passwords'] == True:
-                    contents += "Password: %s\n\n" % record.get(6)
-                else:
-                    contents += "Password: *****\n\n"
                 if record.has_key(13):
                     url = "%s\n\n" % record.get(13)
-                if record.has_key(12):
-                    last_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
-                                   time.localtime(struct.unpack("<I",
-                                   record[12])[0]))
-                    contents += "Last updated: %s\n" % last_updated
-                if record.has_key(8):
-                    pass_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
-                                   time.localtime(struct.unpack("<I",
-                                       record[8])[0]))
-                    contents += "Password updated: %s\n" % pass_updated
+
+                contents = ''
+                if show_secrets == False and \
+                   preferences['only-passwords-are-secret'] == False and \
+                   preferences['visible-secrets'] == False:
+                    contents += "Secrets are currently hidden."
+                else:
+                    if record.has_key(5):
+                            contents += "%s\n\n" % record.get(5)
+                    contents += "Username: %s\n" % record.get(4)
+                    if show_secrets == True or preferences['visible-secrets'] == True:
+                        contents += "Password: %s\n\n" % record.get(6)
+                    else:
+                        contents += "Password: *****\n\n"
+                    if record.has_key(12):
+                        last_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
+                                       time.localtime(struct.unpack("<I",
+                                       record[12])[0]))
+                        contents += "Last updated: %s\n" % last_updated
+                    if record.has_key(8):
+                        pass_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
+                                       time.localtime(struct.unpack("<I",
+                                           record[8])[0]))
+                        contents += "Password updated: %s\n" % pass_updated
                 self.fill_display(title, url, contents)
                 break
 
@@ -234,8 +236,8 @@ class PasaffeWindow(Window):
         entry_uuid = treemodel.get_value(treeiter, 1)
         self.display_data(entry_uuid)
         # Reset the show password button and menu item
-        self.ui.display_password.set_active(False)
-        self.ui.mnu_display_password.set_active(False)
+        self.ui.display_secrets.set_active(False)
+        self.ui.mnu_display_secrets.set_active(False)
 
     def add_entry(self):
         self.disable_idle_timeout()
@@ -422,17 +424,17 @@ class PasaffeWindow(Window):
     def on_copy_password_clicked(self, toolbutton):
         self.copy_selected_entry_item(6)
 
-    def on_display_password_toggled(self, toolbutton):
+    def on_display_secrets_toggled(self, toolbutton):
         is_active = toolbutton.get_active()
-        self.display_password(is_active)
-        self.ui.mnu_display_password.set_active(is_active)
+        self.display_secrets(is_active)
+        self.ui.mnu_display_secrets.set_active(is_active)
 
-    def on_mnu_display_password_toggled(self, menuitem):
+    def on_mnu_display_secrets_toggled(self, menuitem):
         is_active = menuitem.get_active()
-        self.display_password(is_active)
-        self.ui.display_password.set_active(is_active)
+        self.display_secrets(is_active)
+        self.ui.display_secrets.set_active(is_active)
 
-    def display_password(self, display=True):
+    def display_secrets(self, display=True):
         self.set_idle_timeout()
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:

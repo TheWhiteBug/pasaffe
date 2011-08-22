@@ -1,3 +1,11 @@
+CHANGES (UNRELEASED):
+
+ * Enhancements:
+   - Option to treat either all data or just passwords as secrets
+   - Rename options and button labels
+
+ * Bug fixes:
+
 CHANGES (0.4):
 
  * Enhancements:

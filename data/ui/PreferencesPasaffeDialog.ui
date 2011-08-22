@@ -71,7 +71,7 @@
             <property name="column_spacing">6</property>
             <property name="row_spacing">6</property>
             <child>
-              <object class="GtkCheckButton" id="visible-passwords">
+              <object class="GtkCheckButton" id="visible-secrets">
                 <property name="label" translatable="yes">Display secrets by default</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -135,8 +135,8 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="notes-are-secrets">
-                <property name="label" translatable="yes">Notes are considered secrets</property>
+              <object class="GtkCheckButton" id="only-passwords-are-secret">
+                <property name="label" translatable="yes">Only passwords are secret</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>

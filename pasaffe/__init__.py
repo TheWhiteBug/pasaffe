@@ -63,8 +63,8 @@ def main():
     # set some values for our first session
     # TODO: replace defaults with your own values
     default_preferences = {
-    'visible-passwords': False,
-    'notes-are-secrets': False,
+    'visible-secrets': False,
+    'only-passwords-are-secret': True,
     'database-path': filename,
     'lock-on-idle': True,
     'idle-timeout': 5

@@ -35,8 +35,8 @@
 
 
 widget_methods = {
-    'visible-passwords': ['get_active', 'set_active', 'toggled'],
-    'notes-are-secrets': ['get_active', 'set_active', 'toggled'],
+    'visible-secrets': ['get_active', 'set_active', 'toggled'],
+    'only-passwords-are-secret': ['get_active', 'set_active', 'toggled'],
     'lock-on-idle': ['get_active', 'set_active', 'toggled'],
     'idle-timeout': ['get_value_as_int', 'set_value', 'value-changed']
 }

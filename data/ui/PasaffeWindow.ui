@@ -306,12 +306,12 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkCheckMenuItem" id="mnu_display_password">
+                      <object class="GtkCheckMenuItem" id="mnu_display_secrets">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_action_appearance">False</property>
-                        <property name="label" translatable="yes">Display Password</property>
-                        <signal name="toggled" handler="on_mnu_display_password_toggled" swapped="no"/>
+                        <property name="label" translatable="yes">Display Secrets</property>
+                        <signal name="toggled" handler="on_mnu_display_secrets_toggled" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -525,15 +525,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkToggleToolButton" id="display_password">
+              <object class="GtkToggleToolButton" id="display_secrets">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="tooltip_text" translatable="yes">Display the password</property>
+                <property name="tooltip_text" translatable="yes">Display secrets</property>
                 <property name="use_action_appearance">False</property>
-                <property name="label" translatable="yes">Display Password</property>
+                <property name="label" translatable="yes">Display Secrets</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-dialog-authentication</property>
-                <signal name="toggled" handler="on_display_password_toggled" swapped="no"/>
+                <signal name="toggled" handler="on_display_secrets_toggled" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
