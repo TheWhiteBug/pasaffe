@@ -53,7 +53,7 @@ class GPassFile:
 
         while self.index < len(self.decoded_db):
             uuid = os.urandom(16)
-            timestamp = struct.pack("<I", time.time())
+            timestamp = struct.pack("<I", int(time.time()))
             new_entry = {1: uuid, 3: '', 4: '', 6: '',
                          7: timestamp, 8: timestamp, 12: timestamp}
 

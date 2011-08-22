@@ -241,7 +241,7 @@ class PasaffeWindow(Window):
         self.disable_idle_timeout()
         uuid = os.urandom(16)
         uuid_hex = uuid.encode("hex")
-        timestamp = struct.pack("<I", time.time())
+        timestamp = struct.pack("<I", int(time.time()))
         new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
                      7: timestamp, 8: timestamp, 12: timestamp, 13: ''}
         self.passfile.records.append(new_entry)
@@ -299,7 +299,7 @@ class PasaffeWindow(Window):
             response = details.run()
             if response == gtk.RESPONSE_OK:
                 data_changed = False
-                timestamp = struct.pack("<I", time.time())
+                timestamp = struct.pack("<I", int(time.time()))
                 for record_type, widget_name in record_dict.items():
                     if record_type == 5:
                         new_value = details.builder.get_object(widget_name).get_text(*details.builder.get_object(widget_name).get_bounds())
