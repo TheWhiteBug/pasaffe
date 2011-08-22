@@ -1,4 +1,4 @@
-CHANGES (UNRELEASED):
+CHANGES (0.5):
 
  * Enhancements:
    - Option to treat either all data or just passwords as secrets
