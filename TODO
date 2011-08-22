@@ -11,5 +11,4 @@ List of stuff to do:
 - Add Context menu to left pane entries
 - Implement sanity check after saving db temp file
 - Add stuff to help file
-- Fix compatibility with Ubuntu 10.04
 - Fix compatibility with Python 3
