@@ -11,6 +11,7 @@ For a detailed list of changes, please see ChangeLog.
  * Bug fixes:
    - Fixed missing tooltip on Open URL button
    - Fixed missing string translations
+   - Fixed compatibility with newer glade
 
 0.5 (20110822):
 
