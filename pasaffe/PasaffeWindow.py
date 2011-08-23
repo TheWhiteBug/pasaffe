@@ -150,31 +150,31 @@ class PasaffeWindow(Window):
                 if show_secrets == False and \
                    preferences['only-passwords-are-secret'] == False and \
                    preferences['visible-secrets'] == False:
-                    contents += "Secrets are currently hidden."
+                    contents += _("Secrets are currently hidden.")
                 else:
                     if record.has_key(5):
                             contents += "%s\n\n" % record.get(5)
-                    contents += "Username: %s\n" % record.get(4)
+                    contents += _("Username: %s\n") % record.get(4)
                     if show_secrets == True or preferences['visible-secrets'] == True:
-                        contents += "Password: %s\n\n" % record.get(6)
+                        contents += _("Password: %s\n\n") % record.get(6)
                     else:
-                        contents += "Password: *****\n\n"
+                        contents += _("Password: *****\n\n")
                     if record.has_key(12):
                         last_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
                                        time.localtime(struct.unpack("<I",
                                        record[12])[0]))
-                        contents += "Last updated: %s\n" % last_updated
+                        contents += _("Last updated: %s\n") % last_updated
                     if record.has_key(8):
                         pass_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
                                        time.localtime(struct.unpack("<I",
                                            record[8])[0]))
-                        contents += "Password updated: %s\n" % pass_updated
+                        contents += _("Password updated: %s\n") % pass_updated
                 self.fill_display(title, url, contents)
                 break
 
     def display_welcome(self):
-        self.fill_display("Welcome to Pasaffe!", None,
-                          "Pasaffe is an easy to use\npassword manager for Gnome.")
+        self.fill_display(_("Welcome to Pasaffe!"), None,
+                          _("Pasaffe is an easy to use\npassword manager for Gnome."))
 
     def fill_display(self, title, url, contents):
         texttagtable = gtk.TextTagTable()
@@ -269,8 +269,8 @@ class PasaffeWindow(Window):
             entry_uuid = treemodel.get_value(treeiter, 1)
             entry_name = treemodel.get_value(treeiter, 0)
 
-            information = '<big><b>Are you sure you wish to remove "%s"?</b></big>\n\n' % entry_name
-            information += 'Contents of the entry will be lost.\n'
+            information = _('<big><b>Are you sure you wish to remove "%s"?</b></big>\n\n') % entry_name
+            information += _('Contents of the entry will be lost.\n')
 
             info_dialog = gtk.MessageDialog(parent=self, flags=gtk.DIALOG_MODAL, type=gtk.MESSAGE_QUESTION, buttons=gtk.BUTTONS_YES_NO)
             info_dialog.set_markup(information)
@@ -464,20 +464,20 @@ class PasaffeWindow(Window):
         self.lock_screen()
 
     def on_mnu_info_activate(self, menuitem):
-        information = '<big><b>Database Information</b></big>\n\n'
-        information += 'Number of entries: %s\n' % len(self.passfile.records)
-        information += 'Database version: %s.%s\n' % (self.passfile.header[0][1].encode('hex'),self.passfile.header[0][0].encode('hex'))
+        information = _('<big><b>Database Information</b></big>\n\n')
+        information += _('Number of entries: %s\n') % len(self.passfile.records)
+        information += _('Database version: %s.%s\n') % (self.passfile.header[0][1].encode('hex'),self.passfile.header[0][0].encode('hex'))
         if 7 in self.passfile.header:
-            information += 'Last saved by: %s\n' % self.passfile.header[7]
+            information += _('Last saved by: %s\n') % self.passfile.header[7]
         if 8 in self.passfile.header:
-            information += 'Last saved on host: %s\n' % self.passfile.header[8]
+            information += _('Last saved on host: %s\n') % self.passfile.header[8]
         if 4 in self.passfile.header:
             last_saved = time.strftime("%a, %d %b %Y %H:%M:%S",
                                    time.localtime(struct.unpack("<I",
                                    self.passfile.header[4])[0]))
-            information += 'Last save date: %s\n' % last_saved
+            information += _('Last save date: %s\n') % last_saved
         if 6 in self.passfile.header:
-            information += 'Application used: %s\n' % self.passfile.header[6]
+            information += _('Application used: %s\n') % self.passfile.header[6]
 
         info_dialog = gtk.MessageDialog(type=gtk.MESSAGE_INFO, buttons=gtk.BUTTONS_OK)
         info_dialog.set_markup(information)
@@ -500,15 +500,15 @@ class PasaffeWindow(Window):
                 passwordA = newpass_dialog.ui.pass_entry2.get_text()
                 passwordB = newpass_dialog.ui.pass_entry3.get_text()
                 if passwordA != passwordB:
-                    newpass_dialog.ui.label3.set_text("Passwords don't match! Please try again.")
+                    newpass_dialog.ui.label3.set_text(_("Passwords don't match! Please try again."))
                     newpass_dialog.ui.label3.set_property("visible", True)
                     newpass_dialog.ui.pass_entry2.grab_focus()
                 elif passwordA == '':
-                    newpass_dialog.ui.label3.set_text("New password cannot be blank! Please try again.")
+                    newpass_dialog.ui.label3.set_text(_("New password cannot be blank! Please try again."))
                     newpass_dialog.ui.label3.set_property("visible", True)
                     newpass_dialog.ui.pass_entry2.grab_focus()
                 elif not self.passfile.check_password(old_password):
-                    newpass_dialog.ui.label3.set_text("Old password is invalid! Please try again.")
+                    newpass_dialog.ui.label3.set_text(_("Old password is invalid! Please try again."))
                     newpass_dialog.ui.label3.set_property("visible", True)
                     newpass_dialog.ui.pass_entry1.grab_focus()
                 else:

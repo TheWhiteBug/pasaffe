@@ -35,7 +35,7 @@ def parse_options():
         help=_("Show debug messages (-vv debugs pasaffe_lib also)"))
     parser.add_option(
         "-f", "--file", dest="filename",
-        help="set database to FILE", metavar="FILE")
+        help=_("set database to FILE"), metavar="FILE")
     (options, args) = parser.parse_args()
 
     set_up_logging(options)
@@ -61,7 +61,6 @@ def main():
 
     # preferences
     # set some values for our first session
-    # TODO: replace defaults with your own values
     default_preferences = {
     'visible-secrets': False,
     'only-passwords-are-secret': True,
