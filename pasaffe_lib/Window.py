@@ -130,11 +130,11 @@ class Window(gtk.Window):
             logger.debug('preference changed: %s = %s' % (key, preferences[key]))
             if self.preferences_dialog is not None:
                 self.preferences_dialog.set_widget_from_preference(key)
-            if key == 'visible-passwords':
+            if key == 'visible-secrets':
                 treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
                 if treeiter != None:
                     entry_uuid = treemodel.get_value(treeiter, 1)
-                    self.display_data(entry_uuid, show_password=preferences[key])
+                    self.display_data(entry_uuid, show_secrets=preferences[key])
 
     def on_preferences_dialog_destroyed(self, widget, data=None):
         '''only affects gui
