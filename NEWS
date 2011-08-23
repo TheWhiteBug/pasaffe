@@ -4,6 +4,8 @@ For a detailed list of changes, please see ChangeLog.
 0.6 (UNRELEASED):
 
  * Enhancements:
+   - Added some maintainer scripts
+   - Added po directory and translation file
 
  * Bug fixes:
    - Fixed missing tooltip on Open URL button

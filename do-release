@@ -30,8 +30,8 @@ set -x
 
 sed -i -r "s/(^[[:space:]]*version[[:space:]]*=[[:space:]]*').*\$/\\1${version}',/" setup.py
 sed -i "s/(UNRELEASED)/$(date '+(%Y-%m-%d)')/" NEWS
-#bzr commit -m "release $version"
-#bzr tag "$version"
+bzr commit -m "release $version"
+bzr tag "$version"
 
 bzr log -v --gnu-changelog > ChangeLog
 ./setup.py sdist -d ..
