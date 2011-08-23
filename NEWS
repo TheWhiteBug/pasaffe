@@ -6,9 +6,11 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
    - Added some maintainer scripts
    - Added po directory and translation file
+   - Added french translation
 
  * Bug fixes:
    - Fixed missing tooltip on Open URL button
+   - Fixed missing string translations
 
 0.5 (20110822):
 
