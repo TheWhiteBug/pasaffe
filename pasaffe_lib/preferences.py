@@ -69,16 +69,17 @@ class User_dict(dict):
 
         for key in dict.keys(self):
             logger.debug("loading preference: %s" % key)
-            if type(dict.get(self, key)) == bool:
-                value = self.gconf_client.get_bool(ROOT_DIR + "/" + key)
-            elif type(dict.get(self, key)) == str:
-                value = self.gconf_client.get_string(ROOT_DIR + "/" + key)
-            elif type(dict.get(self, key)) == int:
-                value = self.gconf_client.get_int(ROOT_DIR + "/" + key)
+            value = self.gconf_client.get(ROOT_DIR + "/" + key)
 
             if value != None:
-                self[key] = value
-                logger.debug("preference '%s' loaded value '%s'" % (key, value))
+                if type(dict.get(self, key)) == bool:
+                    data = value.get_bool()
+                elif type(dict.get(self, key)) == str:
+                    data = value.get_string()
+                elif type(dict.get(self, key)) == int:
+                    data = value.get_int()
+                self[key] = data
+                logger.debug("preference '%s' loaded value '%s'" % (key, data))
 
         self.emit('loaded', None)
 
