@@ -1,11 +1,14 @@
-CHANGES (UNRELEASED):
+This file summarizes the major and interesting changes for each release.
+For a detailed list of changes, please see ChangeLog.
+
+0.6 (UNRELEASED):
 
  * Enhancements:
 
  * Bug fixes:
    - Fixed missing tooltip on Open URL button
 
-CHANGES (0.5):
+0.5 (20110822):
 
  * Enhancements:
    - Option to treat either all data or just passwords as secrets
@@ -15,7 +18,7 @@ CHANGES (0.5):
  * Bug fixes:
    - None
 
-CHANGES (0.4):
+0.4 (20110821):
 
  * Enhancements:
    - Now has a NEWS file that lists changes
@@ -27,7 +30,7 @@ CHANGES (0.4):
    - Disabled Launchpad integration since this isn't packaged in Ubuntu.
    - Removed some warnings when using time.time()
 
-CHANGES (0.3):
+0.3 (20110820):
 
  * Enhancements:
    - Notes can now be configured to be secret, and they will be hidden when
@@ -41,7 +44,7 @@ CHANGES (0.3):
    - Ship a proper GConf schema
    - Fix list being improperly created as a dict in the clipboard code
 
-CHANGES (0.2):
+0.2 (20110817):
 
  * Enhancements:
    - About window now shows version number
@@ -52,6 +55,6 @@ CHANGES (0.2):
  * Bug fixes:
    - Fix problem starting properly from launchers
 
-CHANGES (0.1):
+0.1 (20110723):
 
  * Initial release

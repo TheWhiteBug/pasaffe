@@ -1,0 +1,40 @@
+#!/bin/sh -e
+
+# This script does all the steps necessary for doing a new upstream release. It
+# should solely be used by upstream developers, distributors do not need to
+# worry about it.
+
+[ -z "`bzr status`" ] || {
+    echo "Uncommitted changes, aborting" >&2
+    exit 1
+}
+
+version=$(grep '(UNRELEASED)' NEWS | cut -f1 -d' ')
+[ -n "$version" ] || {
+    echo "no UNRELEASED in NEWS" >&2
+    exit 1
+}
+
+# check manifest
+./setup.py build
+./setup.py sdist -o
+./setup.py clean -a
+missing=$(for f in `find -type f ! -path '*.bzr*' ! -name '*.pyc' ! -name 'MANIFEST*' ! -name do-release ! -name TODO`; do grep -qFx "${f#./}" < MANIFEST || echo $f; done)
+if [ -n "$missing" ]; then
+    echo "MANIFEST is missing the following files:"
+    echo "$missing"
+    exit 1;
+fi
+
+set -x
+
+sed -i -r "s/(^[[:space:]]*version[[:space:]]*=[[:space:]]*').*\$/\\1${version}',/" setup.py
+sed -i "s/(UNRELEASED)/$(date '+(%Y-%m-%d)')/" NEWS
+#bzr commit -m "release $version"
+#bzr tag "$version"
+
+bzr log -v --gnu-changelog > ChangeLog
+./setup.py sdist -d ..
+./setup.py clean -a
+rm ChangeLog MANIFEST
+gpg --armor --sign --detach-sig ../pasaffe-$version.tar.gz
