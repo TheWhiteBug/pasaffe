@@ -1,0 +1,101 @@
+#!/usr/bin/python
+# -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
+### BEGIN LICENSE
+# Copyright (C) 2011 Marc Deslauriers <marc.deslauriers@canonical.com>
+# This program is free software: you can redistribute it and/or modify it 
+# under the terms of the GNU General Public License version 3, as published 
+# by the Free Software Foundation.
+# 
+# This program is distributed in the hope that it will be useful, but 
+# WITHOUT ANY WARRANTY; without even the implied warranties of 
+# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR 
+# PURPOSE.  See the GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License along 
+# with this program.  If not, see <http://www.gnu.org/licenses/>.
+### END LICENSE
+
+import sys
+import os
+import struct
+import time
+from optparse import OptionParser
+
+import gettext
+from gettext import gettext as _
+gettext.textdomain('pasaffe')
+
+# Add project root directory (enable symlink and trunk execution)
+PROJECT_ROOT_DIRECTORY = os.path.abspath(
+    os.path.dirname(os.path.dirname(os.path.realpath(sys.argv[0]))))
+
+python_path = []
+if os.path.abspath(__file__).startswith('/opt'):
+    syspath = sys.path[:] # copy to avoid infinite loop in pending objects
+    for path in syspath:
+        opt_path = path.replace('/usr', '/opt/extras.ubuntu.com/pasaffe')
+        python_path.insert(0, opt_path)
+        sys.path.insert(0, opt_path)
+if (os.path.exists(os.path.join(PROJECT_ROOT_DIRECTORY, 'pasaffe'))
+    and PROJECT_ROOT_DIRECTORY not in sys.path):
+    python_path.insert(0, PROJECT_ROOT_DIRECTORY)
+    sys.path.insert(0, PROJECT_ROOT_DIRECTORY)
+if python_path:
+    os.putenv('PYTHONPATH', "%s:%s" % (os.getenv('PYTHONPATH', ''), ':'.join(python_path))) # for subprocesses
+
+from pasaffe_lib import readdb
+
+parser = OptionParser()
+parser.add_option("-f", "--file", dest="filename",
+                  help="specify alternate GPass database file", metavar="FILE")
+parser.add_option("-m", "--master", dest="master",
+                  default='', help="specify database master password")
+parser.add_option("-e", "--entry", dest="entry",
+                  default='', help="name for new entry")
+parser.add_option("-l", "--url", dest="url",
+                  default='', help="specify URL")
+parser.add_option("-u", "--username", dest="username",
+                  default='', help="specify entry username")
+parser.add_option("-p", "--password", dest="password",
+                  default='', help="specify entry password")
+parser.add_option("-n", "--notes", dest="notes",
+                  default='', help="specify entry notes")
+
+(options, args) = parser.parse_args()
+
+if os.environ.has_key('XDG_DATA_HOME'):
+    db_filename = os.path.join(os.environ['XDG_DATA_HOME'], 'pasaffe/pasaffe.psafe3')
+else:
+    db_filename = os.path.join(os.environ['HOME'], '.local/share/pasaffe/pasaffe.psafe3')
+
+if options.filename != None:
+    db_filename = options.filename
+
+print "Attempting to import new entry...",
+
+if not os.path.exists(db_filename):
+    print "\n\nERROR: Could not locate database file!"
+    sys.exit(1)
+
+if options.entry == '':
+    print "\n\nERROR: New entry must at least have a name!"
+    sys.exit(1)
+
+if options.master == '':
+    print "\n\nERROR: Must specify database master password!"
+    sys.exit(1)
+
+passfile = readdb.PassSafeFile(db_filename, options.master)
+
+uuid = os.urandom(16)
+uuid_hex = uuid.encode("hex")
+timestamp = struct.pack("<I", int(time.time()))
+new_entry = {1: uuid, 3: options.entry, 4: options.username, 5: options.notes,
+             6: options.password, 7: timestamp, 8: timestamp, 12: timestamp,
+             13: options.url}
+passfile.records.append(new_entry)
+
+passfile.writefile(db_filename, backup=True)
+
+print "Success!"
+
