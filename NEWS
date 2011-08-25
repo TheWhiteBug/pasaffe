@@ -1,6 +1,14 @@
 This file summarizes the major and interesting changes for each release.
 For a detailed list of changes, please see ChangeLog.
 
+0.8 (UNRELEASED):
+
+ * Enhancements:
+
+ * Bug fixes:
+   - Only update right pane after editing an entry if it's still the one
+     that is currently selected
+
 0.7 (2011-08-25):
 
  * Enhancements:

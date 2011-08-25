@@ -346,7 +346,12 @@ class PasaffeWindow(Window):
 
             self.editdetails_dialog.destroy()
             self.editdetails_dialog = None
-            self.display_data(entry_uuid)
+
+            # Update the right pane only if it's still the one currently selected
+            treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+            if treemodel.get_value(treeiter, 1) == entry_uuid:
+                self.display_data(entry_uuid)
+
             self.set_idle_timeout()
             return response
 
