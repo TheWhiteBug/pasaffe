@@ -45,6 +45,7 @@ class PasaffeWindow(Window):
 
         self.AboutDialog = AboutPasaffeDialog
         self.EditDetailsDialog = EditDetailsDialog
+        self.editdetails_dialog = None
         self.PreferencesDialog = PreferencesPasaffeDialog
         self.PasswordEntryDialog = PasswordEntryDialog
         self.LockScreenDialog = LockScreenDialog
@@ -241,6 +242,12 @@ class PasaffeWindow(Window):
 
     def add_entry(self):
         self.disable_idle_timeout()
+
+        # Make sure dialog isn't already open
+        if self.editdetails_dialog is not None:
+            self.editdetails_dialog.present()
+            return
+
         uuid = os.urandom(16)
         uuid_hex = uuid.encode("hex")
         timestamp = struct.pack("<I", int(time.time()))
@@ -287,26 +294,31 @@ class PasaffeWindow(Window):
                         6 : 'password_entry',
                         13: 'url_entry' }
 
+        # Make sure dialog isn't already open
+        if self.editdetails_dialog is not None:
+            self.editdetails_dialog.present()
+            return
+
         if self.EditDetailsDialog is not None:
             self.disable_idle_timeout()
-            details = self.EditDetailsDialog()
+            self.editdetails_dialog = self.EditDetailsDialog()
 
             for record in self.passfile.records:
                 if record[1] == entry_uuid.decode("hex"):
                     for record_type, widget_name in record_dict.items():
                         if record.has_key(record_type):
-                            details.builder.get_object(widget_name).set_text(record[record_type])
+                            self.editdetails_dialog.builder.get_object(widget_name).set_text(record[record_type])
                     break
 
-            response = details.run()
+            response = self.editdetails_dialog.run()
             if response == gtk.RESPONSE_OK:
                 data_changed = False
                 timestamp = struct.pack("<I", int(time.time()))
                 for record_type, widget_name in record_dict.items():
                     if record_type == 5:
-                        new_value = details.builder.get_object(widget_name).get_text(*details.builder.get_object(widget_name).get_bounds())
+                        new_value = self.editdetails_dialog.builder.get_object(widget_name).get_text(*self.editdetails_dialog.builder.get_object(widget_name).get_bounds())
                     else:
-                        new_value = details.builder.get_object(widget_name).get_text()
+                        new_value = self.editdetails_dialog.builder.get_object(widget_name).get_text()
 
                     if (record_type == 5 or record_type == 13) and new_value == "" and record.has_key(record_type):
                             del record[record_type]
@@ -332,7 +344,8 @@ class PasaffeWindow(Window):
                     self.set_save_status(True)
                     record[12] = timestamp
 
-            details.destroy()
+            self.editdetails_dialog.destroy()
+            self.editdetails_dialog = None
             self.display_data(entry_uuid)
             self.set_idle_timeout()
             return response

@@ -8,6 +8,7 @@ For a detailed list of changes, please see ChangeLog.
 
  * Bug fixes:
    - Correctly set default preferences
+   - Prevent the edit entry dialog from opening twice and being confused
 
 0.6 (2011-08-23):
 
