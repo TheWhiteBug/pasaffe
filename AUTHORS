@@ -1,5 +1,8 @@
 Copyright (C) 2011 Marc Deslauriers <marc.deslauriers@canonical.com>
 
+bin/pasaffe-dump-db:
+Copyright (C) 2011 Jamie Strandboge <jamie@canonical.com>
+
 docs/formatV3.txt:
 Copyright (c) 2003-2011 Rony Shapiro <ronys@users.sourceforge.net>
 

@@ -9,6 +9,12 @@ License: GPL-3
  The full text of the GPL is distributed in
  /usr/share/common-licenses/GPL-3 on Debian systems.
 
+Files: bin/pasaffe-dump-db
+Copyright: (C) 2011 Jamie Strandboge <jamie@canonical.com>
+License: GPL-3
+ The full text of the GPL is distributed in
+ /usr/share/common-licenses/GPL-3 on Debian systems.
+
 Files: docs/formatV3.txt
 Copyright: (C) 2003-2011 Rony Shapiro <ronys@users.sourceforge.net>
 License: Artistic

@@ -4,6 +4,8 @@ For a detailed list of changes, please see ChangeLog.
 0.8 (UNRELEASED):
 
  * Enhancements:
+   - add pasaffe-dump-db to dump contents of DB to stdout in a human readable
+     format
 
  * Bug fixes:
    - Only update right pane after editing an entry if it's still the one
