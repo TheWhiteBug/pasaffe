@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-25 16:19-0400\n"
+"POT-Creation-Date: 2011-08-28 16:04-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,51 +126,51 @@ msgstr ""
 msgid "Contents of the entry will be lost.\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:480
+#: ../pasaffe/PasaffeWindow.py:485
 msgid ""
 "<big><b>Database Information</b></big>\n"
 "\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:481
+#: ../pasaffe/PasaffeWindow.py:486
 #, python-format
 msgid "Number of entries: %s\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:482
+#: ../pasaffe/PasaffeWindow.py:487
 #, python-format
 msgid "Database version: %s.%s\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:484
+#: ../pasaffe/PasaffeWindow.py:489
 #, python-format
 msgid "Last saved by: %s\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:486
+#: ../pasaffe/PasaffeWindow.py:491
 #, python-format
 msgid "Last saved on host: %s\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:491
+#: ../pasaffe/PasaffeWindow.py:496
 #, python-format
 msgid "Last save date: %s\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:493
+#: ../pasaffe/PasaffeWindow.py:498
 #, python-format
 msgid "Application used: %s\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:516 ../data/ui/NewDatabaseDialog.ui.h:7
+#: ../pasaffe/PasaffeWindow.py:521 ../data/ui/NewDatabaseDialog.ui.h:7
 msgid "Passwords don't match! Please try again."
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:520
+#: ../pasaffe/PasaffeWindow.py:525
 msgid "New password cannot be blank! Please try again."
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:524
+#: ../pasaffe/PasaffeWindow.py:529
 msgid "Old password is invalid! Please try again."
 msgstr ""
 

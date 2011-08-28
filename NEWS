@@ -1,7 +1,7 @@
 This file summarizes the major and interesting changes for each release.
 For a detailed list of changes, please see ChangeLog.
 
-0.8 (UNRELEASED):
+0.8 (2011-08-28):
 
  * Enhancements:
    - add pasaffe-dump-db to dump contents of DB to stdout in a human readable
