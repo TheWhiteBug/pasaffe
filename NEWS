@@ -10,6 +10,7 @@ For a detailed list of changes, please see ChangeLog.
  * Bug fixes:
    - Only update right pane after editing an entry if it's still the one
      that is currently selected
+   - Properly install Mallard help files in Lucid and Maverick
 
 0.7 (2011-08-25):
 
