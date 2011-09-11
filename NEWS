@@ -6,6 +6,8 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
 
  * Bug fixes:
+   - Don't crash if a new entry is added and no entry is currently selected
+     when attempting to update the right pane.
 
 0.8 (2011-08-28):
 
