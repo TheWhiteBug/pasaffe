@@ -1,4 +1,4 @@
-# Dutch translation for pasaffe
+# Italian translation for pasaffe
 # Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
 # This file is distributed under the same license as the pasaffe package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2011-09-15 21:07-0400\n"
-"PO-Revision-Date: 2011-09-20 10:01+0000\n"
-"Last-Translator: Wim Champagne <Unknown>\n"
-"Language-Team: Dutch <nl@li.org>\n"
+"PO-Revision-Date: 2011-09-20 10:32+0000\n"
+"Last-Translator: Francesco Marella <Unknown>\n"
+"Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,11 +19,11 @@ msgstr ""
 
 #: ../data/ui/PasswordEntryDialog.ui.h:1
 msgid "<big><b>Please enter your master password:</b></big>"
-msgstr ""
+msgstr "<big><b>Inserisci la tua password principale:</b></big>"
 
 #: ../data/ui/PasswordEntryDialog.ui.h:2 ../data/ui/LockScreenDialog.ui.h:3
 msgid "Invalid password! Please try again."
-msgstr "Foutief wachtwoord! Probeer nog een keer."
+msgstr "Password non valida! Riprova."
 
 #: ../pasaffe/__init__.py:35
 msgid "Show debug messages (-vv debugs pasaffe_lib also)"
@@ -35,43 +35,43 @@ msgstr ""
 
 #: ../data/ui/EditDetailsDialog.ui.h:1
 msgid "<big><b>Edit entry</b></big>"
-msgstr ""
+msgstr "<big><b>Modifica elemento</b></big>"
 
 #: ../data/ui/EditDetailsDialog.ui.h:2
 msgid "Notes:"
-msgstr "Opmerkingen:"
+msgstr "Note:"
 
 #: ../data/ui/EditDetailsDialog.ui.h:3
 msgid "Password:"
-msgstr "Wachtwoord:"
+msgstr "Password:"
 
 #: ../data/ui/EditDetailsDialog.ui.h:4
 msgid "The entry's password"
-msgstr ""
+msgstr "La password dell'elemento"
 
 #: ../data/ui/EditDetailsDialog.ui.h:5
 msgid "The entry's username"
-msgstr ""
+msgstr "L'username dell'elemento"
 
 #: ../data/ui/EditDetailsDialog.ui.h:6
 msgid "The name for this entry"
-msgstr ""
+msgstr "Il nome per questo elemento"
 
 #: ../data/ui/EditDetailsDialog.ui.h:7
 msgid "The website for this entry"
-msgstr ""
+msgstr "Il sito internet per questo elemento"
 
 #: ../data/ui/EditDetailsDialog.ui.h:8
 msgid "Title:"
-msgstr "Titel:"
+msgstr "Titolo:"
 
 #: ../data/ui/EditDetailsDialog.ui.h:9
 msgid "URL:"
-msgstr "URL-adres:"
+msgstr "URL:"
 
 #: ../data/ui/EditDetailsDialog.ui.h:10
 msgid "Username:"
-msgstr "Gebruikersnaam:"
+msgstr "Nome utente:"
 
 #: ../pasaffe/PasaffeWindow.py:154
 msgid "Secrets are currently hidden."
@@ -80,7 +80,7 @@ msgstr ""
 #: ../pasaffe/PasaffeWindow.py:158
 #, python-format
 msgid "Username: %s\n"
-msgstr "Gebruikersnaam: %s\n"
+msgstr "Nome utente: %s\n"
 
 #: ../pasaffe/PasaffeWindow.py:160
 #, python-format
@@ -88,7 +88,7 @@ msgid ""
 "Password: %s\n"
 "\n"
 msgstr ""
-"Wachtwoord: %s\n"
+"Password: %s\n"
 "\n"
 
 #: ../pasaffe/PasaffeWindow.py:162
@@ -96,22 +96,22 @@ msgid ""
 "Password: *****\n"
 "\n"
 msgstr ""
-"Wachtwoord: *****\n"
+"Password: *****\n"
 "\n"
 
 #: ../pasaffe/PasaffeWindow.py:167
 #, python-format
 msgid "Last updated: %s\n"
-msgstr "Laatst aangepast: %s\n"
+msgstr "Ultimo aggiornamento: %s\n"
 
 #: ../pasaffe/PasaffeWindow.py:172
 #, python-format
 msgid "Password updated: %s\n"
-msgstr "Wachtwoord aangepast: %s\n"
+msgstr "Password aggiornate: %s\n"
 
 #: ../pasaffe/PasaffeWindow.py:177
 msgid "Welcome to Pasaffe!"
-msgstr "Welkom bij Pasaffe!"
+msgstr "Benvenuti in Pasaffe!"
 
 #: ../pasaffe/PasaffeWindow.py:178
 msgid ""
@@ -135,23 +135,23 @@ msgid ""
 "<big><b>Database Information</b></big>\n"
 "\n"
 msgstr ""
-"<big><b>Database Informatie</b></big>\n"
+"<big><b>Informazioni database</b></big>\n"
 "\n"
 
 #: ../pasaffe/PasaffeWindow.py:486
 #, python-format
 msgid "Number of entries: %s\n"
-msgstr ""
+msgstr "Numero di elementi: %s\n"
 
 #: ../pasaffe/PasaffeWindow.py:487
 #, python-format
 msgid "Database version: %s.%s\n"
-msgstr "Database versie: %s.%s\n"
+msgstr "Versione database: %s.%s\n"
 
 #: ../pasaffe/PasaffeWindow.py:489
 #, python-format
 msgid "Last saved by: %s\n"
-msgstr ""
+msgstr "Ultimo salvataggio effettuato da: %s\n"
 
 #: ../pasaffe/PasaffeWindow.py:491
 #, python-format
@@ -174,7 +174,7 @@ msgstr ""
 
 #: ../pasaffe/PasaffeWindow.py:525
 msgid "New password cannot be blank! Please try again."
-msgstr "Het nieuwe wachtwoord kan niet leeg zijn! Probeer nog een keer."
+msgstr ""
 
 #: ../pasaffe/PasaffeWindow.py:529
 msgid "Old password is invalid! Please try again."
@@ -190,15 +190,15 @@ msgstr ""
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:3
 msgid "Lock database when idle"
-msgstr ""
+msgstr "Blocca il database quando inattivo"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:4
 msgid "Only passwords are secret"
-msgstr ""
+msgstr "Solo le password sono segrete"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:5
 msgid "Pasaffe Preferences"
-msgstr ""
+msgstr "Preferenze di Pasaffe"
 
 #: ../data/ui/PasaffeWindow.ui.h:1
 msgid "Add"
@@ -238,7 +238,7 @@ msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:10
 msgid "Database Information"
-msgstr "Database Informatie"
+msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:11
 msgid "Delete the selected entry"
@@ -254,7 +254,7 @@ msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:14
 msgid "Edit"
-msgstr "Bewerken"
+msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:15
 msgid "Edit the selected entry"
@@ -262,7 +262,7 @@ msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:16
 msgid "Lock"
-msgstr "Vergrendelen"
+msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:17
 msgid "Open URL"
@@ -278,31 +278,31 @@ msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:20
 msgid "Save"
-msgstr "Opslaan"
+msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:21
 msgid "Save changes"
-msgstr "Wijzigingen opslaan"
+msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:22
 msgid "_Edit"
-msgstr "_Bewerken"
+msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:23
 msgid "_File"
-msgstr "_Bestand"
+msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:24
 msgid "_Help"
-msgstr "_Help"
+msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:25
 msgid "_View"
-msgstr "_Beeld"
+msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:26
 msgid "column"
-msgstr "kolom"
+msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:27
 msgid "toolbutton1"
@@ -310,15 +310,15 @@ msgstr ""
 
 #: ../data/ui/NewDatabaseDialog.ui.h:1
 msgid "<big><b>Welcome to Pasaffe!</b></big>"
-msgstr "<big><b>welkom bij Pasaffe!</b></big>"
+msgstr ""
 
 #: ../data/ui/NewDatabaseDialog.ui.h:2
 msgid "Confirm password:"
-msgstr "Bevestig wachtwoord:"
+msgstr ""
 
 #: ../data/ui/NewDatabaseDialog.ui.h:3
 msgid "Enter password:"
-msgstr "Voer wachtwoord in:"
+msgstr ""
 
 #: ../data/ui/NewDatabaseDialog.ui.h:4
 msgid ""
@@ -335,7 +335,7 @@ msgstr ""
 
 #: ../pasaffe.desktop.in.h:2
 msgid "Pasaffe password manager"
-msgstr "Pasaffe wachtwoord manager"
+msgstr ""
 
 #: ../data/ui/SaveChangesDialog.ui.h:1
 msgid ""
@@ -344,7 +344,7 @@ msgstr ""
 
 #: ../data/ui/SaveChangesDialog.ui.h:2
 msgid "Your changes will be lost if you don't save them."
-msgstr "Uw wijzigingen zullen verloren gaan als u ze niet opslaat."
+msgstr ""
 
 #: ../data/ui/NewPasswordDialog.ui.h:1
 msgid "<big><b>Change master password</b></big>"
@@ -352,7 +352,7 @@ msgstr ""
 
 #: ../data/ui/NewPasswordDialog.ui.h:2
 msgid "Confirm new password:"
-msgstr "Bevestig nieuw wachtwoord:"
+msgstr ""
 
 #: ../data/ui/NewPasswordDialog.ui.h:3
 msgid ""
@@ -363,12 +363,12 @@ msgstr ""
 
 #: ../data/ui/NewPasswordDialog.ui.h:6
 msgid "New password:"
-msgstr "Nieuw wachtwoord:"
+msgstr ""
 
 #: ../data/ui/NewPasswordDialog.ui.h:7
 msgid "Old password:"
-msgstr "Oud wachtwoord:"
+msgstr ""
 
 #: ../data/ui/NewPasswordDialog.ui.h:8
 msgid "error message"
-msgstr "foutmelding"
+msgstr ""
