@@ -1,0 +1,180 @@
+#!/usr/bin/python
+# -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
+### BEGIN LICENSE
+# Copyright (C) 2011 Marc Deslauriers <marc.deslauriers@canonical.com>
+# Copyright (C) 2011 Francesco Marella <francesco.marella@gmail.com>
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License version 3, as published
+# by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranties of
+# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR
+# PURPOSE.  See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program.  If not, see <http://www.gnu.org/licenses/>.
+### END LICENSE
+
+import sys
+import os
+import getpass
+import shutil
+from optparse import OptionParser
+
+import gettext
+from gettext import gettext as _
+gettext.textdomain('pasaffe')
+
+# Add project root directory (enable symlink and trunk execution)
+PROJECT_ROOT_DIRECTORY = os.path.abspath(
+    os.path.dirname(os.path.dirname(os.path.realpath(sys.argv[0]))))
+
+python_path = []
+if os.path.abspath(__file__).startswith('/opt'):
+    syspath = sys.path[:]  # copy to avoid infinite loop in pending objects
+    for path in syspath:
+        opt_path = path.replace('/usr', '/opt/extras.ubuntu.com/pasaffe')
+        python_path.insert(0, opt_path)
+        sys.path.insert(0, opt_path)
+if (os.path.exists(os.path.join(PROJECT_ROOT_DIRECTORY, 'pasaffe'))
+    and PROJECT_ROOT_DIRECTORY not in sys.path):
+    python_path.insert(0, PROJECT_ROOT_DIRECTORY)
+    sys.path.insert(0, PROJECT_ROOT_DIRECTORY)
+if python_path:
+    os.putenv('PYTHONPATH', "%s:%s" % (os.getenv('PYTHONPATH', ''), ':'.join(python_path)))  # for subprocess
+
+from pasaffe_lib import figaroxml
+from pasaffe_lib import readdb
+
+parser = OptionParser()
+parser.add_option("-f", "--file", dest="filename",
+                  help="specify alternate FPM2 XML database file", metavar="FILE")
+parser.add_option("-o", "--overwrite", dest="overwrite", action="store_true",
+                  default=False, help="overwrite existing Pasaffe password store")
+
+(options, args) = parser.parse_args()
+
+
+def confirm(prompt=None, resp=False):
+    """prompts for yes or no response from the user. Returns True for yes and
+    False for no.
+
+    'resp' should be set to the default value assumed by the caller when
+    user simply types ENTER.
+
+    >>> confirm(prompt='Create Directory?', resp=True)
+    Create Directory? [y]|n:
+    True
+    >>> confirm(prompt='Create Directory?', resp=False)
+    Create Directory? [n]|y:
+    False
+    >>> confirm(prompt='Create Directory?', resp=False)
+    Create Directory? [n]|y: y
+    True
+
+    """
+
+    if prompt is None:
+        prompt = 'Confirm'
+
+    if resp:
+        prompt = '%s [%s]|%s: ' % (prompt, 'y', 'n')
+    else:
+        prompt = '%s [%s]|%s: ' % (prompt, 'n', 'y')
+
+    while True:
+        ans = raw_input(prompt)
+        if not ans:
+            return resp
+        if ans not in ['y', 'Y', 'n', 'N']:
+            print 'please enter y or n.'
+            continue
+        if ans == 'y' or ans == 'Y':
+            return True
+        if ans == 'n' or ans == 'N':
+            return False
+
+if options.filename == None:
+    filename = None
+else:
+    filename = options.filename
+
+print "Attempting to import FPM2 XML passwords..."
+print "Database filename is %s" % filename
+print
+
+if not os.path.exists(filename):
+    print "Could not locate database file!"
+    sys.exit(1)
+
+if 'XDG_DATA_HOME' in os.environ:
+    basedir = os.path.join(os.environ['XDG_DATA_HOME'], 'pasaffe')
+else:
+    basedir = os.path.join(os.environ['HOME'], '.local/share/pasaffe')
+
+if not os.path.exists(basedir):
+    os.mkdir(basedir, 0700)
+
+db_filename = os.path.join(basedir, 'pasaffe.psafe3')
+
+password = None
+
+fpmxml = figaroxml.FigaroXML(filename, password)
+
+items = len(fpmxml.records)
+
+if items == 0:
+    print "Database was empty!"
+    sys.exit(1)
+else:
+    print "Located %s passwords in the database!" % items
+
+if not os.path.exists(db_filename) and options.overwrite != True:
+    print "WARNING: Could not locate a Pasaffe database."
+    response = confirm(prompt='Create a new database?', resp=False)
+    options.overwrite = True
+elif options.overwrite == True:
+    print "If you continue, your current Pasaffe database will be DELETED."
+    response = confirm(prompt='Overwrite database?', resp=False)
+else:
+    print "If you continue, passwords will be imported into Pasaffe."
+    response = confirm(prompt='Import to database?', resp=False)
+
+if response == False:
+    print "Aborting."
+    sys.exit(1)
+
+
+# Create backup if exists
+if os.path.exists(db_filename):
+    shutil.copy(db_filename, db_filename + ".bak")
+
+if options.overwrite == True and os.path.exists(db_filename):
+    os.unlink(db_filename)
+
+# Get password for Pasaffe database
+if options.overwrite == True:
+    print "You now must enter a master password for the new Pasaffe database"
+    while(1):
+        password = getpass.getpass("New password: ")
+        password_conf = getpass.getpass("Confirm password: ")
+        if password != password_conf:
+            print "ERROR: passwords don't match, try again.\n\n"
+        else:
+            break
+    passsafe = readdb.PassSafeFile()
+    passsafe.new_db(password)
+    passsafe.records = fpmxml.records
+    passsafe.writefile(db_filename)
+
+else:
+    print "You must now enter the Pasaffe database password."
+    password = getpass.getpass()
+
+    passsafe = readdb.PassSafeFile(db_filename, password)
+    for entry in fpmxml.records:
+        passsafe.records.append(entry)
+    passsafe.writefile(db_filename, backup=True)
+
+print "Success!"

@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.10 (UNRELEASED):
 
  * Enhancements:
+   - Figaro xml import script thanks to Francesco Marella!
 
  * Bug fixes:
 
