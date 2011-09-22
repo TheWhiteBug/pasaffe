@@ -12,3 +12,4 @@ List of stuff to do:
 - Add stuff to help file
 - Fix compatibility with Python 3
 - Add password generation capability
+- Add option to automatically save changes (LP: #856302)
