@@ -22,7 +22,11 @@ PURPOSE.  See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along 
 with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 </property>
-    <property name="authors">Copyright (C) 2011 Marc Deslauriers &lt;marc.deslauriers@canonical.com&gt;</property>
+    <property name="authors">Marc Deslauriers &lt;marc.deslauriers@canonical.com&gt;
+
+Contributions by:
+Jamie Strandboge &lt;jamie@canonical.com&gt;
+Francesco Marella</property>
     <property name="logo">../media/pasaffe.svg</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
