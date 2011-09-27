@@ -45,5 +45,16 @@
         <long>When this is true, secrets are visible in the details pane without user intervention.</long>
       </locale>
     </schema>
+    <schema>
+      <key>/schemas/apps/pasaffe/auto-save</key>
+      <applyto>/apps/pasaffe/auto-save</applyto>
+      <owner>pasaffe</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+        <short>Automatically save changes</short>
+        <long>When this is true, Pasaffe will automatically save the database.</long>
+      </locale>
+    </schema>
   </schemalist>
 </gconfschemafile>

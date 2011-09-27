@@ -268,6 +268,8 @@ class PasaffeWindow(Window):
                     break
                 else:
                     item = self.ui.treeview1.get_model().iter_next(item)
+        if preferences['auto-save'] == True:
+            self.save_db()
         self.set_idle_timeout()
 
     def remove_entry(self):
@@ -343,6 +345,8 @@ class PasaffeWindow(Window):
                 if data_changed == True:
                     self.set_save_status(True)
                     record[12] = timestamp
+                    if preferences['auto-save'] == True:
+                        self.save_db()
 
             self.editdetails_dialog.destroy()
             self.editdetails_dialog = None
@@ -376,6 +380,8 @@ class PasaffeWindow(Window):
                 self.passfile.records.remove(record)
 
         self.set_save_status(True)
+        if preferences['auto-save'] == True:
+            self.save_db()
 
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
@@ -410,6 +416,8 @@ class PasaffeWindow(Window):
 
     def on_mnu_close_activate(self, menuitem):
         self.disable_idle_timeout()
+        if preferences['auto-save'] == True:
+            self.save_db()
         if self.save_warning() == False:
             gtk.main_quit()
         else:
@@ -601,8 +609,12 @@ class PasaffeWindow(Window):
         self.needs_saving = needed
         if needed == True:
             self.set_title("*Pasaffe")
+            self.ui.save.set_sensitive(True)
+            self.ui.mnu_save.set_sensitive(True)
         else:
             self.set_title("Pasaffe")
+            self.ui.save.set_sensitive(False)
+            self.ui.mnu_save.set_sensitive(False)
 
     def get_save_status(self):
         return self.needs_saving
