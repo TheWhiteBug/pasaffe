@@ -66,7 +66,8 @@ def main():
     'only-passwords-are-secret': True,
     'database-path': filename,
     'lock-on-idle': True,
-    'idle-timeout': 5
+    'idle-timeout': 5,
+    'auto-save': False
     }
 
     preferences.update(default_preferences)
