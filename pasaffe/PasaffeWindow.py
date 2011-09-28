@@ -423,17 +423,8 @@ class PasaffeWindow(Window):
         else:
             self.set_idle_timeout()
 
-    def on_mnu_cut_activate(self, menuitem):
-        print "TODO: implement on_mnu_cut_activate()"
-
-    def on_mnu_copy_activate(self, menuitem):
-        self.set_idle_timeout()
-        clipboard = gtk.clipboard_get()
-        self.ui.textview1.get_buffer().copy_clipboard(clipboard)
-        clipboard.store()
-
-    def on_mnu_paste_activate(self, menuitem):
-        print "TODO: implement on_mnu_paste_activate()"
+    def on_mnu_clone_activate(self, menuitem):
+        print "TODO: implement on_mnu_clone_activate()"
 
     def on_username_copy_activate(self, menuitem):
         self.copy_selected_entry_item(4)
