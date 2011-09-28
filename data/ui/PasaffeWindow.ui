@@ -110,7 +110,7 @@
     <child>
       <object class="GtkImageMenuItem" id="mnu_clone1">
         <property name="label" translatable="yes">Clone</property>
-        <property name="sensitive">False</property>
+        <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="use_action_appearance">False</property>
         <property name="image">image13</property>
@@ -291,7 +291,7 @@
                     <child>
                       <object class="GtkImageMenuItem" id="mnu_clone">
                         <property name="label">Clone</property>
-                        <property name="sensitive">False</property>
+                        <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_action_appearance">False</property>
                         <property name="image">image9</property>

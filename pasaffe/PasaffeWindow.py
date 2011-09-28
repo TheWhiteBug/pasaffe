@@ -284,6 +284,47 @@ class PasaffeWindow(Window):
             self.save_db()
         self.set_idle_timeout()
 
+    def clone_entry(self, entry_uuid):
+        record_list = ( 3, 4, 5, 6, 13 )
+        self.disable_idle_timeout()
+
+        # Make sure dialog isn't already open
+        if self.editdetails_dialog is not None:
+            self.editdetails_dialog.present()
+            return
+
+        uuid = os.urandom(16)
+        uuid_hex = uuid.encode("hex")
+        timestamp = struct.pack("<I", int(time.time()))
+        new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
+                     7: timestamp, 8: timestamp, 12: timestamp, 13: ''}
+
+        for record in self.passfile.records:
+            if record[1] == entry_uuid.decode("hex"):
+                for record_type in record_list:
+                    if record.has_key(record_type):
+                        new_entry[record_type] = record[record_type]
+                break
+
+        self.passfile.records.append(new_entry)
+
+        response = self.edit_entry(uuid_hex)
+        if response != gtk.RESPONSE_OK:
+            self.delete_entry(uuid_hex)
+        else:
+            self.display_entries()
+            item = self.ui.treeview1.get_model().get_iter_first()
+            while (item != None):
+                if self.ui.liststore1.get_value(item, 1) == uuid_hex:
+                    self.ui.treeview1.get_selection().select_iter(item)
+                    self.display_data(uuid_hex)
+                    break
+                else:
+                    item = self.ui.treeview1.get_model().iter_next(item)
+        if preferences['auto-save'] == True:
+            self.save_db()
+        self.set_idle_timeout()
+
     def remove_entry(self):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
@@ -436,7 +477,10 @@ class PasaffeWindow(Window):
             self.set_idle_timeout()
 
     def on_mnu_clone_activate(self, menuitem):
-        print "TODO: implement on_mnu_clone_activate()"
+        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+        if treeiter != None:
+            entry_uuid = treemodel.get_value(treeiter, 1)
+            self.clone_entry(entry_uuid)
 
     def on_username_copy_activate(self, menuitem):
         self.copy_selected_entry_item(4)
