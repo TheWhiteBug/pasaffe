@@ -240,6 +240,18 @@ class PasaffeWindow(Window):
         self.ui.display_secrets.set_active(False)
         self.ui.mnu_display_secrets.set_active(False)
 
+    def on_treeview1_button_press_event(self, treeview, event):
+        if event.button == 3:
+            x = int(event.x)
+            y = int(event.y)
+            time = event.time
+            pthinfo = treeview.get_path_at_pos(x, y)
+            if pthinfo is not None:
+                path, col, cellx, celly = pthinfo
+                treeview.grab_focus()
+                treeview.set_cursor(path, col, 0)
+                self.ui.menu_popup.popup(None, None, None, 3, time)
+
     def add_entry(self):
         self.disable_idle_timeout()
 
@@ -473,6 +485,12 @@ class PasaffeWindow(Window):
 
     def on_mnu_add_activate(self, menuitem):
         self.add_entry()
+
+    def on_mnu_edit1_activate(self, menuitem):
+        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+        if treeiter != None:
+            entry_uuid = treemodel.get_value(treeiter, 1)
+            self.edit_entry(entry_uuid)
 
     def on_mnu_delete_activate(self, menuitem):
         self.remove_entry()
