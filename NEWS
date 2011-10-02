@@ -4,8 +4,11 @@ For a detailed list of changes, please see ChangeLog.
 0.10 (UNRELEASED):
 
  * Enhancements:
-   - Figaro xml import script thanks to Francesco Marella!
-   - Added option to automatically save changes, thanks to Francesco Marella!
+   - Numerous improvements, thanks to Francesco Marella:
+     - Figaro xml import script
+     - Added option to automatically save changes
+     - Added context menu to left pane
+     - Added Clone command to clone an entry 
 
  * Bug fixes:
    - Save menu option and toolbar icon are now inactive when there is

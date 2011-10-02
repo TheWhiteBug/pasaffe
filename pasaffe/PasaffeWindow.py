@@ -240,6 +240,18 @@ class PasaffeWindow(Window):
         self.ui.display_secrets.set_active(False)
         self.ui.mnu_display_secrets.set_active(False)
 
+    def on_treeview1_button_press_event(self, treeview, event):
+        if event.button == 3:
+            x = int(event.x)
+            y = int(event.y)
+            time = event.time
+            pthinfo = treeview.get_path_at_pos(x, y)
+            if pthinfo is not None:
+                path, col, cellx, celly = pthinfo
+                treeview.grab_focus()
+                treeview.set_cursor(path, col, 0)
+                self.ui.menu_popup.popup(None, None, None, 3, time)
+
     def add_entry(self):
         self.disable_idle_timeout()
 
@@ -253,6 +265,47 @@ class PasaffeWindow(Window):
         timestamp = struct.pack("<I", int(time.time()))
         new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
                      7: timestamp, 8: timestamp, 12: timestamp, 13: ''}
+        self.passfile.records.append(new_entry)
+
+        response = self.edit_entry(uuid_hex)
+        if response != gtk.RESPONSE_OK:
+            self.delete_entry(uuid_hex)
+        else:
+            self.display_entries()
+            item = self.ui.treeview1.get_model().get_iter_first()
+            while (item != None):
+                if self.ui.liststore1.get_value(item, 1) == uuid_hex:
+                    self.ui.treeview1.get_selection().select_iter(item)
+                    self.display_data(uuid_hex)
+                    break
+                else:
+                    item = self.ui.treeview1.get_model().iter_next(item)
+        if preferences['auto-save'] == True:
+            self.save_db()
+        self.set_idle_timeout()
+
+    def clone_entry(self, entry_uuid):
+        record_list = ( 3, 4, 5, 6, 13 )
+        self.disable_idle_timeout()
+
+        # Make sure dialog isn't already open
+        if self.editdetails_dialog is not None:
+            self.editdetails_dialog.present()
+            return
+
+        uuid = os.urandom(16)
+        uuid_hex = uuid.encode("hex")
+        timestamp = struct.pack("<I", int(time.time()))
+        new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
+                     7: timestamp, 8: timestamp, 12: timestamp, 13: ''}
+
+        for record in self.passfile.records:
+            if record[1] == entry_uuid.decode("hex"):
+                for record_type in record_list:
+                    if record.has_key(record_type):
+                        new_entry[record_type] = record[record_type]
+                break
+
         self.passfile.records.append(new_entry)
 
         response = self.edit_entry(uuid_hex)
@@ -423,17 +476,11 @@ class PasaffeWindow(Window):
         else:
             self.set_idle_timeout()
 
-    def on_mnu_cut_activate(self, menuitem):
-        print "TODO: implement on_mnu_cut_activate()"
-
-    def on_mnu_copy_activate(self, menuitem):
-        self.set_idle_timeout()
-        clipboard = gtk.clipboard_get()
-        self.ui.textview1.get_buffer().copy_clipboard(clipboard)
-        clipboard.store()
-
-    def on_mnu_paste_activate(self, menuitem):
-        print "TODO: implement on_mnu_paste_activate()"
+    def on_mnu_clone_activate(self, menuitem):
+        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+        if treeiter != None:
+            entry_uuid = treemodel.get_value(treeiter, 1)
+            self.clone_entry(entry_uuid)
 
     def on_username_copy_activate(self, menuitem):
         self.copy_selected_entry_item(4)
@@ -482,6 +529,12 @@ class PasaffeWindow(Window):
 
     def on_mnu_add_activate(self, menuitem):
         self.add_entry()
+
+    def on_mnu_edit1_activate(self, menuitem):
+        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+        if treeiter != None:
+            entry_uuid = treemodel.get_value(treeiter, 1)
+            self.edit_entry(entry_uuid)
 
     def on_mnu_delete_activate(self, menuitem):
         self.remove_entry()

@@ -7,7 +7,6 @@ List of stuff to do:
 - Design a better layout for details pane
 - Add database merge functionality
 - Add better toolbar icons
-- Add Context menu to left pane entries
 - Implement sanity check after saving db temp file
 - Add stuff to help file
 - Fix compatibility with Python 3
