@@ -269,7 +269,7 @@ class PasaffeWindow(Window):
 
         response = self.edit_entry(uuid_hex)
         if response != gtk.RESPONSE_OK:
-            self.delete_entry(uuid_hex)
+            self.delete_entry(uuid_hex, save=False)
         else:
             self.display_entries()
             item = self.ui.treeview1.get_model().get_iter_first()
@@ -280,8 +280,9 @@ class PasaffeWindow(Window):
                     break
                 else:
                     item = self.ui.treeview1.get_model().iter_next(item)
-        if preferences['auto-save'] == True:
-            self.save_db()
+            self.set_save_status(True)
+            if preferences['auto-save'] == True:
+                self.save_db()
         self.set_idle_timeout()
 
     def clone_entry(self, entry_uuid):
@@ -310,7 +311,7 @@ class PasaffeWindow(Window):
 
         response = self.edit_entry(uuid_hex)
         if response != gtk.RESPONSE_OK:
-            self.delete_entry(uuid_hex)
+            self.delete_entry(uuid_hex, save=False)
         else:
             self.display_entries()
             item = self.ui.treeview1.get_model().get_iter_first()
@@ -321,8 +322,9 @@ class PasaffeWindow(Window):
                     break
                 else:
                     item = self.ui.treeview1.get_model().iter_next(item)
-        if preferences['auto-save'] == True:
-            self.save_db()
+            self.set_save_status(True)
+            if preferences['auto-save'] == True:
+                self.save_db()
         self.set_idle_timeout()
 
     def remove_entry(self):
@@ -412,7 +414,7 @@ class PasaffeWindow(Window):
             self.set_idle_timeout()
             return response
 
-    def delete_entry(self, entry_uuid):
+    def delete_entry(self, entry_uuid, save=True):
         self.set_idle_timeout()
         item = self.ui.treeview1.get_model().get_iter_first()
 
@@ -432,9 +434,10 @@ class PasaffeWindow(Window):
             if record[1].encode("hex") == entry_uuid:
                 self.passfile.records.remove(record)
 
-        self.set_save_status(True)
-        if preferences['auto-save'] == True:
-            self.save_db()
+        if save == True:
+            self.set_save_status(True)
+            if preferences['auto-save'] == True:
+                self.save_db()
 
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:

@@ -13,6 +13,7 @@ For a detailed list of changes, please see ChangeLog.
  * Bug fixes:
    - Save menu option and toolbar icon are now inactive when there is
      nothing to save.
+   - Don't indicate save is required when a new entry is cancelled
 
 0.9 (2011-09-15):
 
