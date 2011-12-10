@@ -1,0 +1,32 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="delete-entry">
+
+<info>
+  <link type="guide" xref="index#contents"/>
+  <credit type="author">
+    <name>Marc Deslauriers</name>
+    <email>marc.deslauriers@canonical.com</email>
+    <years>2011</years>
+  </credit>
+  <desc>Comment supprimer une entrée.</desc>
+</info>
+
+<title>Suppression d'une entrée</title>
+<p>Vous pouvez supprimer une entrée de la base de données.</p>
+
+    <steps>
+      <title>Suppression d'une entrée dans <app>Pasaffe</app></title>
+      <item><p>Dans la section de gauche, sélectionner l'entrée à supprimer.</p></item>
+      <item><p>Cliquer sur l'icône qui ressemble à un moins, ou sélectionner
+<guiseq><gui>Éditer</gui><gui>Supprimer</gui></guiseq>.</p></item>
+      <item><p>Cliquer sur <gui>Oui</gui> pour confirmer.</p></item>
+    </steps>
+    <note style="warning">
+      <p>La suppression d'une entrée est une opération permanente. Si vous
+ voulez canceller l'opération, cliquer sur <gui>Non</gui> à la demande de
+ confirmation.</p>
+    </note>
+
+
+</page>

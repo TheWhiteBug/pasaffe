@@ -1,0 +1,36 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="new-entry">
+
+<info>
+  <link type="guide" xref="index#contents"/>
+  <credit type="author">
+    <name>Marc Deslauriers</name>
+    <email>marc.deslauriers@canonical.com</email>
+    <years>2011</years>
+  </credit>
+  <desc>Comment créer une nouvelle entrée pour entreposer un nom d'utilisateur et un mot de passe.</desc>
+</info>
+
+<title>Création d'une nouvelle entrée</title>
+<p>Pour créer une nouvelle entrée, cliquer sur l'icône qui ressemble à un plus.
+Si vous préférez, vous pouvez aussi sélectionner <guiseq><gui>Éditer</gui><gui>Ajouter</gui></guiseq>.
+Une fenêtre apparaîtera pour entrer les informations.</p>
+
+    <steps>
+      <title>Ajout d'une nouvelle entrée dans <app>Pasaffe</app></title>
+      <item><p>Ouvrir la fenêtre Modifier une entrée en cliquant sur l'icône
+ qui ressemble à un plus, ou en sélectionnant <guiseq><gui>Éditer</gui><gui>Ajouter</gui></guiseq>.</p></item>
+      <item><p>Entrer un nom pour la nouvelle entrée dans le champ 'Titre:'.</p></item>
+      <item><p>Entrer un URL pour la nouvelle entrée dans le champ 'URL:'.</p></item>
+      <item><p>Entrer le nom d'utilisateur dans le champ 'Nom d'usager:'.</p></item>
+      <item><p>Entrer le mot de passe dans le champ 'Mot de passe:'.</p></item>
+      <item><p>Entrer tout autre information à propos de l'entrée dans le champ 'Notes:'.</p></item>
+      <item><p>Quand vous avez terminé d'entrer les informations, cliquer sur <gui>Valider</gui></p></item>
+    </steps>
+    <note style="tip">
+      <p>Il n'y a que le champ 'Titre:' qui est requis. Tous les autres champs sont facultatifs et peuvent rester vides.</p>
+    </note>
+
+
+</page>

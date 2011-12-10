@@ -6,7 +6,7 @@
   <link type="guide" xref="index#contents"/>
   <credit type="author">
     <name>Marc Deslauriers</name>
-    <email>marcdeslauriers@canonical.com</email>
+    <email>marc.deslauriers@canonical.com</email>
     <years>2011</years>
   </credit>
   <desc>How to create a new entry to store a username and password.</desc>

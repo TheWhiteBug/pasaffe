@@ -4,8 +4,8 @@
 
 <info>
   <!-- This shows in the title bar so does not show [icon] -->
-  <title type="text">Pasaffe Password Manager</title>
-  <desc>The <app>Pasaffe</app> help.</desc>
+  <title type="text">Gestionnaire de mots de passe Pasaffe</title>
+  <desc>Manuel d'aide <app>Pasaffe</app>.</desc>
   <credit type="author">
     <name>Marc Deslauriers</name>
     <email>marc.deslauriers@canonical.com</email>
@@ -20,22 +20,23 @@
 <!-- This shows on the page in title font -->
 <!-- the icon only shows when installed -->
 <media type="image" mime="image/png" src="figures/icon.png">[icon]</media>
-<app>Pasaffe</app> Password Manager
+Gestionnaire de mots de passe <app>Pasaffe</app>
 </title>
 
-<p>Welcome to the <app>Pasaffe</app> help guide!</p>
-<p><app>Pasaffe</app> is a simple to use password manager. You can use it to store
-usernames and passwords, and encrypt them with a single Master Password.</p>
-<p><app>Pasaffe's</app> main window is divided into two sections. The section on the
-left displays a list of your entries, and the one on the right displays the
-currently selected entry's contents.</p>
-<p>To get started using <app>Pasaffe</app>, visit the
-<link xref="new-entry">Adding a new entry</link> page.</p>
+<p>Bienvenue dans le manuel d'aide de <app>Pasaffe!</app></p>
+<p><app>Pasaffe</app> est un gestionnaire de mots de passe facile à utiliser.
+Vous pouvez l'utiliser pour entreposer des noms d'utilisateur et des mots de
+passe, et les chiffrer avec un mot de passe principal.</p>
+<p>La fenêtre principale de <app>Pasaffe</app> est divisée en deux sections.
+La section de gauche affiche une liste d'entrées, et celle de droite affiche
+les données de l'entrée sélectionnée.</p>
+<p>Pour démarrer avec <app>Pasaffe</app>, visitez la page
+<link xref="new-entry">Ajout d'une nouvelle entrée</link>.</p>
 
 <!-- This is the visible index -->
 <section id="contents" style="2column">
 <!-- other pages needs to have a link to index#contents for this to work -->
-<title>Contents</title>
+<title>Contenu</title>
 </section>
 
 </page>
