@@ -30,7 +30,7 @@ set -x
 
 sed -i -r "s/(^[[:space:]]*version[[:space:]]*=[[:space:]]*').*\$/\\1${version}',/" setup.py
 sed -i "s/(UNRELEASED)/$(date '+(%Y-%m-%d)')/" NEWS
-dch -v ${version}-1 "New version"
+#dch -v ${version}-1 "New version"
 bzr commit -m "release $version"
 bzr tag "$version"
 
