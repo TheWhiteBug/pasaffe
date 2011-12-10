@@ -4,7 +4,7 @@
 
 <info>
   <!-- This shows in the title bar so does not show [icon] -->
-  <title type="text">Pasaffe</title>
+  <title type="text">Pasaffe Password Manager</title>
   <desc>The <app>Pasaffe</app> help.</desc>
   <credit type="author">
     <name>Marc Deslauriers</name>
@@ -20,25 +20,22 @@
 <!-- This shows on the page in title font -->
 <!-- the icon only shows when installed -->
 <media type="image" mime="image/png" src="figures/icon.png">[icon]</media>
-<app>Pasaffe</app> Help
+<app>Pasaffe</app> Password Manager
 </title>
 
-<p>This is an example guide page. It's main function is to link together the help topics.</p>
+<p>Welcome to the <app>Pasaffe</app> help guide!</p>
+<p><app>Pasaffe</app> is a simple to use password manager. You can use it to store
+usernames and passwords, and encrypt them with a single Master Password.</p>
+<p><app>Pasaffe's</app> main window is divided into two sections. The section on the
+left displays a list of your entries, and the one on the right displays the
+currently selected entry's contents.</p>
+<p>To get started using <app>Pasaffe</app>, visit the
+<link xref="new-entry">Adding a new entry</link> page.</p>
 
 <!-- This is the visible index -->
 <section id="contents" style="2column">
 <!-- other pages needs to have a link to index#contents for this to work -->
 <title>Contents</title>
 </section>
-
-<note>
-  <!-- delete this note -->
-  <p>
-    Your script or application looks better if it has help files similar to other applications in ubuntu.
-  </p>
-  <p>
-    Some people think that help files are only for apps that are difficult to use.
-  </p>
-</note>
 
 </page>

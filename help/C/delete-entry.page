@@ -1,0 +1,31 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="delete-entry">
+
+<info>
+  <link type="guide" xref="index#contents"/>
+  <credit type="author">
+    <name>Marc Deslauriers</name>
+    <email>marcdeslauriers@canonical.com</email>
+    <years>2011</years>
+  </credit>
+  <desc>How to delete an entry.</desc>
+</info>
+
+<title>Deleting an entry</title>
+<p>You may remove an entry that you no longer wish to have in the database.</p>
+
+    <steps>
+      <title>Deleting an entry in <app>Pasaffe</app></title>
+      <item><p>In the left section, select the entry you wish to delete.</p></item>
+      <item><p>Click the icon that looks like a minus sign, or select
+<guiseq><gui>Edit</gui><gui>Delete</gui></guiseq>.</p></item>
+      <item><p>Click on <gui>Yes</gui> to confirm.</p></item>
+    </steps>
+    <note style="warning">
+      <p>Removing an entry is permanent and cannot be undone. If you wish
+ to cancel, click on <gui>No</gui> when asked for confirmation.</p>
+    </note>
+
+
+</page>

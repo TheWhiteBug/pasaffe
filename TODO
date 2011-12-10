@@ -8,6 +8,5 @@ List of stuff to do:
 - Add database merge functionality
 - Add better toolbar icons
 - Implement sanity check after saving db temp file
-- Add stuff to help file
 - Fix compatibility with Python 3
 - Add password generation capability

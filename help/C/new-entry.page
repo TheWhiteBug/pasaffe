@@ -1,0 +1,36 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="new-entry">
+
+<info>
+  <link type="guide" xref="index#contents"/>
+  <credit type="author">
+    <name>Marc Deslauriers</name>
+    <email>marcdeslauriers@canonical.com</email>
+    <years>2011</years>
+  </credit>
+  <desc>How to create a new entry to store a username and password.</desc>
+</info>
+
+<title>Adding a new entry</title>
+<p>To create a new entry, click on the icon that looks like a plus sign. If
+you prefer, you may also select <guiseq><gui>Edit</gui><gui>Add</gui></guiseq>.
+A window will appear asking for information.</p>
+
+    <steps>
+      <title>Adding a new entry in <app>Pasaffe</app></title>
+      <item><p>Open the Edit entry window by clicking the icon that looks
+like a plus sign, or selecting <guiseq><gui>Edit</gui><gui>Add</gui></guiseq>.</p></item>
+      <item><p>Enter a name for the new entry into the 'Title:' field.</p></item>
+      <item><p>Enter a URL for the entry into the 'URL:' field.</p></item>
+      <item><p>Enter the entry's Username into the 'Username:' field.</p></item>
+      <item><p>Enter the entry's Password into the 'Password:' field.</p></item>
+      <item><p>Enter any other information about the entry into the 'Notes:' field.</p></item>
+      <item><p>Once you are done entering the information, click <gui>OK</gui></p></item>
+    </steps>
+    <note style="tip">
+      <p>Only the 'Title:' field is required. All other fields are optional, and can be left blank.</p>
+    </note>
+
+
+</page>

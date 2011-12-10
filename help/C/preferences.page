@@ -9,10 +9,29 @@
     <email>marcdeslauriers@canonical.com</email>
     <years>2011</years>
   </credit>
-  <desc>Optional short description of Preferences for contents page</desc>
+  <desc>How to adjust <app>Pasaffe</app> user preferences and settings.</desc>
 </info>
 
-<title>Preferences</title>
-<p>This is the preferences page.</p>
+<title>Setting preferences</title>
+<p>To adjust <app>Pasaffe</app> settings, click on
+<guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq>.
+A window will appear with some options. When you are done modifying them,
+click <gui>OK</gui>.</p>
+<p>Here are some of the settings that are available:</p>
+<list>
+<item><p><em>Display secrets by default:</em> When checked, <app>Pasaffe</app>
+ will always display secrets, such as passwords, in the right section of the main window.</p></item>
+<item><p><em>Only passwords are secret:</em> When checked, only the password
+field will be considered to be a secret that should be hidden by default. Unchecking
+this causes the other fields to be hidden by default also.</p></item>
+<item><p><em>Lock database when idle:</em> When checked, the <app>Pasaffe</app> window will
+lock the database and ask for the Master Password again after a certain amount
+of time has passed.</p></item>
+<item><p><em>Idle timeout (minutes):</em> This is the amount of inactivity time, in minutes,
+after which <app>Pasaffe</app> will lock the database.</p></item>
+<item><p><em>Automatically save changes:</em> When checked, <app>Pasaffe</app> will
+save the database immediately after each change. By default, changes are only saved when
+specifically requested by the user, so unwanted changes can be cancelled.</p></item>
+</list>
 
 </page>
