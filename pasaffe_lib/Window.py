@@ -67,12 +67,12 @@ class Window(gtk.Window):
         # This shouldn't crash if not found as it is simply used for bug reporting.
         # See https://wiki.ubuntu.com/UbuntuDevelopment/Internationalisation/Coding
         # for more information about Launchpad integration.
-        #try:
-        #    import LaunchpadIntegration
-        #    LaunchpadIntegration.add_items(self.ui.helpMenu, 1, True, True)
-        #    LaunchpadIntegration.set_sourcepackagename('pasaffe')
-        #except ImportError:
-        #    pass
+        try:
+            import LaunchpadIntegration
+            LaunchpadIntegration.add_items(self.ui.helpMenu, 1, True, True)
+            LaunchpadIntegration.set_sourcepackagename('pasaffe')
+        except ImportError:
+            pass
 
         # Optional application indicator support
         # Run 'quickly add indicator' to get started.
