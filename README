@@ -1,0 +1,29 @@
+Pasaffe
+-------
+
+This is an easy-to-use password manager for GNOME.
+It stores information in a Password Safe 3.0 compatible database.
+
+Requirements:
+-------------
+
+- python 2.x
+- python-gconf
+- python-gobject
+- python-gtk2
+- yelp
+
+Project page:
+-------------
+
+The project page is located here:
+https://launchpad.net/pasaffe
+
+Source code can be obtained here:
+https://code.launchpad.net/pasaffe
+
+Bugs about Pasaffe can be filed here:
+https://bugs.launchpad.net/pasaffe
+
+Contributions welcome!
+Please see the included TODO file for a list of things that are needed.
