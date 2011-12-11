@@ -1,7 +1,7 @@
 This file summarizes the major and interesting changes for each release.
 For a detailed list of changes, please see ChangeLog.
 
-0.11 (UNRELEASED):
+0.11 (2011-12-11):
 
  * Enhancements:
    - A help file is now available with basic usage instructions.
