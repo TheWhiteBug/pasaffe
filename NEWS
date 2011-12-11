@@ -6,6 +6,7 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
    - A help file is now available with basic usage instructions.
    - Re-enable launchpad integration
+   - Added a README file
 
  * Bug fixes:
    - Removed debian packaging files from upstream project
