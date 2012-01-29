@@ -18,7 +18,7 @@
 import logging
 import os
 
-import gtk
+from gi.repository import Gtk
 
 from . pasaffeconfig import get_data_file
 from . Builder import Builder
@@ -28,7 +28,7 @@ from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
 def get_builder(builder_file_name):
-    """Return a fully-instantiated gtk.Builder instance from specified ui 
+    """Return a fully-instantiated Gtk.Builder instance from specified ui 
     file
     
     :param builder_file_name: The name of the builder file, without extension.
@@ -99,7 +99,7 @@ def get_help_uri(page=None):
 
 def show_uri(parent, link):
     screen = parent.get_screen()
-    gtk.show_uri(screen, link, gtk.get_current_event_time())
+    Gtk.show_uri(screen, link, Gtk.get_current_event_time())
 
 def alias(alternative_function_name):
     '''see http://www.drdobbs.com/web-development/184406073#l9'''

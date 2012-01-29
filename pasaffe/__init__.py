@@ -21,7 +21,7 @@ import gettext
 from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
-import gtk
+from gi.repository import Gtk # pylint: disable=E0611
 
 from pasaffe import PasaffeWindow
 
@@ -80,6 +80,6 @@ def main():
     # Run the application.
     window = PasaffeWindow.PasaffeWindow()
     window.show()
-    gtk.main()
+    Gtk.main()
 
     preferences.save()

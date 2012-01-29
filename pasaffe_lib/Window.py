@@ -14,7 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 ### END LICENSE
 
-import gtk
+from gi.repository import Gtk # pylint: disable=E0611
 import logging
 logger = logging.getLogger('pasaffe_lib')
 
@@ -23,7 +23,7 @@ from . preferences import preferences
 
 # This class is meant to be subclassed by PasaffeWindow.  It provides
 # common functions and some boilerplate.
-class Window(gtk.Window):
+class Window(Gtk.Window):
     __gtype_name__ = "Window"
 
     # To construct a new instance of this method, the following notable 
@@ -122,7 +122,7 @@ class Window(gtk.Window):
     def on_destroy(self, widget, data=None):
         """Called when the PasaffeWindow is closed."""
         # Clean up code for saving application state should be added here.
-        gtk.main_quit()
+        Gtk.main_quit()
 
     def on_preferences_changed(self, widget, data=None):
         logger.debug('main window received preferences changed')
