@@ -68,7 +68,7 @@ class Window(Gtk.Window):
         # See https://wiki.ubuntu.com/UbuntuDevelopment/Internationalisation/Coding
         # for more information about Launchpad integration.
         try:
-            import LaunchpadIntegration
+            from gi.repository import LaunchpadIntegration
             LaunchpadIntegration.add_items(self.ui.helpMenu, 1, True, True)
             LaunchpadIntegration.set_sourcepackagename('pasaffe')
         except ImportError:
