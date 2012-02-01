@@ -23,14 +23,14 @@ widget_methods[key] provides method names for the widget
 each widget calls set_preference(...) when it has adjusted value
 """
 
-import gtk
+from gi.repository import Gtk # pylint: disable=E0611
 import logging
 logger = logging.getLogger('pasaffe_lib')
 
 from . helpers import get_builder, show_uri, get_help_uri
 from . preferences import preferences
 
-class PreferencesDialog(gtk.Dialog):
+class PreferencesDialog(Gtk.Dialog):
     __gtype_name__ = "PreferencesDialog"
 
     def __new__(cls):

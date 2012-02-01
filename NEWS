@@ -6,6 +6,7 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
    - Updated translations
    - Added a TODO item
+   - Migrated to PyGI and GSettings, thanks to Francesco Marella
 
  * Bug fixes:
 

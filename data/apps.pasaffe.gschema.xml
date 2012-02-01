@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="apps.pasaffe" path="/apps/pasaffe/">
+    <key name="database-path" type="s">
+      <default>""</default>
+      <summary/>
+      <description/>
+    </key>
+    <key name="idle-timeout" type="i">
+      <default>5</default>
+      <summary>Timeout before Pasaffe is locked</summary>
+      <description>Number of minutes of inactivity before Pasaffe locks itself.</description>
+    </key>
+    <key name="lock-on-idle" type="b">
+      <default>true</default>
+      <summary>Lock window after inactivity</summary>
+      <description>When this is true, the Pasaffe window will automatically lock after inactivity.</description>
+    </key>
+    <key name="only-passwords-are-secret" type="b">
+      <default>true</default>
+      <summary>Only passwords are considered to be secret</summary>
+      <description>When this is true, only the password field is hidden when secrets aren't visible.</description>
+    </key>
+    <key name="visible-secrets" type="b">
+      <default>false</default>
+      <summary>Secrets should be visible by default</summary>
+      <description>When this is true, secrets are visible in the details pane without user intervention.</description>
+    </key>
+    <key name="auto-save" type="b">
+      <default>false</default>
+      <summary>Automatically save changes</summary>
+      <description>When this is true, Pasaffe will automatically save the database.</description>
+    </key>
+  </schema>
+</schemalist>

@@ -14,7 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 ### END LICENSE
 
-import gtk
+from gi.repository import Gtk # pylint: disable=E0611
 
 from pasaffe_lib.helpers import get_builder
 
@@ -22,7 +22,7 @@ import gettext
 from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
-class NewPasswordDialog(gtk.Dialog):
+class NewPasswordDialog(Gtk.Dialog):
     __gtype_name__ = "NewPasswordDialog"
 
     def __new__(cls):
@@ -51,14 +51,14 @@ class NewPasswordDialog(gtk.Dialog):
     def on_btn_ok_clicked(self, widget, data=None):
         """The user has elected to save the changes.
 
-        Called before the dialog returns gtk.RESONSE_OK from run().
+        Called before the dialog returns Gtk.RESONSE_OK from run().
         """
         pass
 
     def on_btn_cancel_clicked(self, widget, data=None):
         """The user has elected cancel changes.
 
-        Called before the dialog returns gtk.RESPONSE_CANCEL for run()
+        Called before the dialog returns Gtk.ResponseType.CANCEL for run()
         """
         pass
 
@@ -66,4 +66,4 @@ class NewPasswordDialog(gtk.Dialog):
 if __name__ == "__main__":
     dialog = NewPasswordDialog()
     dialog.show()
-    gtk.main()
+    Gtk.main()
