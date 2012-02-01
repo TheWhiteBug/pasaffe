@@ -73,6 +73,9 @@ def main():
     preferences.update(default_preferences)
     preferences.load()
 
+    if preferences['database-path'] == "":
+        preferences['database-path'] = filename
+
     # Override path that was saved with path from command line
     if options.filename != None:
         preferences['database-path'] = options.filename
