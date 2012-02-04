@@ -118,6 +118,7 @@ DistUtilsExtra.auto.setup(
     description='Password manager for GNOME',
     long_description='Pasaffe is an easy to use password manager for GNOME.',
     url='https://launchpad.net/pasaffe',
+    data_files=[("share/GConf/gsettings", ("data/pasaffe.convert",))],
     cmdclass={'install': InstallAndUpdateDataDirectory,
               'build_help' : BuildHelp}
     )
