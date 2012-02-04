@@ -8,9 +8,11 @@ Requirements:
 -------------
 
 - python 2.x
-- python-gconf
-- python-gobject
-- python-gtk2
+- pygobject
+- gtk+ 3.0
+- gobject-introspection
+- pango1.0
+- launchpad-integration (optional)
 - yelp
 
 Project page:
