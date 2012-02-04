@@ -201,7 +201,9 @@ class PasaffeWindow(Window):
         self.ui.textview1.set_buffer(data_buffer)
 
     def url_event_handler(self, tag, widget, event, iter):
-        if event.type == Gdk.EventType.BUTTON_RELEASE and event.button == 1:
+        # We also used to check event.button == 1 here, but event.button
+        # doesn't seem to get set by PyGObject anymore.
+        if event.type == Gdk.EventType.BUTTON_RELEASE:
             self.open_url()
         return False
 

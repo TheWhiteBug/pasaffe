@@ -6,10 +6,11 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
    - Updated translations
    - Added a TODO item
-   - Migrated to PyGI and GSettings, thanks to Francesco Marella
+   - Migrated to PyGObject and GSettings, thanks to Francesco Marella
 
- * Bug fixes:
+ * Bug fixes (related to PyGObject and GSettings migration):
    - Get rid of traceback when quitting without a selection
+   - Restore click on URL functionality
 
 0.11 (2011-12-11):
 
