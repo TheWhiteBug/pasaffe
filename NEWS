@@ -15,6 +15,7 @@ For a detailed list of changes, please see ChangeLog.
    - Fix about dialog layout
    - Updated requirements in README file
    - Refactor and simplify GSettings code to use bindings
+   - Add database path description to GSettings schema file
 
 0.11 (2011-12-11):
 

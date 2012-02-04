@@ -3,8 +3,8 @@
   <schema id="apps.pasaffe" path="/apps/pasaffe/">
     <key name="database-path" type="s">
       <default>""</default>
-      <summary/>
-      <description/>
+      <summary>Pasaffe database location</summary>
+      <description>Full path to the location where Pasaffe stores the password database.</description>
     </key>
     <key name="idle-timeout" type="i">
       <default>5</default>
