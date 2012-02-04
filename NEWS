@@ -12,6 +12,7 @@ For a detailed list of changes, please see ChangeLog.
    - Get rid of traceback when quitting without a selection
    - Restore click on URL functionality
    - Fix initial size of notes field
+   - Fix about dialog layout
 
 0.11 (2011-12-11):
 

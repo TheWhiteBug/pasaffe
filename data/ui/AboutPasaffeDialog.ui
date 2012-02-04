@@ -2,6 +2,7 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-requires about_pasaffe_dialog 1.0 -->
+  <!-- interface-naming-policy toplevel-contextual -->
   <object class="AboutPasaffeDialog" id="about_pasaffe_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -9,7 +10,10 @@
     <property name="type_hint">normal</property>
     <property name="program_name">Pasaffe</property>
     <property name="copyright">Copyright (C) 2011 Marc Deslauriers &lt;marc.deslauriers@canonical.com&gt;</property>
+    <property name="website">http://www.launchpad.net/pasaffe</property>
+    <property name="website_label" translatable="yes">http://www.launchpad.net/pasaffe</property>
     <property name="license">Copyright (C) 2011 Marc Deslauriers &lt;marc.deslauriers@canonical.com&gt;
+
 This program is free software: you can redistribute it and/or modify it 
 under the terms of the GNU General Public License version 3, as published 
 by the Free Software Foundation.
@@ -23,19 +27,16 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 </property>
     <property name="authors">Marc Deslauriers &lt;marc.deslauriers@canonical.com&gt;
-
-Contributions by:
 Jamie Strandboge &lt;jamie@canonical.com&gt;
 Francesco Marella</property>
     <property name="logo">../media/pasaffe.svg</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox1">
+      <object class="GtkVBox" id="dialog-vbox1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area1">
+          <object class="GtkHButtonBox" id="dialog-action_area1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
