@@ -240,11 +240,12 @@ class PasaffeWindow(Window):
         selection = treeview.get_selection()
         if selection is not None:
             treemodel, treeiter = selection.get_selected()
-            entry_uuid = treemodel.get_value(treeiter, 1)
-            self.display_data(entry_uuid)
-            # Reset the show password button and menu item
-            self.ui.display_secrets.set_active(False)
-            self.ui.mnu_display_secrets.set_active(False)
+            if treemodel is not None and treeiter is not None:
+                entry_uuid = treemodel.get_value(treeiter, 1)
+                self.display_data(entry_uuid)
+                # Reset the show password button and menu item
+                self.ui.display_secrets.set_active(False)
+                self.ui.mnu_display_secrets.set_active(False)
 
     def on_treeview1_button_press_event(self, treeview, event):
         if event.button == 3:

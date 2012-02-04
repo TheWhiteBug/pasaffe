@@ -16,6 +16,8 @@ For a detailed list of changes, please see ChangeLog.
    - Updated requirements in README file
    - Refactor and simplify GSettings code to use bindings
    - Add database path description to GSettings schema file
+   - Add GConf to GSettings migration file
+   - Fix crasher when sometimes adding a new entry
 
 0.11 (2011-12-11):
 
