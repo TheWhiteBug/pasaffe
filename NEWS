@@ -9,6 +9,7 @@ For a detailed list of changes, please see ChangeLog.
    - Migrated to PyGI and GSettings, thanks to Francesco Marella
 
  * Bug fixes:
+   - Get rid of traceback when quitting without a selection
 
 0.11 (2011-12-11):
 
