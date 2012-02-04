@@ -287,7 +287,7 @@ class PasaffeWindow(Window):
                 else:
                     item = self.ui.treeview1.get_model().iter_next(item)
             self.set_save_status(True)
-            if self.setting.get_bool('auto-save') == True:
+            if self.settings.get_boolean('auto-save') == True:
                 self.save_db()
         self.set_idle_timeout()
 
@@ -442,7 +442,7 @@ class PasaffeWindow(Window):
 
         if save == True:
             self.set_save_status(True)
-            if self.setting.get_bool('auto-save') == True:
+            if self.settings.get_boolean('auto-save') == True:
                 self.save_db()
 
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
