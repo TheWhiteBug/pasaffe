@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 ### BEGIN LICENSE
-# Copyright (C) 2011 Marc Deslauriers <marc.deslauriers@canonical.com>
+# Copyright (C) 2011-2012 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it 
 # under the terms of the GNU General Public License version 3, as published 
 # by the Free Software Foundation.
@@ -14,33 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 ### END LICENSE
 
-# This is your preferences dialog.
-#
-# Define your preferences dictionary in the __init__.main() function.
-# The widget names in the PreferencesTestProjectDialog.ui
-# file need to correspond to the keys in the preferences dictionary.
-#
-# Each preference also need to be defined in the 'widget_methods' map below
-# to show up in the dialog itself.  Provide three bits of information:
-#  1) The first entry is the method on the widget that grabs a value from the
-#     widget.
-#  2) The second entry is the method on the widget that sets the widgets value
-#      from a stored preference.
-#  3) The third entry is a signal the widget will send when the contents have
-#     been changed by the user. The preferences dictionary is always up to
-# date and will signal the rest of the application about these changes.
-# The values will be saved to desktopcouch when the application closes.
-#
-# TODO: replace widget_methods with your own values
-
-
-widget_methods = {
-    'visible-secrets': ['get_active', 'set_active', 'toggled'],
-    'only-passwords-are-secret': ['get_active', 'set_active', 'toggled'],
-    'lock-on-idle': ['get_active', 'set_active', 'toggled'],
-    'idle-timeout': ['get_value_as_int', 'set_value', 'value-changed'],
-    'auto-save': ['get_active', 'set_active', 'toggled']
-}
+from gi.repository import Gio # pylint: disable=E0611
 
 import gettext
 from gettext import gettext as _
@@ -58,9 +32,17 @@ class PreferencesPasaffeDialog(PreferencesDialog):
         """Set up the preferences dialog"""
         super(PreferencesPasaffeDialog, self).finish_initializing(builder)
 
-        # populate the dialog from the preferences dictionary
-        # using the methods from widget_methods
-        self.widget_methods = widget_methods
-        self.set_widgets_from_preferences() # pylint: disable=E1101
+        # Bind each preference widget to gsettings
+        settings = Gio.Settings("apps.pasaffe")
+        widget = self.builder.get_object('visible-secrets')
+        settings.bind("visible-secrets", widget, "active", Gio.SettingsBindFlags.DEFAULT)
+        widget = self.builder.get_object('only-passwords-are-secret')
+        settings.bind("only-passwords-are-secret", widget, "active", Gio.SettingsBindFlags.DEFAULT)
+        widget = self.builder.get_object('lock-on-idle')
+        settings.bind("lock-on-idle", widget, "active", Gio.SettingsBindFlags.DEFAULT)
+        widget = self.builder.get_object('idle-timeout')
+        settings.bind("idle-timeout", widget, "value", Gio.SettingsBindFlags.DEFAULT)
+        widget = self.builder.get_object('auto-save')
+        settings.bind("auto-save", widget, "active", Gio.SettingsBindFlags.DEFAULT)
 
         # Code for other initialization actions should be added here.

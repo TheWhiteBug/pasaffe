@@ -18,7 +18,7 @@ import gettext
 from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
-from gi.repository import GObject, Gtk, Gdk, Pango, GLib # pylint: disable=E0611
+from gi.repository import GObject, Gio, Gtk, Gdk, Pango, GLib # pylint: disable=E0611
 import os, struct, time, sys, webbrowser
 import logging
 logger = logging.getLogger('pasaffe')
@@ -33,7 +33,6 @@ from pasaffe.NewDatabaseDialog import NewDatabaseDialog
 from pasaffe.NewPasswordDialog import NewPasswordDialog
 from pasaffe.PreferencesPasaffeDialog import PreferencesPasaffeDialog
 from pasaffe_lib.readdb import PassSafeFile
-from pasaffe_lib import preferences
 
 # See pasaffe_lib.Window.py for more details about how this class works
 class PasaffeWindow(Window):
@@ -61,8 +60,11 @@ class PasaffeWindow(Window):
         self.is_locked = False
         self.idle_id = None
 
+        self.settings = Gio.Settings("apps.pasaffe")
+        self.settings.connect('changed', self.on_preferences_changed)
+
         # If database doesn't exists, make a new one
-        if os.path.exists(preferences['database-path']):
+        if os.path.exists(self.settings.get_string('database-path')):
             success = self.fetch_password()
         else:
             success = self.new_database()
@@ -98,7 +100,7 @@ class PasaffeWindow(Window):
             if response == Gtk.ResponseType.OK:
                 password = password_dialog.ui.password_entry.get_text()
                 try:
-                    self.passfile = PassSafeFile(preferences['database-path'], password)
+                    self.passfile = PassSafeFile(self.settings.get_string('database-path'), password)
                 except ValueError:
                     password_dialog.ui.password_error_label.set_property("visible", True)
                     password_dialog.ui.password_entry.set_text("")
@@ -149,14 +151,14 @@ class PasaffeWindow(Window):
 
                 contents = ''
                 if show_secrets == False and \
-                   preferences['only-passwords-are-secret'] == False and \
-                   preferences['visible-secrets'] == False:
+                   self.settings.get_boolean('only-passwords-are-secret') == False and \
+                   self.settings.get_boolean('visible-secrets') == False:
                     contents += _("Secrets are currently hidden.")
                 else:
                     if record.has_key(5):
                             contents += "%s\n\n" % record.get(5)
                     contents += _("Username: %s\n") % record.get(4)
-                    if show_secrets == True or preferences['visible-secrets'] == True:
+                    if show_secrets == True or self.settings.get_boolean('visible-secrets') == True:
                         contents += _("Password: %s\n\n") % record.get(6)
                     else:
                         contents += _("Password: *****\n\n")
@@ -285,7 +287,7 @@ class PasaffeWindow(Window):
                 else:
                     item = self.ui.treeview1.get_model().iter_next(item)
             self.set_save_status(True)
-            if preferences['auto-save'] == True:
+            if self.setting.get_bool('auto-save') == True:
                 self.save_db()
         self.set_idle_timeout()
 
@@ -327,7 +329,7 @@ class PasaffeWindow(Window):
                 else:
                     item = self.ui.treeview1.get_model().iter_next(item)
             self.set_save_status(True)
-            if preferences['auto-save'] == True:
+            if self.settings.get_boolean('auto-save') == True:
                 self.save_db()
         self.set_idle_timeout()
 
@@ -404,7 +406,7 @@ class PasaffeWindow(Window):
                 if data_changed == True:
                     self.set_save_status(True)
                     record[12] = timestamp
-                    if preferences['auto-save'] == True:
+                    if self.settings.get_boolean('auto-save') == True:
                         self.save_db()
 
             self.editdetails_dialog.destroy()
@@ -440,7 +442,7 @@ class PasaffeWindow(Window):
 
         if save == True:
             self.set_save_status(True)
-            if preferences['auto-save'] == True:
+            if self.setting.get_bool('auto-save') == True:
                 self.save_db()
 
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
@@ -463,7 +465,7 @@ class PasaffeWindow(Window):
 
     def save_db(self):
         if self.get_save_status() == True:
-            self.passfile.writefile(preferences['database-path'], backup=True)
+            self.passfile.writefile(self.settings.get_string('database-path'), backup=True)
             self.set_save_status(False)
 
     def on_save_clicked(self, toolbutton):
@@ -476,7 +478,7 @@ class PasaffeWindow(Window):
 
     def on_mnu_close_activate(self, menuitem):
         self.disable_idle_timeout()
-        if preferences['auto-save'] == True:
+        if self.settings.get_boolean('auto-save') == True:
             self.save_db()
         if self.save_warning() == False:
             Gtk.main_quit()
@@ -650,8 +652,8 @@ class PasaffeWindow(Window):
         if self.idle_id != None:
             GObject.source_remove(self.idle_id)
             self.idle_id == None
-        if preferences['lock-on-idle'] == True and preferences['idle-timeout'] != 0:
-            idle_time = int(preferences['idle-timeout']*1000*60)
+        if self.settings.get_boolean('lock-on-idle') == True and self.settings.get_int('idle-timeout') != 0:
+            idle_time = int(self.settings.get_int('idle-timeout')*1000*60)
             self.idle_id = GObject.timeout_add(idle_time, self.idle_timeout_reached)
 
     def idle_timeout_reached(self):

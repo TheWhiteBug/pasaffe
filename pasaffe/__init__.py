@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 ### BEGIN LICENSE
-# Copyright (C) 2011 Marc Deslauriers <marc.deslauriers@canonical.com>
+# Copyright (C) 2011-2012 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it 
 # under the terms of the GNU General Public License version 3, as published 
 # by the Free Software Foundation.
@@ -21,11 +21,11 @@ import gettext
 from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
-from gi.repository import Gtk # pylint: disable=E0611
+from gi.repository import Gio, Gtk # pylint: disable=E0611
 
 from pasaffe import PasaffeWindow
 
-from pasaffe_lib import set_up_logging, preferences, get_version
+from pasaffe_lib import set_up_logging, get_version
 
 def parse_options():
     """Support for command line options"""
@@ -59,30 +59,17 @@ def main():
 
     filename = get_database_path()
 
-    # preferences
-    # set some values for our first session
-    default_preferences = {
-    'visible-secrets': False,
-    'only-passwords-are-secret': True,
-    'database-path': filename,
-    'lock-on-idle': True,
-    'idle-timeout': 5,
-    'auto-save': False
-    }
+    settings = Gio.Settings("apps.pasaffe")
 
-    preferences.update(default_preferences)
-    preferences.load()
-
-    if preferences['database-path'] == "":
-        preferences['database-path'] = filename
+    if settings.get_string('database-path') == "":
+        settings.set_string('database-path', filename)
 
     # Override path that was saved with path from command line
     if options.filename != None:
-        preferences['database-path'] = options.filename
+        settings.set_string('database-path', options.filename)
 
     # Run the application.
     window = PasaffeWindow.PasaffeWindow()
     window.show()
     Gtk.main()
 
-    preferences.save()
