@@ -22,6 +22,8 @@ import gettext
 from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
+import subprocess
+
 class EditDetailsDialog(Gtk.Dialog):
     __gtype_name__ = "EditDetailsDialog"
 
@@ -62,6 +64,30 @@ class EditDetailsDialog(Gtk.Dialog):
         """
         pass
 
+    def on_password_button_clicked(self, widget):
+        """The user has clicked the password button"""
+        self.show_passwords_menu()
+
+    def on_menuitem_activate(self, widget):
+        """The user has clicked on a menu item"""
+        label = widget.get_label()
+        self.ui.password_entry.set_text(label)
+
+    def show_passwords_menu(self):
+        """Generate some new passwords"""
+        command = ["apg", "-n", "6", "-M", "sNC", "-m", "8", "-x", "12"]
+        try:
+            passwords = subprocess.check_output(command).splitlines()
+            self.ui.password1.set_label(passwords[0])
+            self.ui.password2.set_label(passwords[1])
+            self.ui.password3.set_label(passwords[2])
+            self.ui.password4.set_label(passwords[3])
+            self.ui.password5.set_label(passwords[4])
+            self.ui.password6.set_label(passwords[5])
+            self.ui.password_menu.popup(None, None, None, None,
+                                        0, Gtk.get_current_event_time())
+        except:
+            pass
 
 if __name__ == "__main__":
     dialog = EditDetailsDialog()

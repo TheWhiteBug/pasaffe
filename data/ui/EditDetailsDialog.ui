@@ -3,6 +3,7 @@
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-requires edit_details_dialog 1.0 -->
   <!-- interface-naming-policy toplevel-contextual -->
+  <object class="GtkAction" id="action1"/>
   <object class="EditDetailsDialog" id="edit_details_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -67,24 +68,6 @@
                 <property name="right_attach">2</property>
                 <property name="top_attach">2</property>
                 <property name="bottom_attach">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="password_entry">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="tooltip_text" translatable="yes">The entry's password</property>
-                <property name="invisible_char">•</property>
-                <property name="primary_icon_activatable">False</property>
-                <property name="secondary_icon_activatable">False</property>
-                <property name="primary_icon_sensitive">True</property>
-                <property name="secondary_icon_sensitive">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="right_attach">2</property>
-                <property name="top_attach">3</property>
-                <property name="bottom_attach">4</property>
               </packing>
             </child>
             <child>
@@ -177,6 +160,50 @@
                 <property name="bottom_attach">5</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkHBox" id="hbox1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkEntry" id="password_entry">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="invisible_char">•</property>
+                    <property name="invisible_char_set">True</property>
+                    <property name="primary_icon_activatable">False</property>
+                    <property name="secondary_icon_activatable">False</property>
+                    <property name="primary_icon_sensitive">True</property>
+                    <property name="secondary_icon_sensitive">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="password_button">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="use_action_appearance">False</property>
+                    <property name="image">image1</property>
+                    <signal name="clicked" handler="on_password_button_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="right_attach">2</property>
+                <property name="top_attach">3</property>
+                <property name="bottom_attach">4</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -235,5 +262,74 @@
       <action-widget response="-5">btn_ok</action-widget>
     </action-widgets>
   </object>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-execute</property>
+  </object>
   <object class="GtkTextBuffer" id="notes_buffer"/>
+  <object class="GtkMenu" id="password_menu">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkMenuItem" id="password1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="use_action_appearance">False</property>
+        <property name="label">password1</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="on_menuitem_activate" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="password2">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="use_action_appearance">False</property>
+        <property name="label">password2</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="on_menuitem_activate" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="password3">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="use_action_appearance">False</property>
+        <property name="label">password3</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="on_menuitem_activate" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="password4">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="use_action_appearance">False</property>
+        <property name="label">password4</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="on_menuitem_activate" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="password6">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="use_action_appearance">False</property>
+        <property name="label">password5</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="on_menuitem_activate" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="password5">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="use_action_appearance">False</property>
+        <property name="label">password6</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="on_menuitem_activate" swapped="no"/>
+      </object>
+    </child>
+  </object>
 </interface>

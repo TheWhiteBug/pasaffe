@@ -14,6 +14,7 @@ Requirements:
 - pango1.0
 - launchpad-integration (optional)
 - yelp
+- apg (for password generation)
 
 Project page:
 -------------
