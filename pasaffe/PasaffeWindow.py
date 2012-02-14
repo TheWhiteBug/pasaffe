@@ -27,7 +27,6 @@ from pasaffe_lib import Window
 from pasaffe.AboutPasaffeDialog import AboutPasaffeDialog
 from pasaffe.EditDetailsDialog import EditDetailsDialog
 from pasaffe.PasswordEntryDialog import PasswordEntryDialog
-from pasaffe.LockScreenDialog import LockScreenDialog
 from pasaffe.SaveChangesDialog import SaveChangesDialog
 from pasaffe.NewDatabaseDialog import NewDatabaseDialog
 from pasaffe.NewPasswordDialog import NewPasswordDialog
@@ -47,7 +46,6 @@ class PasaffeWindow(Window):
         self.editdetails_dialog = None
         self.PreferencesDialog = PreferencesPasaffeDialog
         self.PasswordEntryDialog = PasswordEntryDialog
-        self.LockScreenDialog = LockScreenDialog
         self.SaveChangesDialog = SaveChangesDialog
         self.NewDatabaseDialog = NewDatabaseDialog
         self.NewPasswordDialog = NewPasswordDialog
@@ -620,22 +618,22 @@ class PasaffeWindow(Window):
 
     def on_lock_unlock_button_clicked(self, button):
         success = False
-        lock_dialog = self.LockScreenDialog()
-        lock_dialog.set_transient_for(self)
-        lock_dialog.set_modal(True)
+        password_dialog = self.PasswordEntryDialog()
+        password_dialog.set_transient_for(self)
+        password_dialog.set_modal(True)
         while success == False:
-            response = lock_dialog.run()
+            response = password_dialog.run()
             if response == Gtk.ResponseType.OK:
-                password = lock_dialog.ui.locked_entry.get_text()
+                password = password_dialog.ui.password_entry.get_text()
                 success = self.passfile.check_password(password)
                 if success == False:
-                    lock_dialog.ui.locked_error_label.set_property("visible", True)
-                    lock_dialog.ui.locked_entry.set_text("")
-                    lock_dialog.ui.locked_entry.grab_focus()
+                    password_dialog.ui.password_error_label.set_property("visible", True)
+                    password_dialog.ui.password_entry.set_text("")
+                    password_dialog.ui.password_entry.grab_focus()
             else:
-                lock_dialog.destroy()
+                password_dialog.destroy()
                 return
-        lock_dialog.destroy()
+        password_dialog.destroy()
         self.ui.lock_vbox.reparent(self.ui.lock_window)
         self.ui.pasaffe_vbox.reparent(self.ui.pasaffe_window)
         self.set_menu_sensitive(True)
