@@ -9,5 +9,4 @@ List of stuff to do:
 - Add better toolbar icons
 - Implement sanity check after saving db temp file
 - Fix compatibility with Python 3
-- Add password generation capability
 - Add search capability

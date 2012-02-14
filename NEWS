@@ -5,6 +5,8 @@ For a detailed list of changes, please see ChangeLog.
 
  * Enhancements:
    - Added random password generation
+   - Lock now uses the main window to prevent a window from showing up
+     on another workspace when the timeout occurs
 
  * Bug fixes:
 
