@@ -7,23 +7,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-02-04 17:08-0500\n"
+"POT-Creation-Date: 2012-02-14 17:20-0500\n"
 "PO-Revision-Date: 2011-12-13 00:31+0000\n"
 "Last-Translator: paolo <Unknown>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-02-14 06:40+0000\n"
+"X-Launchpad-Export-Date: 2012-02-15 06:08+0000\n"
 "X-Generator: Launchpad (build 14781)\n"
 
 #: ../data/ui/PasswordEntryDialog.ui.h:1
 msgid "<big><b>Please enter your master password:</b></big>"
 msgstr "<big><b>Inserisci la tua password principale:</b></big>"
 
-#: ../data/ui/PasswordEntryDialog.ui.h:2 ../data/ui/LockScreenDialog.ui.h:3
+#: ../data/ui/PasswordEntryDialog.ui.h:2
 msgid "Invalid password! Please try again."
 msgstr "Password non valida! Riprova."
+
+#: ../pasaffe/__init__.py:35
+msgid "Show debug messages (-vv debugs pasaffe_lib also)"
+msgstr "Mostra messaggi debug (-vv debugs pasaffe_lib also)"
+
+#: ../pasaffe/__init__.py:38
+msgid "set database to FILE"
+msgstr "imposta database a FILE"
 
 #: ../data/ui/EditDetailsDialog.ui.h:1
 msgid "<big><b>Edit entry</b></big>"
@@ -38,43 +46,43 @@ msgid "The entry's username"
 msgstr "L'username dell'elemento"
 
 #: ../data/ui/EditDetailsDialog.ui.h:4
-msgid "The entry's password"
-msgstr "La password dell'elemento"
-
-#: ../data/ui/EditDetailsDialog.ui.h:5
 msgid "Title:"
 msgstr "Titolo:"
 
-#: ../data/ui/EditDetailsDialog.ui.h:6
+#: ../data/ui/EditDetailsDialog.ui.h:5
 msgid "Username:"
 msgstr "Nome utente:"
 
-#: ../data/ui/EditDetailsDialog.ui.h:7
+#: ../data/ui/EditDetailsDialog.ui.h:6
 msgid "Password:"
 msgstr "Password:"
 
-#: ../data/ui/EditDetailsDialog.ui.h:8
+#: ../data/ui/EditDetailsDialog.ui.h:7
 msgid "Notes:"
 msgstr "Note:"
 
-#: ../data/ui/EditDetailsDialog.ui.h:9
+#: ../data/ui/EditDetailsDialog.ui.h:8
 msgid "URL:"
 msgstr "URL:"
 
-#: ../data/ui/EditDetailsDialog.ui.h:10
+#: ../data/ui/EditDetailsDialog.ui.h:9
 msgid "The website for this entry"
 msgstr "Il sito internet per questo elemento"
 
-#: ../pasaffe/PasaffeWindow.py:156
+#: ../data/ui/EditDetailsDialog.ui.h:10
+msgid "Pick a random password"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:154
 msgid "Secrets are currently hidden."
 msgstr "Attualmente i segreti sono nascosti."
 
-#: ../pasaffe/PasaffeWindow.py:160
+#: ../pasaffe/PasaffeWindow.py:158
 #, python-format
 msgid "Username: %s\n"
 msgstr "Nome utente: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:162
+#: ../pasaffe/PasaffeWindow.py:160
 #, python-format
 msgid ""
 "Password: %s\n"
@@ -83,7 +91,7 @@ msgstr ""
 "Password: %s\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:164
+#: ../pasaffe/PasaffeWindow.py:162
 msgid ""
 "Password: *****\n"
 "\n"
@@ -91,21 +99,21 @@ msgstr ""
 "Password: *****\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:169
+#: ../pasaffe/PasaffeWindow.py:167
 #, python-format
 msgid "Last updated: %s\n"
 msgstr "Ultimo aggiornamento: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:174
+#: ../pasaffe/PasaffeWindow.py:172
 #, python-format
 msgid "Password updated: %s\n"
 msgstr "Password aggiornate: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:179
+#: ../pasaffe/PasaffeWindow.py:177
 msgid "Welcome to Pasaffe!"
 msgstr "Benvenuti in Pasaffe!"
 
-#: ../pasaffe/PasaffeWindow.py:180
+#: ../pasaffe/PasaffeWindow.py:178
 msgid ""
 "Pasaffe is an easy to use\n"
 "password manager for Gnome."
@@ -113,7 +121,7 @@ msgstr ""
 "Pasaffe è un password manager\n"
 "per Gnome semplice da usare"
 
-#: ../pasaffe/PasaffeWindow.py:343
+#: ../pasaffe/PasaffeWindow.py:341
 #, python-format
 msgid ""
 "<big><b>Are you sure you wish to remove \"%s\"?</b></big>\n"
@@ -122,11 +130,11 @@ msgstr ""
 "<big><b>Sei sicuro di voler rimuovere \"%s\"?</b></big>\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:344
+#: ../pasaffe/PasaffeWindow.py:342
 msgid "Contents of the entry will be lost.\n"
 msgstr "Il contenuto della voce verrà perso.\n"
 
-#: ../pasaffe/PasaffeWindow.py:556
+#: ../pasaffe/PasaffeWindow.py:554
 msgid ""
 "<big><b>Database Information</b></big>\n"
 "\n"
@@ -134,45 +142,45 @@ msgstr ""
 "<big><b>Informazioni database</b></big>\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:557
+#: ../pasaffe/PasaffeWindow.py:555
 #, python-format
 msgid "Number of entries: %s\n"
 msgstr "Numero di elementi: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:558
+#: ../pasaffe/PasaffeWindow.py:556
 #, python-format
 msgid "Database version: %s.%s\n"
 msgstr "Versione database: %s.%s\n"
 
-#: ../pasaffe/PasaffeWindow.py:560
+#: ../pasaffe/PasaffeWindow.py:558
 #, python-format
 msgid "Last saved by: %s\n"
 msgstr "Ultimo salvataggio effettuato da: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:562
+#: ../pasaffe/PasaffeWindow.py:560
 #, python-format
 msgid "Last saved on host: %s\n"
 msgstr "Ultimo salvataggio sull'host: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:567
+#: ../pasaffe/PasaffeWindow.py:565
 #, python-format
 msgid "Last save date: %s\n"
 msgstr "Ultima data di salvataggio: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:569
+#: ../pasaffe/PasaffeWindow.py:567
 #, python-format
 msgid "Application used: %s\n"
 msgstr "Applicazione usate: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:592 ../data/ui/NewDatabaseDialog.ui.h:5
+#: ../pasaffe/PasaffeWindow.py:590 ../data/ui/NewDatabaseDialog.ui.h:5
 msgid "Passwords don't match! Please try again."
 msgstr "Le password non coincidono! Per favore riprova."
 
-#: ../pasaffe/PasaffeWindow.py:596
+#: ../pasaffe/PasaffeWindow.py:594
 msgid "New password cannot be blank! Please try again."
 msgstr "La password non può essere vuota! Per favore riprova."
 
-#: ../pasaffe/PasaffeWindow.py:600
+#: ../pasaffe/PasaffeWindow.py:598
 msgid "Old password is invalid! Please try again."
 msgstr "La vecchia password non è valida! Per favore riprova."
 
@@ -201,114 +209,122 @@ msgid "Automatically save changes"
 msgstr "Salva cambiamenti automaticamente"
 
 #: ../data/ui/PasaffeWindow.ui.h:1
+msgid "<big><b>The password database is currently locked.</b></big>"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:2
+msgid "Unlock"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:3
 msgid "Clone"
 msgstr "Clona"
 
-#: ../data/ui/PasaffeWindow.ui.h:2
+#: ../data/ui/PasaffeWindow.ui.h:4
 msgid "Copy URL"
 msgstr "Copia URL"
 
-#: ../data/ui/PasaffeWindow.ui.h:3
+#: ../data/ui/PasaffeWindow.ui.h:5
 msgid "Copy Username"
 msgstr "Copia Username"
 
-#: ../data/ui/PasaffeWindow.ui.h:4
+#: ../data/ui/PasaffeWindow.ui.h:6
 msgid "Copy Password"
 msgstr "Copia Password"
 
-#: ../data/ui/PasaffeWindow.ui.h:5 ../pasaffe.desktop.in.h:1
+#: ../data/ui/PasaffeWindow.ui.h:7 ../pasaffe.desktop.in.h:1
 msgid "Pasaffe"
 msgstr "Pasaffe"
 
-#: ../data/ui/PasaffeWindow.ui.h:6
+#: ../data/ui/PasaffeWindow.ui.h:8
 msgid "_File"
 msgstr "_File"
 
-#: ../data/ui/PasaffeWindow.ui.h:7
+#: ../data/ui/PasaffeWindow.ui.h:9
 msgid "Lock"
 msgstr "Blocca"
 
-#: ../data/ui/PasaffeWindow.ui.h:8
+#: ../data/ui/PasaffeWindow.ui.h:10
 msgid "Change Master Password"
 msgstr "Cambia Password Principale"
 
-#: ../data/ui/PasaffeWindow.ui.h:9
+#: ../data/ui/PasaffeWindow.ui.h:11
 msgid "_Edit"
 msgstr "_Modifica"
 
-#: ../data/ui/PasaffeWindow.ui.h:10
+#: ../data/ui/PasaffeWindow.ui.h:12
 msgid "_View"
 msgstr "_Visualizza"
 
-#: ../data/ui/PasaffeWindow.ui.h:11
+#: ../data/ui/PasaffeWindow.ui.h:13
 msgid "Display Secrets"
 msgstr "Visualizza Segreti"
 
-#: ../data/ui/PasaffeWindow.ui.h:12
+#: ../data/ui/PasaffeWindow.ui.h:14
 msgid "Open URL"
 msgstr "Apri URL"
 
-#: ../data/ui/PasaffeWindow.ui.h:13
+#: ../data/ui/PasaffeWindow.ui.h:15
 msgid "Database Information"
 msgstr "Informazione sul database"
 
-#: ../data/ui/PasaffeWindow.ui.h:14
+#: ../data/ui/PasaffeWindow.ui.h:16
 msgid "_Help"
 msgstr "_Aiuto"
 
-#: ../data/ui/PasaffeWindow.ui.h:15
+#: ../data/ui/PasaffeWindow.ui.h:17
 msgid "Contents"
 msgstr "Contenuti"
 
-#: ../data/ui/PasaffeWindow.ui.h:16
+#: ../data/ui/PasaffeWindow.ui.h:18
 msgid "Save changes"
 msgstr "Salva modifiche"
 
-#: ../data/ui/PasaffeWindow.ui.h:17
+#: ../data/ui/PasaffeWindow.ui.h:19
 msgid "Save"
 msgstr "Salva"
 
-#: ../data/ui/PasaffeWindow.ui.h:18
+#: ../data/ui/PasaffeWindow.ui.h:20
 msgid "Add a new entry"
 msgstr "Aggiungi una nuova voce"
 
-#: ../data/ui/PasaffeWindow.ui.h:19
+#: ../data/ui/PasaffeWindow.ui.h:21
 msgid "Add"
 msgstr "Aggiungi"
 
-#: ../data/ui/PasaffeWindow.ui.h:20
+#: ../data/ui/PasaffeWindow.ui.h:22
 msgid "Edit the selected entry"
 msgstr "Modifica la voce selezionata"
 
-#: ../data/ui/PasaffeWindow.ui.h:21
+#: ../data/ui/PasaffeWindow.ui.h:23
 msgid "Edit"
 msgstr "Modifica"
 
-#: ../data/ui/PasaffeWindow.ui.h:22
+#: ../data/ui/PasaffeWindow.ui.h:24
 msgid "Delete the selected entry"
 msgstr "Elimina la voce selezionata"
 
-#: ../data/ui/PasaffeWindow.ui.h:23
+#: ../data/ui/PasaffeWindow.ui.h:25
 msgid "toolbutton1"
 msgstr "toolbutton1"
 
-#: ../data/ui/PasaffeWindow.ui.h:24
+#: ../data/ui/PasaffeWindow.ui.h:26
 msgid "Open the URL"
 msgstr "Apri l'URL"
 
-#: ../data/ui/PasaffeWindow.ui.h:25
+#: ../data/ui/PasaffeWindow.ui.h:27
 msgid "Copy the username"
 msgstr "Copia l'username"
 
-#: ../data/ui/PasaffeWindow.ui.h:26
+#: ../data/ui/PasaffeWindow.ui.h:28
 msgid "Copy the password"
 msgstr "Copia la password"
 
-#: ../data/ui/PasaffeWindow.ui.h:27
+#: ../data/ui/PasaffeWindow.ui.h:29
 msgid "Display secrets"
 msgstr "Visualizza segreti"
 
-#: ../data/ui/PasaffeWindow.ui.h:28
+#: ../data/ui/PasaffeWindow.ui.h:30
 msgid "column"
 msgstr "Colonna"
 
@@ -333,14 +349,6 @@ msgstr "Inserisci password:"
 #: ../data/ui/NewDatabaseDialog.ui.h:7
 msgid "Confirm password:"
 msgstr "Conferma password:"
-
-#: ../data/ui/LockScreenDialog.ui.h:1
-msgid ""
-"<big><b>Database is locked.\n"
-"Please enter your master password:</b></big>"
-msgstr ""
-"<big><b>Il database è bloccato.\n"
-"Per favore inserisci la password principale:</b></big>"
 
 #: ../pasaffe.desktop.in.h:2
 msgid "Pasaffe password manager"
@@ -389,11 +397,3 @@ msgstr "Nuova password:"
 #: ../data/ui/NewPasswordDialog.ui.h:8
 msgid "Confirm new password:"
 msgstr "Conferma nuova password:"
-
-#: ../pasaffe/__init__.py:35
-msgid "Show debug messages (-vv debugs pasaffe_lib also)"
-msgstr "Mostra messaggi debug (-vv debugs pasaffe_lib also)"
-
-#: ../pasaffe/__init__.py:38
-msgid "set database to FILE"
-msgstr "imposta database a FILE"
