@@ -2,16 +2,17 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-requires save_changes_dialog 1.0 -->
+  <!-- interface-naming-policy toplevel-contextual -->
   <object class="SaveChangesDialog" id="save_changes_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
+    <property name="title">Pasaffe</property>
     <property name="icon">../media/pasaffe.svg</property>
     <property name="type_hint">normal</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox1">
+      <object class="GtkVBox" id="dialog-vbox1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">10</property>
         <child>
           <object class="GtkHBox" id="hbox1">
@@ -76,7 +77,7 @@
           </packing>
         </child>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area1">
+          <object class="GtkHButtonBox" id="dialog-action_area1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>

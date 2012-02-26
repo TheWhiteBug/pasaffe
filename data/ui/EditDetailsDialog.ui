@@ -7,6 +7,7 @@
   <object class="EditDetailsDialog" id="edit_details_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
+    <property name="title">Pasaffe</property>
     <property name="default_width">400</property>
     <property name="icon">../media/pasaffe.svg</property>
     <property name="type_hint">normal</property>
