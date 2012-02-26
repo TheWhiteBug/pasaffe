@@ -59,6 +59,7 @@ class PasaffeWindow(Window):
         self.idle_id = None
         self.find_results = []
         self.find_results_index = None
+        self.find_value = ""
 
         self.settings = Gio.Settings("apps.pasaffe")
         self.settings.connect('changed', self.on_preferences_changed)
@@ -293,7 +294,7 @@ class PasaffeWindow(Window):
             if self.settings.get_boolean('auto-save') == True:
                 self.save_db()
         self.set_idle_timeout()
-        self.update_find_results()
+        self.update_find_results(force=True)
 
     def clone_entry(self, entry_uuid):
         record_list = ( 3, 4, 5, 6, 13 )
@@ -338,7 +339,7 @@ class PasaffeWindow(Window):
             if self.settings.get_boolean('auto-save') == True:
                 self.save_db()
         self.set_idle_timeout()
-        self.update_find_results()
+        self.update_find_results(force=True)
 
     def remove_entry(self):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
@@ -425,7 +426,7 @@ class PasaffeWindow(Window):
                 self.display_data(entry_uuid)
 
             self.set_idle_timeout()
-            self.update_find_results()
+            self.update_find_results(force=True)
             return response
 
     def delete_entry(self, entry_uuid, save=True):
@@ -460,7 +461,7 @@ class PasaffeWindow(Window):
         else:
             self.display_welcome()
 
-        self.update_find_results()
+        self.update_find_results(force=True)
 
     def model_get_iter_last(self, model, parent=None):
         """Returns a Gtk.TreeIter to the last row or None if there aren't any rows.
@@ -601,12 +602,14 @@ class PasaffeWindow(Window):
         self.ui.mnu_find.set_active(False)
 
     def on_find_btn_prev_clicked(self, button):
+        self.update_find_results()
         self.goto_next_find_result(backwards=True)
 
     def on_find_btn_next_clicked(self, button):
+        self.update_find_results()
         self.goto_next_find_result()
 
-    def update_find_results(self):
+    def update_find_results(self, force=False):
 
         if self.ui.find_box.get_property("visible") == False:
             return
@@ -614,6 +617,12 @@ class PasaffeWindow(Window):
         find = self.ui.find_entry.get_text()
 
         if find == "":
+            self.find_results = []
+            self.find_results_index = None
+            self.find_value = ""
+            return
+
+        if find == self.find_value and force == False:
             return
 
         record_list = ( 3, 5, 13 )
@@ -633,6 +642,7 @@ class PasaffeWindow(Window):
 
         self.find_results = sorted(results, key=lambda results: results[0].lower())
         self.find_results_index = None
+        self.find_value = find
 
     def goto_next_find_result(self, backwards=False):
 
@@ -676,6 +686,7 @@ class PasaffeWindow(Window):
 
         if show == True:
             self.ui.find_entry.set_text("")
+            self.find_value = ""
             self.ui.find_box.set_property("visible", True)
             self.ui.find_entry.grab_focus()
         else:
