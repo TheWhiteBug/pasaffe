@@ -581,14 +581,20 @@ class PasaffeWindow(Window):
     def on_mnu_open_url_activate(self, menuitem):
         self.open_url()
 
-    def on_mnu_find_activate(self, menuitem):
-        if self.ui.find_box.get_property("visible") == True:
-            self.show_find(False)
-        else:
-            self.show_find(True)
+    def on_mnu_find_toggled(self, menuitem):
+        is_active = menuitem.get_active()
+        self.show_find(is_active)
+        self.ui.toolbar_find.set_active(is_active)
+
+    def on_toolbar_find_toggled(self, toolbutton):
+        is_active = toolbutton.get_active()
+        self.show_find(is_active)
+        self.ui.mnu_find.set_active(is_active)
 
     def on_find_btn_close_clicked(self, button):
         self.show_find(False)
+        self.ui.toolbar_find.set_active(False)
+        self.ui.mnu_find.set_active(False)
 
     def on_find_btn_prev_clicked(self, button):
         self.goto_next_find_result(backwards=True)
@@ -658,6 +664,10 @@ class PasaffeWindow(Window):
         self.goto_next_find_result()
 
     def show_find(self, show):
+
+        if self.ui.find_box.get_property("visible") == show:
+            return
+
         if show == True:
             self.ui.find_entry.set_text("")
             self.ui.find_box.set_property("visible", True)
@@ -745,6 +755,7 @@ class PasaffeWindow(Window):
         self.ui.mnu_add.set_sensitive(status)
         self.ui.mnu_clone.set_sensitive(status)
         self.ui.mnu_delete.set_sensitive(status)
+        self.ui.mnu_find.set_sensitive(status)
         self.ui.url_copy.set_sensitive(status)
         self.ui.username_copy.set_sensitive(status)
         self.ui.password_copy.set_sensitive(status)
