@@ -284,6 +284,8 @@ class PasaffeWindow(Window):
                 if self.ui.liststore1.get_value(item, 1) == uuid_hex:
                     self.ui.treeview1.get_selection().select_iter(item)
                     self.display_data(uuid_hex)
+                    path = self.ui.treeview1.get_model().get_path(item)
+                    self.ui.treeview1.scroll_to_cell(path)
                     break
                 else:
                     item = self.ui.treeview1.get_model().iter_next(item)
@@ -327,6 +329,8 @@ class PasaffeWindow(Window):
                 if self.ui.liststore1.get_value(item, 1) == uuid_hex:
                     self.ui.treeview1.get_selection().select_iter(item)
                     self.display_data(uuid_hex)
+                    path = self.ui.treeview1.get_model().get_path(item)
+                    self.ui.treeview1.scroll_to_cell(path)
                     break
                 else:
                     item = self.ui.treeview1.get_model().iter_next(item)
@@ -655,6 +659,8 @@ class PasaffeWindow(Window):
             if self.ui.liststore1.get_value(item, 1) == uuid_hex:
                 self.ui.treeview1.get_selection().select_iter(item)
                 self.display_data(uuid_hex)
+                path = self.ui.treeview1.get_model().get_path(item)
+                self.ui.treeview1.scroll_to_cell(path)
                 break
             else:
                 item = self.ui.treeview1.get_model().iter_next(item)
