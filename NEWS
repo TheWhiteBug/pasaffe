@@ -9,6 +9,7 @@ For a detailed list of changes, please see ChangeLog.
    - Implemented search
 
  * Bug fixes:
+   - Set proper window titles
 
 0.13 (2012-02-14):
 
