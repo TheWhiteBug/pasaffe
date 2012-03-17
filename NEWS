@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.15 (UNRELEASED):
 
  * Enhancements:
+   - Added KeePassX XML import script
 
  * Bug fixes:
 
