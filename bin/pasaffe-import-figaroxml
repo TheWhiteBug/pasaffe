@@ -49,7 +49,7 @@ from pasaffe_lib import readdb
 
 parser = OptionParser()
 parser.add_option("-f", "--file", dest="filename",
-                  help="specify alternate FPM2 XML database file", metavar="FILE")
+                  help="specify FPM2 XML file", metavar="FILE")
 parser.add_option("-o", "--overwrite", dest="overwrite", action="store_true",
                   default=False, help="overwrite existing Pasaffe password store")
 
@@ -96,11 +96,13 @@ def confirm(prompt=None, resp=False):
             return False
 
 if options.filename == None:
-    filename = None
+    print "You must specify the name of the FPM2 XML file!\n"
+    parser.print_help()
+    sys.exit(1)
 else:
     filename = options.filename
 
-print "Attempting to import FPM2 XML passwords..."
+print "Attempting to import FPM2 passwords..."
 print "Database filename is %s" % filename
 print
 
