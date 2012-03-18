@@ -8,6 +8,7 @@ For a detailed list of changes, please see ChangeLog.
 
  * Bug fixes:
    - Give proper error when not specifying file to Figaro import script
+   - Various cleanups
 
 0.14 (2012-02-29):
 

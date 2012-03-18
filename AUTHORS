@@ -13,6 +13,10 @@ Copyright (c) 2003-2011 Rony Shapiro <ronys@users.sourceforge.net>
 pasaffe_lib/figaroxml.py:
 Copyright (C) 2011 Francesco Marella <francesco.marella@gmail.com>
 
+pasaffe_lib/keepassx.py:
+Copyright (C) 2011 Francesco Marella <francesco.marella@gmail.com>
+Copyright (C) 2012 Marc Deslauriers <marc.deslauriers@canonical.com>
+
 pasaffe_lib/pytwofish.py:
 Bjorn Edstrom <be@bjrn.se> 13 december 2007
 Dr Brian Gladman (gladman@seven77.demon.co.uk) 14th January 1999
