@@ -119,9 +119,7 @@ if not os.path.exists(basedir):
 
 db_filename = os.path.join(basedir, 'pasaffe.psafe3')
 
-password = None
-
-keepassx = keepassx.KeePassX(filename, password)
+keepassx = keepassx.KeePassX(filename)
 
 items = len(keepassx.records)
 

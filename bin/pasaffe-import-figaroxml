@@ -120,9 +120,7 @@ if not os.path.exists(basedir):
 
 db_filename = os.path.join(basedir, 'pasaffe.psafe3')
 
-password = None
-
-fpmxml = figaroxml.FigaroXML(filename, password)
+fpmxml = figaroxml.FigaroXML(filename)
 
 items = len(fpmxml.records)
 

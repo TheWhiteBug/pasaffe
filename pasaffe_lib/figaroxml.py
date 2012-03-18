@@ -30,13 +30,13 @@ class FigaroXML:
 
     cipher = None
 
-    def __init__(self, filename=None, password=None):
+    def __init__(self, filename=None):
         """ Reads a FPM2 file"""
 
         if filename != None:
-            self.readfile(filename, password)
+            self.readfile(filename)
 
-    def readfile(self, filename, password):
+    def readfile(self, filename):
         """ Parses database file"""
         try:
             element = ET.parse(filename)
