@@ -84,6 +84,6 @@ class KeePassX:
                     elif x.tag == 'comment':
                         new_entry[5] = x.text or ''
                         for subelement in list(x):
-                            new_entry[5] += "\n" + subelement.tail
+                            new_entry[5] += "\n" + str(subelement.tail)
 
                 self.records.append(new_entry)
