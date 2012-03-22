@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.15 (UNRELEASED):
 
  * Enhancements:
+   - Updated translations
    - Added KeePassX XML import script
    - Import scripts now warn about skipped fields
 
