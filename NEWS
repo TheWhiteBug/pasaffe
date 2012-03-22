@@ -5,10 +5,12 @@ For a detailed list of changes, please see ChangeLog.
 
  * Enhancements:
    - Added KeePassX XML import script
+   - Import scripts now warn about skipped fields
 
  * Bug fixes:
    - Give proper error when not specifying file to Figaro import script
    - Various cleanups
+   - Properly handle utf-8 characters when importing Figaro xml file
 
 0.14 (2012-02-29):
 
