@@ -26,6 +26,7 @@ logger = logging.getLogger('pasaffe')
 
 class FigaroXML:
     records = []
+    skipped = []
     index = 0
 
     cipher = None
@@ -54,14 +55,17 @@ class FigaroXML:
 
             for x in list(pwitem):
                 if x.tag == 'title':
-                    new_entry[3] = x.text or 'Untitled item'
+                    new_entry[3] = (x.text or 'Untitled item').encode("utf-8")
                 elif x.tag == 'user':
-                    new_entry[4] = x.text or ''
+                    new_entry[4] = (x.text or '').encode("utf-8")
                 elif x.tag == 'password':
-                    new_entry[6] = x.text or ''
+                    new_entry[6] = (x.text or '').encode("utf-8")
                 elif x.tag == 'url':
-                    new_entry[13] = x.text or ''
+                    new_entry[13] = (x.text or '').encode("utf-8")
                 elif x.tag == 'notes':
-                    new_entry[5] = x.text or ''
+                    new_entry[5] = (x.text or '').encode("utf-8")
+                else:
+                    if x.tag not in self.skipped:
+                        self.skipped.append(x.tag)
 
             self.records.append(new_entry)
