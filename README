@@ -22,9 +22,14 @@ Import scripts:
 Pasaffe contains some command-line utilities to import databases from
 other password applications:
 
-pasaffe-import-gpass: Imports GPass passwords.
-pasaffe-import-figaroxml: Imports Figaro's Password Manager 2 passwords.
-pasaffe-import-keepassx: Imports KeePassX passwords.
+pasaffe-import-gpass:
+Imports GPass passwords directly from database.
+
+pasaffe-import-figaroxml:
+Imports Figaro's Password Manager 2 passwords from XML export file.
+
+pasaffe-import-keepassx:
+Imports KeePassX passwords from XML export file.
 
 When using these utilities, please be aware that some fields may not have
 equivalents in Pasaffe and will not be imported. Always keep the original
