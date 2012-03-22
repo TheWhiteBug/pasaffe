@@ -27,6 +27,7 @@ logger = logging.getLogger('pasaffe')
 
 class KeePassX:
     records = []
+    skipped = []
     index = 0
 
     cipher = None
@@ -69,21 +70,24 @@ class KeePassX:
 
                 for x in list(pwitem):
                     if x.tag == 'title':
-                        new_entry[3] = x.text or 'Untitled item'
+                        new_entry[3] = (x.text or 'Untitled item').encode("utf-8")
                     elif x.tag == 'username':
-                        new_entry[4] = x.text or ''
+                        new_entry[4] = (x.text or '').encode("utf-8")
                     elif x.tag == 'password':
-                        new_entry[6] = x.text or ''
+                        new_entry[6] = (x.text or '').encode("utf-8")
                     elif x.tag == 'url':
-                        new_entry[13] = x.text or ''
+                        new_entry[13] = (x.text or '').encode("utf-8")
                     elif x.tag == 'creation':
                         new_entry[7] = self._convert_time(x.text)
                     elif x.tag == 'lastmod':
                         new_entry[8] = self._convert_time(x.text)
                         new_entry[12] = self._convert_time(x.text)
                     elif x.tag == 'comment':
-                        new_entry[5] = x.text or ''
+                        new_entry[5] = (x.text or '').encode("utf-8")
                         for subelement in list(x):
-                            new_entry[5] += "\n" + str(subelement.tail)
+                            new_entry[5] += "\n" + (subelement.tail or '').encode("utf-8")
+                    else:
+                        if x.tag not in self.skipped:
+                            self.skipped.append(x.tag)
 
                 self.records.append(new_entry)
