@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-29 09:14-0500\n"
+"POT-Creation-Date: 2012-03-22 18:17-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,46 +31,6 @@ msgstr ""
 
 #: ../pasaffe/__init__.py:38
 msgid "set database to FILE"
-msgstr ""
-
-#: ../data/ui/EditDetailsDialog.ui.h:1
-msgid "<big><b>Edit entry</b></big>"
-msgstr ""
-
-#: ../data/ui/EditDetailsDialog.ui.h:2
-msgid "The name for this entry"
-msgstr ""
-
-#: ../data/ui/EditDetailsDialog.ui.h:3
-msgid "The entry's username"
-msgstr ""
-
-#: ../data/ui/EditDetailsDialog.ui.h:4
-msgid "Title:"
-msgstr ""
-
-#: ../data/ui/EditDetailsDialog.ui.h:5
-msgid "Username:"
-msgstr ""
-
-#: ../data/ui/EditDetailsDialog.ui.h:6
-msgid "Password:"
-msgstr ""
-
-#: ../data/ui/EditDetailsDialog.ui.h:7
-msgid "Notes:"
-msgstr ""
-
-#: ../data/ui/EditDetailsDialog.ui.h:8
-msgid "URL:"
-msgstr ""
-
-#: ../data/ui/EditDetailsDialog.ui.h:9
-msgid "The website for this entry"
-msgstr ""
-
-#: ../data/ui/EditDetailsDialog.ui.h:10
-msgid "Pick a random password"
 msgstr ""
 
 #: ../pasaffe/PasaffeWindow.py:157
@@ -359,6 +319,46 @@ msgstr ""
 
 #: ../pasaffe.desktop.in.h:2
 msgid "Pasaffe password manager"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:1
+msgid "<big><b>Edit entry</b></big>"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:2
+msgid "The name for this entry"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:3
+msgid "The entry's username"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:4
+msgid "Title:"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:5
+msgid "Username:"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:6
+msgid "Password:"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:7
+msgid "Notes:"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:8
+msgid "URL:"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:9
+msgid "The website for this entry"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:10
+msgid "Pick a random password"
 msgstr ""
 
 #: ../data/ui/AboutPasaffeDialog.ui.h:1
