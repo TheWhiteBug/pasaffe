@@ -6,6 +6,7 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
 
  * Bug fixes:
+   - Fix right click context menu (LP: #945861)
 
 0.15 (2012-03-22):
 

@@ -258,7 +258,7 @@ class PasaffeWindow(Window):
                 path, col, cellx, celly = pthinfo
                 treeview.grab_focus()
                 treeview.set_cursor(path, col, 0)
-                self.ui.menu_popup.popup(None, None, None, 3, time)
+                self.ui.menu_popup.popup(None, None, None, None, 3, time)
 
     def add_entry(self):
         self.disable_idle_timeout()
