@@ -127,6 +127,7 @@ class Window(Gtk.Window):
     def on_preferences_changed(self, settings, key, data=None):
         logger.debug('preference changed: %s = %s' % (key, str(settings.get_value(key))))
         if key == 'visible-secrets':
+            self.set_show_password_status()
             treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
             if treeiter != None:
                 entry_uuid = treemodel.get_value(treeiter, 1)

@@ -73,6 +73,7 @@ class PasaffeWindow(Window):
         if success == False:
             self.connect('event-after', Gtk.main_quit)
         else:
+            self.set_show_password_status()
             self.display_entries()
             self.display_welcome()
 
@@ -777,14 +778,23 @@ class PasaffeWindow(Window):
         self.ui.username_copy.set_sensitive(status)
         self.ui.password_copy.set_sensitive(status)
         self.ui.mnu_preferences.set_sensitive(status)
-        self.ui.mnu_display_secrets.set_sensitive(status)
         self.ui.mnu_open_url.set_sensitive(status)
         self.ui.mnu_info.set_sensitive(status)
 
+        if status == False:
+            self.ui.mnu_display_secrets.set_sensitive(False)
+        else:
+            self.set_show_password_status()
+
         if status == True and self.needs_saving == True:
             self.ui.mnu_save.set_sensitive(True)
+            self.ui.save.set_sensitive(True)
         else:
             self.ui.mnu_save.set_sensitive(False)
+            # Work around issue where button is insensitive, but icon is
+            # not greyed out
+            self.ui.save.set_sensitive(True)
+            self.ui.save.set_sensitive(False)
 
     def on_add_clicked(self, toolbutton):
         self.add_entry()
@@ -816,6 +826,19 @@ class PasaffeWindow(Window):
         if self.idle_id != None:
             GObject.source_remove(self.idle_id)
             self.idle_id == None
+
+    def set_show_password_status(self):
+        visible = self.settings.get_boolean('visible-secrets')
+
+        if visible == True:
+            self.ui.mnu_display_secrets.set_sensitive(False)
+            # Work around issue where button is insensitive, but icon is
+            # not greyed out
+            self.ui.display_secrets.set_sensitive(True)
+            self.ui.display_secrets.set_sensitive(False)
+        else:
+            self.ui.mnu_display_secrets.set_sensitive(True)
+            self.ui.display_secrets.set_sensitive(True)
 
     def set_save_status(self, needed=False):
         self.needs_saving = needed
