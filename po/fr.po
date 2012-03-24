@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-29 09:14-0500\n"
+"POT-Creation-Date: 2012-03-22 18:17-0400\n"
 "PO-Revision-Date: 2012-02-26 14:32+0000\n"
 "Last-Translator: Marc Deslauriers <marc.deslauriers@canonical.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-03-01 05:16+0000\n"
-"X-Generator: Launchpad (build 14874)\n"
+"X-Launchpad-Export-Date: 2012-03-23 05:08+0000\n"
+"X-Generator: Launchpad (build 14996)\n"
 "Language: fr\n"
 
 #: ../data/ui/PasswordEntryDialog.ui.h:1
@@ -35,46 +35,6 @@ msgstr ""
 #: ../pasaffe/__init__.py:38
 msgid "set database to FILE"
 msgstr ""
-
-#: ../data/ui/EditDetailsDialog.ui.h:1
-msgid "<big><b>Edit entry</b></big>"
-msgstr "<big><b>Modifier une entrée</b></big>"
-
-#: ../data/ui/EditDetailsDialog.ui.h:2
-msgid "The name for this entry"
-msgstr "Le nom de l'entrée"
-
-#: ../data/ui/EditDetailsDialog.ui.h:3
-msgid "The entry's username"
-msgstr "Nom d'usager pour l'entrée"
-
-#: ../data/ui/EditDetailsDialog.ui.h:4
-msgid "Title:"
-msgstr "Titre:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:5
-msgid "Username:"
-msgstr "Nom d'usager:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:6
-msgid "Password:"
-msgstr "Mot de passe:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:7
-msgid "Notes:"
-msgstr "Notes:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:8
-msgid "URL:"
-msgstr "URL:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:9
-msgid "The website for this entry"
-msgstr "Le site Web pour l'entrée"
-
-#: ../data/ui/EditDetailsDialog.ui.h:10
-msgid "Pick a random password"
-msgstr "Sélectionner un mot de passe aléatoire"
 
 #: ../pasaffe/PasaffeWindow.py:157
 msgid "Secrets are currently hidden."
@@ -376,6 +336,46 @@ msgstr "Confirmer le mot de passe:"
 #: ../pasaffe.desktop.in.h:2
 msgid "Pasaffe password manager"
 msgstr "gestionnaire de mot de passe Pasaffe"
+
+#: ../data/ui/EditDetailsDialog.ui.h:1
+msgid "<big><b>Edit entry</b></big>"
+msgstr "<big><b>Modifier une entrée</b></big>"
+
+#: ../data/ui/EditDetailsDialog.ui.h:2
+msgid "The name for this entry"
+msgstr "Le nom de l'entrée"
+
+#: ../data/ui/EditDetailsDialog.ui.h:3
+msgid "The entry's username"
+msgstr "Nom d'usager pour l'entrée"
+
+#: ../data/ui/EditDetailsDialog.ui.h:4
+msgid "Title:"
+msgstr "Titre:"
+
+#: ../data/ui/EditDetailsDialog.ui.h:5
+msgid "Username:"
+msgstr "Nom d'usager:"
+
+#: ../data/ui/EditDetailsDialog.ui.h:6
+msgid "Password:"
+msgstr "Mot de passe:"
+
+#: ../data/ui/EditDetailsDialog.ui.h:7
+msgid "Notes:"
+msgstr "Notes:"
+
+#: ../data/ui/EditDetailsDialog.ui.h:8
+msgid "URL:"
+msgstr "URL:"
+
+#: ../data/ui/EditDetailsDialog.ui.h:9
+msgid "The website for this entry"
+msgstr "Le site Web pour l'entrée"
+
+#: ../data/ui/EditDetailsDialog.ui.h:10
+msgid "Pick a random password"
+msgstr "Sélectionner un mot de passe aléatoire"
 
 #: ../data/ui/AboutPasaffeDialog.ui.h:1
 msgid "http://www.launchpad.net/pasaffe"

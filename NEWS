@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.16 (UNRELEASED):
 
  * Enhancements:
+   - Updated translations
 
  * Bug fixes:
    - Fix right click context menu (LP: #945861)
