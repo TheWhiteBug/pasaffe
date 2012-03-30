@@ -32,12 +32,25 @@ from pasaffe.NewDatabaseDialog import NewDatabaseDialog
 from pasaffe.NewPasswordDialog import NewPasswordDialog
 from pasaffe.PreferencesPasaffeDialog import PreferencesPasaffeDialog
 from pasaffe_lib.readdb import PassSafeFile
+from pasaffe_lib.helpers import get_builder
 
 # See pasaffe_lib.Window.py for more details about how this class works
 class PasaffeWindow(Window):
     __gtype_name__ = "PasaffeWindow"
 
-    def finish_initializing(self, builder): # pylint: disable=E1002
+    def __new__(cls, database=None):
+        """Special static method that's automatically called by Python when 
+        constructing a new instance of this class.
+
+        Returns a fully instantiated BasePasaffeWindow object.
+        """
+        builder = get_builder('PasaffeWindow')
+        new_object = builder.get_object("pasaffe_window")
+        new_object.finish_initializing(builder, database)
+        return new_object
+
+
+    def finish_initializing(self, builder, database): # pylint: disable=E1002
         """Set up the main window"""
         super(PasaffeWindow, self).finish_initializing(builder)
 
@@ -61,11 +74,16 @@ class PasaffeWindow(Window):
         self.find_results_index = None
         self.find_value = ""
 
+        if database == None:
+            self.database = self.settings.get_string('database-path')
+        else:
+            self.database = database
+
         self.settings = Gio.Settings("apps.pasaffe")
         self.settings.connect('changed', self.on_preferences_changed)
 
         # If database doesn't exists, make a new one
-        if os.path.exists(self.settings.get_string('database-path')):
+        if os.path.exists(self.database):
             success = self.fetch_password()
         else:
             success = self.new_database()
@@ -102,7 +120,7 @@ class PasaffeWindow(Window):
             if response == Gtk.ResponseType.OK:
                 password = password_dialog.ui.password_entry.get_text()
                 try:
-                    self.passfile = PassSafeFile(self.settings.get_string('database-path'), password)
+                    self.passfile = PassSafeFile(self.database, password)
                 except ValueError:
                     password_dialog.ui.password_error_label.set_property("visible", True)
                     password_dialog.ui.password_entry.set_text("")
@@ -477,7 +495,7 @@ class PasaffeWindow(Window):
 
     def save_db(self):
         if self.get_save_status() == True:
-            self.passfile.writefile(self.settings.get_string('database-path'), backup=True)
+            self.passfile.writefile(self.database, backup=True)
             self.set_save_status(False)
 
     def on_save_clicked(self, toolbutton):

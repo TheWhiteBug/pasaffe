@@ -4,8 +4,10 @@ For a detailed list of changes, please see ChangeLog.
 0.17 (UNRELEASED):
 
  * Enhancements:
+   - Add command-line option to specify default database
 
  * Bug fixes:
+   - Don't save database specified on command line as default
 
 0.16 (2012-03-24):
 

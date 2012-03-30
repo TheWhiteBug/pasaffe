@@ -35,7 +35,10 @@ def parse_options():
         help=_("Show debug messages (-vv debugs pasaffe_lib also)"))
     parser.add_option(
         "-f", "--file", dest="filename",
-        help=_("set database to FILE"), metavar="FILE")
+        help=_("use database FILE"), metavar="FILE")
+    parser.add_option(
+        "-s", "--set-default", dest="set_default",
+        help=_("set database as default"), action='store_true')
     (options, args) = parser.parse_args()
 
     set_up_logging(options)
@@ -61,15 +64,16 @@ def main():
 
     settings = Gio.Settings("apps.pasaffe")
 
+    # On first launch, set the standard location
     if settings.get_string('database-path') == "":
         settings.set_string('database-path', filename)
 
     # Override path that was saved with path from command line
-    if options.filename != None:
+    if options.set_default and options.filename != None:
         settings.set_string('database-path', options.filename)
 
     # Run the application.
-    window = PasaffeWindow.PasaffeWindow()
+    window = PasaffeWindow.PasaffeWindow(database=options.filename)
     window.show()
     Gtk.main()
 
