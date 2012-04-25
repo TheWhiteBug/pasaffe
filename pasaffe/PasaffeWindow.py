@@ -253,7 +253,7 @@ class PasaffeWindow(Window):
             if not url.startswith('http://') and \
                not url.startswith('https://'):
                 url = 'http://' + url
-        webbrowser.open(url)
+            webbrowser.open(url)
 
     def on_treeview1_cursor_changed(self, treeview):
         self.set_idle_timeout()

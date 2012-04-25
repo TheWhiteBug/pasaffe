@@ -9,6 +9,7 @@ For a detailed list of changes, please see ChangeLog.
  * Bug fixes:
    - Don't save database specified on command line as default
    - Properly handle unicode characters with optparse (LP: #983210)
+   - Properly handle entries that have no URL specified (LP: #980608)
 
 0.16 (2012-03-24):
 
