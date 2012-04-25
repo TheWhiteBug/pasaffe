@@ -15,8 +15,8 @@
 ### END LICENSE
 
 import gettext
-from gettext import gettext as _
-gettext.textdomain('pasaffe')
+t = gettext.translation('pasaffe', fallback=True)
+_ = t.ugettext
 
 from gi.repository import GObject, Gio, Gtk, Gdk, Pango, GLib # pylint: disable=E0611
 import os, struct, time, sys, webbrowser, re

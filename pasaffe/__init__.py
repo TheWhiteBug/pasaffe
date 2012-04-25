@@ -18,8 +18,8 @@ import optparse
 import os
 
 import gettext
-from gettext import gettext as _
-gettext.textdomain('pasaffe')
+t = gettext.translation('pasaffe', fallback=True)
+_ = t.ugettext
 
 from gi.repository import Gio, Gtk # pylint: disable=E0611
 

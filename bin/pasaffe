@@ -19,8 +19,8 @@ import sys
 import os
 
 import gettext
-from gettext import gettext as _
-gettext.textdomain('pasaffe')
+t = gettext.translation('pasaffe', fallback=True)
+_ = t.ugettext
 
 # Add project root directory (enable symlink and trunk execution)
 PROJECT_ROOT_DIRECTORY = os.path.abspath(
