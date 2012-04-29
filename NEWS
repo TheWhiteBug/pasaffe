@@ -12,6 +12,7 @@ For a detailed list of changes, please see ChangeLog.
    - Fix logging in pasaffe-import scripts so we can debug failures
      (LP: #991143)
    - Correctly strip gpass database padding (LP: #991204)
+   - Properly handle unicode characters with optparse (LP: #983210)
 
 0.16 (2012-03-24):
 
