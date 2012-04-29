@@ -123,7 +123,7 @@ class GPassFile:
     def remove_padding(self):
         padding = self.decoded_db[-1]
 
-        for byte in self.decoded_db[:-ord(padding)]:
+        for byte in self.decoded_db[-ord(padding):]:
             if byte != padding:
                 return
 
