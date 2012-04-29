@@ -17,7 +17,7 @@
 import sys, struct, hashlib, os, time
 import blowfish
 import logging
-logger = logging.getLogger('pasaffe')
+logger = logging.getLogger('pasaffe_lib')
 
 class GPassFile:
 
@@ -89,13 +89,13 @@ class GPassFile:
 
             entry_index, entry_ctime = self.get_entry_int(entry_data, entry_index)
             new_entry[7] = entry_ctime
-            logger.debug("creation time is %s" % entry_ctime)
+            logger.debug("creation time is %s" % entry_ctime.encode("hex"))
 
             entry_index, entry_mtime = self.get_entry_int(entry_data, entry_index)
             # Gpass doesn't separately track when password was modified
             new_entry[8] = entry_mtime
             new_entry[12] = entry_mtime
-            logger.debug("modification time is %s" % entry_mtime)
+            logger.debug("modification time is %s" % entry_mtime.encode("hex"))
 
             entry_index, entry_expflag = self.get_entry_int(entry_data, entry_index)
             logger.debug("expiration flag is %s" % entry_expflag.encode("hex"))
@@ -103,7 +103,7 @@ class GPassFile:
             entry_index, entry_etime = self.get_entry_int(entry_data, entry_index)
             if struct.unpack("<I", entry_expflag)[0] != 0:
                 new_entry[10] = entry_etime
-            logger.debug("expiration time is %s" % entry_etime)
+            logger.debug("expiration time is %s" % entry_etime.encode("hex"))
 
             entry_index, entry_username = self.get_entry_string(entry_data, entry_index)
             new_entry[4] = entry_username

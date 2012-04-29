@@ -45,14 +45,19 @@ if python_path:
 
 from pasaffe_lib import gpassfile
 from pasaffe_lib import readdb
+from pasaffe_lib import set_up_logging, get_version
 
 parser = OptionParser()
+parser.add_option("-v", "--verbose", action="count", dest="verbose",
+                  help="Show debug messages (-vv debugs pasaffe_lib also)")
 parser.add_option("-f", "--file", dest="filename",
                   help="specify alternate GPass database file", metavar="FILE")
 parser.add_option("-o", "--overwrite", dest="overwrite", action="store_true",
                   default=False, help="overwrite existing Pasaffe password store")
 
 (options, args) = parser.parse_args()
+
+set_up_logging(options)
 
 def confirm(prompt=None, resp=False):
     """prompts for yes or no response from the user. Returns True for yes and

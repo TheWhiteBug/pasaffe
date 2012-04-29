@@ -21,7 +21,7 @@ import os
 import time
 from xml.etree import cElementTree as ET
 import logging
-logger = logging.getLogger('pasaffe')
+logger = logging.getLogger('pasaffe_lib')
 
 
 class FigaroXML:
