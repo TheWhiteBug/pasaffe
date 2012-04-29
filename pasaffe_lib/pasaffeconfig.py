@@ -34,8 +34,8 @@ __version__ = '0'
 import os
 
 import gettext
-t = gettext.translation('pasaffe', fallback=True)
-_ = t.ugettext
+from gettext import gettext as _
+gettext.textdomain('pasaffe')
 
 class project_path_not_found(Exception):
     """Raised when we can't find the project directory."""

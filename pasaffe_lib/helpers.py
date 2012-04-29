@@ -24,8 +24,8 @@ from . pasaffeconfig import get_data_file
 from . Builder import Builder
 
 import gettext
-t = gettext.translation('pasaffe', fallback=True)
-_ = t.ugettext
+from gettext import gettext as _
+gettext.textdomain('pasaffe')
 
 def get_builder(builder_file_name):
     """Return a fully-instantiated Gtk.Builder instance from specified ui 

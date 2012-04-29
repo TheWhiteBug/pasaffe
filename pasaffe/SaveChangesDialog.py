@@ -19,8 +19,8 @@ from gi.repository import Gtk # pylint: disable=E0611
 from pasaffe_lib.helpers import get_builder
 
 import gettext
-t = gettext.translation('pasaffe', fallback=True)
-_ = t.ugettext
+from gettext import gettext as _
+gettext.textdomain('pasaffe')
 
 class SaveChangesDialog(Gtk.Dialog):
     __gtype_name__ = "SaveChangesDialog"

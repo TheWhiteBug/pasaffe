@@ -17,8 +17,8 @@
 from gi.repository import Gio # pylint: disable=E0611
 
 import gettext
-t = gettext.translation('pasaffe', fallback=True)
-_ = t.ugettext
+from gettext import gettext as _
+gettext.textdomain('pasaffe')
 
 import logging
 logger = logging.getLogger('pasaffe')
