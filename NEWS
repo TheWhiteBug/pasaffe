@@ -1,7 +1,7 @@
 This file summarizes the major and interesting changes for each release.
 For a detailed list of changes, please see ChangeLog.
 
-0.17 (UNRELEASED):
+0.17 (2012-05-03):
 
  * Enhancements:
    - Add command-line option to specify default database
