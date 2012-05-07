@@ -29,7 +29,7 @@ pasaffe-import-figaroxml:
 Imports Figaro's Password Manager 2 passwords from XML export file.
 
 pasaffe-import-keepassx:
-Imports KeePassX passwords from XML export file.
+Imports KeePassX and KeePass2 passwords from XML export file.
 
 When using these utilities, please be aware that some fields may not have
 equivalents in Pasaffe and will not be imported. Always keep the original

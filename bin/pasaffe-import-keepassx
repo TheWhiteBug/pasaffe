@@ -51,7 +51,7 @@ parser = OptionParser()
 parser.add_option("-v", "--verbose", action="count", dest="verbose",
                   help="Show debug messages (-vv debugs pasaffe_lib also)")
 parser.add_option("-f", "--file", dest="filename",
-                  help="specify KeePassX XML file", metavar="FILE")
+                  help="specify KeePassX or KeePass2 XML file", metavar="FILE")
 parser.add_option("-o", "--overwrite", dest="overwrite", action="store_true",
                   default=False, help="overwrite existing Pasaffe password store")
 
@@ -99,7 +99,7 @@ def confirm(prompt=None, resp=False):
             return False
 
 if options.filename == None:
-    print "You must specify the name of the KeePassX XML file!\n"
+    print "You must specify the name of the KeePassX/KeePass2 XML file!\n"
     parser.print_help()
     sys.exit(1)
 else:
@@ -137,8 +137,8 @@ else:
 if len(keepassx.skipped) > 0:
     print "WARNING: The following fields will be ignored by this script:"
     print " ".join(keepassx.skipped)
-    print "Please keep a copy of your original KeePassX database, as the"
-    print "content of those fields will not be imported into Pasaffe."
+    print "Please keep a copy of your original KeePassX/KeePass2 database, as"
+    print "the content of those fields will not be imported into Pasaffe."
     print
 
 if not os.path.exists(db_filename) and options.overwrite != True:

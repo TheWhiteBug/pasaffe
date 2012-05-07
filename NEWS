@@ -4,6 +4,8 @@ For a detailed list of changes, please see ChangeLog.
 0.18 (UNRELEASED):
 
  * Enhancements:
+   - Can now import KeePass2 XML files
+     (Thanks to Mathieu Trudel-Lapierre!) 
 
  * Bug fixes:
 
