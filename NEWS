@@ -5,7 +5,8 @@ For a detailed list of changes, please see ChangeLog.
 
  * Enhancements:
    - Can now import KeePass2 XML files
-     (Thanks to Mathieu Trudel-Lapierre!) 
+     (Thanks to Mathieu Trudel-Lapierre!)
+   - Disable Launchpad integration (no longer supported)
 
  * Bug fixes:
 
