@@ -111,7 +111,7 @@ class BuildHelp(DistUtilsExtra.auto.build_help_auto):
 
 DistUtilsExtra.auto.setup(
     name='pasaffe',
-    version='0.17',
+    version='0.18',
     license='GPL-3',
     author='Marc Deslauriers',
     author_email='marc.deslauriers@canonical.com',
