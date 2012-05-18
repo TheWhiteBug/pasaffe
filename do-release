@@ -9,6 +9,9 @@
     exit 1
 }
 
+# remove backup files
+find . -type f -name "*.~?~" -exec rm {} \;
+
 version=$(grep '(UNRELEASED)' NEWS | cut -f1 -d' ')
 [ -n "$version" ] || {
     echo "no UNRELEASED in NEWS" >&2
