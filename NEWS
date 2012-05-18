@@ -6,6 +6,8 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
 
  * Bug fixes:
+   - Fix do-release script to remove backup files before creating release
+     tarball.
 
 0.18 (2012-05-17):
 
