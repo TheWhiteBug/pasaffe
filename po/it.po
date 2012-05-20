@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-05-17 21:12-0400\n"
-"PO-Revision-Date: 2011-12-13 00:31+0000\n"
-"Last-Translator: paolo <Unknown>\n"
+"PO-Revision-Date: 2012-05-19 14:59+0000\n"
+"Last-Translator: Paolo Stivanin <Unknown>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-19 05:51+0000\n"
+"X-Launchpad-Export-Date: 2012-05-20 04:54+0000\n"
 "X-Generator: Launchpad (build 15259)\n"
 
 #: ../data/ui/PasswordEntryDialog.ui.h:1
@@ -31,11 +31,11 @@ msgstr "Mostra messaggi debug (-vv debugs pasaffe_lib also)"
 
 #: ../pasaffe/__init__.py:38
 msgid "use database FILE"
-msgstr ""
+msgstr "Usare il database FILE"
 
 #: ../pasaffe/__init__.py:41
 msgid "set database as default"
-msgstr ""
+msgstr "Impostare il database come predefinito"
 
 #: ../pasaffe/PasaffeWindow.py:176
 msgid "Secrets are currently hidden."
@@ -174,11 +174,11 @@ msgstr "Salva cambiamenti automaticamente"
 
 #: ../data/ui/PasaffeWindow.ui.h:1
 msgid "<big><b>The password database is currently locked.</b></big>"
-msgstr ""
+msgstr "<big><b>Il database è attualmente bloccato.</b></big>"
 
 #: ../data/ui/PasaffeWindow.ui.h:2
 msgid "Unlock"
-msgstr ""
+msgstr "Sbloccare"
 
 #: ../data/ui/PasaffeWindow.ui.h:3
 msgid "Clone"
@@ -218,7 +218,7 @@ msgstr "_Modifica"
 
 #: ../data/ui/PasaffeWindow.ui.h:12
 msgid "Find"
-msgstr ""
+msgstr "Cercare"
 
 #: ../data/ui/PasaffeWindow.ui.h:13
 msgid "_View"
@@ -290,7 +290,7 @@ msgstr "Copia la password"
 
 #: ../data/ui/PasaffeWindow.ui.h:30
 msgid "Find entries"
-msgstr ""
+msgstr "Cercare le voci"
 
 #: ../data/ui/PasaffeWindow.ui.h:31
 msgid "Display secrets"
@@ -302,15 +302,15 @@ msgstr "Colonna"
 
 #: ../data/ui/PasaffeWindow.ui.h:33
 msgid "Close find"
-msgstr ""
+msgstr "Chiudere la ricerca"
 
 #: ../data/ui/PasaffeWindow.ui.h:34
 msgid "Previous result"
-msgstr ""
+msgstr "Risultato precedente"
 
 #: ../data/ui/PasaffeWindow.ui.h:35
 msgid "Next result"
-msgstr ""
+msgstr "Risultato successivo"
 
 #: ../data/ui/NewDatabaseDialog.ui.h:1
 msgid "<big><b>Welcome to Pasaffe!</b></big>"
@@ -376,11 +376,11 @@ msgstr "Il sito internet per questo elemento"
 
 #: ../data/ui/EditDetailsDialog.ui.h:10
 msgid "Pick a random password"
-msgstr ""
+msgstr "Scegliere una password casuale"
 
 #: ../data/ui/AboutPasaffeDialog.ui.h:1
 msgid "http://www.launchpad.net/pasaffe"
-msgstr ""
+msgstr "http://www.launchpad.net/pasaffe"
 
 #: ../data/ui/SaveChangesDialog.ui.h:1
 msgid ""
