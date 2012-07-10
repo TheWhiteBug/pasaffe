@@ -50,6 +50,9 @@ class EditDetailsDialog(Gtk.Dialog):
         self.builder = builder
         self.ui = builder.get_ui(self)
 
+        settings = Gio.Settings("apps.pasaffe")
+        self.password_length = settings.get_int("password-length")
+
     def on_btn_ok_clicked(self, widget, data=None):
         """The user has elected to save the changes.
 
@@ -75,7 +78,7 @@ class EditDetailsDialog(Gtk.Dialog):
 
     def show_passwords_menu(self):
         """Generate some new passwords"""
-        command = ["apg", "-n", "6", "-M", "sNC", "-m", "8", "-x", "12"]
+        command = ["apg", "-n", "6", "-M", "sNC", "-m", "8", "-x", self.password_length]
         try:
             passwords = subprocess.check_output(command).splitlines()
             self.ui.password1.set_label(passwords[0])
