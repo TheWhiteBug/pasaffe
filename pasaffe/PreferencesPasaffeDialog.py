@@ -44,5 +44,7 @@ class PreferencesPasaffeDialog(PreferencesDialog):
         settings.bind("idle-timeout", widget, "value", Gio.SettingsBindFlags.DEFAULT)
         widget = self.builder.get_object('auto-save')
         settings.bind("auto-save", widget, "active", Gio.SettingsBindFlags.DEFAULT)
+        widget = self.builder.get_object('password-length')
+        settings.bind("password-length", widget, "value", Gio.SettingsBindFlags.DEFAULT)
 
         # Code for other initialization actions should be added here.

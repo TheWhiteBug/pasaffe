@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.20 (UNRELEASED):
 
  * Enhancements:
+   - Made password length configurable (Thanks to Mathieu Trudel-Lapierre!)
 
  * Bug fixes:
 

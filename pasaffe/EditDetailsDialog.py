@@ -14,7 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 ### END LICENSE
 
-from gi.repository import Gtk # pylint: disable=E0611
+from gi.repository import Gio, Gtk # pylint: disable=E0611
 
 from pasaffe_lib.helpers import get_builder
 
@@ -50,6 +50,9 @@ class EditDetailsDialog(Gtk.Dialog):
         self.builder = builder
         self.ui = builder.get_ui(self)
 
+        settings = Gio.Settings("apps.pasaffe")
+        self.password_length = settings.get_int("password-length")
+
     def on_btn_ok_clicked(self, widget, data=None):
         """The user has elected to save the changes.
 
@@ -75,7 +78,7 @@ class EditDetailsDialog(Gtk.Dialog):
 
     def show_passwords_menu(self):
         """Generate some new passwords"""
-        command = ["apg", "-n", "6", "-M", "sNC", "-m", "8", "-x", "12"]
+        command = ["apg", "-n", "6", "-M", "sNC", "-m", "8", "-x", str(self.password_length)]
         try:
             passwords = subprocess.check_output(command).splitlines()
             self.ui.password1.set_label(passwords[0])

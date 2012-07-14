@@ -31,5 +31,10 @@
       <summary>Automatically save changes</summary>
       <description>When this is true, Pasaffe will automatically save the database.</description>
     </key>
+    <key name="password-length" type="i">
+      <default>12</default>
+      <summary>Length of generated passwords</summary>
+      <description>Number of characters to generate for random passwords.</description>
+    </key>
   </schema>
 </schemalist>
