@@ -78,7 +78,9 @@ class EditDetailsDialog(Gtk.Dialog):
 
     def show_passwords_menu(self):
         """Generate some new passwords"""
-        command = ["apg", "-n", "6", "-M", "sNC", "-m", "8", "-x", str(self.password_length)]
+        command = ["apg", "-n", "6", "-M", "sNC",
+                   "-m", str(self.password_length),
+                   "-x", str(self.password_length)]
         try:
             passwords = subprocess.check_output(command).splitlines()
             self.ui.password1.set_label(passwords[0])
