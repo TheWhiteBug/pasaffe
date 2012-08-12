@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
   <!-- interface-requires edit_details_dialog 1.0 -->
+  <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkAction" id="action1"/>
   <object class="EditDetailsDialog" id="edit_details_dialog">
