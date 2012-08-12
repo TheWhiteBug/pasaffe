@@ -1,7 +1,0 @@
-[net.launchpad.pasaffe]
-database-path = /apps/pasaffe/database-path
-idle-timeout = /apps/pasaffe/idle-timeout
-lock-on-idle = /apps/pasaffe/lock-on-idle
-only-passwords-are-secret = /apps/pasaffe/only-passwords-are-secret
-visible-secrets = /apps/pasaffe/visible-secrets
-auto-save = /apps/pasaffe/auto-save

@@ -19,7 +19,6 @@
 
 import os
 import sys
-from glob import glob
 
 try:
     import DistUtilsExtra.auto
@@ -80,31 +79,8 @@ class InstallAndUpdateDataDirectory(DistUtilsExtra.auto.install_auto):
         DistUtilsExtra.auto.install_auto.run(self)
         update_config(previous_values)
 
-# python-distutils-extra in Lucid and Maverick doesn't support Mallard
-# help files, so work around it
-class BuildHelp(DistUtilsExtra.auto.build_help_auto):
-    def get_data_files(self):
-        data_files = []
-        name = self.distribution.metadata.name
-        omf_pattern = os.path.join(self.help_dir, '*', '*.omf')
 
-        for path in glob(os.path.join(self.help_dir, '*')):
-            lang = os.path.basename(path)
-            path_xml = os.path.join('share/gnome/help', name, lang)
-            path_figures = os.path.join('share/gnome/help', name, lang, 'figures')
-            
-            docbook_files = glob('%s/*.xml' % path)
-            mallard_files = glob('%s/*.page' % path)
-            data_files.append((path_xml, docbook_files + mallard_files))
-            data_files.append((path_figures, glob('%s/figures/*.png' % path)))
         
-        omf_files = glob(omf_pattern)
-        if omf_files:
-            data_files.append((os.path.join('share', 'omf', name), omf_files))
-        
-        return data_files
-
-
 ##################################################################################
 ###################### YOU SHOULD MODIFY ONLY WHAT IS BELOW ######################
 ##################################################################################
@@ -118,8 +94,6 @@ DistUtilsExtra.auto.setup(
     description='Password manager for GNOME',
     long_description='Pasaffe is an easy to use password manager for GNOME.',
     url='https://launchpad.net/pasaffe',
-    data_files=[("share/GConf/gsettings", ("data/pasaffe.convert",))],
-    cmdclass={'install': InstallAndUpdateDataDirectory,
-              'build_help' : BuildHelp}
+    cmdclass={'install': InstallAndUpdateDataDirectory}
     )
 
