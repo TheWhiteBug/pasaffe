@@ -5,6 +5,7 @@ For a detailed list of changes, please see ChangeLog.
 
  * Enhancements:
    - Made password length configurable (Thanks to Mathieu Trudel-Lapierre!)
+   - Automatically clears clipboard after 20 seconds
 
  * Bug fixes:
    - Moved gsettings schema from apps.pasaffe to net.launchpad.pasaffe

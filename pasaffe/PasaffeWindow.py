@@ -70,6 +70,7 @@ class PasaffeWindow(Window):
         self.passfile = None
         self.is_locked = False
         self.idle_id = None
+        self.clipboard_id = None
         self.find_results = []
         self.find_results_index = None
         self.find_value = ""
@@ -565,6 +566,7 @@ class PasaffeWindow(Window):
                         clipboard = Gtk.Clipboard.get(atom)
                         clipboard.set_text(record[item], len(record[item]))
                         clipboard.store()
+                    self.set_clipboard_timeout()
 
     def on_mnu_add_activate(self, menuitem):
         self.add_entry()
@@ -844,6 +846,23 @@ class PasaffeWindow(Window):
         if self.idle_id != None:
             GObject.source_remove(self.idle_id)
             self.idle_id == None
+
+    def set_clipboard_timeout(self):
+        if self.clipboard_id != None:
+            GObject.source_remove(self.clipboard_id)
+            self.clipboard_id == None
+        if self.settings.get_int('clipboard-timeout') != 0:
+            clipboard_time = int(self.settings.get_int('clipboard-timeout')*1000)
+            self.clipboard_id = GObject.timeout_add(clipboard_time,
+                                                    self.clipboard_timeout_reached)
+
+    def clipboard_timeout_reached(self):
+        GObject.source_remove(self.clipboard_id)
+        self.clipboard_id = None
+        for atom in [Gdk.SELECTION_CLIPBOARD, Gdk.SELECTION_PRIMARY]:
+            clipboard = Gtk.Clipboard.get(atom)
+            clipboard.set_text("", 0)
+            clipboard.store()
 
     def set_show_password_status(self):
         visible = self.settings.get_boolean('visible-secrets')

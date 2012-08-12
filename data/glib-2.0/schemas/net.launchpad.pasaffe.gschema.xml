@@ -36,5 +36,10 @@
       <summary>Length of generated passwords</summary>
       <description>Number of characters to generate for random passwords.</description>
     </key>
+    <key name="clipboard-timeout" type="i">
+      <default>20</default>
+      <summary>Timeout before clipboard is cleared</summary>
+      <description>Number of seconds before Pasaffe clears the clipboard after using it.</description>
+    </key>
   </schema>
 </schemalist>
