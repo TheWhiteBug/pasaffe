@@ -60,7 +60,7 @@ class Window(Gtk.Window):
         self.preferences_dialog = None # instance
         self.AboutDialog = None # class
 
-        self.settings = Gio.Settings("apps.pasaffe")
+        self.settings = Gio.Settings("net.launchpad.pasaffe")
         self.settings.connect('changed', self.on_preferences_changed)
 
         # Optional application indicator support

@@ -79,7 +79,7 @@ class PasaffeWindow(Window):
         else:
             self.database = database
 
-        self.settings = Gio.Settings("apps.pasaffe")
+        self.settings = Gio.Settings("net.launchpad.pasaffe")
         self.settings.connect('changed', self.on_preferences_changed)
 
         # If database doesn't exists, make a new one

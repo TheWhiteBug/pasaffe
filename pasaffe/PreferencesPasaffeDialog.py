@@ -33,7 +33,7 @@ class PreferencesPasaffeDialog(PreferencesDialog):
         super(PreferencesPasaffeDialog, self).finish_initializing(builder)
 
         # Bind each preference widget to gsettings
-        settings = Gio.Settings("apps.pasaffe")
+        settings = Gio.Settings("net.launchpad.pasaffe")
         widget = self.builder.get_object('visible-secrets')
         settings.bind("visible-secrets", widget, "active", Gio.SettingsBindFlags.DEFAULT)
         widget = self.builder.get_object('only-passwords-are-secret')

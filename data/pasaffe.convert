@@ -1,4 +1,4 @@
-[apps.pasaffe]
+[net.launchpad.pasaffe]
 database-path = /apps/pasaffe/database-path
 idle-timeout = /apps/pasaffe/idle-timeout
 lock-on-idle = /apps/pasaffe/lock-on-idle

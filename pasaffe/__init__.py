@@ -62,7 +62,7 @@ def main():
 
     filename = get_database_path()
 
-    settings = Gio.Settings("apps.pasaffe")
+    settings = Gio.Settings("net.launchpad.pasaffe")
 
     # On first launch, set the standard location
     if settings.get_string('database-path') == "":

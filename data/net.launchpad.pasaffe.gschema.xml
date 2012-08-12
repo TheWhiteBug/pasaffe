@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-  <schema id="apps.pasaffe" path="/apps/pasaffe/">
+  <schema id="net.launchpad.pasaffe" path="/net/launchpad/pasaffe/">
     <key name="database-path" type="s">
       <default>""</default>
       <summary>Pasaffe database location</summary>
