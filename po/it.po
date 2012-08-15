@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2012-05-17 21:12-0400\n"
+"POT-Creation-Date: 2012-08-14 20:41-0400\n"
 "PO-Revision-Date: 2012-05-19 14:59+0000\n"
 "Last-Translator: Paolo Stivanin <Unknown>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-07-22 04:55+0000\n"
-"X-Generator: Launchpad (build 15654)\n"
+"X-Launchpad-Export-Date: 2012-08-15 05:12+0000\n"
+"X-Generator: Launchpad (build 15801)\n"
 
 #: ../data/ui/PasswordEntryDialog.ui.h:1
 msgid "<big><b>Please enter your master password:</b></big>"
@@ -37,16 +37,16 @@ msgstr "Usare il database FILE"
 msgid "set database as default"
 msgstr "Impostare il database come predefinito"
 
-#: ../pasaffe/PasaffeWindow.py:176
+#: ../pasaffe/PasaffeWindow.py:177
 msgid "Secrets are currently hidden."
 msgstr "Attualmente i segreti sono nascosti."
 
-#: ../pasaffe/PasaffeWindow.py:180
+#: ../pasaffe/PasaffeWindow.py:181
 #, python-format
 msgid "Username: %s\n"
 msgstr "Nome utente: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:182
+#: ../pasaffe/PasaffeWindow.py:183
 #, python-format
 msgid ""
 "Password: %s\n"
@@ -55,7 +55,7 @@ msgstr ""
 "Password: %s\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:184
+#: ../pasaffe/PasaffeWindow.py:185
 msgid ""
 "Password: *****\n"
 "\n"
@@ -63,21 +63,21 @@ msgstr ""
 "Password: *****\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:189
+#: ../pasaffe/PasaffeWindow.py:190
 #, python-format
 msgid "Last updated: %s\n"
 msgstr "Ultimo aggiornamento: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:194
+#: ../pasaffe/PasaffeWindow.py:195
 #, python-format
 msgid "Password updated: %s\n"
 msgstr "Password aggiornate: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:199
+#: ../pasaffe/PasaffeWindow.py:200
 msgid "Welcome to Pasaffe!"
 msgstr "Benvenuti in Pasaffe!"
 
-#: ../pasaffe/PasaffeWindow.py:200
+#: ../pasaffe/PasaffeWindow.py:201
 msgid ""
 "Pasaffe is an easy to use\n"
 "password manager for Gnome."
@@ -85,7 +85,7 @@ msgstr ""
 "Pasaffe è un password manager\n"
 "per Gnome semplice da usare"
 
-#: ../pasaffe/PasaffeWindow.py:369
+#: ../pasaffe/PasaffeWindow.py:370
 #, python-format
 msgid ""
 "<big><b>Are you sure you wish to remove \"%s\"?</b></big>\n"
@@ -94,11 +94,11 @@ msgstr ""
 "<big><b>Sei sicuro di voler rimuovere \"%s\"?</b></big>\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:370
+#: ../pasaffe/PasaffeWindow.py:371
 msgid "Contents of the entry will be lost.\n"
 msgstr "Il contenuto della voce verrà perso.\n"
 
-#: ../pasaffe/PasaffeWindow.py:585
+#: ../pasaffe/PasaffeWindow.py:587
 msgid ""
 "<big><b>Database Information</b></big>\n"
 "\n"
@@ -106,45 +106,45 @@ msgstr ""
 "<big><b>Informazioni database</b></big>\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:586
+#: ../pasaffe/PasaffeWindow.py:588
 #, python-format
 msgid "Number of entries: %s\n"
 msgstr "Numero di elementi: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:587
+#: ../pasaffe/PasaffeWindow.py:589
 #, python-format
 msgid "Database version: %s.%s\n"
 msgstr "Versione database: %s.%s\n"
 
-#: ../pasaffe/PasaffeWindow.py:589
+#: ../pasaffe/PasaffeWindow.py:591
 #, python-format
 msgid "Last saved by: %s\n"
 msgstr "Ultimo salvataggio effettuato da: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:591
+#: ../pasaffe/PasaffeWindow.py:593
 #, python-format
 msgid "Last saved on host: %s\n"
 msgstr "Ultimo salvataggio sull'host: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:596
+#: ../pasaffe/PasaffeWindow.py:598
 #, python-format
 msgid "Last save date: %s\n"
 msgstr "Ultima data di salvataggio: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:598
+#: ../pasaffe/PasaffeWindow.py:600
 #, python-format
 msgid "Application used: %s\n"
 msgstr "Applicazione usate: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:729 ../data/ui/NewDatabaseDialog.ui.h:5
+#: ../pasaffe/PasaffeWindow.py:731 ../data/ui/NewDatabaseDialog.ui.h:5
 msgid "Passwords don't match! Please try again."
 msgstr "Le password non coincidono! Per favore riprova."
 
-#: ../pasaffe/PasaffeWindow.py:733
+#: ../pasaffe/PasaffeWindow.py:735
 msgid "New password cannot be blank! Please try again."
 msgstr "La password non può essere vuota! Per favore riprova."
 
-#: ../pasaffe/PasaffeWindow.py:737
+#: ../pasaffe/PasaffeWindow.py:739
 msgid "Old password is invalid! Please try again."
 msgstr "La vecchia password non è valida! Per favore riprova."
 
@@ -153,24 +153,44 @@ msgid "Pasaffe Preferences"
 msgstr "Preferenze Pasaffe"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:2
+msgid "Automatically save changes"
+msgstr "Salva cambiamenti automaticamente"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:3
 msgid "Display secrets by default"
 msgstr "Visualizza segreti di default"
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:3
-msgid "Lock database when idle"
-msgstr "Blocca database quando inattivo"
-
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:4
-msgid "Idle timeout (minutes)"
-msgstr "Timeout inattività (minuti)"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:5
 msgid "Only passwords are secret"
 msgstr "Solo le passwords sono segrete"
 
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:5
+msgid "<b>Secrets</b>"
+msgstr ""
+
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:6
-msgid "Automatically save changes"
-msgstr "Salva cambiamenti automaticamente"
+msgid "Lock database after"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:7
+msgid "minutes"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:8
+msgid "<b>Lock</b>"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:9
+msgid "Passwords are"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:10
+msgid "characters long"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:11
+msgid "<b>Password Generator</b>"
+msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:1
 msgid "<big><b>The password database is currently locked.</b></big>"
@@ -421,3 +441,9 @@ msgstr "Nuova password:"
 #: ../data/ui/NewPasswordDialog.ui.h:8
 msgid "Confirm new password:"
 msgstr "Conferma nuova password:"
+
+#~ msgid "Idle timeout (minutes)"
+#~ msgstr "Timeout inattività (minuti)"
+
+#~ msgid "Lock database when idle"
+#~ msgstr "Blocca database quando inattivo"
