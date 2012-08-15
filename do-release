@@ -12,6 +12,9 @@
 # remove backup files
 find . -type f -name "*.~?~" -exec rm {} \;
 
+# remove compiled gschema file
+rm -f data/glib-2.0/schemas/gschemas.compiled
+
 version=$(grep '(UNRELEASED)' NEWS | cut -f1 -d' ')
 [ -n "$version" ] || {
     echo "no UNRELEASED in NEWS" >&2
