@@ -87,7 +87,7 @@ class InstallAndUpdateDataDirectory(DistUtilsExtra.auto.install_auto):
 
 DistUtilsExtra.auto.setup(
     name='pasaffe',
-    version='0.19',
+    version='0.20',
     license='GPL-3',
     author='Marc Deslauriers',
     author_email='marc.deslauriers@canonical.com',
