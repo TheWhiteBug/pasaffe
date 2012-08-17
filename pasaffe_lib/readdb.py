@@ -27,7 +27,7 @@ class PassSafeFile:
 
         self.keys = {}
         self.header = {}
-        self.records = []
+        self.records = {}
         self.cipher = None
         self.cipher_block_size = 0
         self.hmac = None
@@ -267,7 +267,8 @@ class PassSafeFile:
                 break
             if field_type == 0xff:
                 logger.debug("Found end field")
-                self.records.append(record)
+                uuid = record[1].encode('hex')
+                self.records[uuid] = record
                 record = {}
             else:
                 record[field_type] = field_data
@@ -278,9 +279,9 @@ class PassSafeFile:
 
         record = {}
 
-        for record in self.records:
-            for field in record.keys():
-                self._writefield(field, record[field])
+        for uuid in self.records:
+            for field in self.records[uuid].keys():
+                self._writefield(field, self.records[uuid][field])
             self._writefieldend()
 
     def _readfield(self):

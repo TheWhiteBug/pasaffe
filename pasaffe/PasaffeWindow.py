@@ -183,46 +183,43 @@ class PasaffeWindow(Window):
 
     def display_entries(self):
         entries = []
-        for record in self.passfile.records:
-            entries.append([record[3],record[1].encode("hex")])
+        for uuid in self.passfile.records:
+            entries.append([self.passfile.records[uuid][3],uuid])
         self.ui.liststore1.clear()
         for record in sorted(entries, key=lambda entry: entry[0].lower()):
             self.ui.liststore1.append(record)
 
     def display_data(self, entry_uuid, show_secrets=False):
-        for record in self.passfile.records:
-            if record[1] == entry_uuid.decode("hex"):
-                title = record.get(3)
+        title = self.passfile.records[entry_uuid].get(3)
 
-                url = None
-                if record.has_key(13):
-                    url = "%s\n\n" % record.get(13)
+        url = None
+        if 13 in self.passfile.records[entry_uuid]:
+            url = "%s\n\n" % self.passfile.records[entry_uuid].get(13)
 
-                contents = ''
-                if show_secrets == False and \
-                   self.settings.get_boolean('only-passwords-are-secret') == False and \
-                   self.settings.get_boolean('visible-secrets') == False:
-                    contents += _("Secrets are currently hidden.")
-                else:
-                    if record.has_key(5):
-                            contents += "%s\n\n" % record.get(5)
-                    contents += _("Username: %s\n") % record.get(4)
-                    if show_secrets == True or self.settings.get_boolean('visible-secrets') == True:
-                        contents += _("Password: %s\n\n") % record.get(6)
-                    else:
-                        contents += _("Password: *****\n\n")
-                    if record.has_key(12):
-                        last_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
-                                       time.localtime(struct.unpack("<I",
-                                       record[12])[0]))
-                        contents += _("Last updated: %s\n") % last_updated
-                    if record.has_key(8):
-                        pass_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
-                                       time.localtime(struct.unpack("<I",
-                                           record[8])[0]))
-                        contents += _("Password updated: %s\n") % pass_updated
-                self.fill_display(title, url, contents)
-                break
+        contents = ''
+        if show_secrets == False and \
+           self.settings.get_boolean('only-passwords-are-secret') == False and \
+           self.settings.get_boolean('visible-secrets') == False:
+            contents += _("Secrets are currently hidden.")
+        else:
+            if 5 in self.passfile.records[entry_uuid]:
+                    contents += "%s\n\n" % self.passfile.records[entry_uuid].get(5)
+            contents += _("Username: %s\n") % self.passfile.records[entry_uuid].get(4)
+            if show_secrets == True or self.settings.get_boolean('visible-secrets') == True:
+                contents += _("Password: %s\n\n") % self.passfile.records[entry_uuid].get(6)
+            else:
+                contents += _("Password: *****\n\n")
+            if 12 in self.passfile.records[entry_uuid]:
+                last_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
+                               time.localtime(struct.unpack("<I",
+                               self.passfile.records[entry_uuid][12])[0]))
+                contents += _("Last updated: %s\n") % last_updated
+            if 8 in self.passfile.records[entry_uuid]:
+                pass_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
+                               time.localtime(struct.unpack("<I",
+                                   self.passfile.records[entry_uuid][8])[0]))
+                contents += _("Password updated: %s\n") % pass_updated
+        self.fill_display(title, url, contents)
 
     def display_welcome(self):
         self.fill_display(_("Welcome to Pasaffe!"), None,
@@ -274,10 +271,7 @@ class PasaffeWindow(Window):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
-            for record in self.passfile.records:
-                if record[1] == entry_uuid.decode("hex") and record.has_key(13):
-                    url = record[13]
-                    break
+            url = self.passfile.records[entry_uuid].get(13)
         if url != None:
             if not url.startswith('http://') and \
                not url.startswith('https://'):
@@ -321,7 +315,7 @@ class PasaffeWindow(Window):
         timestamp = struct.pack("<I", int(time.time()))
         new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
                      7: timestamp, 8: timestamp, 12: timestamp, 13: ''}
-        self.passfile.records.append(new_entry)
+        self.passfile.records[uuid_hex] = new_entry
 
         response = self.edit_entry(uuid_hex)
         if response != Gtk.ResponseType.OK:
@@ -359,14 +353,11 @@ class PasaffeWindow(Window):
         new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
                      7: timestamp, 8: timestamp, 12: timestamp, 13: ''}
 
-        for record in self.passfile.records:
-            if record[1] == entry_uuid.decode("hex"):
-                for record_type in record_list:
-                    if record.has_key(record_type):
-                        new_entry[record_type] = record[record_type]
-                break
+        for record_type in record_list:
+            if record_type in self.passfile.records[entry_uuid]:
+                new_entry[record_type] = self.passfile.records[entry_uuid][record_type]
 
-        self.passfile.records.append(new_entry)
+        self.passfile.records[uuid_hex] = new_entry
 
         response = self.edit_entry(uuid_hex)
         if response != Gtk.ResponseType.OK:
@@ -422,12 +413,9 @@ class PasaffeWindow(Window):
             self.disable_idle_timeout()
             self.editdetails_dialog = self.EditDetailsDialog()
 
-            for record in self.passfile.records:
-                if record[1] == entry_uuid.decode("hex"):
-                    for record_type, widget_name in record_dict.items():
-                        if record.has_key(record_type):
-                            self.editdetails_dialog.builder.get_object(widget_name).set_text(record[record_type])
-                    break
+            for record_type, widget_name in record_dict.items():
+                if record_type in self.passfile.records[entry_uuid]:
+                    self.editdetails_dialog.builder.get_object(widget_name).set_text(self.passfile.records[entry_uuid][record_type])
 
             self.set_entry_window_size()
             response = self.editdetails_dialog.run()
@@ -440,11 +428,11 @@ class PasaffeWindow(Window):
                     else:
                         new_value = self.editdetails_dialog.builder.get_object(widget_name).get_text()
 
-                    if (record_type == 5 or record_type == 13) and new_value == "" and record.has_key(record_type):
-                            del record[record_type]
-                    elif record.get(record_type, "") != new_value:
+                    if (record_type == 5 or record_type == 13) and new_value == "" and record_type in self.passfile.records[entry_uuid]:
+                            del self.passfile.records[entry_uuid][record_type]
+                    elif self.passfile.records[entry_uuid].get(record_type, "") != new_value:
                         data_changed = True
-                        record[record_type] = new_value
+                        self.passfile.records[entry_uuid][record_type] = new_value
 
                         # Update the name in the tree
                         if record_type == 3:
@@ -458,11 +446,11 @@ class PasaffeWindow(Window):
 
                         # Update the password changed date
                         if record_type == 6:
-                            record[8] = timestamp
+                            self.passfile.records[entry_uuid][8] = timestamp
 
                 if data_changed == True:
                     self.set_save_status(True)
-                    record[12] = timestamp
+                    self.passfile.records[entry_uuid][12] = timestamp
                     if self.settings.get_boolean('auto-save') == True:
                         self.save_db()
 
@@ -495,9 +483,7 @@ class PasaffeWindow(Window):
             else:
                 item = self.ui.treeview1.get_model().iter_next(item)
 
-        for record in self.passfile.records:
-            if record[1].encode("hex") == entry_uuid:
-                self.passfile.records.remove(record)
+        del self.passfile.records[entry_uuid]
 
         if save == True:
             self.set_save_status(True)
@@ -590,13 +576,13 @@ class PasaffeWindow(Window):
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
 
-            for record in self.passfile.records:
-                if record[1] == entry_uuid.decode("hex") and record.has_key(item):
-                    for atom in [Gdk.SELECTION_CLIPBOARD, Gdk.SELECTION_PRIMARY]:
-                        clipboard = Gtk.Clipboard.get(atom)
-                        clipboard.set_text(record[item], len(record[item]))
-                        clipboard.store()
-                    self.set_clipboard_timeout()
+            if item in self.passfile.records[entry_uuid]:
+                for atom in [Gdk.SELECTION_CLIPBOARD, Gdk.SELECTION_PRIMARY]:
+                    clipboard = Gtk.Clipboard.get(atom)
+                    clipboard.set_text(self.passfile.records[entry_uuid][item],
+                                       len(self.passfile.records[entry_uuid][item]))
+                    clipboard.store()
+                self.set_clipboard_timeout()
 
     def on_mnu_add_activate(self, menuitem):
         self.add_entry()
@@ -677,16 +663,16 @@ class PasaffeWindow(Window):
         pat = re.compile(find, re.IGNORECASE)
         results = []
 
-        for record in self.passfile.records:
+        for uuid in self.passfile.records:
             found = False
             for record_type in record_list:
-                if record.has_key(record_type):
-                    if pat.search(record.get(record_type)):
+                if self.passfile.records[uuid].has_key(record_type):
+                    if pat.search(self.passfile.records[uuid].get(record_type)):
                         found = True
                         break
 
             if found == True:
-                results.append([record[3],record[1].encode("hex")])
+                results.append([self.passfile.records[uuid][3],uuid])
 
         self.find_results = sorted(results, key=lambda results: results[0].lower())
         self.find_results_index = None
