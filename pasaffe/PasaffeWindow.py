@@ -83,6 +83,8 @@ class PasaffeWindow(Window):
         self.settings = Gio.Settings("net.launchpad.pasaffe")
         self.settings.connect('changed', self.on_preferences_changed)
 
+        self.state = Gio.Settings("net.launchpad.pasaffe.state")
+
         # If database doesn't exists, make a new one
         if os.path.exists(self.database):
             success = self.fetch_password()
@@ -92,6 +94,7 @@ class PasaffeWindow(Window):
         if success == False:
             self.connect('event-after', Gtk.main_quit)
         else:
+            self.set_window_size()
             self.set_show_password_status()
             self.display_entries()
             self.display_welcome()
@@ -100,7 +103,32 @@ class PasaffeWindow(Window):
         self.set_idle_timeout()
 
     def on_delete_event(self, widget, event):
+        self.save_window_size()
         return self.save_warning()
+
+    def set_window_size(self):
+        width = self.state.get_int('main-size-width')
+        height = self.state.get_int('main-size-height')
+        split = self.state.get_int('main-split')
+        self.ui.pasaffe_window.resize(width, height)
+        self.ui.hpaned1.set_position(split)
+
+    def save_window_size(self):
+        (width, height) = self.ui.pasaffe_window.get_size()
+        split = self.ui.hpaned1.get_position()
+        self.state.set_int('main-size-width', width)
+        self.state.set_int('main-size-height', height)
+        self.state.set_int('main-split', split)
+
+    def set_entry_window_size(self):
+        width = self.state.get_int('entry-size-width')
+        height = self.state.get_int('entry-size-height')
+        self.editdetails_dialog.ui.edit_details_dialog.resize(width, height)
+
+    def save_entry_window_size(self):
+        (width, height) = self.editdetails_dialog.ui.edit_details_dialog.get_size()
+        self.state.set_int('entry-size-width', width)
+        self.state.set_int('entry-size-height', height)
 
     def save_warning(self):
         if self.get_save_status() == True:
@@ -401,6 +429,7 @@ class PasaffeWindow(Window):
                             self.editdetails_dialog.builder.get_object(widget_name).set_text(record[record_type])
                     break
 
+            self.set_entry_window_size()
             response = self.editdetails_dialog.run()
             if response == Gtk.ResponseType.OK:
                 data_changed = False
@@ -437,6 +466,7 @@ class PasaffeWindow(Window):
                     if self.settings.get_boolean('auto-save') == True:
                         self.save_db()
 
+            self.save_entry_window_size()
             self.editdetails_dialog.destroy()
             self.editdetails_dialog = None
 

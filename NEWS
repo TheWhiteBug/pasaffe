@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.21 (UNRELEASED)
 
  * Enhancements:
+   - Pasaffe now remembers window sizes
 
  * Bug fixes:
 

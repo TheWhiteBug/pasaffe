@@ -42,4 +42,31 @@
       <description>Number of seconds before Pasaffe clears the clipboard after using it.</description>
     </key>
   </schema>
+  <schema id="net.launchpad.pasaffe.state" path="/net/launchpad/pasaffe/state/">
+    <key name="main-size-height" type="i">
+      <default>600</default>
+      <summary>Height of main window</summary>
+      <description>Sets the current vertical size of the main window.</description>
+    </key>
+    <key name="main-size-width" type="i">
+      <default>600</default>
+      <summary>Width of main window</summary>
+      <description>Sets the current horizontal size of the main window.</description>
+    </key>
+    <key name="main-split" type="i">
+      <default>300</default>
+      <summary>Width of main window split</summary>
+      <description>Sets the current horizontal split of the main window.</description>
+    </key>
+    <key name="entry-size-height" type="i">
+      <default>350</default>
+      <summary>Height of entry window</summary>
+      <description>Sets the current vertical size of the entry window.</description>
+    </key>
+    <key name="entry-size-width" type="i">
+      <default>475</default>
+      <summary>Width of entry window</summary>
+      <description>Sets the current horizontal size of the entry window.</description>
+    </key>
+  </schema>
 </schemalist>
