@@ -158,6 +158,32 @@ class PassSafeFile:
         shutil.copy(tempname, filename)
         os.unlink(tempname)
 
+    def get_database_version_string(self):
+        '''Returns a string of the current database version'''
+        return '%s.%s' % (self.header[0][1].encode('hex'),
+                          self.header[0][0].encode('hex'))
+
+    def get_saved_name(self):
+        '''Returns the username of the last save'''
+        return self.header.get(7)
+
+    def get_saved_host(self):
+        '''Returns the hostname of the last save'''
+        return self.header.get(8)
+
+    def get_saved_application(self):
+        '''Returns the application of the last save'''
+        return self.header.get(6)
+
+    def get_saved_date_string(self):
+        '''Returns a string of the date of the last save'''
+        if 4 in self.header:
+            return time.strftime("%a, %d %b %Y %H:%M:%S",
+                                 time.localtime(struct.unpack("<I",
+                                 self.header[4])[0]))
+        else:
+            return None
+
     def _keystretch(self, password, salt, iters):
         '''Takes a password, and stretches it using iters iterations'''
         password = hashlib.sha256(password + salt).digest()

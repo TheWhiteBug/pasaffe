@@ -616,18 +616,15 @@ class PasaffeWindow(Window):
     def on_mnu_info_activate(self, menuitem):
         information = _('<big><b>Database Information</b></big>\n\n')
         information += _('Number of entries: %s\n') % len(self.passfile.records)
-        information += _('Database version: %s.%s\n') % (self.passfile.header[0][1].encode('hex'),self.passfile.header[0][0].encode('hex'))
-        if 7 in self.passfile.header:
-            information += _('Last saved by: %s\n') % self.passfile.header[7]
-        if 8 in self.passfile.header:
-            information += _('Last saved on host: %s\n') % self.passfile.header[8]
-        if 4 in self.passfile.header:
-            last_saved = time.strftime("%a, %d %b %Y %H:%M:%S",
-                                   time.localtime(struct.unpack("<I",
-                                   self.passfile.header[4])[0]))
-            information += _('Last save date: %s\n') % last_saved
-        if 6 in self.passfile.header:
-            information += _('Application used: %s\n') % self.passfile.header[6]
+        information += _('Database version: %s\n') % self.passfile.get_database_version_string()
+        if self.passfile.get_saved_name():
+            information += _('Last saved by: %s\n') % self.passfile.get_saved_name()
+        if self.passfile.get_saved_host():
+            information += _('Last saved on host: %s\n') % self.passfile.get_saved_host()
+        if self.passfile.get_saved_date_string():
+            information += _('Last save date: %s\n') % self.passfile.get_saved_date_string()
+        if self.passfile.get_saved_application():
+            information += _('Application used: %s\n') % self.passfile.get_saved_application()
 
         info_dialog = Gtk.MessageDialog(type=Gtk.MessageType.INFO, buttons=Gtk.ButtonsType.OK)
         info_dialog.set_markup(information)
