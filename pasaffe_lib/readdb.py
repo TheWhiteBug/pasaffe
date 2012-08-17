@@ -184,6 +184,17 @@ class PassSafeFile:
         else:
             return None
 
+    def new_entry(self):
+        '''Creates a new entry'''
+        uuid = os.urandom(16)
+        uuid_hex = uuid.encode("hex")
+        timestamp = struct.pack("<I", int(time.time()))
+        new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
+                     7: timestamp, 8: timestamp, 12: timestamp, 13: ''}
+        self.records[uuid_hex] = new_entry
+
+        return uuid_hex
+
     def _keystretch(self, password, salt, iters):
         '''Takes a password, and stretches it using iters iterations'''
         password = hashlib.sha256(password + salt).digest()

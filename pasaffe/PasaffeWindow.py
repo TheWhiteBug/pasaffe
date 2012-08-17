@@ -310,12 +310,7 @@ class PasaffeWindow(Window):
             self.editdetails_dialog.present()
             return
 
-        uuid = os.urandom(16)
-        uuid_hex = uuid.encode("hex")
-        timestamp = struct.pack("<I", int(time.time()))
-        new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
-                     7: timestamp, 8: timestamp, 12: timestamp, 13: ''}
-        self.passfile.records[uuid_hex] = new_entry
+        uuid_hex = self.passfile.new_entry()
 
         response = self.edit_entry(uuid_hex)
         if response != Gtk.ResponseType.OK:
@@ -347,17 +342,11 @@ class PasaffeWindow(Window):
             self.editdetails_dialog.present()
             return
 
-        uuid = os.urandom(16)
-        uuid_hex = uuid.encode("hex")
-        timestamp = struct.pack("<I", int(time.time()))
-        new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
-                     7: timestamp, 8: timestamp, 12: timestamp, 13: ''}
+        uuid_hex = self.passfile.new_entry()
 
         for record_type in record_list:
             if record_type in self.passfile.records[entry_uuid]:
-                new_entry[record_type] = self.passfile.records[entry_uuid][record_type]
-
-        self.passfile.records[uuid_hex] = new_entry
+                self.passfile.records[uuid_hex][record_type] = self.passfile.records[entry_uuid][record_type]
 
         response = self.edit_entry(uuid_hex)
         if response != Gtk.ResponseType.OK:
@@ -666,7 +655,7 @@ class PasaffeWindow(Window):
         for uuid in self.passfile.records:
             found = False
             for record_type in record_list:
-                if self.passfile.records[uuid].has_key(record_type):
+                if record_type in self.passfile.records[uuid]:
                     if pat.search(self.passfile.records[uuid].get(record_type)):
                         found = True
                         break
