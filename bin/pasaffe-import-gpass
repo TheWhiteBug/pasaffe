@@ -177,7 +177,7 @@ else:
 
     passsafe = readdb.PassSafeFile(db_filename, password)
     for entry in gpass.records:
-        passsafe.records.append(entry)
+        passsafe.records[entry] = gpass.records[entry]
     passsafe.writefile(db_filename, backup=True)
 
 print "Success!"

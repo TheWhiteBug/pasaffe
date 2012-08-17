@@ -25,7 +25,7 @@ logger = logging.getLogger('pasaffe_lib')
 
 
 class FigaroXML:
-    records = []
+    records = {}
     skipped = []
     index = 0
 
@@ -49,6 +49,7 @@ class FigaroXML:
 
         for pwitem in element.findall('./PasswordList/PasswordItem'):
             uuid = os.urandom(16)
+            uuid_hex = uuid.encode('hex')
             timestamp = struct.pack("<I", int(time.time()))
             new_entry = {1: uuid, 3: '', 4: '', 6: '',
                          7: timestamp, 8: timestamp, 12: timestamp}
@@ -68,4 +69,4 @@ class FigaroXML:
                     if x.tag not in self.skipped:
                         self.skipped.append(x.tag)
 
-            self.records.append(new_entry)
+            self.records[uuid_hex] = new_entry

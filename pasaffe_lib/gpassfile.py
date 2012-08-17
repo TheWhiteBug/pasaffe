@@ -21,7 +21,7 @@ logger = logging.getLogger('pasaffe_lib')
 
 class GPassFile:
 
-    records = []
+    records = {}
     gpass_iv = "\x05\x17\x01\x7b\x0c\x03\x36\x5e"
     decoded_db = None
     index = 0
@@ -53,6 +53,7 @@ class GPassFile:
 
         while self.index < len(self.decoded_db):
             uuid = os.urandom(16)
+            uuid_hex = uuid.encode('hex')
             timestamp = struct.pack("<I", int(time.time()))
             new_entry = {1: uuid, 3: '', 4: '', 6: '',
                          7: timestamp, 8: timestamp, 12: timestamp}
@@ -118,7 +119,7 @@ class GPassFile:
                 new_entry[13] = entry_url
             logger.debug("URL is %s" % entry_url)
 
-            self.records.append(new_entry)
+            self.records[uuid_hex] = new_entry
 
     def remove_padding(self):
         padding = self.decoded_db[-1]

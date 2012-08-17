@@ -98,7 +98,7 @@ timestamp = struct.pack("<I", int(time.time()))
 new_entry = {1: uuid, 3: options.entry, 4: options.username, 5: options.notes,
              6: options.password, 7: timestamp, 8: timestamp, 12: timestamp,
              13: options.url}
-passfile.records.append(new_entry)
+passfile.records[uuid_hex] = new_entry
 
 passfile.writefile(db_filename, backup=True)
 

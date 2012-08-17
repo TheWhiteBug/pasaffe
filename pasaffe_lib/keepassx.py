@@ -26,7 +26,7 @@ logger = logging.getLogger('pasaffe_lib')
 
 
 class KeePassX:
-    records = []
+    records = {}
     skipped = []
     index = 0
 
@@ -65,6 +65,7 @@ class KeePassX:
 
                 for pwitem in groupitem.iter('entry'):
                     uuid = os.urandom(16)
+                    uuid_hex = uuid.encode('hex')
                     timestamp = struct.pack("<I", int(time.time()))
                     new_entry = {1: uuid, 3: '', 4: '', 6: '',
                                  7: timestamp, 8: timestamp, 12: timestamp}
@@ -91,12 +92,13 @@ class KeePassX:
                             if x.tag not in self.skipped:
                                 self.skipped.append(x.tag)
 
-                    self.records.append(new_entry)
+                    self.records[uuid_hex] = new_entry
 
         elif element.getroot().tag == 'KeePassFile':
             for groupitem in element.findall('./Root/Group'):
                 for pwitem in list(groupitem):
                     uuid = os.urandom(16)
+                    uuid_hex = uuid.encode('hex')
                     timestamp = struct.pack("<I", int(time.time()))
                     new_entry = {1: uuid, 3: '', 4: '', 6: '',
                                  7: timestamp, 8: timestamp, 12: timestamp}
@@ -131,7 +133,7 @@ class KeePassX:
                                 if x.tag not in self.skipped:
                                     self.skipped.append(x.tag)
 
-                        self.records.append(new_entry)
+                        self.records[uuid_hex] = new_entry
 
         else:
             raise RuntimeError("Not a valid KeePassX or KeePass2 XML file")

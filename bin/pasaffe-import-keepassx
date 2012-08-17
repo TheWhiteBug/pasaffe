@@ -185,7 +185,7 @@ else:
 
     passsafe = readdb.PassSafeFile(db_filename, password)
     for entry in keepassx.records:
-        passsafe.records.append(entry)
+        passsafe.records[entry] = keepassx.records[entry]
     passsafe.writefile(db_filename, backup=True)
 
 print "Success!"

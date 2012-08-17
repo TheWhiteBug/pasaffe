@@ -186,7 +186,7 @@ else:
 
     passsafe = readdb.PassSafeFile(db_filename, password)
     for entry in fpmxml.records:
-        passsafe.records.append(entry)
+        passsafe.records[entry] = fpmxml.records[entry]
     passsafe.writefile(db_filename, backup=True)
 
 print "Success!"

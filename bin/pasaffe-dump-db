@@ -90,7 +90,7 @@ record_dict = { 'Entry'    : 3,
                 'URL'      : 13
               }
 
-for record in sorted(passfile.records, key=lambda entry: entry[3].lower()):
+for record in sorted(passfile.records.values(), key=lambda entry: entry[3].lower()):
     # specify order of labels and values
     for label in ['Entry', 'Username', 'Password', 'URL', 'Notes']:
         record_type = record_dict[label]
