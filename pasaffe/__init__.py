@@ -1,16 +1,16 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 ### BEGIN LICENSE
 # Copyright (C) 2011-2012 Marc Deslauriers <marc.deslauriers@canonical.com>
-# This program is free software: you can redistribute it and/or modify it 
-# under the terms of the GNU General Public License version 3, as published 
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
-# 
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranties of 
-# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR 
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranties of
+# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR
 # PURPOSE.  See the GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License along 
+#
+# You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 ### END LICENSE
 
@@ -21,11 +21,12 @@ import gettext
 t = gettext.translation('pasaffe', fallback=True)
 _ = t.ugettext
 
-from gi.repository import Gio, Gtk # pylint: disable=E0611
+from gi.repository import Gio, Gtk  # pylint: disable=E0611
 
 from pasaffe import PasaffeWindow
 
 from pasaffe_lib import set_up_logging, get_version
+
 
 def parse_options():
     """Support for command line options"""
@@ -44,9 +45,10 @@ def parse_options():
     set_up_logging(options)
     return options
 
+
 def get_database_path():
     """Determines standard XDG location for database"""
-    if os.environ.has_key('XDG_DATA_HOME'):
+    if 'XDG_DATA_HOME' in os.environ:
         basedir = os.path.join(os.environ['XDG_DATA_HOME'], 'pasaffe')
     else:
         basedir = os.path.join(os.environ['HOME'], '.local/share/pasaffe')
@@ -55,6 +57,7 @@ def get_database_path():
         os.mkdir(basedir, 0700)
 
     return os.path.join(basedir, 'pasaffe.psafe3')
+
 
 def main():
     'constructor for your class instances'
@@ -76,4 +79,3 @@ def main():
     window = PasaffeWindow.PasaffeWindow(database=options.filename)
     window.show()
     Gtk.main()
-

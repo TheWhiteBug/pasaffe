@@ -1,16 +1,16 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 ### BEGIN LICENSE
 # Copyright (C) 2011-2012 Marc Deslauriers <marc.deslauriers@canonical.com>
-# This program is free software: you can redistribute it and/or modify it 
-# under the terms of the GNU General Public License version 3, as published 
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
-# 
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranties of 
-# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR 
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranties of
+# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR
 # PURPOSE.  See the GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License along 
+#
+# You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 ### END LICENSE
 
@@ -18,9 +18,16 @@ import gettext
 from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
-from gi.repository import GObject, Gio, Gtk, Gdk, Pango, GLib # pylint: disable=E0611
-import os, struct, time, sys, webbrowser, re
+from gi.repository import GObject, Gio, Gtk  # pylint: disable=E0611
+from gi.repository import Gdk, Pango, GLib  # pylint: disable=E0611
 import logging
+import os
+import re
+import struct
+import sys
+import time
+import webbrowser
+
 logger = logging.getLogger('pasaffe')
 
 from pasaffe_lib import Window
@@ -34,12 +41,13 @@ from pasaffe.PreferencesPasaffeDialog import PreferencesPasaffeDialog
 from pasaffe_lib.readdb import PassSafeFile
 from pasaffe_lib.helpers import get_builder
 
+
 # See pasaffe_lib.Window.py for more details about how this class works
 class PasaffeWindow(Window):
     __gtype_name__ = "PasaffeWindow"
 
     def __new__(cls, database=None):
-        """Special static method that's automatically called by Python when 
+        """Special static method that's automatically called by Python when
         constructing a new instance of this class.
 
         Returns a fully instantiated BasePasaffeWindow object.
@@ -49,8 +57,7 @@ class PasaffeWindow(Window):
         new_object.finish_initializing(builder, database)
         return new_object
 
-
-    def finish_initializing(self, builder, database): # pylint: disable=E1002
+    def finish_initializing(self, builder, database):  # pylint: disable=E1002
         """Set up the main window"""
         super(PasaffeWindow, self).finish_initializing(builder)
 
@@ -63,8 +70,9 @@ class PasaffeWindow(Window):
         self.NewDatabaseDialog = NewDatabaseDialog
         self.NewPasswordDialog = NewPasswordDialog
 
-        self.connect("delete-event",self.on_delete_event)
-        self.ui.textview1.connect("motion-notify-event", self.textview_event_handler)
+        self.connect("delete-event", self.on_delete_event)
+        self.ui.textview1.connect("motion-notify-event",
+                                  self.textview_event_handler)
 
         self.set_save_status(False)
         self.passfile = None
@@ -184,7 +192,7 @@ class PasaffeWindow(Window):
     def display_entries(self):
         entries = []
         for uuid in self.passfile.records:
-            entries.append([self.passfile.records[uuid][3],uuid])
+            entries.append([self.passfile.records[uuid][3], uuid])
         self.ui.liststore1.clear()
         for record in sorted(entries, key=lambda entry: entry[0].lower()):
             self.ui.liststore1.append(record)
@@ -267,7 +275,7 @@ class PasaffeWindow(Window):
         return False
 
     def open_url(self):
-        url = None 
+        url = None
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
@@ -334,7 +342,7 @@ class PasaffeWindow(Window):
         self.update_find_results(force=True)
 
     def clone_entry(self, entry_uuid):
-        record_list = ( 3, 4, 5, 6, 13 )
+        record_list = (3, 4, 5, 6, 13)
         self.disable_idle_timeout()
 
         # Make sure dialog isn't already open
@@ -387,11 +395,11 @@ class PasaffeWindow(Window):
                 self.delete_entry(entry_uuid)
 
     def edit_entry(self, entry_uuid):
-        record_dict = { 3 : 'name_entry',
-                        4 : 'username_entry',
-                        5 : 'notes_buffer',
-                        6 : 'password_entry',
-                        13: 'url_entry' }
+        record_dict = {3: 'name_entry',
+                       4: 'username_entry',
+                       5: 'notes_buffer',
+                       6: 'password_entry',
+                       13: 'url_entry'}
 
         # Make sure dialog isn't already open
         if self.editdetails_dialog is not None:
@@ -491,8 +499,8 @@ class PasaffeWindow(Window):
     def model_get_iter_last(self, model, parent=None):
         """Returns a Gtk.TreeIter to the last row or None if there aren't any rows.
         If parent is None, returns a Gtk.TreeIter to the last root row."""
-        n = model.iter_n_children( parent )
-        return n and model.iter_nth_child( parent, n - 1 )
+        n = model.iter_n_children(parent)
+        return n and model.iter_nth_child(parent, n - 1)
 
     def on_treeview1_row_activated(self, treeview, path, view_column):
         treemodel, treeiter = treeview.get_selection().get_selected()
@@ -648,7 +656,7 @@ class PasaffeWindow(Window):
         if find == self.find_value and force == False:
             return
 
-        record_list = ( 3, 5, 13 )
+        record_list = (3, 5, 13)
         pat = re.compile(find, re.IGNORECASE)
         results = []
 
@@ -661,7 +669,7 @@ class PasaffeWindow(Window):
                         break
 
             if found == True:
-                results.append([self.passfile.records[uuid][3],uuid])
+                results.append([self.passfile.records[uuid][3], uuid])
 
         self.find_results = sorted(results, key=lambda results: results[0].lower())
         self.find_results_index = None
@@ -835,7 +843,7 @@ class PasaffeWindow(Window):
             GObject.source_remove(self.idle_id)
             self.idle_id == None
         if self.settings.get_boolean('lock-on-idle') == True and self.settings.get_int('idle-timeout') != 0:
-            idle_time = int(self.settings.get_int('idle-timeout')*1000*60)
+            idle_time = int(self.settings.get_int('idle-timeout') * 1000 * 60)
             self.idle_id = GObject.timeout_add(idle_time, self.idle_timeout_reached)
 
     def idle_timeout_reached(self):
@@ -854,7 +862,7 @@ class PasaffeWindow(Window):
             GObject.source_remove(self.clipboard_id)
             self.clipboard_id == None
         if self.settings.get_int('clipboard-timeout') != 0:
-            clipboard_time = int(self.settings.get_int('clipboard-timeout')*1000)
+            clipboard_time = int(self.settings.get_int('clipboard-timeout') * 1000)
             self.clipboard_id = GObject.timeout_add(clipboard_time,
                                                     self.clipboard_timeout_reached)
 
