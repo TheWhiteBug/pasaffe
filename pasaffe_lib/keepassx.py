@@ -42,9 +42,11 @@ class KeePassX:
         """ Converts time format"""
         if timestring:
             if tz:
-                value = time.mktime(time.strptime(timestring,"%Y-%m-%dT%H:%M:%SZ"))
+                value = time.mktime(time.strptime(
+                                    timestring, "%Y-%m-%dT%H:%M:%SZ"))
             else:
-                value = time.mktime(time.strptime(timestring,"%Y-%m-%dT%H:%M:%S"))
+                value = time.mktime(time.strptime(
+                                    timestring, "%Y-%m-%dT%H:%M:%S"))
         else:
             value = time.time()
 
@@ -113,7 +115,7 @@ class KeePassX:
                                         new_entry[8] = self._convert_time(timesitem.text, True)
                                         new_entry[12] = self._convert_time(timesitem.text, True)
 
-                            elif x.tag == 'String': 
+                            elif x.tag == 'String':
                                 for stritem in list(x):
                                     if stritem.text == 'Title':
                                         new_entry[3] = (x.find('Value').text or 'Untitled item').encode("utf-8")
@@ -137,4 +139,3 @@ class KeePassX:
 
         else:
             raise RuntimeError("Not a valid KeePassX or KeePass2 XML file")
-

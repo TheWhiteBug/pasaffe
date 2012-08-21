@@ -1,31 +1,32 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 ### BEGIN LICENSE
 # Copyright (C) 2011-2012 Marc Deslauriers <marc.deslauriers@canonical.com>
-# This program is free software: you can redistribute it and/or modify it 
-# under the terms of the GNU General Public License version 3, as published 
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
-# 
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranties of 
-# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR 
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranties of
+# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR
 # PURPOSE.  See the GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License along 
+#
+# You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 ### END LICENSE
 
-from gi.repository import Gio, Gtk # pylint: disable=E0611
+from gi.repository import Gio, Gtk  # pylint: disable=E0611
 import logging
 logger = logging.getLogger('pasaffe_lib')
 
 from . helpers import get_builder, show_uri, get_help_uri
+
 
 # This class is meant to be subclassed by PasaffeWindow.  It provides
 # common functions and some boilerplate.
 class Window(Gtk.Window):
     __gtype_name__ = "Window"
 
-    # To construct a new instance of this method, the following notable 
+    # To construct a new instance of this method, the following notable
     # methods are called in this order:
     # __new__(cls)
     # __init__(self)
@@ -36,7 +37,7 @@ class Window(Gtk.Window):
     # your initialization code in finish_initializing
 
     def __new__(cls):
-        """Special static method that's automatically called by Python when 
+        """Special static method that's automatically called by Python when
         constructing a new instance of this class.
 
         Returns a fully instantiated BasePasaffeWindow object.
@@ -56,25 +57,12 @@ class Window(Gtk.Window):
         # Get a reference to the builder and set up the signals.
         self.builder = builder
         self.ui = builder.get_ui(self, True)
-        self.PreferencesDialog = None # class
-        self.preferences_dialog = None # instance
-        self.AboutDialog = None # class
+        self.PreferencesDialog = None  # class
+        self.preferences_dialog = None  # instance
+        self.AboutDialog = None  # class
 
         self.settings = Gio.Settings("net.launchpad.pasaffe")
         self.settings.connect('changed', self.on_preferences_changed)
-
-        # Optional application indicator support
-        # Run 'quickly add indicator' to get started.
-        # More information:
-        #  http://owaislone.org/quickly-add-indicator/
-        #  https://wiki.ubuntu.com/DesktopExperienceTeam/ApplicationIndicators
-        #try:
-        #    from pasaffe import indicator
-        #    # self is passed so methods of this class can be called from indicator.py
-        #    # Comment this next line out to disable appindicator
-        #    self.indicator = indicator.new_application_indicator(self)
-        #except ImportError:
-        #    pass
 
     def on_mnu_contents_activate(self, widget, data=None):
         show_uri(self, "ghelp:%s" % get_help_uri())
@@ -82,7 +70,7 @@ class Window(Gtk.Window):
     def on_mnu_about_activate(self, widget, data=None):
         """Display the about box for pasaffe."""
         if self.AboutDialog is not None:
-            about = self.AboutDialog() # pylint: disable=E1102
+            about = self.AboutDialog()  # pylint: disable=E1102
             response = about.run()
             about.destroy()
 
@@ -99,8 +87,10 @@ class Window(Gtk.Window):
             self.preferences_dialog.present()
         elif self.PreferencesDialog is not None:
             logger.debug('create new preferences_dialog')
-            self.preferences_dialog = self.PreferencesDialog() # pylint: disable=E1102
-            self.preferences_dialog.connect('destroy', self.on_preferences_dialog_destroyed)
+            self.preferences_dialog = \
+                self.PreferencesDialog()  # pylint: disable=E1102
+            self.preferences_dialog.connect('destroy',
+                self.on_preferences_dialog_destroyed)
             self.preferences_dialog.show()
         # destroy command moved into dialog to allow for a help button
 
@@ -114,13 +104,16 @@ class Window(Gtk.Window):
         Gtk.main_quit()
 
     def on_preferences_changed(self, settings, key, data=None):
-        logger.debug('preference changed: %s = %s' % (key, str(settings.get_value(key))))
+        logger.debug('preference changed: %s = %s' % (key,
+            str(settings.get_value(key))))
         if key == 'visible-secrets':
             self.set_show_password_status()
-            treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+            treemodel, treeiter = \
+                self.ui.treeview1.get_selection().get_selected()
             if treeiter != None:
                 entry_uuid = treemodel.get_value(treeiter, 1)
-                self.display_data(entry_uuid, show_secrets=settings.get_boolean(key))
+                self.display_data(entry_uuid,
+                                  show_secrets=settings.get_boolean(key))
 
     def on_preferences_dialog_destroyed(self, widget, data=None):
         '''only affects gui
@@ -130,4 +123,3 @@ class Window(Gtk.Window):
         logger.debug('on_preferences_dialog_destroyed')
         # to determine whether to create or present preferences_dialog
         self.preferences_dialog = None
-

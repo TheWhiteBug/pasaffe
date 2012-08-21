@@ -1,22 +1,22 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 ### BEGIN LICENSE
 # Copyright (C) 2011-2012 Marc Deslauriers <marc.deslauriers@canonical.com>
-# This program is free software: you can redistribute it and/or modify it 
-# under the terms of the GNU General Public License version 3, as published 
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
-# 
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranties of 
-# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR 
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranties of
+# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR
 # PURPOSE.  See the GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License along 
+#
+# You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 ### END LICENSE
 
 '''Enhances builder connections, provides object to access glade objects'''
 
-from gi.repository import GObject, Gtk # pylint: disable=E0611
+from gi.repository import GObject, Gtk  # pylint: disable=E0611
 
 import inspect
 import functools
@@ -172,8 +172,9 @@ class UiFactory():
         # into pythonic ones
         cannot_message = """cannot bind ui.%s, name already exists
         consider using a pythonic name instead of design name '%s'"""
-        consider_message = """consider using a pythonic name instead of design name '%s'"""
-        
+        consider_message = """consider using a pythonic name instead""" + \
+                           """ of design name '%s'"""
+
         for (widget_name, widget) in widget_dict.items():
             pyname = make_pyname(widget_name)
             if pyname != widget_name:
@@ -205,7 +206,8 @@ def make_pyname(name):
             pyname += '_'
     return pyname
 
-# Until bug https://bugzilla.gnome.org/show_bug.cgi?id=652127 is fixed, we 
+
+# Until bug https://bugzilla.gnome.org/show_bug.cgi?id=652127 is fixed, we
 # need to reimplement inspect.getmembers.  Gobject introspection doesn't
 # play nice with it.
 def getmembers(obj, check):
@@ -219,6 +221,7 @@ def getmembers(obj, check):
             members.append((k, attr))
     members.sort()
     return members
+
 
 def dict_from_callback_obj(callback_obj):
     '''a dictionary interface to callback_obj'''

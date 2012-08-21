@@ -1,23 +1,29 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 ### BEGIN LICENSE
 # Copyright (C) 2011-2012 Marc Deslauriers <marc.deslauriers@canonical.com>
-# This program is free software: you can redistribute it and/or modify it 
-# under the terms of the GNU General Public License version 3, as published 
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
-# 
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranties of 
-# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR 
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranties of
+# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR
 # PURPOSE.  See the GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License along 
+#
+# You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 ### END LICENSE
 
-import sys, struct, hashlib, os, time
+import sys
+import struct
+import hashlib
+import os
+import time
+
 import blowfish
 import logging
 logger = logging.getLogger('pasaffe_lib')
+
 
 class GPassFile:
 
@@ -79,42 +85,52 @@ class GPassFile:
             # OK, now parse entry data
             entry_index = 0
 
-            entry_index, entry_name = self.get_entry_string(entry_data, entry_index)
+            entry_index, entry_name = self.get_entry_string(entry_data,
+                                                            entry_index)
             new_entry[3] = entry_name
             logger.debug("entry_name is %s" % entry_name)
 
-            entry_index, entry_desc = self.get_entry_string(entry_data, entry_index)
+            entry_index, entry_desc = self.get_entry_string(entry_data,
+                                                            entry_index)
             if entry_desc != "":
                 new_entry[5] = entry_desc
             logger.debug("entry_desc is %s" % entry_desc)
 
-            entry_index, entry_ctime = self.get_entry_int(entry_data, entry_index)
+            entry_index, entry_ctime = self.get_entry_int(entry_data,
+                                                          entry_index)
             new_entry[7] = entry_ctime
             logger.debug("creation time is %s" % entry_ctime.encode("hex"))
 
-            entry_index, entry_mtime = self.get_entry_int(entry_data, entry_index)
+            entry_index, entry_mtime = self.get_entry_int(entry_data,
+                                                          entry_index)
             # Gpass doesn't separately track when password was modified
             new_entry[8] = entry_mtime
             new_entry[12] = entry_mtime
-            logger.debug("modification time is %s" % entry_mtime.encode("hex"))
+            logger.debug("modification time is %s" %
+                         entry_mtime.encode("hex"))
 
-            entry_index, entry_expflag = self.get_entry_int(entry_data, entry_index)
+            entry_index, entry_expflag = self.get_entry_int(entry_data,
+                                                            entry_index)
             logger.debug("expiration flag is %s" % entry_expflag.encode("hex"))
 
-            entry_index, entry_etime = self.get_entry_int(entry_data, entry_index)
+            entry_index, entry_etime = self.get_entry_int(entry_data,
+                                                          entry_index)
             if struct.unpack("<I", entry_expflag)[0] != 0:
                 new_entry[10] = entry_etime
             logger.debug("expiration time is %s" % entry_etime.encode("hex"))
 
-            entry_index, entry_username = self.get_entry_string(entry_data, entry_index)
+            entry_index, entry_username = self.get_entry_string(entry_data,
+                                                                entry_index)
             new_entry[4] = entry_username
             logger.debug("username is %s" % entry_username)
 
-            entry_index, entry_pass = self.get_entry_string(entry_data, entry_index)
+            entry_index, entry_pass = self.get_entry_string(entry_data,
+                                                            entry_index)
             new_entry[6] = entry_pass
             #logger.debug("password is %s" % entry_pass)
 
-            entry_index, entry_url = self.get_entry_string(entry_data, entry_index)
+            entry_index, entry_url = self.get_entry_string(entry_data,
+                                                           entry_index)
             if entry_url != "":
                 new_entry[13] = entry_url
             logger.debug("URL is %s" % entry_url)
@@ -133,23 +149,25 @@ class GPassFile:
     def validate_header(self):
         gpass_magic_prefix = "GPassFile version 1.1.0"
 
-        logger.debug("decoded_db header is %s" % self.decoded_db[:len(gpass_magic_prefix)])
+        logger.debug("decoded_db header is %s" %
+                     self.decoded_db[:len(gpass_magic_prefix)])
 
         # Check magic prefix
-		if not self.decoded_db.startswith(gpass_magic_prefix):
-            raise RuntimeError("File is not a GPass database, or wrong password. Aborting.")
+        if not self.decoded_db.startswith(gpass_magic_prefix):
+            raise RuntimeError("File is not a GPass database,"
+                               " or wrong password. Aborting.")
 
         # Skip header
         self.decoded_db = self.decoded_db[len(gpass_magic_prefix):]
 
     def get_int(self):
-        value = self.decoded_db[self.index:self.index+4]
+        value = self.decoded_db[self.index:self.index + 4]
         self.index += 4
         return value
 
     def get_string(self):
         length = struct.unpack("<I", self.get_int())[0]
-        value = self.decoded_db[self.index:self.index+length]
+        value = self.decoded_db[self.index:self.index + length]
         self.index += length
         return value
 
@@ -158,17 +176,17 @@ class GPassFile:
         b = 1
 
         for i in range(6):
-            c = ord(entry[entry_index+i])
+            c = ord(entry[entry_index + i])
             if c & 0x80:
                 value += b * (c & 0x7f)
-                b *= 0x80;
+                b *= 0x80
             else:
                 value += b * c
-				return entry_index + i + 1, struct.pack("<I", value)
+                return entry_index + i + 1, struct.pack("<I", value)
 
     def get_entry_string(self, entry, entry_index):
         entry_index, length = self.get_entry_int(entry, entry_index)
         length = struct.unpack("<I", length)[0]
-        value = entry[entry_index:entry_index+length]
+        value = entry[entry_index:entry_index + length]
         entry_index += length
         return entry_index, value
