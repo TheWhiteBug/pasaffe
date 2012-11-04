@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-08-21 20:01-0400\n"
-"PO-Revision-Date: 2012-10-23 13:55+0000\n"
+"PO-Revision-Date: 2012-11-03 16:35+0000\n"
 "Last-Translator: Dennis Baudys <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-24 05:38+0000\n"
-"X-Generator: Launchpad (build 16179)\n"
+"X-Launchpad-Export-Date: 2012-11-04 05:15+0000\n"
+"X-Generator: Launchpad (build 16218)\n"
 
 #: ../data/ui/PasswordEntryDialog.ui.h:1
 msgid "<big><b>Please enter your master password:</b></big>"
@@ -40,7 +40,7 @@ msgstr "Datenbank als Vorgabe festlegen"
 
 #: ../pasaffe/PasaffeWindow.py:211
 msgid "Secrets are currently hidden."
-msgstr ""
+msgstr "Vertrauliches ist derzeit versteckt."
 
 #: ../pasaffe/PasaffeWindow.py:215
 #, python-format
@@ -125,7 +125,7 @@ msgstr "Zuletzt gespeichert von: %s\n"
 #: ../pasaffe/PasaffeWindow.py:606
 #, python-format
 msgid "Last saved on host: %s\n"
-msgstr ""
+msgstr "Zuletzt gespeichert auf dem Rechner: %s\n"
 
 #: ../pasaffe/PasaffeWindow.py:608
 #, python-format
@@ -159,19 +159,19 @@ msgstr "Automatisch Änderungen speichern"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:3
 msgid "Display secrets by default"
-msgstr ""
+msgstr "Vertrauliches als Vorgabe anzeigen"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:4
 msgid "Only passwords are secret"
-msgstr ""
+msgstr "Nur Passwörter sind vertraulich"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:5
 msgid "<b>Secrets</b>"
-msgstr ""
+msgstr "<b>Vertrauliches</b>"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:6
 msgid "Lock database after"
-msgstr ""
+msgstr "Datenbank sperren nach"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:7
 msgid "minutes"
@@ -179,15 +179,15 @@ msgstr "Minuten"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:8
 msgid "<b>Lock</b>"
-msgstr ""
+msgstr "<b>Sperren</b>"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:9
 msgid "Passwords are"
-msgstr ""
+msgstr "Passwörter sind"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:10
 msgid "characters long"
-msgstr ""
+msgstr "Zeichen lang"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:11
 msgid "<b>Password Generator</b>"
@@ -195,11 +195,11 @@ msgstr "<b>Passworterzeugung</b>"
 
 #: ../data/ui/PasaffeWindow.ui.h:1
 msgid "<big><b>The password database is currently locked.</b></big>"
-msgstr ""
+msgstr "<big><b>Die Passwortdatenbank ist derzeit gesperrt.</b></big>"
 
 #: ../data/ui/PasaffeWindow.ui.h:2
 msgid "Unlock"
-msgstr ""
+msgstr "Entsprerren"
 
 #: ../data/ui/PasaffeWindow.ui.h:3
 msgid "Clone"
@@ -247,7 +247,7 @@ msgstr "_Ansicht"
 
 #: ../data/ui/PasaffeWindow.ui.h:14
 msgid "Display Secrets"
-msgstr ""
+msgstr "Vertrauliches anzeigen"
 
 #: ../data/ui/PasaffeWindow.ui.h:15
 msgid "Open URL"
@@ -315,7 +315,7 @@ msgstr "Einträge finden"
 
 #: ../data/ui/PasaffeWindow.ui.h:31
 msgid "Display secrets"
-msgstr ""
+msgstr "Vertrauliches anzeigen"
 
 #: ../data/ui/PasaffeWindow.ui.h:32
 msgid "column"
@@ -369,7 +369,7 @@ msgstr "Der Name für diesen Eintrag"
 
 #: ../data/ui/EditDetailsDialog.ui.h:3
 msgid "The entry's username"
-msgstr ""
+msgstr "Benutzername zu diesem Eintrag"
 
 #: ../data/ui/EditDetailsDialog.ui.h:4
 msgid "Title:"
