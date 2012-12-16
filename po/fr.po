@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-21 20:01-0400\n"
-"PO-Revision-Date: 2012-11-27 08:16+0000\n"
-"Last-Translator: Eliovir <Unknown>\n"
+"PO-Revision-Date: 2012-12-15 23:36+0000\n"
+"Last-Translator: Binnette <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-11-28 05:04+0000\n"
-"X-Generator: Launchpad (build 16309)\n"
+"X-Launchpad-Export-Date: 2012-12-16 05:13+0000\n"
+"X-Generator: Launchpad (build 16372)\n"
 "Language: fr\n"
 
 #: ../data/ui/PasswordEntryDialog.ui.h:1
@@ -117,7 +117,7 @@ msgstr "Nombre d'entrées: %s\n"
 #: ../pasaffe/PasaffeWindow.py:602
 #, python-format
 msgid "Database version: %s\n"
-msgstr ""
+msgstr "Version de la base de données : %s\n"
 
 #: ../pasaffe/PasaffeWindow.py:604
 #, python-format
@@ -169,31 +169,31 @@ msgstr "Seuls les mot de passes sont secrets"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:5
 msgid "<b>Secrets</b>"
-msgstr ""
+msgstr "<b>Secrets</b>"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:6
 msgid "Lock database after"
-msgstr ""
+msgstr "Verrouiller le base de données après"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:7
 msgid "minutes"
-msgstr ""
+msgstr "minutes"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:8
 msgid "<b>Lock</b>"
-msgstr ""
+msgstr "<b>Verrouiller</b>"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:9
 msgid "Passwords are"
-msgstr ""
+msgstr "Les mots de passes sont"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:10
 msgid "characters long"
-msgstr ""
+msgstr "caractères"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:11
 msgid "<b>Password Generator</b>"
-msgstr ""
+msgstr "<b>Générateur de mot de passe</b>"
 
 #: ../data/ui/PasaffeWindow.ui.h:1
 msgid "<big><b>The password database is currently locked.</b></big>"
