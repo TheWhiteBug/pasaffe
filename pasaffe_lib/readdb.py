@@ -200,6 +200,71 @@ class PassSafeFile:
         else:
             return None
 
+    def get_folder_list(self, uuid):
+        '''Returns a list of folders an entry belongs to'''
+        if uuid not in self.records:
+            return None
+
+        if 2 not in self.records[uuid]:
+            return None
+
+        # We need to split into folders using the "." character, but not
+        # if it is escaped with a \
+        folders = []
+        index = 0
+        while index < len(self.records[uuid][2]):
+            print "index = %s" % index
+            location = self.records[uuid][2].find(".", index)
+            print "location is %s" % location
+
+            if self.records[uuid][2][location-1] == "\\":
+                break
+            if location == -1:
+                break
+            folders.append(self.records[uuid][2][index:location].replace("\\",''))
+            index = location + 1
+
+        folders.append(self.records[uuid][2][index:len(self.records[uuid][2])].replace('\\',''))
+        return folders
+
+    def update_folder_list(self, old_list, new_list):
+        '''Updates a folder name in all entries'''
+        old_field = self._folder_list_to_field(old_list)
+        new_field = self._folder_list_to_field(new_list)
+
+        for uuid in self.records:
+            if 2 not in self.records[uuid]:
+                continue
+
+            if self.records[uuid][2] == old_field:
+                self.records[uuid][2] = new_field
+            elif self.records[uuid][2].startswith(old_field + '.'):
+                updated_field = self.records[uuid][2].replace(old_field, new_field, 1)
+                self.records[uuid][2] = updated_field
+            else:
+                continue
+
+            self.update_modification_time(uuid)
+
+    def update_modification_time(self, uuid):
+        '''Updates the modification time of an entry'''
+        timestamp = struct.pack("<I", int(time.time()))
+        self.records[uuid][12] = timestamp
+
+    def update_password_time(self, uuid):
+        '''Updates the password time of an entry'''
+        timestamp = struct.pack("<I", int(time.time()))
+        self.records[uuid][8] = timestamp
+
+    def _folder_list_to_field(self, folder_list):
+        '''Converts a folder list to a folder field'''
+        field = ""
+        for folder in folder_list:
+            if field != "":
+                field += "."
+            field += folder.replace(".", "\\.")
+        return field
+
     def new_entry(self):
         '''Creates a new entry'''
         uuid = os.urandom(16)

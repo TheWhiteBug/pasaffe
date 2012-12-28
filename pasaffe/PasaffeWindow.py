@@ -418,7 +418,6 @@ class PasaffeWindow(Window):
             response = self.editdetails_dialog.run()
             if response == Gtk.ResponseType.OK:
                 data_changed = False
-                timestamp = struct.pack("<I", int(time.time()))
                 for record_type, widget_name in record_dict.items():
                     if record_type == 5:
                         new_value = self.editdetails_dialog.builder.get_object(widget_name).get_text(self.editdetails_dialog.builder.get_object(widget_name).get_start_iter(), self.editdetails_dialog.builder.get_object(widget_name).get_end_iter(), True)
@@ -443,11 +442,11 @@ class PasaffeWindow(Window):
 
                         # Update the password changed date
                         if record_type == 6:
-                            self.passfile.records[entry_uuid][8] = timestamp
+                            self.passfile.update_password_time[entry_uuid]
 
                 if data_changed == True:
                     self.set_save_status(True)
-                    self.passfile.records[entry_uuid][12] = timestamp
+                    self.passfile.update_modification_time[entry_uuid]
                     if self.settings.get_boolean('auto-save') == True:
                         self.save_db()
 
