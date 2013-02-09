@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 ### BEGIN LICENSE
-# Copyright (C) 2011-2012 Marc Deslauriers <marc.deslauriers@canonical.com>
+# Copyright (C) 2011-2013 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
