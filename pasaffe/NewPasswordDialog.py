@@ -16,7 +16,7 @@
 
 from gi.repository import Gtk  # pylint: disable=E0611
 
-from pasaffe_lib.helpers import get_builder
+from pasaffe_lib.helpersgui import get_builder
 
 import gettext
 from gettext import gettext as _

@@ -18,5 +18,4 @@
 
 while keeping its api constant'''
 from . helpers import set_up_logging
-from . Window import Window
 from . pasaffeconfig import get_version

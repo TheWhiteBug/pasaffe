@@ -30,7 +30,7 @@ import webbrowser
 
 logger = logging.getLogger('pasaffe')
 
-from pasaffe_lib import Window
+from pasaffe_lib.Window import Window
 from pasaffe.AboutPasaffeDialog import AboutPasaffeDialog
 from pasaffe.EditDetailsDialog import EditDetailsDialog
 from pasaffe.PasswordEntryDialog import PasswordEntryDialog
@@ -39,7 +39,7 @@ from pasaffe.NewDatabaseDialog import NewDatabaseDialog
 from pasaffe.NewPasswordDialog import NewPasswordDialog
 from pasaffe.PreferencesPasaffeDialog import PreferencesPasaffeDialog
 from pasaffe_lib.readdb import PassSafeFile
-from pasaffe_lib.helpers import get_builder
+from pasaffe_lib.helpersgui import get_builder
 
 
 # See pasaffe_lib.Window.py for more details about how this class works

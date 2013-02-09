@@ -18,7 +18,8 @@ from gi.repository import Gio, Gtk  # pylint: disable=E0611
 import logging
 logger = logging.getLogger('pasaffe_lib')
 
-from . helpers import get_builder, show_uri, get_help_uri
+from . helpers import get_help_uri
+from . helpersgui import get_builder, show_uri
 
 
 # This class is meant to be subclassed by PasaffeWindow.  It provides
