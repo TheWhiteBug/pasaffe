@@ -442,11 +442,11 @@ class PasaffeWindow(Window):
 
                         # Update the password changed date
                         if record_type == 6:
-                            self.passfile.update_password_time[entry_uuid]
+                            self.passfile.update_password_time(entry_uuid)
 
                 if data_changed == True:
                     self.set_save_status(True)
-                    self.passfile.update_modification_time[entry_uuid]
+                    self.passfile.update_modification_time(entry_uuid)
                     if self.settings.get_boolean('auto-save') == True:
                         self.save_db()
 
