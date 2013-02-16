@@ -18,7 +18,7 @@ import gettext
 from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
-from gi.repository import GObject, Gio, Gtk  # pylint: disable=E0611
+from gi.repository import Gio, Gtk  # pylint: disable=E0611
 from gi.repository import Gdk, Pango, GLib  # pylint: disable=E0611
 import logging
 import os
@@ -840,35 +840,37 @@ class PasaffeWindow(Window):
 
     def set_idle_timeout(self):
         if self.idle_id != None:
-            GObject.source_remove(self.idle_id)
+            GLib.source_remove(self.idle_id)
             self.idle_id = None
         if self.settings.get_boolean('lock-on-idle') == True and self.settings.get_int('idle-timeout') != 0:
             idle_time = int(self.settings.get_int('idle-timeout') * 1000 * 60)
-            self.idle_id = GObject.timeout_add(idle_time, self.idle_timeout_reached)
+            self.idle_id = GLib.timeout_add(idle_time, self.idle_timeout_reached)
 
     def idle_timeout_reached(self):
         if self.is_locked == False:
             self.lock_screen()
-        GObject.source_remove(self.idle_id)
-        self.idle_id = None
+        if self.idle_id != None:
+            GLib.source_remove(self.idle_id)
+            self.idle_id = None
 
     def disable_idle_timeout(self):
         if self.idle_id != None:
-            GObject.source_remove(self.idle_id)
+            GLib.source_remove(self.idle_id)
             self.idle_id = None
 
     def set_clipboard_timeout(self):
         if self.clipboard_id != None:
-            GObject.source_remove(self.clipboard_id)
+            GLib.source_remove(self.clipboard_id)
             self.clipboard_id = None
         if self.settings.get_int('clipboard-timeout') != 0:
             clipboard_time = int(self.settings.get_int('clipboard-timeout') * 1000)
-            self.clipboard_id = GObject.timeout_add(clipboard_time,
+            self.clipboard_id = GLib.timeout_add(clipboard_time,
                                                     self.clipboard_timeout_reached)
 
     def clipboard_timeout_reached(self):
-        GObject.source_remove(self.clipboard_id)
-        self.clipboard_id = None
+        if self.clipboard_id != None:
+            GLib.source_remove(self.clipboard_id)
+            self.clipboard_id = None
         for atom in [Gdk.SELECTION_CLIPBOARD, Gdk.SELECTION_PRIMARY]:
             clipboard = Gtk.Clipboard.get(atom)
             clipboard.set_text("", 0)
