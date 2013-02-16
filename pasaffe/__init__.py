@@ -40,7 +40,7 @@ def parse_options():
     parser.add_option(
         "-s", "--set-default", dest="set_default",
         help=_("set database as default"), action='store_true')
-    (options, args) = parser.parse_args()
+    (options, _args) = parser.parse_args()
 
     set_up_logging(options)
     return options
@@ -77,5 +77,5 @@ def main():
 
     # Run the application.
     window = PasaffeWindow.PasaffeWindow(database=options.filename)
-    window.show()
+    window.show()  # pylint: disable=E1101
     Gtk.main()

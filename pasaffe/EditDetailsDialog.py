@@ -24,6 +24,7 @@ gettext.textdomain('pasaffe')
 
 import subprocess
 
+# pylint: disable=E1101
 
 class EditDetailsDialog(Gtk.Dialog):
     __gtype_name__ = "EditDetailsDialog"
@@ -68,7 +69,7 @@ class EditDetailsDialog(Gtk.Dialog):
         """
         pass
 
-    def on_password_button_clicked(self, widget):
+    def on_password_button_clicked(self, _widget):
         """The user has clicked the password button"""
         self.show_passwords_menu()
 
@@ -83,7 +84,7 @@ class EditDetailsDialog(Gtk.Dialog):
                    "-m", str(self.password_length),
                    "-x", str(self.password_length)]
         try:
-            passwords = subprocess.check_output(command).splitlines()
+            passwords = subprocess.check_output(command).splitlines()  # pylint: disable=E1103
             self.ui.password1.set_label(passwords[0])
             self.ui.password2.set_label(passwords[1])
             self.ui.password3.set_label(passwords[2])

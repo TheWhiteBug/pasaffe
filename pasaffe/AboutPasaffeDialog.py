@@ -24,6 +24,7 @@ logger = logging.getLogger('pasaffe')
 from pasaffe_lib.AboutDialog import AboutDialog
 from pasaffe_lib import get_version
 
+# pylint: disable=E1101
 
 # See pasaffe_lib.AboutDialog.py for more details about how this class works.
 class AboutPasaffeDialog(AboutDialog):

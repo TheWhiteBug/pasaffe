@@ -22,6 +22,7 @@ import gettext
 from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
+# pylint: disable=E1101
 
 class NewPasswordDialog(Gtk.Dialog):
     __gtype_name__ = "NewPasswordDialog"

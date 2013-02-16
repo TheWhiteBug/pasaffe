@@ -41,6 +41,7 @@ from pasaffe.PreferencesPasaffeDialog import PreferencesPasaffeDialog
 from pasaffe_lib.readdb import PassSafeFile
 from pasaffe_lib.helpersgui import get_builder
 
+# pylint: disable=E1101
 
 # See pasaffe_lib.Window.py for more details about how this class works
 class PasaffeWindow(Window):
@@ -110,7 +111,7 @@ class PasaffeWindow(Window):
         # Set inactivity timer
         self.set_idle_timeout()
 
-    def on_delete_event(self, widget, event):
+    def on_delete_event(self, _widget, _event):
         self.save_window_size()
         return self.save_warning()
 
@@ -174,14 +175,14 @@ class PasaffeWindow(Window):
         while success == False:
             response = newdb_dialog.run()
             if response == Gtk.ResponseType.OK:
-                passwordA = newdb_dialog.ui.entry1.get_text()
-                passwordB = newdb_dialog.ui.entry2.get_text()
-                if passwordA != passwordB:
+                password_a = newdb_dialog.ui.entry1.get_text()
+                password_b = newdb_dialog.ui.entry2.get_text()
+                if password_a != password_b:
                     newdb_dialog.ui.error_label.set_property("visible", True)
                     newdb_dialog.ui.entry1.grab_focus()
                 else:
                     self.passfile = PassSafeFile()
-                    self.passfile.new_db(passwordA)
+                    self.passfile.new_db(password_a)
                     success = True
             else:
                 break
@@ -211,7 +212,7 @@ class PasaffeWindow(Window):
             contents += _("Secrets are currently hidden.")
         else:
             if 5 in self.passfile.records[entry_uuid]:
-                    contents += "%s\n\n" % self.passfile.records[entry_uuid].get(5)
+                contents += "%s\n\n" % self.passfile.records[entry_uuid].get(5)
             contents += _("Username: %s\n") % self.passfile.records[entry_uuid].get(4)
             if show_secrets == True or self.settings.get_boolean('visible-secrets') == True:
                 contents += _("Password: %s\n\n") % self.passfile.records[entry_uuid].get(6)
@@ -256,7 +257,7 @@ class PasaffeWindow(Window):
 
         self.ui.textview1.set_buffer(data_buffer)
 
-    def url_event_handler(self, tag, widget, event, iter):
+    def url_event_handler(self, _tag, _widget, event, _iter):
         # We also used to check event.button == 1 here, but event.button
         # doesn't seem to get set by PyGObject anymore.
         if event.type == Gdk.EventType.BUTTON_RELEASE:
@@ -264,10 +265,10 @@ class PasaffeWindow(Window):
         return False
 
     def textview_event_handler(self, textview, event):
-        x, y = textview.window_to_buffer_coords(Gtk.TextWindowType.WIDGET, int(event.x), int(event.y))
-        iter = textview.get_iter_at_location(x, y)
+        loc_x, loc_y = textview.window_to_buffer_coords(Gtk.TextWindowType.WIDGET, int(event.x), int(event.y))
+        itera = textview.get_iter_at_location(loc_x, loc_y)
         cursor = Gdk.Cursor.new(Gdk.CursorType.XTERM)
-        for tag in iter.get_tags():
+        for tag in itera.get_tags():
             if tag.get_property('name') == 'url':
                 cursor = Gdk.Cursor.new(Gdk.CursorType.HAND2)
                 break
@@ -300,15 +301,15 @@ class PasaffeWindow(Window):
 
     def on_treeview1_button_press_event(self, treeview, event):
         if event.button == 3:
-            x = int(event.x)
-            y = int(event.y)
-            time = event.time
-            pthinfo = treeview.get_path_at_pos(x, y)
+            loc_x = int(event.x)
+            loc_y = int(event.y)
+            event_time = event.time
+            pthinfo = treeview.get_path_at_pos(loc_x, loc_y)
             if pthinfo is not None:
-                path, col, cellx, celly = pthinfo
+                path, col, _cellx, _celly = pthinfo
                 treeview.grab_focus()
                 treeview.set_cursor(path, col, 0)
-                self.ui.menu_popup.popup(None, None, None, None, 3, time)
+                self.ui.menu_popup.popup(None, None, None, None, 3, event_time)
 
     def add_entry(self):
         self.disable_idle_timeout()
@@ -425,7 +426,7 @@ class PasaffeWindow(Window):
                         new_value = self.editdetails_dialog.builder.get_object(widget_name).get_text()
 
                     if (record_type == 5 or record_type == 13) and new_value == "" and record_type in self.passfile.records[entry_uuid]:
-                            del self.passfile.records[entry_uuid][record_type]
+                        del self.passfile.records[entry_uuid][record_type]
                     elif self.passfile.records[entry_uuid].get(record_type, "") != new_value:
                         data_changed = True
                         self.passfile.records[entry_uuid][record_type] = new_value
@@ -498,10 +499,10 @@ class PasaffeWindow(Window):
     def model_get_iter_last(self, model, parent=None):
         """Returns a Gtk.TreeIter to the last row or None if there aren't any rows.
         If parent is None, returns a Gtk.TreeIter to the last root row."""
-        n = model.iter_n_children(parent)
-        return n and model.iter_nth_child(parent, n - 1)
+        nchild = model.iter_n_children(parent)
+        return nchild and model.iter_nth_child(parent, nchild - 1)
 
-    def on_treeview1_row_activated(self, treeview, path, view_column):
+    def on_treeview1_row_activated(self, treeview, _path, _view_column):
         treemodel, treeiter = treeview.get_selection().get_selected()
         entry_uuid = treemodel.get_value(treeiter, 1)
         self.edit_entry(entry_uuid)
@@ -511,15 +512,15 @@ class PasaffeWindow(Window):
             self.passfile.writefile(self.database, backup=True)
             self.set_save_status(False)
 
-    def on_save_clicked(self, toolbutton):
+    def on_save_clicked(self, _toolbutton):
         self.set_idle_timeout()
         self.save_db()
 
-    def on_mnu_save_activate(self, menuitem):
+    def on_mnu_save_activate(self, _menuitem):
         self.set_idle_timeout()
         self.save_db()
 
-    def on_mnu_close_activate(self, menuitem):
+    def on_mnu_close_activate(self, _menuitem):
         self.disable_idle_timeout()
         if self.settings.get_boolean('auto-save') == True:
             self.save_db()
@@ -528,25 +529,25 @@ class PasaffeWindow(Window):
         else:
             self.set_idle_timeout()
 
-    def on_mnu_clone_activate(self, menuitem):
+    def on_mnu_clone_activate(self, _menuitem):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
             self.clone_entry(entry_uuid)
 
-    def on_username_copy_activate(self, menuitem):
+    def on_username_copy_activate(self, _menuitem):
         self.copy_selected_entry_item(4)
 
-    def on_password_copy_activate(self, menuitem):
+    def on_password_copy_activate(self, _menuitem):
         self.copy_selected_entry_item(6)
 
-    def on_url_copy_activate(self, menuitem):
+    def on_url_copy_activate(self, _menuitem):
         self.copy_selected_entry_item(13)
 
-    def on_copy_username_clicked(self, toolbutton):
+    def on_copy_username_clicked(self, _toolbutton):
         self.copy_selected_entry_item(4)
 
-    def on_copy_password_clicked(self, toolbutton):
+    def on_copy_password_clicked(self, _toolbutton):
         self.copy_selected_entry_item(6)
 
     def on_display_secrets_toggled(self, toolbutton):
@@ -580,22 +581,22 @@ class PasaffeWindow(Window):
                     clipboard.store()
                 self.set_clipboard_timeout()
 
-    def on_mnu_add_activate(self, menuitem):
+    def on_mnu_add_activate(self, _menuitem):
         self.add_entry()
 
-    def on_mnu_edit1_activate(self, menuitem):
+    def on_mnu_edit1_activate(self, _menuitem):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
             self.edit_entry(entry_uuid)
 
-    def on_mnu_delete_activate(self, menuitem):
+    def on_mnu_delete_activate(self, _menuitem):
         self.remove_entry()
 
-    def on_mnu_lock_activate(self, menuitem):
+    def on_mnu_lock_activate(self, _menuitem):
         self.lock_screen()
 
-    def on_mnu_info_activate(self, menuitem):
+    def on_mnu_info_activate(self, _menuitem):
         information = _('<big><b>Database Information</b></big>\n\n')
         information += _('Number of entries: %s\n') % len(self.passfile.records)
         information += _('Database version: %s\n') % self.passfile.get_database_version_string()
@@ -613,7 +614,7 @@ class PasaffeWindow(Window):
         info_dialog.run()
         info_dialog.destroy()
 
-    def on_mnu_open_url_activate(self, menuitem):
+    def on_mnu_open_url_activate(self, _menuitem):
         self.open_url()
 
     def on_mnu_find_toggled(self, menuitem):
@@ -626,16 +627,16 @@ class PasaffeWindow(Window):
         self.show_find(is_active)
         self.ui.mnu_find.set_active(is_active)
 
-    def on_find_btn_close_clicked(self, button):
+    def on_find_btn_close_clicked(self, _button):
         self.show_find(False)
         self.ui.toolbar_find.set_active(False)
         self.ui.mnu_find.set_active(False)
 
-    def on_find_btn_prev_clicked(self, button):
+    def on_find_btn_prev_clicked(self, _button):
         self.update_find_results()
         self.goto_next_find_result(backwards=True)
 
-    def on_find_btn_next_clicked(self, button):
+    def on_find_btn_next_clicked(self, _button):
         self.update_find_results()
         self.goto_next_find_result()
 
@@ -705,7 +706,7 @@ class PasaffeWindow(Window):
             else:
                 item = self.ui.treeview1.get_model().iter_next(item)
 
-    def on_find_entry_activate(self, entry):
+    def on_find_entry_activate(self, _entry):
         self.update_find_results()
         self.goto_next_find_result()
 
@@ -724,23 +725,23 @@ class PasaffeWindow(Window):
             self.find_results = []
             self.find_results_index = None
 
-    def on_open_url_clicked(self, toolbutton):
+    def on_open_url_clicked(self, _toolbutton):
         self.open_url()
 
-    def on_mnu_chg_password_activate(self, menuitem):
+    def on_mnu_chg_password_activate(self, _menuitem):
         success = False
         newpass_dialog = self.NewPasswordDialog()
         while success == False:
             response = newpass_dialog.run()
             if response == Gtk.ResponseType.OK:
                 old_password = newpass_dialog.ui.pass_entry1.get_text()
-                passwordA = newpass_dialog.ui.pass_entry2.get_text()
-                passwordB = newpass_dialog.ui.pass_entry3.get_text()
-                if passwordA != passwordB:
+                password_a = newpass_dialog.ui.pass_entry2.get_text()
+                password_b = newpass_dialog.ui.pass_entry3.get_text()
+                if password_a != password_b:
                     newpass_dialog.ui.label3.set_text(_("Passwords don't match! Please try again."))
                     newpass_dialog.ui.label3.set_property("visible", True)
                     newpass_dialog.ui.pass_entry2.grab_focus()
-                elif passwordA == '':
+                elif password_a == '':
                     newpass_dialog.ui.label3.set_text(_("New password cannot be blank! Please try again."))
                     newpass_dialog.ui.label3.set_property("visible", True)
                     newpass_dialog.ui.pass_entry2.grab_focus()
@@ -749,7 +750,7 @@ class PasaffeWindow(Window):
                     newpass_dialog.ui.label3.set_property("visible", True)
                     newpass_dialog.ui.pass_entry1.grab_focus()
                 else:
-                    self.passfile.new_keys(passwordA)
+                    self.passfile.new_keys(password_a)
                     self.set_save_status(True)
                     self.save_db()
                     success = True
@@ -766,7 +767,7 @@ class PasaffeWindow(Window):
         self.set_menu_sensitive(False)
         self.ui.lock_unlock_button.grab_focus()
 
-    def on_lock_unlock_button_clicked(self, button):
+    def on_lock_unlock_button_clicked(self, _button):
         success = False
         password_dialog = self.PasswordEntryDialog()
         password_dialog.set_transient_for(self)
@@ -825,22 +826,22 @@ class PasaffeWindow(Window):
             self.ui.save.set_sensitive(True)
             self.ui.save.set_sensitive(False)
 
-    def on_add_clicked(self, toolbutton):
+    def on_add_clicked(self, _toolbutton):
         self.add_entry()
 
-    def on_edit_clicked(self, toolbutton):
+    def on_edit_clicked(self, _toolbutton):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
             self.edit_entry(entry_uuid)
 
-    def on_remove_clicked(self, toolbutton):
+    def on_remove_clicked(self, _toolbutton):
         self.remove_entry()
 
     def set_idle_timeout(self):
         if self.idle_id != None:
             GObject.source_remove(self.idle_id)
-            self.idle_id == None
+            self.idle_id = None
         if self.settings.get_boolean('lock-on-idle') == True and self.settings.get_int('idle-timeout') != 0:
             idle_time = int(self.settings.get_int('idle-timeout') * 1000 * 60)
             self.idle_id = GObject.timeout_add(idle_time, self.idle_timeout_reached)
@@ -854,12 +855,12 @@ class PasaffeWindow(Window):
     def disable_idle_timeout(self):
         if self.idle_id != None:
             GObject.source_remove(self.idle_id)
-            self.idle_id == None
+            self.idle_id = None
 
     def set_clipboard_timeout(self):
         if self.clipboard_id != None:
             GObject.source_remove(self.clipboard_id)
-            self.clipboard_id == None
+            self.clipboard_id = None
         if self.settings.get_int('clipboard-timeout') != 0:
             clipboard_time = int(self.settings.get_int('clipboard-timeout') * 1000)
             self.clipboard_id = GObject.timeout_add(clipboard_time,

@@ -25,7 +25,7 @@ from pasaffe import AboutPasaffeDialog
 class TestExample(unittest.TestCase):
     def setUp(self):
         self.AboutPasaffeDialog_members = [
-        'AboutPasaffeDialog', 'get_builder', 'gettext', 'gtk']
+        'AboutDialog', 'AboutPasaffeDialog', 'get_version', 'gettext', 'logger', 'logging']
 
     def test_AboutPasaffeDialog_members(self):
         all_members = dir(AboutPasaffeDialog)
