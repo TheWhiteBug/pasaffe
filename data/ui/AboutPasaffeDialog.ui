@@ -26,7 +26,7 @@ with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 </property>
     <property name="authors">Marc Deslauriers &lt;marc.deslauriers@canonical.com&gt;
 Jamie Strandboge &lt;jamie@canonical.com&gt;
-Francesco Marella</property>
+Francesco Marella &lt;fra.marella@gmx.com&gt;</property>
     <property name="logo">../media/pasaffe.svg</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox1">
