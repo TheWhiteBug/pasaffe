@@ -221,10 +221,10 @@ class PassSafeFile:
                 break
             if location == -1:
                 break
-            folders.append(self.records[uuid][2][index:location].replace("\\",''))
+            folders.append(self.records[uuid][2][index:location].lower().replace("\\",''))
             index = location + 1
 
-        folders.append(self.records[uuid][2][index:len(self.records[uuid][2])].replace('\\',''))
+        folders.append(self.records[uuid][2][index:len(self.records[uuid][2])].lower().replace('\\',''))
         return folders
 
     def update_folder_list(self, old_list, new_list):
