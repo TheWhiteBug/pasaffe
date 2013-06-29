@@ -50,7 +50,13 @@ class PathEntry:
         self.path = path
         
     def __cmp__(self, other):
-        if not len(self.path) or len(self.path) < len(other.path):
+        if self.path == None and other.path == None:
+            return 0
+        elif self.path == None:
+            return -1
+        elif other.path == None:
+            return 1
+        elif not len(self.path) or len(self.path) < len(other.path):
             i = 0
             for path in self.path:
                 if not len(path):
