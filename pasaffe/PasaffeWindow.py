@@ -312,6 +312,21 @@ class PasaffeWindow(Window):
            item = self.ui.treeview1.get_model().iter_next(item)
        return None
 
+    def find_prev_iter(self, uuid, item=None, toplevel=True, prev_item=None):
+       if toplevel == True:
+           item = self.ui.treeview1.get_model().get_iter_first()
+       if item == None:
+           return prev_item, None
+       while item:
+           if self.ui.liststore1.get_value(item, 1) == uuid:
+               return prev_item, item
+           prev_item, result = self.find_prev_iter(uuid, self.ui.treeview1.get_model().iter_children(item), False, item)
+           if result:
+               return prev_item, result
+           prev_item = item
+           item = self.ui.treeview1.get_model().iter_next(item)
+       return item, None
+
     def display_data(self, entry_uuid, show_secrets=False):
         title = self.passfile.records[entry_uuid].get(3)
 
@@ -569,22 +584,20 @@ class PasaffeWindow(Window):
         self.set_idle_timeout()
         item = self.search_tree(entry_uuid)
 
-        next_item = self.ui.treeview1.get_model().iter_next(item)
+        new_item = self.ui.treeview1.get_model().iter_next(item)
 
-        if next_item == None:
+        if new_item == None:
             # No more items in the current level, try and get the parent
-            # TODO: if no more in current level, try and get the previous
-            # item in the current level before trying the parent
-            next_item = self.ui.treeview1.get_model().iter_parent(item)
-            # No parent...hrm, just get the first item
-            if next_item == None:
-                next_item = self.ui.treeview1.get_model().get_iter_first()
-
-        if next_item != 0:
-            self.ui.treeview1.get_selection().select_iter(next_item)
+            new_item, _item = self.find_prev_iter(entry_uuid)
 
         self.ui.liststore1.remove(item)
         del self.passfile.records[entry_uuid]
+
+        if new_item == None:
+            new_item = self.ui.treeview1.get_model().get_iter_first()
+
+        if new_item != 0:
+            self.ui.treeview1.get_selection().select_iter(new_item)
 
         if save == True:
             self.set_save_status(True)
