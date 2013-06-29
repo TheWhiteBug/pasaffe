@@ -48,7 +48,7 @@ class PathEntry:
         self.name = name
         self.uuid = uuid
         self.path = path
-        
+
     def __cmp__(self, other):
         if self.path == None and other.path == None:
             return 0
@@ -95,7 +95,8 @@ class PathEntry:
                     return 1
                 i += 1
             return 0
-                    
+
+
 # See pasaffe_lib.Window.py for more details about how this class works
 class PasaffeWindow(Window):
     __gtype_name__ = "PasaffeWindow"
@@ -269,7 +270,7 @@ class PasaffeWindow(Window):
                 parent = self.ui.liststore1.append(parent, [path, "pasaffe_treenode."+path])
                 node = self.ui.liststore1.iter_children(parent)
         return parent
-    
+
     def display_entries(self):
         entries = []
         for uuid in self.passfile.records:
@@ -277,10 +278,10 @@ class PasaffeWindow(Window):
             entries.append(entry)
 
         self.ui.liststore1.clear()
-        
+
         # Sort the records alphabetically first
         entries = sorted(entries, key=lambda x:x.name.lower())
-        
+
         # Then sort on path
         for record in sorted(entries):
             parent = self.find_path(record.path)
