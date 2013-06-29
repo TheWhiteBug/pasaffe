@@ -271,7 +271,7 @@ class PasaffeWindow(Window):
                 node = self.ui.liststore1.iter_children(parent)
         return parent
 
-    def display_entries(self):
+    def display_entries(self, entry_uuid=None):
         entries = []
         for uuid in self.passfile.records:
             entry = PathEntry(self.passfile.records[uuid][3], uuid, self.passfile.get_folder_list(uuid))
@@ -287,6 +287,20 @@ class PasaffeWindow(Window):
             parent = self.find_path(record.path)
             self.ui.liststore1.append(parent, [record.name, record.uuid])
         self.ui.treeview1.expand_all()
+
+        # If entry_uuid is specified, go to it
+        if entry_uuid != None:
+            item = self.ui.treeview1.get_model().get_iter_first()
+            while (item != None):
+                if self.ui.liststore1.get_value(item, 1) == entry_uuid:
+                    self.ui.treeview1.get_selection().select_iter(item)
+                    self.display_data(entry_uuid)
+                    path = self.ui.treeview1.get_model().get_path(item)
+                    self.ui.treeview1.scroll_to_cell(path)
+                    break
+                else:
+                    item = self.ui.treeview1.get_model().iter_next(item)
+
 
     def display_data(self, entry_uuid, show_secrets=False):
         title = self.passfile.records[entry_uuid].get(3)
@@ -422,17 +436,7 @@ class PasaffeWindow(Window):
         if response != Gtk.ResponseType.OK:
             self.delete_entry(uuid_hex, save=False)
         else:
-            self.display_entries()
-            item = self.ui.treeview1.get_model().get_iter_first()
-            while (item != None):
-                if self.ui.liststore1.get_value(item, 1) == uuid_hex:
-                    self.ui.treeview1.get_selection().select_iter(item)
-                    self.display_data(uuid_hex)
-                    path = self.ui.treeview1.get_model().get_path(item)
-                    self.ui.treeview1.scroll_to_cell(path)
-                    break
-                else:
-                    item = self.ui.treeview1.get_model().iter_next(item)
+            self.display_entries(uuid_hex)
             self.set_save_status(True)
             if self.settings.get_boolean('auto-save') == True:
                 self.save_db()
@@ -458,17 +462,7 @@ class PasaffeWindow(Window):
         if response != Gtk.ResponseType.OK:
             self.delete_entry(uuid_hex, save=False)
         else:
-            self.display_entries()
-            item = self.ui.treeview1.get_model().get_iter_first()
-            while (item != None):
-                if self.ui.liststore1.get_value(item, 1) == uuid_hex:
-                    self.ui.treeview1.get_selection().select_iter(item)
-                    self.display_data(uuid_hex)
-                    path = self.ui.treeview1.get_model().get_path(item)
-                    self.ui.treeview1.scroll_to_cell(path)
-                    break
-                else:
-                    item = self.ui.treeview1.get_model().iter_next(item)
+            self.display_entries(uuid_hex)
             self.set_save_status(True)
             if self.settings.get_boolean('auto-save') == True:
                 self.save_db()
@@ -532,7 +526,7 @@ class PasaffeWindow(Window):
                         self.passfile.records[entry_uuid][record_type] = new_value
                         # Reset the entire tree on name and path changes
                         if record_type in [2, 3]:
-                            self.display_entries()
+                            self.display_entries(entry_uuid)
 
                         # Update the password changed date
                         if record_type == 6:
