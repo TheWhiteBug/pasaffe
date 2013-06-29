@@ -33,6 +33,7 @@ logger = logging.getLogger('pasaffe')
 from pasaffe_lib.Window import Window
 from pasaffe.AboutPasaffeDialog import AboutPasaffeDialog
 from pasaffe.EditDetailsDialog import EditDetailsDialog
+from pasaffe.EditFolderDialog import EditFolderDialog
 from pasaffe.PasswordEntryDialog import PasswordEntryDialog
 from pasaffe.SaveChangesDialog import SaveChangesDialog
 from pasaffe.NewDatabaseDialog import NewDatabaseDialog
@@ -119,6 +120,8 @@ class PasaffeWindow(Window):
         self.AboutDialog = AboutPasaffeDialog
         self.EditDetailsDialog = EditDetailsDialog
         self.editdetails_dialog = None
+        self.EditFolderDialog = EditFolderDialog
+        self.editfolder_dialog = None
         self.PreferencesDialog = PreferencesPasaffeDialog
         self.PasswordEntryDialog = PasswordEntryDialog
         self.SaveChangesDialog = SaveChangesDialog
@@ -625,7 +628,10 @@ class PasaffeWindow(Window):
     def on_treeview1_row_activated(self, treeview, _path, _view_column):
         treemodel, treeiter = treeview.get_selection().get_selected()
         entry_uuid = treemodel.get_value(treeiter, 1)
-        self.edit_entry(entry_uuid)
+        if "pasaffe_treenode." in entry_uuid:
+            self.edit_folder(treemodel.get_value(treeiter, 0), treemodel, treeiter)
+        else:
+            self.edit_entry(entry_uuid)
 
     def save_db(self):
         if self.get_save_status() == True:
@@ -708,7 +714,10 @@ class PasaffeWindow(Window):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
-            self.edit_entry(entry_uuid)
+            if "pasaffe_treenode." in entry_uuid:
+                self.edit_folder(treemodel.get_value(treeiter, 0), treemodel, treeiter)
+            else:
+                self.edit_entry(entry_uuid)
 
     def on_mnu_delete_activate(self, _menuitem):
         self.remove_entry()
@@ -938,6 +947,10 @@ class PasaffeWindow(Window):
 
     def on_add_clicked(self, _toolbutton):
         self.add_entry()
+
+    def on_add_folder_clicked(self, _toolbutton):
+        print "MD: on_add_folder_clicked"
+        self.add_folder()
 
     def on_edit_clicked(self, _toolbutton):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
