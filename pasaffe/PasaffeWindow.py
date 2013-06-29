@@ -43,6 +43,53 @@ from pasaffe_lib.helpersgui import get_builder
 
 # pylint: disable=E1101
 
+class PathEntry:
+    def __init__(self, name, uuid, path):
+        self.name = name
+        self.uuid = uuid
+        self.path = path
+        
+    def __cmp__(self, other):
+        if not len(self.path) or len(self.path) < len(other.path):
+            i = 0
+            for path in self.path:
+                if not len(path):
+                    return 1
+                if not len(other.path[i]):
+                    return -1
+                if path < other.path[i]:
+                    return -1
+                if path > other.path[i]:
+                    return 1
+                i += 1
+            return 1
+        elif not len(other.path) or len(self.path) > len(other.path):
+            i = 0
+            for path in other.path:
+                if not len(path):
+                    return -1
+                if not len(self.path[i]):
+                    return 1
+                if path > self.path[i]:
+                    return -1
+                if path < self.path[i]:
+                    return 1
+                i += 1
+            return -1
+        else:
+            i = 0
+            for path in self.path:
+                if not len(path):
+                    return 1
+                if not len(other.path[i]):
+                    return -1
+                if path < other.path[i]:
+                    return -1
+                if path > other.path[i]:
+                    return 1
+                i += 1
+            return 0
+                    
 # See pasaffe_lib.Window.py for more details about how this class works
 class PasaffeWindow(Window):
     __gtype_name__ = "PasaffeWindow"
@@ -190,15 +237,55 @@ class PasaffeWindow(Window):
         newdb_dialog.destroy()
         return success
 
+    def find_path(self, paths):
+        parent = None
+
+        if paths == None or len(paths) == 0:
+            return None
+
+        node = self.ui.liststore1.get_iter_first()
+
+        for path in paths:
+            if len(path) == 0:
+                return parent
+            found = False
+            while node != None and not found:
+                if self.ui.liststore1.get_value(node, 0) == path:
+                    if self.ui.liststore1.iter_has_child(node):
+                        parent = node
+                        node = self.ui.liststore1.iter_children(node)
+                        found = True
+                    else:
+                        break
+                if not found:
+                    node = self.ui.liststore1.iter_next(node)
+            if not found:
+                parent = self.ui.liststore1.append(parent, [path, "pasaffe_treenode."+path])
+                node = self.ui.liststore1.iter_children(parent)
+        return parent
+    
     def display_entries(self):
         entries = []
         for uuid in self.passfile.records:
-            entries.append([self.passfile.records[uuid][3], uuid])
+            entry = PathEntry(self.passfile.records[uuid][3], uuid, self.passfile.get_folder_list(uuid))
+            entries.append(entry)
+
         self.ui.liststore1.clear()
-        for record in sorted(entries, key=lambda entry: entry[0].lower()):
-            self.ui.liststore1.append(record)
+        
+        # Sort the records alphabetically first
+        entries = sorted(entries, key=lambda x:x.name.lower())
+        
+        # Then sort on path
+        for record in sorted(entries):
+            parent = self.find_path(record.path)
+            self.ui.liststore1.append(parent, [record.name, record.uuid])
+        self.ui.treeview1.expand_all()
 
     def display_data(self, entry_uuid, show_secrets=False):
+        if "pasaffe_treenode." in entry_uuid:
+            title = entry_uuid.split(".")[1]
+            self.fill_display(title, None, '')
+            return None
         title = self.passfile.records[entry_uuid].get(3)
 
         url = None
@@ -343,7 +430,7 @@ class PasaffeWindow(Window):
         self.update_find_results(force=True)
 
     def clone_entry(self, entry_uuid):
-        record_list = (3, 4, 5, 6, 13)
+        record_list = (2, 3, 4, 5, 6, 13)
         self.disable_idle_timeout()
 
         # Make sure dialog isn't already open
@@ -396,7 +483,10 @@ class PasaffeWindow(Window):
                 self.delete_entry(entry_uuid)
 
     def edit_entry(self, entry_uuid):
-        record_dict = {3: 'name_entry',
+        if "pasaffe_treenode." in entry_uuid:
+            return None
+        record_dict = {2: 'path_entry',
+                       3: 'name_entry',
                        4: 'username_entry',
                        5: 'notes_buffer',
                        6: 'password_entry',
@@ -430,16 +520,9 @@ class PasaffeWindow(Window):
                     elif self.passfile.records[entry_uuid].get(record_type, "") != new_value:
                         data_changed = True
                         self.passfile.records[entry_uuid][record_type] = new_value
-
-                        # Update the name in the tree
-                        if record_type == 3:
-                            item = self.ui.treeview1.get_model().get_iter_first()
-                            while (item != None):
-                                if self.ui.liststore1.get_value(item, 1) == entry_uuid:
-                                    self.ui.liststore1.set_value(item, 0, new_value)
-                                    break
-                                else:
-                                    item = self.ui.treeview1.get_model().iter_next(item)
+                        # Reset the entire tree on name and path changes
+                        if record_type in [2, 3]:
+                            self.display_entries()
 
                         # Update the password changed date
                         if record_type == 6:
