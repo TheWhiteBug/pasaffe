@@ -491,7 +491,7 @@ class PasaffeWindow(Window):
     def edit_entry(self, entry_uuid):
         if "pasaffe_treenode." in entry_uuid:
             return None
-        record_dict = {2: 'path_entry',
+        record_dict = {2: 'folder_entry',
                        3: 'name_entry',
                        4: 'username_entry',
                        5: 'notes_buffer',

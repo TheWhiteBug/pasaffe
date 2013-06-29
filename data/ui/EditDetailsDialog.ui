@@ -54,10 +54,10 @@
               </packing>
             </child>
 	    <child>
-	      <object class="GtkEntry" id="path_entry">
+	      <object class="GtkEntry" id="folder_entry">
 		<property name="visible">True</property>
 		<property name="can_focus">True</property>
-                <property name="tooltip_text" translatable="yes">The path for this entry</property>
+                <property name="tooltip_text" translatable="yes">The folder for this entry</property>
                 <property name="primary_icon_activatable">False</property>
                 <property name="secondary_icon_activatable">False</property>
                 <property name="primary_icon_sensitive">True</property>
@@ -96,10 +96,10 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="path_label">
+              <object class="GtkLabel" id="folder_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Path:</property>
+                <property name="label" translatable="yes">Folder:</property>
               </object>
               <packing>
                 <property name="top_attach">1</property>
