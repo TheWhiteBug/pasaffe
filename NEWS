@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.25 (UNRELEASED)
 
  * Enhancements:
+   - Added tree support (Thanks to Jabik Postmus!)
 
  * Bug fixes:
 
