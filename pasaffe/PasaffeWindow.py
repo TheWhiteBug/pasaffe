@@ -290,13 +290,16 @@ class PasaffeWindow(Window):
 
         # If entry_uuid is specified, go to it
         if entry_uuid != None:
-            item = self.ui.treeview1.get_model().get_iter_first()
-            item = self.search_tree(item, entry_uuid)
-            if (item != None):
-                self.ui.treeview1.get_selection().select_iter(item)
-                self.display_data(entry_uuid)
-                path = self.ui.treeview1.get_model().get_path(item)
-                self.ui.treeview1.scroll_to_cell(path)
+            self.goto_uuid(entry_uuid)
+
+    def goto_uuid(self, uuid):
+        item = self.ui.treeview1.get_model().get_iter_first()
+        item = self.search_tree(item, uuid)
+        if (item != None):
+            self.ui.treeview1.get_selection().select_iter(item)
+            self.display_data(uuid)
+            path = self.ui.treeview1.get_model().get_path(item)
+            self.ui.treeview1.scroll_to_cell(path)
 
     def search_tree(self, item, uuid):
        while item:
@@ -481,6 +484,10 @@ class PasaffeWindow(Window):
             entry_uuid = treemodel.get_value(treeiter, 1)
             entry_name = treemodel.get_value(treeiter, 0)
 
+            # TODO: implement deleting a folder
+            if "pasaffe_treenode." in entry_uuid:
+                return
+
             information = _('<big><b>Are you sure you wish to remove "%s"?</b></big>\n\n') % entry_name
             information += _('Contents of the entry will be lost.\n')
 
@@ -560,19 +567,23 @@ class PasaffeWindow(Window):
     def delete_entry(self, entry_uuid, save=True):
         self.set_idle_timeout()
         item = self.ui.treeview1.get_model().get_iter_first()
+        item = self.search_tree(item, entry_uuid)
 
-        while (item != None):
-            if self.ui.liststore1.get_value(item, 1) == entry_uuid:
-                next_item = self.ui.treeview1.get_model().iter_next(item)
-                self.ui.liststore1.remove(item)
-                if next_item == None:
-                    next_item = self.model_get_iter_last(self.ui.treeview1.get_model())
-                if next_item != 0:
-                    self.ui.treeview1.get_selection().select_iter(next_item)
-                break
-            else:
-                item = self.ui.treeview1.get_model().iter_next(item)
+        next_item = self.ui.treeview1.get_model().iter_next(item)
 
+        if next_item == None:
+            # No more items in the current level, try and get the parent
+            # TODO: if no more in current level, try and get the previous
+            # item in the current level before trying the parent
+            next_item = self.ui.treeview1.get_model().iter_parent(item)
+            # No parent...hrm, just get the first item
+            if next_item == None:
+                next_item = self.ui.treeview1.get_model().get_iter_first()
+
+        if next_item != 0:
+            self.ui.treeview1.get_selection().select_iter(next_item)
+
+        self.ui.liststore1.remove(item)
         del self.passfile.records[entry_uuid]
 
         if save == True:
@@ -583,7 +594,10 @@ class PasaffeWindow(Window):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
-            self.display_data(entry_uuid)
+            if "pasaffe_treenode." in entry_uuid:
+                self.display_folder(treemodel.get_value(treeiter, 0))
+            else:
+                self.display_data(entry_uuid)
         else:
             self.display_welcome()
 
@@ -787,16 +801,7 @@ class PasaffeWindow(Window):
         result = self.find_results[self.find_results_index]
         uuid_hex = result[1]
 
-        item = self.ui.treeview1.get_model().get_iter_first()
-        while (item != None):
-            if self.ui.liststore1.get_value(item, 1) == uuid_hex:
-                self.ui.treeview1.get_selection().select_iter(item)
-                self.display_data(uuid_hex)
-                path = self.ui.treeview1.get_model().get_path(item)
-                self.ui.treeview1.scroll_to_cell(path)
-                break
-            else:
-                item = self.ui.treeview1.get_model().iter_next(item)
+        self.goto_uuid(uuid_hex)
 
     def on_find_entry_activate(self, _entry):
         self.update_find_results()
