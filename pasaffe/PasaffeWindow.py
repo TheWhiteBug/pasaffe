@@ -293,19 +293,20 @@ class PasaffeWindow(Window):
             self.goto_uuid(entry_uuid)
 
     def goto_uuid(self, uuid):
-        item = self.ui.treeview1.get_model().get_iter_first()
-        item = self.search_tree(item, uuid)
+        item = self.search_tree(uuid)
         if (item != None):
             self.ui.treeview1.get_selection().select_iter(item)
             self.display_data(uuid)
             path = self.ui.treeview1.get_model().get_path(item)
             self.ui.treeview1.scroll_to_cell(path)
 
-    def search_tree(self, item, uuid):
+    def search_tree(self, uuid, item=None, toplevel=True):
+       if toplevel == True:
+           item = self.ui.treeview1.get_model().get_iter_first()
        while item:
            if self.ui.liststore1.get_value(item, 1) == uuid:
                return item
-           result = self.search_tree(self.ui.treeview1.get_model().iter_children(item), uuid)
+           result = self.search_tree(uuid, self.ui.treeview1.get_model().iter_children(item), False)
            if result:
                return result
            item = self.ui.treeview1.get_model().iter_next(item)
@@ -566,8 +567,7 @@ class PasaffeWindow(Window):
 
     def delete_entry(self, entry_uuid, save=True):
         self.set_idle_timeout()
-        item = self.ui.treeview1.get_model().get_iter_first()
-        item = self.search_tree(item, entry_uuid)
+        item = self.search_tree(entry_uuid)
 
         next_item = self.ui.treeview1.get_model().iter_next(item)
 
