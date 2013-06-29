@@ -288,10 +288,6 @@ class PasaffeWindow(Window):
         self.ui.treeview1.expand_all()
 
     def display_data(self, entry_uuid, show_secrets=False):
-        if "pasaffe_treenode." in entry_uuid:
-            title = entry_uuid.split(".")[1]
-            self.fill_display(title, None, '')
-            return None
         title = self.passfile.records[entry_uuid].get(3)
 
         url = None
@@ -326,6 +322,10 @@ class PasaffeWindow(Window):
     def display_welcome(self):
         self.fill_display(_("Welcome to Pasaffe!"), None,
                           _("Pasaffe is an easy to use\npassword manager for Gnome."))
+
+    def display_folder(self, folder_name):
+        self.fill_display(folder_name, None,
+                          _("This is a folder."))
 
     def fill_display(self, title, url, contents):
         texttagtable = Gtk.TextTagTable()
@@ -387,6 +387,9 @@ class PasaffeWindow(Window):
             treemodel, treeiter = selection.get_selected()
             if treemodel is not None and treeiter is not None:
                 entry_uuid = treemodel.get_value(treeiter, 1)
+                if "pasaffe_treenode." in entry_uuid:
+                    self.display_folder(treemodel.get_value(treeiter, 0))
+                    return
                 self.display_data(entry_uuid)
                 # Reset the show password button and menu item
                 self.ui.display_secrets.set_active(False)
@@ -693,7 +696,6 @@ class PasaffeWindow(Window):
             information += _('Last saved by: %s\n') % self.passfile.get_saved_name()
         if self.passfile.get_saved_host():
             information += _('Last saved on host: %s\n') % self.passfile.get_saved_host()
-        if self.passfile.get_saved_date_string():
             information += _('Last save date: %s\n') % self.passfile.get_saved_date_string()
         if self.passfile.get_saved_application():
             information += _('Application used: %s\n') % self.passfile.get_saved_application()
