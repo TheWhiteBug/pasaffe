@@ -291,16 +291,22 @@ class PasaffeWindow(Window):
         # If entry_uuid is specified, go to it
         if entry_uuid != None:
             item = self.ui.treeview1.get_model().get_iter_first()
-            while (item != None):
-                if self.ui.liststore1.get_value(item, 1) == entry_uuid:
-                    self.ui.treeview1.get_selection().select_iter(item)
-                    self.display_data(entry_uuid)
-                    path = self.ui.treeview1.get_model().get_path(item)
-                    self.ui.treeview1.scroll_to_cell(path)
-                    break
-                else:
-                    item = self.ui.treeview1.get_model().iter_next(item)
+            item = self.search_tree(item, entry_uuid)
+            if (item != None):
+                self.ui.treeview1.get_selection().select_iter(item)
+                self.display_data(entry_uuid)
+                path = self.ui.treeview1.get_model().get_path(item)
+                self.ui.treeview1.scroll_to_cell(path)
 
+    def search_tree(self, item, uuid):
+       while item:
+           if self.ui.liststore1.get_value(item, 1) == uuid:
+               return item
+           result = self.search_tree(self.ui.treeview1.get_model().iter_children(item), uuid)
+           if result:
+               return result
+           item = self.ui.treeview1.get_model().iter_next(item)
+       return None
 
     def display_data(self, entry_uuid, show_secrets=False):
         title = self.passfile.records[entry_uuid].get(3)
