@@ -213,18 +213,16 @@ class PassSafeFile:
         folders = []
         index = 0
         while index < len(self.records[uuid][2]):
-            print "index = %s" % index
             location = self.records[uuid][2].find(".", index)
-            print "location is %s" % location
 
             if self.records[uuid][2][location-1] == "\\":
                 break
             if location == -1:
                 break
-            folders.append(self.records[uuid][2][index:location].lower().replace("\\",''))
+            folders.append(self.records[uuid][2][index:location].replace("\\",''))
             index = location + 1
 
-        folders.append(self.records[uuid][2][index:len(self.records[uuid][2])].lower().replace('\\',''))
+        folders.append(self.records[uuid][2][index:len(self.records[uuid][2])].replace('\\',''))
         return folders
 
     def update_folder_list(self, old_list, new_list):
