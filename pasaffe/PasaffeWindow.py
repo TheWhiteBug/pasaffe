@@ -673,22 +673,25 @@ class PasaffeWindow(Window):
 
     def delete_entry(self, entry_uuid, save=True):
         self.set_idle_timeout()
+
         item = self.search_tree(entry_uuid)
+        if item:
+            new_item = self.ui.treeview1.get_model().iter_next(item)
 
-        new_item = self.ui.treeview1.get_model().iter_next(item)
+            if new_item == None:
+                # No more items in the current level, try and get the parent
+                new_item, _item = self.find_prev_iter(entry_uuid)
 
-        if new_item == None:
-            # No more items in the current level, try and get the parent
-            new_item, _item = self.find_prev_iter(entry_uuid)
+            self.ui.liststore1.remove(item)
 
-        self.ui.liststore1.remove(item)
         del self.passfile.records[entry_uuid]
 
-        if new_item == None:
-            new_item = self.ui.treeview1.get_model().get_iter_first()
+        if item:
+            if new_item == None:
+                new_item = self.ui.treeview1.get_model().get_iter_first()
 
-        if new_item != 0:
-            self.ui.treeview1.get_selection().select_iter(new_item)
+            if new_item != 0:
+                self.ui.treeview1.get_selection().select_iter(new_item)
 
         if save == True:
             self.set_save_status(True)
