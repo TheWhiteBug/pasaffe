@@ -248,7 +248,7 @@ class PasaffeWindow(Window):
         newdb_dialog.destroy()
         return success
 
-    def find_path(self, paths):
+    def find_folder(self, paths):
         parent = None
 
         if paths == None or len(paths) == 0:
@@ -261,11 +261,12 @@ class PasaffeWindow(Window):
                 return parent
             found = False
             while node != None and not found:
-                if self.ui.liststore1.get_value(node, 0) == path:
+                if (self.ui.liststore1.get_value(node, 0) == path) and \
+                   ("pasaffe_treenode." in self.ui.liststore1.get_value(node, 1)):
+                    found = True
+                    parent = node
                     if self.ui.liststore1.iter_has_child(node):
-                        parent = node
                         node = self.ui.liststore1.iter_children(node)
-                        found = True
                     else:
                         break
                 if not found:
@@ -277,13 +278,14 @@ class PasaffeWindow(Window):
 
     def display_entries(self, entry_uuid=None):
         entries = []
-        for uuid in self.passfile.records:
-            entry = PathEntry(self.passfile.records[uuid][3], uuid, self.passfile.get_folder_list(uuid))
-            entries.append(entry)
 
-        # Add empty folders
+        # Add empty folders first
         for folder in self.empty_folders:
             entry = PathEntry("", "", folder)
+            entries.append(entry)
+
+        for uuid in self.passfile.records:
+            entry = PathEntry(self.passfile.records[uuid][3], uuid, self.passfile.get_folder_list(uuid))
             entries.append(entry)
 
         self.ui.liststore1.clear()
@@ -291,9 +293,9 @@ class PasaffeWindow(Window):
         # Sort the records alphabetically first
         entries = sorted(entries, key=lambda x:x.name.lower())
 
-        # Then sort on path
+        # Then sort on folder
         for record in sorted(entries):
-            parent = self.find_path(record.path)
+            parent = self.find_folder(record.path)
             if record.name != "":
                 self.ui.liststore1.append(parent, [record.name, record.uuid])
         self.ui.treeview1.expand_all()
