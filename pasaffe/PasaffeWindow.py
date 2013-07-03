@@ -467,6 +467,11 @@ class PasaffeWindow(Window):
 
         uuid_hex = self.passfile.new_entry()
 
+        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+        folder = self.get_folders_from_iter(treemodel, treeiter)
+        if folder != None:
+            self.passfile.records[uuid_hex][2] = self.folder_list_to_field(folder)
+
         response = self.edit_entry(uuid_hex)
         if response != Gtk.ResponseType.OK:
             self.delete_entry(uuid_hex, save=False)
@@ -477,6 +482,15 @@ class PasaffeWindow(Window):
                 self.save_db()
         self.set_idle_timeout()
         self.update_find_results(force=True)
+
+    def folder_list_to_field(self, folder_list):
+        '''Converts a folder list to a folder field'''
+        field = ""
+        for folder in folder_list:
+            if field != "":
+                field += "."
+            field += folder.replace(".", "\\.")
+        return field
 
     def add_folder(self):
         self.disable_idle_timeout()
@@ -582,7 +596,7 @@ class PasaffeWindow(Window):
                     else:
                         new_value = self.editdetails_dialog.builder.get_object(widget_name).get_text()
 
-                    if (record_type == 5 or record_type == 13) and new_value == "" and record_type in self.passfile.records[entry_uuid]:
+                    if (record_type in [ 2, 5, 13 ]) and new_value == "" and record_type in self.passfile.records[entry_uuid]:
                         del self.passfile.records[entry_uuid][record_type]
                     elif self.passfile.records[entry_uuid].get(record_type, "") != new_value:
                         data_changed = True
@@ -661,7 +675,10 @@ class PasaffeWindow(Window):
 
     def get_folders_from_iter(self, treemodel, treeiter):
         folders = []
-        folders.append(treemodel.get_value(treeiter, 0))
+
+        uuid = treemodel.get_value(treeiter, 1)
+        if "pasaffe_treenode." in uuid:
+            folders.append(treemodel.get_value(treeiter, 0))
 
         parent = treemodel.iter_parent(treeiter)
         while parent != None:
