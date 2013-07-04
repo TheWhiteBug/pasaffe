@@ -44,7 +44,9 @@ class PassSafeFile:
         self.hmac = None
         self.dbfile = None
         self.empty_folders = [ "faketop.faketwo.fakethree" ]
-        # TODO: read and save empty_folders in database
+
+        # Use version 0x030B, since we support saving empty folders
+        self.db_version = '\x0B\x03'
 
         if req_cipher == 'Twofish':
             self.cipher = pytwofishcbc.TwofishCBC()
@@ -88,7 +90,7 @@ class PassSafeFile:
 
         self.new_keys(password)
 
-        self.header[0] = '\x02\x03'  # database version
+        self.header[0] = self.db_version
         self.header[1] = os.urandom(16)  # uuid
 
     def check_password(self, password):
@@ -141,8 +143,15 @@ class PassSafeFile:
         # Set timestamp
         self.header[4] = struct.pack("<I", int(time.time()))
         self.header[6] = "Pasaffe v%s" % get_version()
-        # TODO: we should probably update the database version
-        # string here to at least what we use in new_db()
+
+        # Update the database version if it's older than what we support.
+        # Do major version first
+        if self.header[0][1] < self.db_version[1]:
+            self.header[0] = self.db_version
+        # Now check minor version if major version is same
+        elif self.header[0][1] == self.db_version[1]:
+            if self.header[0][0] < self.db_version[0]:
+                self.header[0] = self.db_version
 
         # Create backup if requested
         if backup == True and os.path.exists(filename):
@@ -413,9 +422,14 @@ class PassSafeFile:
             if status == False:
                 raise RuntimeError("Malformed file, "
                                    "was expecting more data in header")
+
             if field_type == 0xff:
                 logger.debug("Found end field")
                 break
+            elif field_type == 0x11:
+                # Empty group fields can appear more than once
+                # Store them in their own variable
+                self.empty_folders.append(field_data)
             else:
                 self.header[field_type] = field_data
                 logger.debug("Found field 0x%.2x" % field_type)
@@ -423,9 +437,22 @@ class PassSafeFile:
     def _writeheader(self):
         self.cipher.set_key(self.keys['K'])
 
+        # v3.30 of the spec says the version type needs to be the
+        # first field in the header. Handle it first.
+        logger.debug("Writing Version Type field")
+        self._writefield(0x00, self.header[0x00])
+
         for entry in self.header.keys():
+            # Skip Version Type, we've already handled it
+            if entry == 0x00:
+                continue
             logger.debug("Writing %.2x" % entry)
             self._writefield(entry, self.header[entry])
+
+        # Now handle empty folders
+        logger.debug("Writing empty folders")
+        for folder in self.empty_folders:
+            self._writefield(0x11, folder)
 
         self._writefieldend()
 

@@ -2,7 +2,6 @@ List of stuff to do:
 
 - Improve folder support
   - Add icons to tree to differentiate entries from folders
-  - Implement empty folder saving and loading in database
   - Implement folder expansion state saving in database
   - Implement copy/paste of entries between folders
   - Implement drag & drop of entries between folders
