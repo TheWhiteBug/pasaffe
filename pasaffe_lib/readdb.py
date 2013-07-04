@@ -43,7 +43,7 @@ class PassSafeFile:
         self.cipher_block_size = 0
         self.hmac = None
         self.dbfile = None
-        self.empty_folders = [ "faketop.faketwo.fakethree" ]
+        self.empty_folders = []
 
         # Use version 0x030B, since we support saving empty folders
         self.db_version = '\x0B\x03'
