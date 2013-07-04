@@ -43,6 +43,8 @@ class PassSafeFile:
         self.cipher_block_size = 0
         self.hmac = None
         self.dbfile = None
+        self.empty_folders = [ "faketop.faketwo.fakethree" ]
+        # TODO: read and save empty_folders in database
 
         if req_cipher == 'Twofish':
             self.cipher = pytwofishcbc.TwofishCBC()
@@ -208,28 +210,29 @@ class PassSafeFile:
         if 2 not in self.records[uuid]:
             return None
 
-        # We need to split into folders using the "." character, but not
-        # if it is escaped with a \
+        return (self._field_to_folder_list(self.records[uuid][2]))
+
+    def get_empty_folders(self):
+        '''Returns the empty folders list'''
         folders = []
-        index = 0
-        while index < len(self.records[uuid][2]):
-            location = self.records[uuid][2].find(".", index)
 
-            if self.records[uuid][2][location-1] == "\\":
-                break
-            if location == -1:
-                break
-            folders.append(self.records[uuid][2][index:location].replace("\\",''))
-            index = location + 1
+        for folder in self.empty_folders:
+            folders.append(self._field_to_folder_list(folder))
 
-        folders.append(self.records[uuid][2][index:len(self.records[uuid][2])].replace('\\',''))
         return folders
+
+    def add_empty_folder(self, folder):
+        '''Adds a folder to the empty folders list'''
+        field = self._folder_list_to_field(folder)
+        if field not in self.empty_folders:
+            self.empty_folders.append(field)
 
     def update_folder_list(self, old_list, new_list):
         '''Updates a folder name in all entries'''
         old_field = self._folder_list_to_field(old_list)
         new_field = self._folder_list_to_field(new_list)
 
+        # Do the records first
         for uuid in self.records:
             if 2 not in self.records[uuid]:
                 continue
@@ -243,6 +246,59 @@ class PassSafeFile:
                 continue
 
             self.update_modification_time(uuid)
+
+        # Now do the empty folders
+        for empty_folder in self.empty_folders:
+            if empty_folder == old_field:
+                self.empty_folders.remove(empty_field)
+                self.empty_folders.append(new_field)
+            elif empty_folder.startswith(old_field + '.'):
+                updated_field = empty_folder.replace(old_field, new_field, 1)
+                self.empty_folders.remove(empty_folder)
+                self.empty_folders.append(updated_field)
+
+    def delete_entry(self, uuid):
+        '''Deletes an entry'''
+        del self.records[uuid]
+
+    def delete_folder(self, folder):
+        '''Deletes a folder and all contents'''
+
+        if folder == None or folder == []:
+            return
+
+        field = self._folder_list_to_field(folder)
+
+        # Do the records first
+        for uuid in self.records.keys():
+            if 2 not in self.records[uuid]:
+                continue
+            if self.records[uuid][2] == field:
+                self.delete_entry(uuid)
+            elif self.records[uuid][2].startswith(field + '.'):
+                self.delete_entry(uuid)
+
+        # Now do the empty folders
+        for empty_folder in self.empty_folders:
+            if empty_folder == field:
+                self.empty_folders.remove(empty_field)
+            elif empty_folder.startswith(field + '.'):
+                self.empty_folders.remove(empty_folder)
+
+        # If the parent folder has no contents,
+        # add it to empty folders list
+        parent = folder[:-1]
+        if parent == []:
+            return
+        parent_field = self._folder_list_to_field(parent)
+
+        for uuid in self.records:
+            if 2 not in self.records[uuid]:
+                continue
+            if self.records[uuid][2] == parent_field:
+                return
+
+        self.add_empty_folder(parent)
 
     def update_modification_time(self, uuid):
         '''Updates the modification time of an entry'''
@@ -262,6 +318,26 @@ class PassSafeFile:
                 field += "."
             field += folder.replace(".", "\\.")
         return field
+
+    def _field_to_folder_list(self, field):
+        '''Converts a folder field to a folder list'''
+
+        # We need to split into folders using the "." character, but not
+        # if it is escaped with a \
+        folders = []
+        index = 0
+        while index < len(field):
+            location = field.find(".", index)
+
+            if field[location-1] == "\\":
+                break
+            if location == -1:
+                break
+            folders.append(field[index:location].replace("\\",''))
+            index = location + 1
+
+        folders.append(field[index:len(field)].replace('\\',''))
+        return folders
 
     def new_entry(self):
         '''Creates a new entry'''

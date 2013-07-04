@@ -4,9 +4,6 @@ List of stuff to do:
   - Add icons to tree to differentiate entries from folders
   - Implement empty folder saving and loading in database
   - Implement folder expansion state saving in database
-  - Implement new folder button
-  - Implement folder delete function
-  - Implement folder edit dialog
   - Implement copy/paste of entries between folders
   - Implement drag & drop of entries between folders
   - Implement folder selection drop down instead of folder text box

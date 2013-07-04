@@ -140,7 +140,6 @@ class PasaffeWindow(Window):
         self.find_results = []
         self.find_results_index = None
         self.find_value = ""
-        self.empty_folders = [ ['faketop', 'faketwo', 'fakethree'] ]
 
         if database == None:
             self.database = self.settings.get_string('database-path')
@@ -280,7 +279,7 @@ class PasaffeWindow(Window):
         entries = []
 
         # Add empty folders first
-        for folder in self.empty_folders:
+        for folder in self.passfile.get_empty_folders():
             entry = PathEntry("", "", folder)
             entries.append(entry)
 
@@ -556,7 +555,7 @@ class PasaffeWindow(Window):
         if response != Gtk.ResponseType.OK:
             self.delete_folder(new_folder, save=False)
         else:
-            self.empty_folders.append(new_folder)
+            self.passfile.add_empty_folder(new_folder)
             self.display_entries()
             self.goto_folder(new_folder)
             self.set_save_status(True)
@@ -598,10 +597,6 @@ class PasaffeWindow(Window):
             entry_uuid = treemodel.get_value(treeiter, 1)
             entry_name = treemodel.get_value(treeiter, 0)
 
-            # TODO: implement deleting a folder
-            if "pasaffe_treenode." in entry_uuid:
-                return
-
             information = _('<big><b>Are you sure you wish to remove "%s"?</b></big>\n\n') % entry_name
             information += _('Contents of the entry will be lost.\n')
 
@@ -612,6 +607,23 @@ class PasaffeWindow(Window):
 
             if result == Gtk.ResponseType.YES:
                 self.delete_entry(entry_uuid)
+
+    def remove_folder(self):
+        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+        if treeiter != None:
+            folder_name = treemodel.get_value(treeiter, 0)
+
+            information = _('<big><b>Are you sure you wish to remove folder "%s"?</b></big>\n\n') % folder_name
+            information += _('All entries in this folder will be lost.\n')
+
+            info_dialog = Gtk.MessageDialog(parent=self, flags=Gtk.DialogFlags.MODAL, type=Gtk.MessageType.QUESTION, buttons=Gtk.ButtonsType.YES_NO)
+            info_dialog.set_markup(information)
+            result = info_dialog.run()
+            info_dialog.destroy()
+
+            if result == Gtk.ResponseType.YES:
+                folder = self.get_folders_from_iter(treemodel, treeiter)
+                self.delete_folder(folder)
 
     def edit_entry(self, entry_uuid):
         if "pasaffe_treenode." in entry_uuid:
@@ -751,7 +763,7 @@ class PasaffeWindow(Window):
 
             self.ui.liststore1.remove(item)
 
-        del self.passfile.records[entry_uuid]
+        self.passfile.delete_entry(entry_uuid)
 
         if item:
             if new_item == None:
@@ -782,19 +794,13 @@ class PasaffeWindow(Window):
 
         item = self.search_folder(folders)
         if item:
-            new_item = self.ui.treeview1.get_model().iter_next(item)
+            self.passfile.delete_folder(folders)
 
-            if new_item == None:
-                # No more items in the current level, try and get the parent
-                new_item, _item = self.find_prev_iter(entry_uuid)
-
-            self.ui.liststore1.remove(item)
-
-            if new_item == None:
-                new_item = self.ui.treeview1.get_model().get_iter_first()
-
-            if new_item != 0:
-                self.ui.treeview1.get_selection().select_iter(new_item)
+            self.display_entries()
+            parent_folder = folders[:-1]
+            # TODO: if top level, switch to next iter
+            if parent_folder != []:
+                self.goto_folder(parent_folder)
 
         if save == True:
             self.set_save_status(True)
@@ -914,7 +920,13 @@ class PasaffeWindow(Window):
                 self.edit_entry(entry_uuid)
 
     def on_mnu_delete_activate(self, _menuitem):
-        self.remove_entry()
+        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+        if treeiter != None:
+            entry_uuid = treemodel.get_value(treeiter, 1)
+            if "pasaffe_treenode." in entry_uuid:
+                self.remove_folder()
+            else:
+                self.remove_entry()
 
     def on_mnu_lock_activate(self, _menuitem):
         self.lock_screen()
@@ -1152,7 +1164,13 @@ class PasaffeWindow(Window):
             self.edit_entry(entry_uuid)
 
     def on_remove_clicked(self, _toolbutton):
-        self.remove_entry()
+        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+        if treeiter != None:
+            entry_uuid = treemodel.get_value(treeiter, 1)
+            if "pasaffe_treenode." in entry_uuid:
+                self.remove_folder()
+            else:
+                self.remove_entry()
 
     def set_idle_timeout(self):
         if self.idle_id != None:
