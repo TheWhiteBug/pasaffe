@@ -290,7 +290,7 @@ class PassSafeFile:
         # Now do the empty folders
         for empty_folder in self.empty_folders:
             if empty_folder == field:
-                self.empty_folders.remove(empty_field)
+                self.empty_folders.remove(empty_folder)
             elif empty_folder.startswith(field + '.'):
                 self.empty_folders.remove(empty_folder)
 
