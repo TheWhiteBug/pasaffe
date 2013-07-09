@@ -625,11 +625,50 @@ class PasaffeWindow(Window):
                 folder = self.get_folders_from_iter(treemodel, treeiter)
                 self.delete_folder(folder)
 
+    def populate_folders(self, default = None):
+        liststore = self.editdetails_dialog.builder.get_object('liststore1')
+        combobox = self.editdetails_dialog.builder.get_object('folder_combo')
+
+        folders = [ ["/"] ]
+        for folder in self.passfile.get_all_folders():
+            for index in range(len(folder)):
+                folder_path = [self.folder_list_to_string(folder, index)]
+                if folder_path not in folders:
+                    folders.append(folder_path)
+
+        folders.sort()
+
+        for folder in folders:
+            liststore.append(folder)
+
+        if default != None:
+            item = self.search_folder_ui(liststore, self.folder_list_to_string(default))
+            if item != None:
+                combobox.set_active_iter(item)
+
+    def folder_list_to_string(self, folders, index=None):
+        if len(folders) == 0 or folders == None:
+            return "/"
+
+        if index == None:
+            index = len(folders)
+
+        # Todo: handle slashes in folder names
+        folder_string = "/" + "/".join(folders[0:index+1]) + "/"
+        return folder_string
+
+    def search_folder_ui(self, liststore, folder):
+       item = liststore.get_iter_first()
+       while item:
+           if liststore.get_value(item, 0) == folder:
+               return item
+           item = liststore.iter_next(item)
+       return None
+
     def edit_entry(self, entry_uuid):
         if "pasaffe_treenode." in entry_uuid:
             return None
-        record_dict = {2: 'folder_entry',
-                       3: 'name_entry',
+        record_dict = {3: 'name_entry',
                        4: 'username_entry',
                        5: 'notes_buffer',
                        6: 'password_entry',
@@ -648,6 +687,12 @@ class PasaffeWindow(Window):
                 if record_type in self.passfile.records[entry_uuid]:
                     self.editdetails_dialog.builder.get_object(widget_name).set_text(self.passfile.records[entry_uuid][record_type])
 
+            # Handle folders separately
+            if 2 in self.passfile.records[entry_uuid]:
+                self.populate_folders(self.passfile.get_folder_list(entry_uuid))
+            else:
+                self.populate_folders([])
+
             self.set_entry_window_size()
             response = self.editdetails_dialog.run()
             if response == Gtk.ResponseType.OK:
@@ -658,6 +703,7 @@ class PasaffeWindow(Window):
                     else:
                         new_value = self.editdetails_dialog.builder.get_object(widget_name).get_text()
 
+                    # TODO: handle folder name
                     if (record_type in [ 2, 5, 13 ]) and new_value == "" and record_type in self.passfile.records[entry_uuid]:
                         del self.passfile.records[entry_uuid][record_type]
                     elif self.passfile.records[entry_uuid].get(record_type, "") != new_value:

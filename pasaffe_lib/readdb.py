@@ -230,6 +230,23 @@ class PassSafeFile:
 
         return folders
 
+    def get_all_folders(self):
+        '''Returns a list of all the folders'''
+
+        # First, get the empty folders
+        folders = self.get_empty_folders()
+
+        # Now, do the records
+        for uuid in self.records:
+            if 2 not in self.records[uuid]:
+                continue
+
+            folder = self._field_to_folder_list(self.records[uuid][2])
+            if folder not in folders:
+                folders.append(folder)
+
+        return folders
+
     def add_empty_folder(self, folder):
         '''Adds a folder to the empty folders list'''
         field = self._folder_list_to_field(folder)
