@@ -363,13 +363,16 @@ class PassSafeFile:
         # if it is escaped with a \
         folders = []
         index = 0
+        location = 0
         while index < len(field):
-            location = field.find(".", index)
+            location = field.find(".", location + 1)
 
-            if field[location-1] == "\\":
-                break
             if location == -1:
                 break
+
+            if field[location - 1] == "\\":
+                continue
+
             folders.append(field[index:location].replace("\\",''))
             index = location + 1
 
