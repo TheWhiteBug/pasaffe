@@ -221,6 +221,17 @@ class PassSafeFile:
 
         return (self._field_to_folder_list(self.records[uuid][2]))
 
+    def update_folder_list(self, uuid, folder):
+        '''Updates an entry folder list'''
+        if uuid not in self.records:
+            return
+
+        self.records[uuid][2] = self._folder_list_to_field(folder)
+
+        # If the record is empty, just delete it
+        if self.records[uuid][2] == "":
+            del self.records[uuid][2]
+
     def get_empty_folders(self):
         '''Returns the empty folders list'''
         folders = []
@@ -253,8 +264,8 @@ class PassSafeFile:
         if field not in self.empty_folders:
             self.empty_folders.append(field)
 
-    def update_folder_list(self, old_list, new_list):
-        '''Updates a folder name in all entries'''
+    def rename_folder_list(self, old_list, new_list):
+        '''Renamed a folder name in all entries'''
         old_field = self._folder_list_to_field(old_list)
         new_field = self._folder_list_to_field(new_list)
 
@@ -276,7 +287,7 @@ class PassSafeFile:
         # Now do the empty folders
         for empty_folder in self.empty_folders:
             if empty_folder == old_field:
-                self.empty_folders.remove(empty_field)
+                self.empty_folders.remove(empty_folder)
                 self.empty_folders.append(new_field)
             elif empty_folder.startswith(old_field + '.'):
                 updated_field = empty_folder.replace(old_field, new_field, 1)
