@@ -362,6 +362,10 @@ class PassSafeFile:
         # We need to split into folders using the "." character, but not
         # if it is escaped with a \
         folders = []
+
+        if field == "":
+            return folders
+
         index = 0
         location = 0
         while index < len(field):
