@@ -174,9 +174,126 @@ class TestReadDB(unittest.TestCase):
 
         self.assertTrue(self.passfile.get_empty_folders() == folder_list)
 
+    def test_add_empty_folder(self):
+
+        folder_fields = [ 'folderA',
+                          'folderA.folderB',
+                          'folderA.folderB.folderC' ]
+
+        folder = [ 'folderA', 'folderB', 'folderC' ]
+
+        # Make sure it's empty
+        self.assertTrue(self.passfile.empty_folders == [])
+
+        # Add a folder, and make sure it created the children
+        self.passfile.add_empty_folder(folder)
+        self.assertTrue(self.passfile.empty_folders == folder_fields)
+
+        # Make sure empty parameters work
+        self.passfile.add_empty_folder(None)
+        self.assertTrue(self.passfile.empty_folders == folder_fields)
+        self.passfile.add_empty_folder([])
+        self.assertTrue(self.passfile.empty_folders == folder_fields)
+
+        # Try adding it again, to make sure we don't have duplicates
+        self.passfile.add_empty_folder(folder)
+        self.assertTrue(self.passfile.empty_folders == folder_fields)
+
+        # Make sure adding an empty folder that isn't actually empty
+        # works
+        uuid_hex = self.passfile.new_entry()
+        entry_folder = [ 'otherA' ]
+        self.passfile.update_folder_list(uuid_hex, entry_folder)
+        self.passfile.add_empty_folder(entry_folder)
+        self.assertTrue(self.passfile.empty_folders == folder_fields)
+
+        # Adding an empty folder that only has an empty subfolder should
+        # only add the subfolder
+        uuid_hex = self.passfile.new_entry()
+        entry_folder = [ 'thirdA', 'thirdB' ]
+        self.passfile.update_folder_list(uuid_hex, entry_folder)
+        self.passfile.add_empty_folder(entry_folder)
+
+        folder_fields.append('thirdA')
+        self.assertTrue(self.passfile.empty_folders == folder_fields)
+
+        # Do the same, but for 3 levels
+        uuid_hex = self.passfile.new_entry()
+        entry_folder = [ 'fourthA', 'fourthB', 'fourthC' ]
+        self.passfile.update_folder_list(uuid_hex, entry_folder)
+        self.passfile.add_empty_folder(entry_folder)
+
+        folder_fields.append('fourthA')
+        folder_fields.append('fourthA.fourthB')
+        self.assertTrue(self.passfile.empty_folders == folder_fields)
+
+    def test_remove_empty_folder(self):
+
+        folder_fields = [ 'folderA',
+                          'folderA.folderB',
+                          'folderA.folderB.folderC' ]
+
+        folder = [ 'folderA', 'folderB', 'folderC' ]
+
+        # pass by value
+        self.passfile.empty_folders = folder_fields[:]
+
+        # Try and remove a bogus folder
+        self.passfile.remove_empty_folder(['bogus'])
+        self.assertTrue(self.passfile.empty_folders == folder_fields)
+
+        # Make sure empty parameters work
+        self.passfile.remove_empty_folder(None)
+        self.assertTrue(self.passfile.empty_folders == folder_fields)
+        self.passfile.remove_empty_folder([])
+        self.assertTrue(self.passfile.empty_folders == folder_fields)
+
+        # Now, remove an empty folder
+        self.passfile.remove_empty_folder([ 'folderA', 'folderB' ])
+        folder_fields.remove('folderA.folderB')
+        self.assertTrue(self.passfile.empty_folders == folder_fields)
 
 
+    def test_get_all_folders(self):
+
+        self.passfile.new_db("test")
+        uuid_hex = self.passfile.new_entry()
+
+        # First make sure there's no folders at all
+        self.assertTrue(self.passfile.get_all_folders() == [])
+
+        # Now handle an entry, but no empty folders
+        folder = [ 'folderA', 'folderB' ]
+        self.passfile.update_folder_list(uuid_hex, folder)
+        self.assertTrue(self.passfile.get_all_folders() == [ folder ])
+
+        # Now handle empty folders, but no entry
+        self.passfile.update_folder_list(uuid_hex, [])
+        self.assertTrue(self.passfile.get_all_folders() == [])
+
+        folder_fields = [ 'folderA',
+                          'folderA.folderB',
+                          'folderA.folderB.folderC' ]
+        self.passfile.empty_folders = folder_fields
+
+        folder_list = [ [ 'folderA' ],
+                        [ 'folderA', 'folderB' ],
+                        [ 'folderA', 'folderB', 'folderC' ] ]
+
+        self.assertTrue(self.passfile.get_all_folders() == folder_list)
+
+        # Now handle multiple entries, and empty folders
+        self.passfile.update_folder_list(uuid_hex, folder)
+
+        folderB = [ 'OtherFolderA', 'OtherFolderB' ]
+
+        uuid_hex_B = self.passfile.new_entry()
+        uuid_hex_C = self.passfile.new_entry()
+        self.passfile.update_folder_list(uuid_hex_B, folderB)
+
+        all_folders = folder_list + [ folderB ]
+        self.assertTrue(self.passfile.get_all_folders() == all_folders)
 
 
-if __name__ == '__main__':    
+if __name__ == '__main__':
     unittest.main()

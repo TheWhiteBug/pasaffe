@@ -380,6 +380,10 @@ class PassSafeFile:
     def _folder_list_to_field(self, folder_list):
         '''Converts a folder list to a folder field'''
         field = ""
+
+        if folder_list == None:
+            return field
+
         for folder in folder_list:
             if field != "":
                 field += "."
