@@ -746,7 +746,10 @@ class PasaffeWindow(Window):
 
                     # Now do something with it
                     if record_type == 2:
-                        if self.passfile.records[entry_uuid].get(record_type, "") != new_value:
+                        old_folder = self.passfile.get_folder_list(entry_uuid)
+                        self.passfile.remove_empty_folder(new_value)
+                        if old_folder != new_value:
+                            self.passfile.add_empty_folder(old_folder)
                             self.passfile.update_folder_list(entry_uuid, new_value)
                             data_changed = True
                             tree_changed = True
@@ -859,7 +862,10 @@ class PasaffeWindow(Window):
 
             self.ui.liststore1.remove(item)
 
+        # Delete the entry, and add the folder to the empty list
+        folder = self.passfile.get_folder_list(entry_uuid)
         self.passfile.delete_entry(entry_uuid)
+        self.passfile.add_empty_folder(folder)
 
         if item:
             if new_item == None:

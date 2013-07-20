@@ -239,6 +239,7 @@ class PassSafeFile:
         for folder in self.empty_folders:
             folders.append(self._field_to_folder_list(folder))
 
+        logger.debug("returning %s" % folders)
         return folders
 
     def get_all_folders(self):
@@ -260,9 +261,34 @@ class PassSafeFile:
 
     def add_empty_folder(self, folder):
         '''Adds a folder to the empty folders list'''
+
+        if folder == None or folder == []:
+            return
+
+        for part in range(len(folder)):
+            field = self._folder_list_to_field(folder[:part + 1])
+            logger.debug("searching for %s" % field)
+            if field not in self.empty_folders:
+                # Make sure it's actually empty
+                found = False
+                for uuid in self.records.keys():
+                    if 2 not in self.records[uuid]:
+                        continue
+                    if self.records[uuid][2] == field:
+                        logger.debug("folder %s isn't empty" % field)
+                        found = True
+                        break
+
+                if found == False:
+                    logger.debug("adding %s" % field)
+                    self.empty_folders.append(field)
+
+    def remove_empty_folder(self, folder):
+        '''Removes a folder from the empty folders list'''
         field = self._folder_list_to_field(folder)
-        if field not in self.empty_folders:
-            self.empty_folders.append(field)
+        if field in self.empty_folders:
+            logger.debug("removing %s" % field)
+            self.empty_folders.remove(field)
 
     def rename_folder_list(self, old_list, new_list):
         '''Renamed a folder name in all entries'''
@@ -287,10 +313,12 @@ class PassSafeFile:
         # Now do the empty folders
         for empty_folder in self.empty_folders:
             if empty_folder == old_field:
+                logger.debug("renaming %s to %s" % (empty_folder, new_field))
                 self.empty_folders.remove(empty_folder)
                 self.empty_folders.append(new_field)
             elif empty_folder.startswith(old_field + '.'):
                 updated_field = empty_folder.replace(old_field, new_field, 1)
+                logger.debug("renaming %s to %s" % (empty_folder, updated_field))
                 self.empty_folders.remove(empty_folder)
                 self.empty_folders.append(updated_field)
 
@@ -318,8 +346,10 @@ class PassSafeFile:
         # Now do the empty folders
         for empty_folder in self.empty_folders:
             if empty_folder == field:
+                logger.debug("removing" % empty_folder)
                 self.empty_folders.remove(empty_folder)
             elif empty_folder.startswith(field + '.'):
+                logger.debug("removing" % empty_folder)
                 self.empty_folders.remove(empty_folder)
 
         # If the parent folder has no contents,
@@ -465,6 +495,7 @@ class PassSafeFile:
                 # Empty group fields can appear more than once
                 # Store them in their own variable
                 self.empty_folders.append(field_data)
+                logger.debug("found empty folder: %s" % field_data)
             else:
                 self.header[field_type] = field_data
                 logger.debug("Found field 0x%.2x" % field_type)
@@ -487,6 +518,7 @@ class PassSafeFile:
         # Now handle empty folders
         logger.debug("Writing empty folders")
         for folder in self.empty_folders:
+            logger.debug("writing empty folder: %s" % folder)
             self._writefield(0x11, folder)
 
         self._writefieldend()
