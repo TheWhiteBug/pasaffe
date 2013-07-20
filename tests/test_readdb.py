@@ -294,6 +294,65 @@ class TestReadDB(unittest.TestCase):
         all_folders = folder_list + [ folderB ]
         self.assertTrue(self.passfile.get_all_folders() == all_folders)
 
+    def test_rename_folder_list(self):
+
+        self.passfile.new_db("test")
+
+        # Create a few entries
+        folderA = [ 'firstA', 'firstB' ]
+        folderB = [ 'firstA', 'firstB', 'firstC' ]
+        folderC = [ 'secondA', 'secondB' ]
+
+        uuid_hex_A = self.passfile.new_entry()
+        uuid_hex_B = self.passfile.new_entry()
+        uuid_hex_C = self.passfile.new_entry()
+        uuid_hex_D = self.passfile.new_entry()
+
+        self.passfile.update_folder_list(uuid_hex_A, folderA)
+        self.passfile.update_folder_list(uuid_hex_B, folderB)
+        self.passfile.update_folder_list(uuid_hex_C, folderC)
+
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_A) == folderA)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_B) == folderB)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_C) == folderC)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) == None)
+
+        # Ok, let's rename one
+        new_folderA = [ 'firstA', 'renamedB' ]
+        new_folderB = [ 'firstA', 'renamedB', 'firstC' ]
+        self.passfile.rename_folder_list(folderA, new_folderA)
+
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_A) == new_folderA)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_B) == new_folderB)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_C) == folderC)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) == None)
+
+        # Now add some empty_folders
+        folder_fields = [ 'firstA',
+                          'secondA',
+                          'thirdA',
+                          'thirdA.thirdB' ]
+
+        # pass by value
+        self.passfile.empty_folders = folder_fields[:]
+
+        # OK, rename entries and empty_folders
+        another_new_folderA = [ 'renamedA', 'renamedB' ]
+        another_new_folderB = [ 'renamedA', 'renamedB', 'firstC' ]
+        new_empty_folders = [ [ 'secondA' ],
+                              [ 'thirdA' ],
+                              [ 'thirdA', 'thirdB' ],
+                              [ 'renamedA' ] ]
+
+        self.passfile.rename_folder_list(['firstA'], ['renamedA'])
+
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_A) == another_new_folderA)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_B) == another_new_folderB)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_C) == folderC)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) == None)
+
+        self.assertTrue(self.passfile.get_empty_folders() == new_empty_folders)
+
 
 if __name__ == '__main__':
     unittest.main()
