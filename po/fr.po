@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-03-06 16:57-0500\n"
-"PO-Revision-Date: 2013-03-27 06:17+0000\n"
+"PO-Revision-Date: 2013-07-19 10:05+0000\n"
 "Last-Translator: Hélion du Mas des Bourboux <helion331990@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-07-12 06:18+0000\n"
+"X-Launchpad-Export-Date: 2013-07-20 06:10+0000\n"
 "X-Generator: Launchpad (build 16696)\n"
 "Language: fr\n"
 
@@ -85,7 +85,7 @@ msgid ""
 "Pasaffe is an easy to use\n"
 "password manager for Gnome."
 msgstr ""
-"Pasaffe est un gestionnaire de mots de \n"
+"Pasaffe est un gestionnaire de mots de\n"
 "passe facile à utiliser pour Gnome."
 
 #: ../pasaffe/PasaffeWindow.py:387
@@ -337,7 +337,7 @@ msgstr "Résultat suivant"
 
 #: ../data/ui/NewDatabaseDialog.ui.h:1
 msgid "<big><b>Welcome to Pasaffe!</b></big>"
-msgstr "<big><b>Bienvenue à Pasaffe !</b></big>"
+msgstr "<big><b>Bienvenue sur Pasaffe !</b></big>"
 
 #: ../data/ui/NewDatabaseDialog.ui.h:2
 msgid ""
@@ -395,7 +395,7 @@ msgstr "URL :"
 
 #: ../data/ui/EditDetailsDialog.ui.h:9
 msgid "The website for this entry"
-msgstr "Le site web pour cette entrée"
+msgstr "Le site Web pour cette entrée"
 
 #: ../data/ui/EditDetailsDialog.ui.h:10
 msgid "Pick a random password"
@@ -409,7 +409,7 @@ msgstr "http://www.launchpad.net/pasaffe"
 msgid ""
 "<big><b>Save changes to your password database before closing?</b></big>"
 msgstr ""
-"<big><b>Sauvegarder les modifications à votre base de donnée avant de "
+"<big><b>Sauvegarder les modifications à votre base de données avant de "
 "fermer ?</b></big>"
 
 #: ../data/ui/SaveChangesDialog.ui.h:2
@@ -426,7 +426,7 @@ msgid ""
 "and a new master password.\n"
 "You must confirm the new password."
 msgstr ""
-"Entrer votre ancien mot de passe principal,\n"
+"Entrez votre ancien mot de passe principal,\n"
 "et un nouveau mot de passe principal.\n"
 "Vous devez confirmer le nouveau mot de passe."
 
