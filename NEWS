@@ -5,6 +5,8 @@ For a detailed list of changes, please see ChangeLog.
 
  * Enhancements:
    - Added tree support (Thanks to Jabik Postmus!)
+   - Improved test suite
+   - Updated translations
 
  * Bug fixes:
 
