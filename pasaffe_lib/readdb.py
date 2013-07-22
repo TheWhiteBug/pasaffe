@@ -311,7 +311,7 @@ class PassSafeFile:
             self.update_modification_time(uuid)
 
         # Now do the empty folders
-        for empty_folder in self.empty_folders:
+        for empty_folder in self.empty_folders[:]:
             if empty_folder == old_field:
                 logger.debug("renaming %s to %s" % (empty_folder, new_field))
                 self.empty_folders.remove(empty_folder)
@@ -344,12 +344,12 @@ class PassSafeFile:
                 self.delete_entry(uuid)
 
         # Now do the empty folders
-        for empty_folder in self.empty_folders:
+        for empty_folder in self.empty_folders[:]:
             if empty_folder == field:
-                logger.debug("removing" % empty_folder)
+                logger.debug("removing folder '%s'" % empty_folder)
                 self.empty_folders.remove(empty_folder)
             elif empty_folder.startswith(field + '.'):
-                logger.debug("removing" % empty_folder)
+                logger.debug("removing folder '%s'" % empty_folder)
                 self.empty_folders.remove(empty_folder)
 
         # If the parent folder has no contents,

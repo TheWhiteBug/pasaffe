@@ -353,6 +353,84 @@ class TestReadDB(unittest.TestCase):
 
         self.assertTrue(self.passfile.get_empty_folders() == new_empty_folders)
 
+    def test_delete_folder(self):
+
+        self.passfile.new_db("test")
+
+        # Create a few entries
+        folderA = [ 'firstA', 'firstB' ]
+        folderB = [ 'firstA', 'firstB', 'firstC' ]
+        folderC = [ 'secondA', 'secondB' ]
+
+        uuid_hex_A = self.passfile.new_entry()
+        uuid_hex_B = self.passfile.new_entry()
+        uuid_hex_C = self.passfile.new_entry()
+        uuid_hex_D = self.passfile.new_entry()
+
+        self.passfile.update_folder_list(uuid_hex_A, folderA)
+        self.passfile.update_folder_list(uuid_hex_B, folderB)
+        self.passfile.update_folder_list(uuid_hex_C, folderC)
+
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_A) == folderA)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_B) == folderB)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_C) == folderC)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) == None)
+
+        self.assertTrue(self.passfile.get_empty_folders() == [])
+
+        # Try and delete some invalid things
+        self.passfile.delete_folder(None)
+        self.passfile.delete_folder([])
+        self.passfile.delete_folder(['banana'])
+
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_A) == folderA)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_B) == folderB)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_C) == folderC)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) == None)
+
+        self.assertTrue(self.passfile.get_empty_folders() == [])
+
+        # Now, delete a third level.
+        self.passfile.delete_folder(folderB)
+
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_A) == folderA)
+        self.assertTrue(uuid_hex_B not in self.passfile.records)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_C) == folderC)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) == None)
+        self.assertTrue(uuid_hex_D in self.passfile.records)
+        self.assertTrue(self.passfile.get_empty_folders() == [])
+
+        # Add some empty_folders and delete a toplevel
+        emptyA = [ [ 'firstA' ],
+                   [ 'firstA', 'firstB', 'emptyC' ] ]
+        emptyB = emptyA +  [ [ 'some' ],
+                             [ 'some', 'random' ] ]
+        for folder in emptyB:
+            self.passfile.add_empty_folder(folder)
+
+        self.assertTrue(self.passfile.get_empty_folders() == emptyB)
+        self.passfile.delete_folder(['some'])
+        self.assertTrue(self.passfile.get_empty_folders() == emptyA)
+
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_A) == folderA)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_C) == folderC)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) == None)
+        self.assertTrue(uuid_hex_D in self.passfile.records)
+
+        # Now delete a top level
+        self.passfile.delete_folder(['firstA'])
+        self.assertTrue(self.passfile.get_empty_folders() == [])
+        self.assertTrue(uuid_hex_A not in self.passfile.records)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_C) == folderC)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) == None)
+        self.assertTrue(uuid_hex_D in self.passfile.records)
+
+        # Delete the remaining second level. We should gain an empty folder.
+        self.passfile.delete_folder([ 'secondA', 'secondB' ])
+        self.assertTrue(uuid_hex_C not in self.passfile.records)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) == None)
+        self.assertTrue(uuid_hex_D in self.passfile.records)
+        self.assertTrue(self.passfile.get_empty_folders() == [ [ 'secondA' ] ])
 
 if __name__ == '__main__':
     unittest.main()
