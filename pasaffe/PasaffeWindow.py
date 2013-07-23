@@ -847,6 +847,9 @@ class PasaffeWindow(Window):
     def get_folders_from_iter(self, treemodel, treeiter):
         folders = []
 
+        if treemodel == None or treeiter == None:
+            return folders
+
         uuid = treemodel.get_value(treeiter, 1)
         if "pasaffe_treenode." in uuid:
             folders.append(treemodel.get_value(treeiter, 0))
