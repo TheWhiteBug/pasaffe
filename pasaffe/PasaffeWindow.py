@@ -550,19 +550,11 @@ class PasaffeWindow(Window):
         self.ui.treeview1.get_selection().select_iter(new_iter)
         self.display_folder(self.ui.liststore1.get_value(new_iter, 0))
 
-        response = self.edit_folder('New Folder', self.ui.liststore1, new_iter, False)
         new_folder = self.get_folders_from_iter(treemodel, new_iter)
+        response = self.edit_folder(self.ui.liststore1, new_iter, True)
+
         if response != Gtk.ResponseType.OK:
             self.delete_folder(new_folder, save=False)
-        else:
-            self.passfile.add_empty_folder(new_folder)
-            self.display_entries()
-            self.goto_folder(new_folder)
-            self.set_save_status(True)
-            if self.settings.get_boolean('auto-save') == True:
-                self.save_db()
-        self.set_idle_timeout()
-        self.update_find_results(force=True)
 
     def clone_entry(self, entry_uuid):
         record_list = (2, 3, 4, 5, 6, 13)
@@ -625,9 +617,7 @@ class PasaffeWindow(Window):
                 folder = self.get_folders_from_iter(treemodel, treeiter)
                 self.delete_folder(folder)
 
-    def populate_folders(self, default = None):
-        liststore = self.editdetails_dialog.builder.get_object('liststore1')
-        combobox = self.editdetails_dialog.builder.get_object('folder_combo')
+    def populate_folders(self, liststore, combobox, default = None):
 
         folders = [ ["/"] ]
         for folder in self.passfile.get_all_folders():
@@ -664,14 +654,18 @@ class PasaffeWindow(Window):
         return folder_string
 
     def folder_string_to_list(self, folder):
+        folders = []
+
         if folder.endswith("/"):
             folder = folder[:-1]
         if folder.startswith("/"):
             folder = folder[1:]
 
+        if folder == '':
+            return folders
+
         # We need to split into folders using the "/" character, but not
         # if it is escaped with a \
-        folders = []
         index = 0
         while index < len(folder):
             location = folder.find("/", index)
@@ -716,10 +710,12 @@ class PasaffeWindow(Window):
             for record_type, widget_name in record_dict.items():
                 # Handle folders separately
                 if record_type == 2:
+                    liststore = self.editdetails_dialog.builder.get_object('liststore1')
+                    combobox = self.editdetails_dialog.builder.get_object('folder_combo')
                     if 2 in self.passfile.records[entry_uuid]:
-                        self.populate_folders(self.passfile.get_folder_list(entry_uuid))
+                        self.populate_folders(liststore, combobox, self.passfile.get_folder_list(entry_uuid))
                     else:
-                        self.populate_folders([])
+                        self.populate_folders(liststore, combobox, [])
                 elif record_type in self.passfile.records[entry_uuid]:
                     self.editdetails_dialog.builder.get_object(widget_name).set_text(self.passfile.records[entry_uuid][record_type])
 
@@ -790,7 +786,7 @@ class PasaffeWindow(Window):
             self.update_find_results(force=True)
             return response
 
-    def edit_folder(self, folder_name, treemodel, treeiter, update=True):
+    def edit_folder(self, treemodel, treeiter, new_folder=False):
 
         # Make sure dialog isn't already open
         if self.editfolder_dialog is not None:
@@ -801,32 +797,45 @@ class PasaffeWindow(Window):
             self.disable_idle_timeout()
             self.editfolder_dialog = self.EditFolderDialog()
 
+            folder_name = treemodel.get_value(treeiter, 0)
             self.editfolder_dialog.ui.folder_name_entry.set_text(folder_name)
+            self.editfolder_dialog.ui.folder_name_entry.select_region(0, -1)
+
+            liststore = self.editfolder_dialog.builder.get_object('liststore1')
+            combobox = self.editfolder_dialog.builder.get_object('folder_combo')
+            parent_folder = self.get_folders_from_iter(treemodel, treeiter)[:-1]
+            self.populate_folders(liststore, combobox, parent_folder)
 
             response = self.editfolder_dialog.run()
             if response == Gtk.ResponseType.OK:
                 new_name = self.editfolder_dialog.ui.folder_name_entry.get_text()
 
-                if new_name != folder_name:
+                combo_iter = combobox.get_active_iter()
+                if combo_iter != None:
+                    new_parent = self.folder_string_to_list(combobox.get_model()[combo_iter][0])
+                else:
+                    new_parent = []
+
+                if new_name != folder_name or new_parent != parent_folder:
 
                     # TODO: make sure new_name is unique in the same level
-                    old_folders = self.get_folders_from_iter(treemodel, treeiter)
-                    new_folders = old_folders[0:-1]
+                    new_folders = new_parent[:]
                     new_folders.append(new_name)
 
-                    if update == True:
-                        self.passfile.rename_folder_list(old_folders, new_folders)
+                    old_folders = parent_folder[:]
+                    old_folders.append(folder_name)
 
-                    self.ui.liststore1.set_value(treeiter, 0, new_name)
-                    self.ui.liststore1.set_value(treeiter, 1, "pasaffe_treenode." + new_name)
+                    if new_folder == False:
+                        self.passfile.rename_folder_list(old_folders, new_folders)
+                    else:
+                        self.passfile.add_empty_folder(new_folders)
+
+                    self.display_entries()
+                    self.goto_folder(new_folders)
+
                     self.set_save_status(True)
                     if self.settings.get_boolean('auto-save') == True:
                         self.save_db()
-
-                    # Update the right pane only if it's still the one currently selected
-                    treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
-                    if treeiter != None and treemodel.get_value(treeiter, 0) == new_name:
-                        self.display_folder(new_name)
 
             self.editfolder_dialog.destroy()
             self.editfolder_dialog = None
@@ -931,7 +940,7 @@ class PasaffeWindow(Window):
         treemodel, treeiter = treeview.get_selection().get_selected()
         entry_uuid = treemodel.get_value(treeiter, 1)
         if "pasaffe_treenode." in entry_uuid:
-            self.edit_folder(treemodel.get_value(treeiter, 0), treemodel, treeiter)
+            self.edit_folder(treemodel, treeiter)
         else:
             self.edit_entry(entry_uuid)
 
@@ -1017,7 +1026,7 @@ class PasaffeWindow(Window):
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 1)
             if "pasaffe_treenode." in entry_uuid:
-                self.edit_folder(treemodel.get_value(treeiter, 0), treemodel, treeiter)
+                self.edit_folder(treemodel, treeiter)
             else:
                 self.edit_entry(entry_uuid)
 
