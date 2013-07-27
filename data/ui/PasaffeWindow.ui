@@ -873,7 +873,9 @@
                       <object class="GtkTreeViewColumn" id="treeviewcolumn1">
                         <property name="title" translatable="yes">icon</property>
                         <child>
-                          <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf1"/>
+                          <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf1">
+                            <property name="xalign">0.5</property>
+                          </object>
                           <attributes>
                             <attribute name="stock-id">0</attribute>
                           </attributes>
