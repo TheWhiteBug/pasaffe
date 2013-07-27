@@ -31,10 +31,31 @@ class TestPasswordSafe331(unittest.TestCase):
         self.assertEqual(len(self.passfile.records), 3)
 
     def test_empty_folders(self):
-        self.assertEqual(len(self.passfile.empty_folders), 6)
+
+        empty_folders =  [ ['emptygroup1'],
+                           ['emptygroup1', 'emptygroup2'],
+                           ['emptygroup1', 'emptygroup2', 'emptygroup3'],
+                           ['level1group', 'level2group'],
+                           ['emptygroup1', 'test'],
+                           ['emptygroup1', 'with/slash'] ]
+
+        empty_fields = [ 'emptygroup1',
+                         'emptygroup1.emptygroup2',
+                         'emptygroup1.emptygroup2.emptygroup3',
+                         'level1group.level2group',
+                         'emptygroup1.test',
+                         'emptygroup1.with/slash' ]
+
+        self.assertEqual(len(self.passfile.empty_folders), len(empty_fields))
+        self.assertEqual(self.passfile.get_empty_folders(), empty_folders)
+        self.assertEqual(self.passfile.empty_folders, empty_fields)
 
     def test_get_database_version_string(self):
         self.assertEqual(self.passfile.get_database_version_string(), "03.0b")
+
+    def test_get_database_uuid(self):
+        self.assertEqual(self.passfile.header[1],
+                         'cf\xfe\xea\x00wBU\xa2TM\xc3k\x0f>\x0f')
 
     def test_get_saved_name(self):
         self.assertEqual(self.passfile.get_saved_name(), "mdeslaur")
@@ -48,6 +69,38 @@ class TestPasswordSafe331(unittest.TestCase):
     def test_get_saved_date_string(self):
         self.assertEqual(self.passfile.get_saved_date_string(), 'Thu, 25 Jul 2013 19:57:08')
 
+    def test_entry_1(self):
+        uuid = '4a32a8ad616343b692e85c721bfce0e2'
+        self.assertFalse(2 in self.passfile.records[uuid])
+        self.assertEqual(self.passfile.get_folder_list(uuid), None)
+        self.assertEqual(self.passfile.records[uuid][3], 'topentry1')
+        self.assertEqual(self.passfile.records[uuid][4], 'username1')
+        self.assertEqual(self.passfile.records[uuid][5],
+                         'This is a note\r\nThis is a second line\r\nUnicode: \xc3\xa9l\xc3\xa9phant')
+        self.assertEqual(self.passfile.records[uuid][6], 'password1')
+        self.assertEqual(self.passfile.get_creation_time(uuid), 'Wed, 24 Jul 2013 20:21:00')
+        self.assertEqual(self.passfile.records[uuid][13], 'http://www.example.com')
+
+    def test_entry_2(self):
+        uuid = '722328d418584201803a119fa517b799'
+        self.assertEqual(self.passfile.records[uuid][2], 'level1group')
+        self.assertEqual(self.passfile.get_folder_list(uuid), ['level1group'])
+        self.assertEqual(self.passfile.records[uuid][3], 'level1entry')
+        self.assertEqual(self.passfile.records[uuid][4], 'username1')
+        self.assertEqual(self.passfile.records[uuid][5], 'This is a note\r\n')
+        self.assertEqual(self.passfile.records[uuid][6], 'password1')
+        self.assertEqual(self.passfile.get_creation_time(uuid), 'Wed, 24 Jul 2013 20:25:42')
+
+    def test_entry_3(self):
+        uuid = 'cb16d230853247ad8cb12ef6ea615cb4'
+        self.assertEqual(self.passfile.records[uuid][2], 'level1group.level2group.level3group')
+        self.assertEqual(self.passfile.get_folder_list(uuid),
+                         ['level1group', 'level2group', 'level3group'])
+        self.assertEqual(self.passfile.records[uuid][3], 'level3entry')
+        self.assertEqual(self.passfile.records[uuid][4], 'usernamelevel3')
+        self.assertFalse(5 in self.passfile.records[uuid])
+        self.assertEqual(self.passfile.records[uuid][6], 'passwordlevel3')
+        self.assertEqual(self.passfile.get_creation_time(uuid), 'Wed, 24 Jul 2013 20:26:36')
 
 if __name__ == '__main__':
     unittest.main()

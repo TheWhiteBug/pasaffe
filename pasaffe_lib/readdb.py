@@ -372,10 +372,37 @@ class PassSafeFile:
         timestamp = struct.pack("<I", int(time.time()))
         self.records[uuid][12] = timestamp
 
+    def get_modification_time(self, uuid):
+        '''Returns a string of the modification time'''
+        if 12 in self.records[uuid]:
+            return time.strftime("%a, %d %b %Y %H:%M:%S",
+                                 time.localtime(struct.unpack("<I",
+                                 self.records[uuid][12])[0]))
+        else:
+            return None
+
     def update_password_time(self, uuid):
         '''Updates the password time of an entry'''
         timestamp = struct.pack("<I", int(time.time()))
         self.records[uuid][8] = timestamp
+
+    def get_password_time(self, uuid):
+        '''Returns a string of the password time'''
+        if 8 in self.records[uuid]:
+            return time.strftime("%a, %d %b %Y %H:%M:%S",
+                                 time.localtime(struct.unpack("<I",
+                                 self.records[uuid][8])[0]))
+        else:
+            return None
+
+    def get_creation_time(self, uuid):
+        '''Returns a string of the creation time'''
+        if 7 in self.records[uuid]:
+            return time.strftime("%a, %d %b %Y %H:%M:%S",
+                                 time.localtime(struct.unpack("<I",
+                                 self.records[uuid][7])[0]))
+        else:
+            return None
 
     def _folder_list_to_field(self, folder_list):
         '''Converts a folder list to a folder field'''
