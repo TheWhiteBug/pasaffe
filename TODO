@@ -5,7 +5,6 @@ List of stuff to do:
   - Implement folder expansion state saving in database
   - Implement copy/paste of entries between folders
   - Implement drag & drop of entries between folders
-- Test interoperability with other password safe compatible apps
 - Improve icon
 - Design a better layout for details pane
 - Add database merge functionality

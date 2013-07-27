@@ -1,0 +1,18 @@
+Here are some current issues with interopability:
+
+1- Line terminators in notes
+
+Both Password Safe for Windows v3.31 and Password Gorilla v1.5.3.6.3 on
+Ubuntu 13.04 create notes with CRLF line terminators, which Pasaffe creates
+them with LF line terminators. This doesn't seem to create an issue, but
+perhaps Pasaffe should make sure they are CRLF in the database, and
+migrate existing entries on import.
+
+2- Missing passwords
+
+Pasaffe allows creating entries with no password fields. Password Gorilla
+v1.5.3.6.3 on Ubuntu 13.04 has no trouble with missing password fields, but
+Password Safe for Windows v3.31 gives an error dialog when opening the
+database and proceeds to set a default password for all entries with no
+password fields.
+
