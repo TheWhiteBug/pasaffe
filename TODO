@@ -5,6 +5,7 @@ List of stuff to do:
   - Implement folder expansion state saving in database
   - Implement copy/paste of entries between folders
   - Implement drag & drop of entries between folders
+  - Fix using tab key to switch between fields in entry dialog
 - Improve icon
 - Design a better layout for details pane
 - Add database merge functionality
