@@ -111,6 +111,8 @@
   </object>
   <object class="GtkTreeStore" id="liststore1">
     <columns>
+      <!-- column-name icon -->
+      <column type="gchararray"/>
       <!-- column-name entry_name -->
       <column type="gchararray"/>
       <!-- column-name UUID -->
@@ -869,11 +871,22 @@
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="treeviewcolumn1">
-                        <property name="title" translatable="yes">column</property>
+                        <property name="title" translatable="yes">icon</property>
+                        <child>
+                          <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf1"/>
+                          <attributes>
+                            <attribute name="stock-id">0</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="treeviewcolumn2">
+                        <property name="title" translatable="yes">name</property>
                         <child>
                           <object class="GtkCellRendererText" id="cellrenderertext1"/>
                           <attributes>
-                            <attribute name="text">0</attribute>
+                            <attribute name="text">1</attribute>
                           </attributes>
                         </child>
                       </object>
