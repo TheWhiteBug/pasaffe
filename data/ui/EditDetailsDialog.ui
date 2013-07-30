@@ -56,7 +56,7 @@
 	    <child>
 	      <object class="GtkComboBox" id="folder_combo">
 		<property name="visible">True</property>
-		<property name="can_focus">True</property>
+		<property name="can_focus">False</property>
                 <property name="model">liststore1</property>
                 <property name="has_entry">True</property>
                 <property name="entry_text_column">0</property>
