@@ -202,12 +202,15 @@ class PassSafeFile:
         '''Returns the application of the last save'''
         return self.header.get(6)
 
-    def get_saved_date_string(self):
+    def get_saved_date_string(self, localtime = True):
         '''Returns a string of the date of the last save'''
         if 4 in self.header:
-            return time.strftime("%a, %d %b %Y %H:%M:%S",
-                                 time.localtime(struct.unpack("<I",
-                                 self.header[4])[0]))
+            unpacked_time = struct.unpack("<I", self.header[4])[0]
+            if localtime:
+                converted_time = time.localtime(unpacked_time)
+            else:
+                converted_time = time.gmtime(unpacked_time)
+            return time.strftime("%a, %d %b %Y %H:%M:%S", converted_time)
         else:
             return None
 
@@ -372,35 +375,32 @@ class PassSafeFile:
         timestamp = struct.pack("<I", int(time.time()))
         self.records[uuid][12] = timestamp
 
-    def get_modification_time(self, uuid):
-        '''Returns a string of the modification time'''
-        if 12 in self.records[uuid]:
-            return time.strftime("%a, %d %b %Y %H:%M:%S",
-                                 time.localtime(struct.unpack("<I",
-                                 self.records[uuid][12])[0]))
-        else:
-            return None
+    def get_modification_time(self, uuid, localtime = True):
+        '''Returns a string of the entry modification time'''
+        return self.get_time(uuid, 12, localtime)
 
     def update_password_time(self, uuid):
         '''Updates the password time of an entry'''
         timestamp = struct.pack("<I", int(time.time()))
         self.records[uuid][8] = timestamp
 
-    def get_password_time(self, uuid):
-        '''Returns a string of the password time'''
-        if 8 in self.records[uuid]:
-            return time.strftime("%a, %d %b %Y %H:%M:%S",
-                                 time.localtime(struct.unpack("<I",
-                                 self.records[uuid][8])[0]))
-        else:
-            return None
+    def get_password_time(self, uuid, localtime = True):
+        '''Returns a string of the password modification time'''
+        return self.get_time(uuid, 8, localtime)
 
-    def get_creation_time(self, uuid):
+    def get_creation_time(self, uuid, localtime = True):
         '''Returns a string of the creation time'''
-        if 7 in self.records[uuid]:
-            return time.strftime("%a, %d %b %Y %H:%M:%S",
-                                 time.localtime(struct.unpack("<I",
-                                 self.records[uuid][7])[0]))
+        return self.get_time(uuid, 7, localtime)
+
+    def get_time(self, uuid, entry, localtime = True):
+        '''Returns a string of time'''
+        if entry in self.records[uuid]:
+            unpacked_time = struct.unpack("<I", self.records[uuid][entry])[0]
+            if localtime:
+                converted_time = time.localtime(unpacked_time)
+            else:
+                converted_time = time.gmtime(unpacked_time)
+            return time.strftime("%a, %d %b %Y %H:%M:%S", converted_time)
         else:
             return None
 

@@ -61,8 +61,10 @@ class TestPasswordGorilla15363(unittest.TestCase):
         self.assertEqual(self.passfile.records[uuid][4], 'usernamedot')
         self.assertFalse(5 in self.passfile.records[uuid])
         self.assertEqual(self.passfile.records[uuid][6], 'passworddot')
-        self.assertEqual(self.passfile.get_password_time(uuid), 'Thu, 25 Jul 2013 19:58:56')
-        self.assertEqual(self.passfile.get_modification_time(uuid), 'Thu, 25 Jul 2013 19:58:56')
+        self.assertEqual(self.passfile.get_password_time(uuid, False),
+                         'Thu, 25 Jul 2013 23:58:56')
+        self.assertEqual(self.passfile.get_modification_time(uuid, False),
+                         'Thu, 25 Jul 2013 23:58:56')
 
     def test_entry_2(self):
         uuid = '666b02ae0f574d4549f8f57ddae70d77'
@@ -72,8 +74,10 @@ class TestPasswordGorilla15363(unittest.TestCase):
         self.assertEqual(self.passfile.records[uuid][4], 'usernametop')
         self.assertEqual(self.passfile.records[uuid][5], 'This is a note')
         self.assertEqual(self.passfile.records[uuid][6], 'passwordtop')
-        self.assertEqual(self.passfile.get_password_time(uuid), 'Thu, 25 Jul 2013 19:58:06')
-        self.assertEqual(self.passfile.get_modification_time(uuid), 'Thu, 25 Jul 2013 19:58:06')
+        self.assertEqual(self.passfile.get_password_time(uuid, False),
+                         'Thu, 25 Jul 2013 23:58:06')
+        self.assertEqual(self.passfile.get_modification_time(uuid, False),
+                         'Thu, 25 Jul 2013 23:58:06')
 
     def test_entry_3(self):
         uuid = 'aff6f326353f4be86009bf342e0a0af7'
@@ -83,8 +87,10 @@ class TestPasswordGorilla15363(unittest.TestCase):
         self.assertEqual(self.passfile.records[uuid][4], 'username3')
         self.assertFalse(5 in self.passfile.records[uuid])
         self.assertEqual(self.passfile.records[uuid][6], 'password3')
-        self.assertEqual(self.passfile.get_password_time(uuid), 'Wed, 24 Jul 2013 20:33:33')
-        self.assertEqual(self.passfile.get_modification_time(uuid), 'Wed, 24 Jul 2013 20:33:33')
+        self.assertEqual(self.passfile.get_password_time(uuid, False),
+                         'Thu, 25 Jul 2013 00:33:33')
+        self.assertEqual(self.passfile.get_modification_time(uuid, False),
+                         'Thu, 25 Jul 2013 00:33:33')
 
     def test_entry_4(self):
         uuid = '66d1cf5e60dc424d6a3b19c89aed2f1e'
@@ -95,8 +101,10 @@ class TestPasswordGorilla15363(unittest.TestCase):
         self.assertEqual(self.passfile.records[uuid][5],
                          'This is a note\r\nThis is a second line\r\nUnicode: \xc3\xa9l\xc3\xa9phant')
         self.assertEqual(self.passfile.records[uuid][6], 'password1')
-        self.assertEqual(self.passfile.get_password_time(uuid), 'Wed, 24 Jul 2013 20:33:06')
-        self.assertEqual(self.passfile.get_modification_time(uuid), 'Wed, 24 Jul 2013 20:33:06')
+        self.assertEqual(self.passfile.get_password_time(uuid, False),
+                         'Thu, 25 Jul 2013 00:33:06')
+        self.assertEqual(self.passfile.get_modification_time(uuid, False),
+                         'Thu, 25 Jul 2013 00:33:06')
 
 if __name__ == '__main__':
     unittest.main()

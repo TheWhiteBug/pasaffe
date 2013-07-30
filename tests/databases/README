@@ -7,3 +7,6 @@ pwsafe-331.psafe3:
 
 pw-gorilla-15363.psafe3:
 - Created with Password Gorilla v1.5.3.6.3 on Ubuntu 13.04
+
+pasaffe-025.psafe3
+- Created with Pasaffe 0.25 and the generate_pasaffe_db.py script
