@@ -41,6 +41,9 @@ from pasaffe.NewPasswordDialog import NewPasswordDialog
 from pasaffe.PreferencesPasaffeDialog import PreferencesPasaffeDialog
 from pasaffe_lib.readdb import PassSafeFile
 from pasaffe_lib.helpersgui import get_builder
+from pasaffe_lib.helpers import folder_list_to_field
+from pasaffe_lib.helpers import folder_list_to_path
+from pasaffe_lib.helpers import folder_path_to_list
 
 # pylint: disable=E1101
 
@@ -502,7 +505,7 @@ class PasaffeWindow(Window):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         folder = self.get_folders_from_iter(treemodel, treeiter)
         if folder != None:
-            self.passfile.records[uuid_hex][2] = self.folder_list_to_field(folder)
+            self.passfile.records[uuid_hex][2] = folder_list_to_field(folder)
 
         response = self.edit_entry(uuid_hex)
         if response != Gtk.ResponseType.OK:
@@ -515,15 +518,6 @@ class PasaffeWindow(Window):
                 self.save_db()
         self.set_idle_timeout()
         self.update_find_results(force=True)
-
-    def folder_list_to_field(self, folder_list):
-        '''Converts a folder list to a folder field'''
-        field = ""
-        for folder in folder_list:
-            if field != "":
-                field += "."
-            field += folder.replace(".", "\\.")
-        return field
 
     def add_folder(self):
         self.disable_idle_timeout()
@@ -622,7 +616,7 @@ class PasaffeWindow(Window):
         folders = [ ["/"] ]
         for folder in self.passfile.get_all_folders():
             for index in range(len(folder)):
-                folder_path = [self.folder_list_to_string(folder, index)]
+                folder_path = [folder_list_to_path(folder, index)]
                 if folder_path not in folders:
                     folders.append(folder_path)
 
@@ -632,53 +626,9 @@ class PasaffeWindow(Window):
             liststore.append(folder)
 
         if default != None:
-            item = self.search_folder_ui(liststore, self.folder_list_to_string(default))
+            item = self.search_folder_ui(liststore, folder_list_to_path(default))
             if item != None:
                 combobox.set_active_iter(item)
-
-    def folder_list_to_string(self, folders, index=None):
-        if len(folders) == 0 or folders == None:
-            return "/"
-
-        if index == None:
-            index = len(folders)
-
-        folder_string = ""
-
-        for folder in folders[0:index+1]:
-            folder_string += "/"
-            folder_string += folder.replace("/", "\\/")
-
-        folder_string += "/"
-
-        return folder_string
-
-    def folder_string_to_list(self, folder):
-        folders = []
-
-        if folder.endswith("/"):
-            folder = folder[:-1]
-        if folder.startswith("/"):
-            folder = folder[1:]
-
-        if folder == '':
-            return folders
-
-        # We need to split into folders using the "/" character, but not
-        # if it is escaped with a \
-        index = 0
-        while index < len(folder):
-            location = folder.find("/", index)
-
-            if folder[location-1] == "\\":
-                break
-            if location == -1:
-                break
-            folders.append(folder[index:location].replace("\\",''))
-            index = location + 1
-
-        folders.append(folder[index:len(folder)].replace('\\',''))
-        return folders
 
     def search_folder_ui(self, liststore, folder):
        item = liststore.get_iter_first()
@@ -732,9 +682,9 @@ class PasaffeWindow(Window):
                         combo = self.editdetails_dialog.builder.get_object('folder_combo')
                         combo_iter = combo.get_active_iter()
                         if combo_iter != None:
-                            new_value = self.folder_string_to_list(combo.get_model()[combo_iter][0])
+                            new_value = folder_path_to_list(combo.get_model()[combo_iter][0])
                         else:
-                            new_value = self.folder_string_to_list(combo.get_child().get_text())
+                            new_value = folder_path_to_list(combo.get_child().get_text())
                     elif record_type == 5:
                         new_value = self.editdetails_dialog.builder.get_object(widget_name).get_text(self.editdetails_dialog.builder.get_object(widget_name).get_start_iter(), self.editdetails_dialog.builder.get_object(widget_name).get_end_iter(), True)
                     else:
@@ -812,7 +762,7 @@ class PasaffeWindow(Window):
 
                 combo_iter = combobox.get_active_iter()
                 if combo_iter != None:
-                    new_parent = self.folder_string_to_list(combobox.get_model()[combo_iter][0])
+                    new_parent = folder_path_to_list(combobox.get_model()[combo_iter][0])
                 else:
                     new_parent = []
 

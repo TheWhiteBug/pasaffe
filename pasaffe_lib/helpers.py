@@ -91,3 +91,64 @@ def alias(alternative_function_name):
         function.aliases.append(alternative_function_name)
         return function
     return decorator
+
+def folder_list_to_field(folder_list):
+    '''Converts a folder list to a folder field'''
+    field = ""
+
+    if folder_list == None:
+        return field
+
+    for folder in folder_list:
+        if field != "":
+            field += "."
+        field += folder.replace(".", "\\.")
+    return field
+
+def folder_list_to_path(folders, index=None):
+    '''Converts a folder list to a folder path'''
+    if len(folders) == 0 or folders == None:
+        return "/"
+
+    if index == None:
+        index = len(folders)
+
+    folder_path = ""
+
+    for folder in folders[0:index+1]:
+        folder_path += "/"
+        folder_path += folder.replace("/", "\\/")
+
+    folder_path += "/"
+
+    return folder_path
+
+def folder_path_to_list(folder_path):
+    '''Converts a folder path to a folder list'''
+    folders = []
+
+    if folder_path.endswith("/"):
+        folder_path = folder_path[:-1]
+    if folder_path.startswith("/"):
+        folder_path = folder_path[1:]
+
+    if folder_path == '':
+        return folders
+
+    # We need to split into folders using the "/" character, but not
+    # if it is escaped with a \
+    index = 0
+    while index < len(folder_path):
+        location = folder_path.find("/", index)
+
+        if folder_path[location-1] == "\\":
+            break
+        if location == -1:
+            break
+        folders.append(folder_path[index:location].replace("\\",''))
+        index = location + 1
+
+    folders.append(folder_path[index:len(folder_path)].replace('\\',''))
+    return folders
+
+
