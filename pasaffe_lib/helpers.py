@@ -138,13 +138,16 @@ def folder_path_to_list(folder_path):
     # We need to split into folders using the "/" character, but not
     # if it is escaped with a \
     index = 0
+    location = 0
     while index < len(folder_path):
-        location = folder_path.find("/", index)
+        location = folder_path.find("/", location + 1)
 
-        if folder_path[location-1] == "\\":
-            break
         if location == -1:
             break
+
+        if folder_path[location-1] == "\\":
+            continue
+
         folders.append(folder_path[index:location].replace("\\",''))
         index = location + 1
 
