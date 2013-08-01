@@ -971,8 +971,11 @@ class PasaffeWindow(Window):
                     clipboard.store()
                 self.set_clipboard_timeout()
 
-    def on_mnu_add_activate(self, _menuitem):
+    def on_mnu_add_entry_activate(self, _menuitem):
         self.add_entry()
+
+    def on_mnu_add_folder_activate(self, _menuitem):
+        self.add_folder()
 
     def on_mnu_edit1_activate(self, _menuitem):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
