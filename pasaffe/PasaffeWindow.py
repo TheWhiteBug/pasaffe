@@ -923,7 +923,11 @@ class PasaffeWindow(Window):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 2)
-            self.clone_entry(entry_uuid)
+            # TODO: what happens when we clone a folder?
+            if "pasaffe_treenode." in entry_uuid:
+                return
+            else:
+                self.clone_entry(entry_uuid)
 
     def on_username_copy_activate(self, _menuitem):
         self.copy_selected_entry_item(4)
