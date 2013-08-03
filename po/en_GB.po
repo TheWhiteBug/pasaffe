@@ -8,30 +8,30 @@ msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-08-01 07:58-0700\n"
-"PO-Revision-Date: 2013-07-09 12:40+0000\n"
+"PO-Revision-Date: 2013-08-03 03:03+0000\n"
 "Last-Translator: Anthony Harrington <untaintableangel@ubuntu.com>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-02 05:50+0000\n"
+"X-Launchpad-Export-Date: 2013-08-03 06:05+0000\n"
 "X-Generator: Launchpad (build 16718)\n"
 
 #: ../data/ui/EditFolderDialog.ui.h:1
 msgid "<big><b>Edit folder</b></big>"
-msgstr ""
+msgstr "<big><b>Edit folder</b></big>"
 
 #: ../data/ui/EditFolderDialog.ui.h:2
 msgid "Parent folder:"
-msgstr ""
+msgstr "Parent folder:"
 
 #: ../data/ui/EditFolderDialog.ui.h:3
 msgid "Folder name:"
-msgstr ""
+msgstr "Folder name:"
 
 #: ../data/ui/EditFolderDialog.ui.h:4
 msgid "The parent folder for this new folder"
-msgstr ""
+msgstr "The parent folder for this new folder"
 
 #: ../data/ui/PasswordEntryDialog.ui.h:1
 msgid "<big><b>Please enter your master password:</b></big>"
@@ -103,7 +103,7 @@ msgstr ""
 
 #: ../pasaffe/PasaffeWindow.py:413
 msgid "This is a folder."
-msgstr ""
+msgstr "This is a folder."
 
 #: ../pasaffe/PasaffeWindow.py:586
 #, python-format
@@ -124,10 +124,12 @@ msgid ""
 "<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
 "\n"
 msgstr ""
+"<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
+"\n"
 
 #: ../pasaffe/PasaffeWindow.py:603
 msgid "All entries in this folder will be lost.\n"
-msgstr ""
+msgstr "All entries in this folder will be lost.\n"
 
 #: ../pasaffe/PasaffeWindow.py:999
 msgid ""
@@ -313,11 +315,11 @@ msgstr "Add"
 
 #: ../data/ui/PasaffeWindow.ui.h:23
 msgid "Add a new folder"
-msgstr ""
+msgstr "Add a new folder"
 
 #: ../data/ui/PasaffeWindow.ui.h:24
 msgid "Add Folder"
-msgstr ""
+msgstr "Add Folder"
 
 #: ../data/ui/PasaffeWindow.ui.h:25
 msgid "Edit the selected entry"
@@ -333,7 +335,7 @@ msgstr "Delete the selected entry"
 
 #: ../data/ui/PasaffeWindow.ui.h:28
 msgid "Remove"
-msgstr ""
+msgstr "Remove"
 
 #: ../data/ui/PasaffeWindow.ui.h:29
 msgid "Open the URL"
@@ -357,11 +359,11 @@ msgstr "Display secrets"
 
 #: ../data/ui/PasaffeWindow.ui.h:34
 msgid "icon"
-msgstr ""
+msgstr "icon"
 
 #: ../data/ui/PasaffeWindow.ui.h:35
 msgid "name"
-msgstr ""
+msgstr "name"
 
 #: ../data/ui/PasaffeWindow.ui.h:36
 msgid "Close find"
@@ -411,7 +413,7 @@ msgstr "The name for this entry"
 
 #: ../data/ui/EditDetailsDialog.ui.h:3
 msgid "The folder for this entry"
-msgstr ""
+msgstr "The folder for this entry"
 
 #: ../data/ui/EditDetailsDialog.ui.h:4
 msgid "The entry's username"
@@ -423,7 +425,7 @@ msgstr "Title:"
 
 #: ../data/ui/EditDetailsDialog.ui.h:6
 msgid "Folder:"
-msgstr ""
+msgstr "Folder:"
 
 #: ../data/ui/EditDetailsDialog.ui.h:7
 msgid "Username:"
