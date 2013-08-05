@@ -7,15 +7,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-03-06 16:57-0500\n"
+"POT-Creation-Date: 2013-08-01 07:58-0700\n"
 "PO-Revision-Date: 2012-11-03 16:35+0000\n"
 "Last-Translator: Dennis Baudys <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-07-31 05:58+0000\n"
+"X-Launchpad-Export-Date: 2013-08-02 05:50+0000\n"
 "X-Generator: Launchpad (build 16718)\n"
+
+#: ../data/ui/EditFolderDialog.ui.h:1
+msgid "<big><b>Edit folder</b></big>"
+msgstr ""
+
+#: ../data/ui/EditFolderDialog.ui.h:2
+msgid "Parent folder:"
+msgstr ""
+
+#: ../data/ui/EditFolderDialog.ui.h:3
+msgid "Folder name:"
+msgstr ""
+
+#: ../data/ui/EditFolderDialog.ui.h:4
+msgid "The parent folder for this new folder"
+msgstr ""
 
 #: ../data/ui/PasswordEntryDialog.ui.h:1
 msgid "<big><b>Please enter your master password:</b></big>"
@@ -38,16 +54,16 @@ msgstr "Datenbank DATEI verwenden"
 msgid "set database as default"
 msgstr "Datenbank als Vorgabe festlegen"
 
-#: ../pasaffe/PasaffeWindow.py:212
+#: ../pasaffe/PasaffeWindow.py:386
 msgid "Secrets are currently hidden."
 msgstr "Vertrauliches ist derzeit versteckt."
 
-#: ../pasaffe/PasaffeWindow.py:216
+#: ../pasaffe/PasaffeWindow.py:390
 #, python-format
 msgid "Username: %s\n"
 msgstr "Benutzername: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:218
+#: ../pasaffe/PasaffeWindow.py:392
 #, python-format
 msgid ""
 "Password: %s\n"
@@ -56,7 +72,7 @@ msgstr ""
 "Passwort: %s\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:220
+#: ../pasaffe/PasaffeWindow.py:394
 msgid ""
 "Password: *****\n"
 "\n"
@@ -64,21 +80,21 @@ msgstr ""
 "Passwort: *****\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:225
+#: ../pasaffe/PasaffeWindow.py:399
 #, python-format
 msgid "Last updated: %s\n"
 msgstr "Zuletzt aktualisiert: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:230
+#: ../pasaffe/PasaffeWindow.py:404
 #, python-format
 msgid "Password updated: %s\n"
 msgstr "Passwort aktualisiert: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:234
+#: ../pasaffe/PasaffeWindow.py:408
 msgid "Welcome to Pasaffe!"
 msgstr "Wilkommen bei Pasaffe!"
 
-#: ../pasaffe/PasaffeWindow.py:235
+#: ../pasaffe/PasaffeWindow.py:409
 msgid ""
 "Pasaffe is an easy to use\n"
 "password manager for Gnome."
@@ -86,7 +102,11 @@ msgstr ""
 "Pasaffe ist ein einfach zu benutzender\n"
 "Passwortverwalter für Gnome."
 
-#: ../pasaffe/PasaffeWindow.py:387
+#: ../pasaffe/PasaffeWindow.py:413
+msgid "This is a folder."
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:586
 #, python-format
 msgid ""
 "<big><b>Are you sure you wish to remove \"%s\"?</b></big>\n"
@@ -95,11 +115,22 @@ msgstr ""
 "<big><b>Sind Sie sicher, dass Sie \"%s\" entfernen möchten?</b></big>\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:388
+#: ../pasaffe/PasaffeWindow.py:587
 msgid "Contents of the entry will be lost.\n"
 msgstr "Der Inhalt des Eintrags wird verloren gehen.\n"
 
-#: ../pasaffe/PasaffeWindow.py:600
+#: ../pasaffe/PasaffeWindow.py:602
+#, python-format
+msgid ""
+"<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
+"\n"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:603
+msgid "All entries in this folder will be lost.\n"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:999
 msgid ""
 "<big><b>Database Information</b></big>\n"
 "\n"
@@ -107,45 +138,45 @@ msgstr ""
 "<big><b>Datenbank Information</b></big>\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:601
+#: ../pasaffe/PasaffeWindow.py:1000
 #, python-format
 msgid "Number of entries: %s\n"
 msgstr "Zahl der Einträge: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:602
+#: ../pasaffe/PasaffeWindow.py:1001
 #, python-format
 msgid "Database version: %s\n"
 msgstr "Datenbankversion: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:604
+#: ../pasaffe/PasaffeWindow.py:1003
 #, python-format
 msgid "Last saved by: %s\n"
 msgstr "Zuletzt gespeichert von: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:606
+#: ../pasaffe/PasaffeWindow.py:1005
 #, python-format
 msgid "Last saved on host: %s\n"
 msgstr "Zuletzt gespeichert auf dem Rechner: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:608
+#: ../pasaffe/PasaffeWindow.py:1006
 #, python-format
 msgid "Last save date: %s\n"
 msgstr "Letztes Speicherdatum: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:610
+#: ../pasaffe/PasaffeWindow.py:1008
 #, python-format
 msgid "Application used: %s\n"
 msgstr "Anwendung benutzt: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:741 ../data/ui/NewDatabaseDialog.ui.h:5
+#: ../pasaffe/PasaffeWindow.py:1130 ../data/ui/NewDatabaseDialog.ui.h:5
 msgid "Passwords don't match! Please try again."
 msgstr "Passwörter passen nicht! Bitte erneut versuchen."
 
-#: ../pasaffe/PasaffeWindow.py:745
+#: ../pasaffe/PasaffeWindow.py:1134
 msgid "New password cannot be blank! Please try again."
 msgstr "Neues Passwort kann nicht leer sein! Bitte erneut versuchen."
 
-#: ../pasaffe/PasaffeWindow.py:749
+#: ../pasaffe/PasaffeWindow.py:1138
 msgid "Old password is invalid! Please try again."
 msgstr "Altes Passwort ist ungültig! Bitte erneut versuchen."
 
@@ -282,54 +313,66 @@ msgid "Add"
 msgstr "Hinzufügen"
 
 #: ../data/ui/PasaffeWindow.ui.h:23
+msgid "Add a new folder"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:24
+msgid "Add Folder"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:25
 msgid "Edit the selected entry"
 msgstr "Den ausgewählten Eintrag bearbeiten"
 
-#: ../data/ui/PasaffeWindow.ui.h:24
+#: ../data/ui/PasaffeWindow.ui.h:26
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: ../data/ui/PasaffeWindow.ui.h:25
+#: ../data/ui/PasaffeWindow.ui.h:27
 msgid "Delete the selected entry"
 msgstr "Den ausgewählten Eintrag löschen"
 
-#: ../data/ui/PasaffeWindow.ui.h:26
-msgid "toolbutton1"
-msgstr "Werkzeugknopf1"
+#: ../data/ui/PasaffeWindow.ui.h:28
+msgid "Remove"
+msgstr ""
 
-#: ../data/ui/PasaffeWindow.ui.h:27
+#: ../data/ui/PasaffeWindow.ui.h:29
 msgid "Open the URL"
 msgstr "Die URL öffnen"
 
-#: ../data/ui/PasaffeWindow.ui.h:28
+#: ../data/ui/PasaffeWindow.ui.h:30
 msgid "Copy the username"
 msgstr "Den Benutzernamen kopieren"
 
-#: ../data/ui/PasaffeWindow.ui.h:29
+#: ../data/ui/PasaffeWindow.ui.h:31
 msgid "Copy the password"
 msgstr "Das Passwort kopieren"
 
-#: ../data/ui/PasaffeWindow.ui.h:30
+#: ../data/ui/PasaffeWindow.ui.h:32
 msgid "Find entries"
 msgstr "Einträge finden"
 
-#: ../data/ui/PasaffeWindow.ui.h:31
+#: ../data/ui/PasaffeWindow.ui.h:33
 msgid "Display secrets"
 msgstr "Vertrauliches anzeigen"
 
-#: ../data/ui/PasaffeWindow.ui.h:32
-msgid "column"
-msgstr "Spalte"
+#: ../data/ui/PasaffeWindow.ui.h:34
+msgid "icon"
+msgstr ""
 
-#: ../data/ui/PasaffeWindow.ui.h:33
+#: ../data/ui/PasaffeWindow.ui.h:35
+msgid "name"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:36
 msgid "Close find"
 msgstr "Suche schließen"
 
-#: ../data/ui/PasaffeWindow.ui.h:34
+#: ../data/ui/PasaffeWindow.ui.h:37
 msgid "Previous result"
 msgstr "Vorheriges Ergebnis"
 
-#: ../data/ui/PasaffeWindow.ui.h:35
+#: ../data/ui/PasaffeWindow.ui.h:38
 msgid "Next result"
 msgstr "Nächstes Ergebnis"
 
@@ -368,34 +411,42 @@ msgid "The name for this entry"
 msgstr "Der Name für diesen Eintrag"
 
 #: ../data/ui/EditDetailsDialog.ui.h:3
+msgid "The folder for this entry"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:4
 msgid "The entry's username"
 msgstr "Benutzername zu diesem Eintrag"
 
-#: ../data/ui/EditDetailsDialog.ui.h:4
+#: ../data/ui/EditDetailsDialog.ui.h:5
 msgid "Title:"
 msgstr "Titel:"
 
-#: ../data/ui/EditDetailsDialog.ui.h:5
+#: ../data/ui/EditDetailsDialog.ui.h:6
+msgid "Folder:"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:7
 msgid "Username:"
 msgstr "Benutzername:"
 
-#: ../data/ui/EditDetailsDialog.ui.h:6
+#: ../data/ui/EditDetailsDialog.ui.h:8
 msgid "Password:"
 msgstr "Passwort:"
 
-#: ../data/ui/EditDetailsDialog.ui.h:7
+#: ../data/ui/EditDetailsDialog.ui.h:9
 msgid "Notes:"
 msgstr "Notizen:"
 
-#: ../data/ui/EditDetailsDialog.ui.h:8
+#: ../data/ui/EditDetailsDialog.ui.h:10
 msgid "URL:"
 msgstr "URL:"
 
-#: ../data/ui/EditDetailsDialog.ui.h:9
+#: ../data/ui/EditDetailsDialog.ui.h:11
 msgid "The website for this entry"
 msgstr "Die Webseite für diesen Eintrag"
 
-#: ../data/ui/EditDetailsDialog.ui.h:10
+#: ../data/ui/EditDetailsDialog.ui.h:12
 msgid "Pick a random password"
 msgstr "Wählen Sie ein beliebiges Passwort"
 
