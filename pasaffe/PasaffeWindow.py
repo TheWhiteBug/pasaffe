@@ -458,6 +458,11 @@ class PasaffeWindow(Window):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 2)
+
+            # Bail out of we're a folder
+            if "pasaffe_treenode." in entry_uuid:
+                return
+
             url = self.passfile.records[entry_uuid].get(13)
         if url != None:
             if not url.startswith('http://') and \
