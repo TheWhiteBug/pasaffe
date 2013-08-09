@@ -9,6 +9,7 @@ For a detailed list of changes, please see ChangeLog.
    - Updated translations
 
  * Bug fixes:
+   - Fixed some untranslated strings (LP: #1202980)
 
 0.24 (2013-03-06)
 
