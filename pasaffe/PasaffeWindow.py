@@ -967,6 +967,10 @@ class PasaffeWindow(Window):
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 2)
 
+            # Bail out of we're a folder
+            if "pasaffe_treenode." in entry_uuid:
+                return
+
             if item in self.passfile.records[entry_uuid]:
                 for atom in [Gdk.SELECTION_CLIPBOARD, Gdk.SELECTION_PRIMARY]:
                     clipboard = Gtk.Clipboard.get(atom)
