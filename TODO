@@ -4,6 +4,8 @@ List of stuff to do:
   - Implement folder expansion state saving in database
   - Implement copy/paste of entries between folders
   - Implement drag & drop of entries between folders
+  - Make menu entries that don't apply to folders inactive
+  - Make search work with folder names
 - Improve icon
 - Design a better layout for details pane
 - Add database merge functionality
