@@ -1,7 +1,7 @@
 This file summarizes the major and interesting changes for each release.
 For a detailed list of changes, please see ChangeLog.
 
-0.25 (UNRELEASED)
+0.25 (2013-08-09)
 
  * Enhancements:
    - Added tree support (Thanks to Jabik Postmus!)
