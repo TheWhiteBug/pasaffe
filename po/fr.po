@@ -20,19 +20,19 @@ msgstr ""
 
 #: ../data/ui/EditFolderDialog.ui.h:1
 msgid "<big><b>Edit folder</b></big>"
-msgstr ""
+msgstr "<big><b>Modifier dossier</b></big>"
 
 #: ../data/ui/EditFolderDialog.ui.h:2
 msgid "Parent folder:"
-msgstr ""
+msgstr "Dossier Parent :"
 
 #: ../data/ui/EditFolderDialog.ui.h:3
 msgid "Folder name:"
-msgstr ""
+msgstr "Nom du dossier :"
 
 #: ../data/ui/EditFolderDialog.ui.h:4
 msgid "The parent folder for this new folder"
-msgstr ""
+msgstr "Le dossier parent du nouveau dossier"
 
 #: ../data/ui/PasswordEntryDialog.ui.h:1
 msgid "<big><b>Please enter your master password:</b></big>"
@@ -106,7 +106,7 @@ msgstr ""
 
 #: ../pasaffe/PasaffeWindow.py:413
 msgid "This is a folder."
-msgstr ""
+msgstr "Ceci est un dossier."
 
 #: ../pasaffe/PasaffeWindow.py:586
 #, python-format
@@ -127,10 +127,12 @@ msgid ""
 "<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
 "\n"
 msgstr ""
+"<big><b>Êtes-vous certain de vouloir supprimer le dossier « %s » ?</b></big>\n"
+"\n"
 
 #: ../pasaffe/PasaffeWindow.py:603
 msgid "All entries in this folder will be lost.\n"
-msgstr ""
+msgstr "Les entrées contenues dans ce dossier seront perdues.\n"
 
 #: ../pasaffe/PasaffeWindow.py:999
 msgid ""
@@ -316,11 +318,11 @@ msgstr "Ajouter"
 
 #: ../data/ui/PasaffeWindow.ui.h:23
 msgid "Add a new folder"
-msgstr ""
+msgstr "Ajouter un nouveau dossier"
 
 #: ../data/ui/PasaffeWindow.ui.h:24
 msgid "Add Folder"
-msgstr ""
+msgstr "Ajouter un dossier"
 
 #: ../data/ui/PasaffeWindow.ui.h:25
 msgid "Edit the selected entry"
@@ -336,7 +338,7 @@ msgstr "Supprimer l'entrée sélectionnée"
 
 #: ../data/ui/PasaffeWindow.ui.h:28
 msgid "Remove"
-msgstr ""
+msgstr "Supprimer"
 
 #: ../data/ui/PasaffeWindow.ui.h:29
 msgid "Open the URL"
@@ -414,7 +416,7 @@ msgstr "Le nom de l'entrée"
 
 #: ../data/ui/EditDetailsDialog.ui.h:3
 msgid "The folder for this entry"
-msgstr ""
+msgstr "Le dossier pour l'entrée"
 
 #: ../data/ui/EditDetailsDialog.ui.h:4
 msgid "The entry's username"
@@ -426,7 +428,7 @@ msgstr "Titre :"
 
 #: ../data/ui/EditDetailsDialog.ui.h:6
 msgid "Folder:"
-msgstr ""
+msgstr "Dossier :"
 
 #: ../data/ui/EditDetailsDialog.ui.h:7
 msgid "Username:"
