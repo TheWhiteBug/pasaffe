@@ -1205,7 +1205,8 @@ class PasaffeWindow(Window):
         # There's got to be a better way to do this
         self.ui.mnu_lock.set_sensitive(status)
         self.ui.mnu_chg_password.set_sensitive(status)
-        self.ui.mnu_add.set_sensitive(status)
+        self.ui.mnu_add_entry.set_sensitive(status)
+        self.ui.mnu_add_folder.set_sensitive(status)
         self.ui.mnu_clone.set_sensitive(status)
         self.ui.mnu_delete.set_sensitive(status)
         self.ui.mnu_find.set_sensitive(status)
