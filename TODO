@@ -6,6 +6,7 @@ List of stuff to do:
   - Implement drag & drop of entries between folders
   - Make menu entries that don't apply to folders inactive
   - Make search work with folder names
+- Update help files
 - Improve icon
 - Design a better layout for details pane
 - Add database merge functionality
