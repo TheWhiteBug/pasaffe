@@ -44,62 +44,9 @@ from pasaffe_lib.helpersgui import get_builder
 from pasaffe_lib.helpers import folder_list_to_field
 from pasaffe_lib.helpers import folder_list_to_path
 from pasaffe_lib.helpers import folder_path_to_list
+from pasaffe_lib.helpers import PathEntry
 
 # pylint: disable=E1101
-
-class PathEntry:
-    def __init__(self, name, uuid, path):
-        self.name = name
-        self.uuid = uuid
-        self.path = path
-
-    def __cmp__(self, other):
-        if self.path == None and other.path == None:
-            return 0
-        elif self.path == None:
-            return -1
-        elif other.path == None:
-            return 1
-        elif not len(self.path) or len(self.path) < len(other.path):
-            i = 0
-            for path in self.path:
-                if not len(path):
-                    return 1
-                if not len(other.path[i]):
-                    return -1
-                if path < other.path[i]:
-                    return -1
-                if path > other.path[i]:
-                    return 1
-                i += 1
-            return 1
-        elif not len(other.path) or len(self.path) > len(other.path):
-            i = 0
-            for path in other.path:
-                if not len(path):
-                    return -1
-                if not len(self.path[i]):
-                    return 1
-                if path > self.path[i]:
-                    return -1
-                if path < self.path[i]:
-                    return 1
-                i += 1
-            return -1
-        else:
-            i = 0
-            for path in self.path:
-                if not len(path):
-                    return 1
-                if not len(other.path[i]):
-                    return -1
-                if path < other.path[i]:
-                    return -1
-                if path > other.path[i]:
-                    return 1
-                i += 1
-            return 0
-
 
 # See pasaffe_lib.Window.py for more details about how this class works
 class PasaffeWindow(Window):

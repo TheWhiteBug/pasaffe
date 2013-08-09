@@ -25,6 +25,59 @@ from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
 
+class PathEntry:
+    def __init__(self, name, uuid, path):
+        self.name = name
+        self.uuid = uuid
+        self.path = path
+
+    def __cmp__(self, other):
+        if self.path == None and other.path == None:
+            return 0
+        elif self.path == None:
+            return -1
+        elif other.path == None:
+            return 1
+        elif not len(self.path) or len(self.path) < len(other.path):
+            i = 0
+            for path in self.path:
+                if not len(path):
+                    return 1
+                if not len(other.path[i]):
+                    return -1
+                if path < other.path[i]:
+                    return -1
+                if path > other.path[i]:
+                    return 1
+                i += 1
+            return 1
+        elif not len(other.path) or len(self.path) > len(other.path):
+            i = 0
+            for path in other.path:
+                if not len(path):
+                    return -1
+                if not len(self.path[i]):
+                    return 1
+                if path > self.path[i]:
+                    return -1
+                if path < self.path[i]:
+                    return 1
+                i += 1
+            return -1
+        else:
+            i = 0
+            for path in self.path:
+                if not len(path):
+                    return 1
+                if not len(other.path[i]):
+                    return -1
+                if path < other.path[i]:
+                    return -1
+                if path > other.path[i]:
+                    return 1
+                i += 1
+            return 0
+
 # Owais Lone : To get quick access to icons and stuff.
 def get_media_file(media_file_name):
     media_filename = get_data_file('media', '%s' % (media_file_name,))
