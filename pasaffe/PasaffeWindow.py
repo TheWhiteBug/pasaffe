@@ -833,7 +833,7 @@ class PasaffeWindow(Window):
             if new_item == None:
                 new_item = self.ui.treeview1.get_model().get_iter_first()
 
-            if new_item != 0:
+            if new_item != 0 and new_item != None:
                 self.ui.treeview1.get_selection().select_iter(new_item)
 
         if save == True:
