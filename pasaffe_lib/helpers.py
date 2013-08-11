@@ -32,48 +32,75 @@ class PathEntry:
         self.path = path
 
     def __cmp__(self, other):
-        if self.path == None and other.path == None:
+
+        # First, we sort by path
+        result = self._sort_path(self.path, other.path)
+        if result != 0:
+            return result
+
+        # Then we sort by name
+        result = self._sort_name(self.name, other.name)
+        return result
+
+    def _sort_name(self, first, second):
+        # We assume empty names are folders, so they need to
+        # lose to be first in the list
+        if first in (None, "") and second in (None, ""):
             return 0
-        elif self.path == None:
+        elif first < second:
             return -1
-        elif other.path == None:
+        elif first > second:
             return 1
-        elif not len(self.path) or len(self.path) < len(other.path):
+        else:
+            # Gah, fail.
+            return 0
+
+    def _sort_path(self, first, second):
+
+        # Folders should be displayed first, so they should lose to
+        # entries that don't have folders
+        if first in (None, []) and second in (None, []):
+            return 0
+        elif first in (None, []):
+            return 1
+        elif second in (None, []):
+            return -1
+        elif len(first) < len(second):
             i = 0
-            for path in self.path:
+            for path in first:
                 if not len(path):
                     return 1
-                if not len(other.path[i]):
+                if not len(second[i]):
                     return -1
-                if path < other.path[i]:
+                if path < second[i]:
                     return -1
-                if path > other.path[i]:
+                if path > second[i]:
                     return 1
                 i += 1
             return 1
-        elif not len(other.path) or len(self.path) > len(other.path):
+        elif len(first) > len(second):
             i = 0
-            for path in other.path:
+            for path in second:
                 if not len(path):
                     return -1
-                if not len(self.path[i]):
+                if not len(first[i]):
                     return 1
-                if path > self.path[i]:
+                if path > first[i]:
                     return -1
-                if path < self.path[i]:
+                if path < first[i]:
                     return 1
                 i += 1
             return -1
         else:
             i = 0
-            for path in self.path:
+            for path in first:
                 if not len(path):
                     return 1
-                if not len(other.path[i]):
+                if not len(second[i]):
                     return -1
-                if path < other.path[i]:
+                if path < second[i]:
                     return -1
-                if path > other.path[i]:
+                if path > second[i]:
                     return 1
                 i += 1
             return 0

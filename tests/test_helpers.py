@@ -24,6 +24,7 @@ sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__), ".."
 from pasaffe_lib.helpers import folder_list_to_field
 from pasaffe_lib.helpers import folder_list_to_path
 from pasaffe_lib.helpers import folder_path_to_list
+from pasaffe_lib.helpers import PathEntry
 
 class TestHelpers(unittest.TestCase):
     def test_folder_list_to_field(self):
@@ -100,6 +101,100 @@ class TestHelpers(unittest.TestCase):
 
         for (path, folder) in folder_list:
             self.assertEqual(folder_path_to_list(path), folder)
+
+    def test_sort_name(self):
+        pathentry = PathEntry(None, None, None)
+
+        names = [ [ "",    "zzz", -1 ],
+                  [ None,  "zzz", -1 ],
+                  [ "a",   "zzz", -1 ],
+                  [ "aaa", "z",   -1 ],
+                  [ "aaa", "zzz", -1 ],
+                  [ "z",   "zzz", -1 ],
+                  [ "aaa", "aaa",  0 ],
+                  [ "zzz", "zzz",  0 ],
+                  [ None,  None,   0 ],
+                  [ None,  "",     0 ],
+                  [ "",    None,   0 ],
+                  [ "zzz", "z",    1 ],
+                  [ "zzz",  "",    1 ],
+                  [ "zzz",  None,  1 ]
+                ]
+
+        for (first, second, result) in names:
+            self.assertEqual(pathentry._sort_name(first, second), result)
+
+    def test_sort_path(self):
+        pathentry = PathEntry(None, None, None)
+
+        paths = [
+                  [ ["zzz"],          [],             -1 ],
+                  [ ["zzz"],          None,           -1 ],
+                  [ ["a"],            ["zzz"],        -1 ],
+                  [ ["aaa"],          ["z"],          -1 ],
+                  [ ["aaa"],          ["zzz"],        -1 ],
+                  [ ["z"],            ["zzz"],        -1 ],
+                  [ ["a", "a"],       ["a"],          -1 ],
+                  [ ["a", "a", "a"],  ["a"],          -1 ],
+                  [ ["aaa"],          ["aaa"],         0 ],
+                  [ ["zzz"],          ["zzz"],         0 ],
+                  [ None,             None,            0 ],
+                  [ None,             [],              0 ],
+                  [ [],               None,            0 ],
+                  [ ["a"],            ["a", "a"],      1 ],
+                  [ ["a", "a"],       ["a", "a", "a"], 1 ],
+                  [ ["zzz"],          ["z"],           1 ],
+                  [ [],               ["zzz"],         1 ],
+                  [ None,             ["zzz"],         1 ],
+                ]
+
+        for (first, second, result) in paths:
+            self.assertEqual(pathentry._sort_path(first, second), result)
+
+    def test_sort_entries(self):
+        test_entries = [
+                         [ "z",  None ],
+                         [ "a",  None ],
+                         [ "aa", None ],
+                         [ "a",  ["a"] ],
+                         [ "a",  ["b"] ],
+                         [ "z",  ["a", "b"] ],
+                         [ "a",  ["a", "b"] ],
+                         [ None, ["a", "b", "c"] ],
+                         [ "c",  ["a", "b"] ],
+                       ]
+
+        test_results = [
+                         [ None, ["a", "b", "c"] ],
+                         [ "a",  ["a", "b"] ],
+                         [ "c",  ["a", "b"] ],
+                         [ "z",  ["a", "b"] ],
+                         [ "a",  ["a"] ],
+                         [ "a",  ["b"] ],
+                         [ "a",  None ],
+                         [ "aa", None ],
+                         [ "z",  None ],
+                       ]
+
+        entries = []
+        results = []
+
+        for (name, path) in test_entries:
+            new_entry = PathEntry(name, None, path)
+            entries.append(new_entry)
+
+        for (name, path) in test_results:
+            new_result = PathEntry(name, None, path)
+            results.append(new_result)
+
+        # Now, sort them and check
+        sorted_entries = sorted(entries)
+        self.assertEqual(len(test_entries), len(results))
+        self.assertEqual(len(test_entries), len(entries))
+        self.assertEqual(len(test_entries), len(sorted_entries))
+
+        for i in range(len(test_entries)):
+            self.assertEqual(sorted_entries[i], results[i])
 
 if __name__ == '__main__':
     unittest.main()

@@ -233,16 +233,14 @@ class PasaffeWindow(Window):
             entry = PathEntry("", "", folder)
             entries.append(entry)
 
+        # Then add records
         for uuid in self.passfile.records:
             entry = PathEntry(self.passfile.records[uuid][3], uuid, self.passfile.get_folder_list(uuid))
             entries.append(entry)
 
         self.ui.liststore1.clear()
 
-        # Sort the records alphabetically first
-        entries = sorted(entries, key=lambda x:x.name.lower())
-
-        # Then sort on folder
+        # Then sort and add
         for record in sorted(entries):
             parent = self.create_folders(record.path)
             if record.name != "":
