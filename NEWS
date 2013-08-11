@@ -8,6 +8,7 @@ For a detailed list of changes, please see ChangeLog.
  * Bug fixes:
    - Folder text entry now activates OK button (thanks jdstrand!)
    - Tree now sorts folders before directories (thanks jdstrand!)
+   - Fixed typeahead find (thanks hallyn!)
 
 0.25 (2013-08-09)
 
