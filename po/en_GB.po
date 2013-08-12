@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-08-09 10:08-0400\n"
+"POT-Creation-Date: 2013-08-11 15:54-0400\n"
 "PO-Revision-Date: 2013-08-09 18:43+0000\n"
 "Last-Translator: Anthony Harrington <untaintableangel@ubuntu.com>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-10 05:32+0000\n"
+"X-Launchpad-Export-Date: 2013-08-12 04:58+0000\n"
 "X-Generator: Launchpad (build 16723)\n"
 
 #: ../data/ui/EditFolderDialog.ui.h:1
@@ -53,16 +53,16 @@ msgstr "use database FILE"
 msgid "set database as default"
 msgstr "set database as default"
 
-#: ../pasaffe/PasaffeWindow.py:386
+#: ../pasaffe/PasaffeWindow.py:331
 msgid "Secrets are currently hidden."
 msgstr "Secrets are currently hidden."
 
-#: ../pasaffe/PasaffeWindow.py:390
+#: ../pasaffe/PasaffeWindow.py:335
 #, python-format
 msgid "Username: %s\n"
 msgstr "Username: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:392
+#: ../pasaffe/PasaffeWindow.py:337
 #, python-format
 msgid ""
 "Password: %s\n"
@@ -71,7 +71,7 @@ msgstr ""
 "Password: %s\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:394
+#: ../pasaffe/PasaffeWindow.py:339
 msgid ""
 "Password: *****\n"
 "\n"
@@ -79,21 +79,21 @@ msgstr ""
 "Password: *****\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:399
+#: ../pasaffe/PasaffeWindow.py:344
 #, python-format
 msgid "Last updated: %s\n"
 msgstr "Last updated: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:404
+#: ../pasaffe/PasaffeWindow.py:349
 #, python-format
 msgid "Password updated: %s\n"
 msgstr "Password updated: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:408
+#: ../pasaffe/PasaffeWindow.py:353
 msgid "Welcome to Pasaffe!"
 msgstr "Welcome to Pasaffe!"
 
-#: ../pasaffe/PasaffeWindow.py:409
+#: ../pasaffe/PasaffeWindow.py:354
 msgid ""
 "Pasaffe is an easy to use\n"
 "password manager for Gnome."
@@ -101,11 +101,11 @@ msgstr ""
 "Pasaffe is an easy to use\n"
 "password manager for Gnome."
 
-#: ../pasaffe/PasaffeWindow.py:413
+#: ../pasaffe/PasaffeWindow.py:358
 msgid "This is a folder."
 msgstr "This is a folder."
 
-#: ../pasaffe/PasaffeWindow.py:591
+#: ../pasaffe/PasaffeWindow.py:536
 #, python-format
 msgid ""
 "<big><b>Are you sure you wish to remove \"%s\"?</b></big>\n"
@@ -114,11 +114,11 @@ msgstr ""
 "<big><b>Are you sure you wish to remove \"%s\"?</b></big>\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:592
+#: ../pasaffe/PasaffeWindow.py:537
 msgid "Contents of the entry will be lost.\n"
 msgstr "Contents of the entry will be lost.\n"
 
-#: ../pasaffe/PasaffeWindow.py:607
+#: ../pasaffe/PasaffeWindow.py:552
 #, python-format
 msgid ""
 "<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
@@ -127,11 +127,11 @@ msgstr ""
 "<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:608
+#: ../pasaffe/PasaffeWindow.py:553
 msgid "All entries in this folder will be lost.\n"
 msgstr "All entries in this folder will be lost.\n"
 
-#: ../pasaffe/PasaffeWindow.py:1015
+#: ../pasaffe/PasaffeWindow.py:960
 msgid ""
 "<big><b>Database Information</b></big>\n"
 "\n"
@@ -139,45 +139,45 @@ msgstr ""
 "<big><b>Database Information</b></big>\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:1016
+#: ../pasaffe/PasaffeWindow.py:961
 #, python-format
 msgid "Number of entries: %s\n"
 msgstr "Number of entries: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:1017
+#: ../pasaffe/PasaffeWindow.py:962
 #, python-format
 msgid "Database version: %s\n"
 msgstr "Database version: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:1019
+#: ../pasaffe/PasaffeWindow.py:964
 #, python-format
 msgid "Last saved by: %s\n"
 msgstr "Last saved by: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:1021
+#: ../pasaffe/PasaffeWindow.py:966
 #, python-format
 msgid "Last saved on host: %s\n"
 msgstr "Last saved on host: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:1022
+#: ../pasaffe/PasaffeWindow.py:967
 #, python-format
 msgid "Last save date: %s\n"
 msgstr "Last save date: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:1024
+#: ../pasaffe/PasaffeWindow.py:969
 #, python-format
 msgid "Application used: %s\n"
 msgstr "Application used: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:1146 ../data/ui/NewDatabaseDialog.ui.h:5
+#: ../pasaffe/PasaffeWindow.py:1091 ../data/ui/NewDatabaseDialog.ui.h:5
 msgid "Passwords don't match! Please try again."
 msgstr "Passwords don't match! Please try again."
 
-#: ../pasaffe/PasaffeWindow.py:1150
+#: ../pasaffe/PasaffeWindow.py:1095
 msgid "New password cannot be blank! Please try again."
 msgstr "New password cannot be blank! Please try again."
 
-#: ../pasaffe/PasaffeWindow.py:1154
+#: ../pasaffe/PasaffeWindow.py:1099
 msgid "Old password is invalid! Please try again."
 msgstr "Old password is invalid! Please try again."
 
