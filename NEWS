@@ -6,6 +6,7 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
    - Implemented drag and drop of folders and entries
    - Fix broken menu entries when gtk is configured to show icons in menus
+   - Deactivate certain menu items when a folder is selected
 
  * Bug fixes:
 

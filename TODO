@@ -2,8 +2,6 @@ List of stuff to do:
 
 - Improve folder support
   - Implement folder expansion state saving in database
-  - Implement copy/paste of entries between folders
-  - Make menu entries that don't apply to folders inactive
   - Make search work with folder names
 - Update help files
 - Improve icon

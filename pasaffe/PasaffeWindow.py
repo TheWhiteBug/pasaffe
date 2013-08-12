@@ -246,6 +246,7 @@ class PasaffeWindow(Window):
             if record.name != "":
                 self.ui.liststore1.append(parent, ["gtk-file", record.name, record.uuid])
         self.ui.treeview1.expand_all()
+        self.set_menu_for_entry(False)
 
         # enable drag and drop
         dnd_targets = [ ('MY_TREE_MODEL_ROW',
@@ -329,6 +330,7 @@ class PasaffeWindow(Window):
             self.display_data(uuid)
             path = self.ui.treeview1.get_model().get_path(item)
             self.ui.treeview1.scroll_to_cell(path)
+            self.set_menu_for_entry(True)
 
     def goto_folder(self, folders):
         item = self.search_folder(folders)
@@ -337,6 +339,7 @@ class PasaffeWindow(Window):
             self.display_folder(self.ui.liststore1.get_value(item, 1))
             path = self.ui.treeview1.get_model().get_path(item)
             self.ui.treeview1.scroll_to_cell(path)
+            self.set_menu_for_entry(False)
 
     def search_uuid(self, uuid, item=None, toplevel=True):
        if toplevel == True:
@@ -499,8 +502,11 @@ class PasaffeWindow(Window):
                 entry_uuid = treemodel.get_value(treeiter, 2)
                 if "pasaffe_treenode." in entry_uuid:
                     self.display_folder(treemodel.get_value(treeiter, 1))
-                    return
-                self.display_data(entry_uuid)
+                    self.set_menu_for_entry(False)
+                else:
+                    self.display_data(entry_uuid)
+                    self.set_menu_for_entry(True)
+
                 # Reset the show password button and menu item
                 self.ui.display_secrets.set_active(False)
                 self.ui.mnu_display_secrets.set_active(False)
@@ -568,6 +574,7 @@ class PasaffeWindow(Window):
 
         self.ui.treeview1.get_selection().select_iter(new_iter)
         self.display_folder(self.ui.liststore1.get_value(new_iter, 1))
+        self.set_menu_for_entry(False)
 
         new_folder = self.get_folders_from_iter(treemodel, new_iter)
         response = self.edit_folder(self.ui.liststore1, new_iter, True)
@@ -756,6 +763,7 @@ class PasaffeWindow(Window):
                 treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
                 if treeiter != None and treemodel.get_value(treeiter, 2) == entry_uuid:
                     self.display_data(entry_uuid)
+                    self.set_menu_for_entry(True)
 
             self.set_idle_timeout()
             self.update_find_results(force=True)
@@ -871,8 +879,10 @@ class PasaffeWindow(Window):
             entry_uuid = treemodel.get_value(treeiter, 2)
             if "pasaffe_treenode." in entry_uuid:
                 self.display_folder(treemodel.get_value(treeiter, 1))
+                self.set_menu_for_entry(False)
             else:
                 self.display_data(entry_uuid)
+                self.set_menu_for_entry(True)
         else:
             self.display_welcome()
 
@@ -901,8 +911,10 @@ class PasaffeWindow(Window):
             entry_uuid = treemodel.get_value(treeiter, 2)
             if "pasaffe_treenode." in entry_uuid:
                 self.display_folder(treemodel.get_value(treeiter, 1))
+                self.set_menu_for_entry(False)
             else:
                 self.display_data(entry_uuid)
+                self.set_menu_for_entry(True)
         else:
             self.display_welcome()
 
@@ -984,6 +996,11 @@ class PasaffeWindow(Window):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 2)
+
+            # Bail out of we're a folder
+            if "pasaffe_treenode." in entry_uuid:
+                return
+
             self.display_data(entry_uuid, display)
 
     def copy_selected_entry_item(self, item):
@@ -1251,6 +1268,31 @@ class PasaffeWindow(Window):
             # not greyed out
             self.ui.save.set_sensitive(True)
             self.ui.save.set_sensitive(False)
+
+    def set_menu_for_entry(self, status):
+        # main menu
+        self.ui.mnu_clone.set_sensitive(status)
+        self.ui.url_copy.set_sensitive(status)
+        self.ui.username_copy.set_sensitive(status)
+        self.ui.password_copy.set_sensitive(status)
+        self.ui.mnu_open_url.set_sensitive(status)
+
+        # context menu
+        self.ui.mnu_clone1.set_sensitive(status)
+        self.ui.url_copy1.set_sensitive(status)
+        self.ui.username_copy1.set_sensitive(status)
+        self.ui.password_copy1.set_sensitive(status)
+
+        # Toolbar
+        self.ui.open_url.set_sensitive(status)
+        self.ui.copy_username.set_sensitive(status)
+        self.ui.copy_password.set_sensitive(status)
+
+        if status == False:
+            self.ui.mnu_display_secrets.set_sensitive(False)
+            self.ui.display_secrets.set_sensitive(False)
+        else:
+            self.set_show_password_status()
 
     def on_add_clicked(self, _toolbutton):
         self.add_entry()
