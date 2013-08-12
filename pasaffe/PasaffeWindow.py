@@ -291,6 +291,11 @@ class PasaffeWindow(Window):
                     if current_folders == new_parents:
                         return
 
+                    # Bail out if we're trying to drag a folder into a
+                    # subdirectory of itself
+                    if current_folders == new_parents[:len(current_folders)]:
+                        return
+
                     if new_parents != parent_folders:
                         new_folders = new_parents[:]
                         new_folders.append(current_folders[-1:][0])
