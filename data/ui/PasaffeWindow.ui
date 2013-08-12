@@ -14,26 +14,6 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-media-next</property>
   </object>
-  <object class="GtkImage" id="image1">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-copy</property>
-  </object>
-  <object class="GtkImage" id="image10">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gnome-stock-text-indent</property>
-  </object>
-  <object class="GtkImage" id="image11">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-copy</property>
-  </object>
-  <object class="GtkImage" id="image12">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-copy</property>
-  </object>
   <object class="GtkImage" id="image13">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -68,16 +48,6 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">gtk-help</property>
-  </object>
-  <object class="GtkImage" id="image3">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gnome-stock-text-indent</property>
-  </object>
-  <object class="GtkImage" id="image4">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-copy</property>
   </object>
   <object class="GtkImage" id="image5">
     <property name="visible">True</property>
@@ -215,24 +185,22 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkImageMenuItem" id="mnu_add1">
+      <object class="GtkMenuItem" id="mnu_add1">
         <property name="label">Add Entry</property>
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="use_underline">True</property>
-        <property name="use_stock">True</property>
         <signal name="activate" handler="on_mnu_add_entry_activate" swapped="no"/>
       </object>
     </child>
     <child>
-      <object class="GtkImageMenuItem" id="mnu_add_folder1">
+      <object class="GtkMenuItem" id="mnu_add_folder1">
         <property name="label">Add Folder</property>
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="use_underline">True</property>
-        <property name="use_stock">True</property>
         <signal name="activate" handler="on_mnu_add_folder_activate" swapped="no"/>
       </object>
     </child>
@@ -276,35 +244,29 @@
       </object>
     </child>
     <child>
-      <object class="GtkImageMenuItem" id="url_copy1">
+      <object class="GtkMenuItem" id="url_copy1">
         <property name="label" translatable="yes">Copy URL</property>
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="image">image12</property>
-        <property name="use_stock">False</property>
         <signal name="activate" handler="on_url_copy_activate" swapped="no"/>
       </object>
     </child>
     <child>
-      <object class="GtkImageMenuItem" id="username_copy1">
+      <object class="GtkMenuItem" id="username_copy1">
         <property name="label" translatable="yes">Copy Username</property>
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="image">image11</property>
-        <property name="use_stock">False</property>
         <signal name="activate" handler="on_username_copy_activate" swapped="no"/>
       </object>
     </child>
     <child>
-      <object class="GtkImageMenuItem" id="password_copy1">
+      <object class="GtkMenuItem" id="password_copy1">
         <property name="label" translatable="yes">Copy Password</property>
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="image">image10</property>
-        <property name="use_stock">False</property>
         <signal name="activate" handler="on_password_copy_activate" swapped="no"/>
       </object>
     </child>
@@ -418,24 +380,22 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="mnu_add_entry">
+                      <object class="GtkMenuItem" id="mnu_add_entry">
                         <property name="label">Add Entry</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
                         <signal name="activate" handler="on_mnu_add_entry_activate" swapped="no"/>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="mnu_add_folder">
+                      <object class="GtkMenuItem" id="mnu_add_folder">
                         <property name="label">Add Folder</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
                         <signal name="activate" handler="on_mnu_add_folder_activate" swapped="no"/>
                       </object>
                     </child>
@@ -486,37 +446,31 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="url_copy">
+                      <object class="GtkMenuItem" id="url_copy">
                         <property name="label" translatable="yes">Copy URL</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="image">image4</property>
-                        <property name="use_stock">False</property>
                         <accelerator key="u" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="on_url_copy_activate" swapped="no"/>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="username_copy">
+                      <object class="GtkMenuItem" id="username_copy">
                         <property name="label" translatable="yes">Copy Username</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="image">image1</property>
-                        <property name="use_stock">False</property>
                         <accelerator key="x" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="on_username_copy_activate" swapped="no"/>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="password_copy">
+                      <object class="GtkMenuItem" id="password_copy">
                         <property name="label" translatable="yes">Copy Password</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="image">image3</property>
-                        <property name="use_stock">False</property>
                         <accelerator key="c" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="on_password_copy_activate" swapped="no"/>
                       </object>
