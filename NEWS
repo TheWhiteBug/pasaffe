@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.27 (UNRELEASED)
 
  * Enhancements:
+   - Implemented drag and drop of folders and entries
 
  * Bug fixes:
 

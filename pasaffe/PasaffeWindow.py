@@ -247,6 +247,81 @@ class PasaffeWindow(Window):
                 self.ui.liststore1.append(parent, ["gtk-file", record.name, record.uuid])
         self.ui.treeview1.expand_all()
 
+        # enable drag and drop
+        dnd_targets = [ ('MY_TREE_MODEL_ROW',
+                         Gtk.TargetFlags.SAME_WIDGET, 0) ]
+
+        self.ui.treeview1.enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK,
+                                                   dnd_targets,
+                                                   Gdk.DragAction.DEFAULT|
+                                                   Gdk.DragAction.MOVE)
+        self.ui.treeview1.enable_model_drag_dest(dnd_targets,
+                                                 Gdk.DragAction.DEFAULT)
+        self.ui.treeview1.connect("drag_data_received",
+                                  self.drag_data_received_data)
+
+    def drag_data_received_data(self, treeview, context, x, y, selection,
+                                info, etime):
+        sourcemodel, sourceiter = treeview.get_selection().get_selected()
+        source_uuid = sourcemodel.get_value(sourceiter, 2)
+
+        destmodel = treeview.get_model()
+        drop_info = treeview.get_dest_row_at_pos(x, y)
+        if drop_info:
+            path, position = drop_info
+            destiter = destmodel.get_iter(path)
+            dest_uuid = destmodel.get_value(destiter, 2)
+
+            # Ignore entries as drop destinations
+            if "pasaffe_treenode." not in dest_uuid:
+                return
+
+            if ((position == Gtk.TreeViewDropPosition.INTO_OR_BEFORE) or
+                (position == Gtk.TreeViewDropPosition.INTO_OR_AFTER)):
+
+                new_parents = self.get_folders_from_iter(destmodel, destiter)
+
+                if "pasaffe_treenode." in source_uuid:
+                    current_folders = self.get_folders_from_iter(sourcemodel,
+                                                               sourceiter)
+                    parent_folders = current_folders[:-1]
+
+                    # Bail out if the folder is dragged onto itself
+                    if current_folders == new_parents:
+                        return
+
+                    if new_parents != parent_folders:
+                        new_folders = new_parents[:]
+                        new_folders.append(current_folders[-1:][0])
+                        old_folders = current_folders[:]
+
+                        self.passfile.rename_folder_list(old_folders, new_folders)
+
+                        self.display_entries()
+                        self.goto_folder(new_folders)
+
+                        self.set_save_status(True)
+                        if self.settings.get_boolean('auto-save') == True:
+                            self.save_db()
+                else:
+                    parent_folders = self.passfile.get_folder_list(source_uuid)
+                    if new_parents != parent_folders:
+                        self.passfile.remove_empty_folder(new_parents)
+                        self.passfile.add_empty_folder(parent_folders)
+                        self.passfile.update_folder_list(source_uuid, new_parents)
+
+                        self.passfile.update_modification_time(source_uuid)
+
+                        self.display_entries()
+                        self.goto_uuid(source_uuid)
+
+                        self.set_save_status(True)
+                        if self.settings.get_boolean('auto-save') == True:
+                            self.save_db()
+
+                self.set_idle_timeout()
+                self.update_find_results(force=True)
+
     def goto_uuid(self, uuid):
         item = self.search_uuid(uuid)
         if (item != None):
