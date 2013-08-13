@@ -6,6 +6,7 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
 
  * Bug fixes:
+   - Fix some translation mistakes in the fr help file (LP: #1210552)
 
 0.27 (2013-08-12)
 

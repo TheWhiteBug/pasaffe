@@ -17,21 +17,21 @@
 <guiseq><gui>Éditer</gui><gui>Préférences</gui></guiseq>.
 Une fenêtre apparaîtera avec des options. Quand les changements seront
 terminés, cliquer sur <gui>Fermer</gui>.</p>
-<p>Voici quelques préférences qui peuvent être modifiées:</p>
+<p>Voici quelques préférences qui peuvent être modifiées :</p>
 <list>
-<item><p><em>Afficher les secrets par défaut:</em> Lorsque coché, <app>Pasaffe</app>
+<item><p><em>Afficher les secrets par défaut :</em> Lorsque coché, <app>Pasaffe</app>
  affichers toujours les secrets, tel que les mots de passe, dans la section de droite
  de la fenêtre principale.</p></item>
-<item><p><em>Seuls les mot de passes sont secrets:</em> Lorsque coché, il n'y a
+<item><p><em>Seuls les mot de passes sont secrets :</em> Lorsque coché, il n'y a
 que le champ de mot de passe qui sera considéré comme étant un secret qui doit
 être caché par défaut. Décocher cette case si vous voulez que les autres données
 soient cachées par défaut aussi.</p></item>
-<item><p><em>Barrer la base de données lors d'inactivité:</em> Lorsque coché, la fenêtre
-de <app>Pasaffe</app> barrera la base de données et exigera de nouveau le mot de passe
+<item><p><em>Verrouiller la base de données lors d'inactivité :</em> Lorsque coché, la fenêtre
+de <app>Pasaffe</app> verrouillera la base de données et exigera de nouveau le mot de passe
 principal après un certain temps d'inactivité.</p></item>
-<item><p><em>Temps d'inactivité (en minutes):</em> Ceci permets d'ajuster le nombre
+<item><p><em>Temps d'inactivité (en minutes) :</em> Ceci permets d'ajuster le nombre
 de minutes après lequel <app>Pasaffe</app> barrera la base de données.</p></item>
-<item><p><em>Enregistrer automatiquement les modifications:</em> Lorsque coché,
+<item><p><em>Enregistrer automatiquement les modifications :</em> Lorsque coché,
 <app>Pasaffe</app> enregistrera automatiquement la base de données après chaque
 changement. Par défaut, les changements ne sont sauvegardés que lorsque l'utilisateur
 le demande, afin que les changements puissent être annulés.</p></item>

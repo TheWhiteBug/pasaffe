@@ -23,7 +23,7 @@
 Gestionnaire de mots de passe <app>Pasaffe</app>
 </title>
 
-<p>Bienvenue dans le manuel d'aide de <app>Pasaffe !</app></p>
+<p>Bienvenue dans le manuel d'aide de <app>Pasaffe</app> !</p>
 <p><app>Pasaffe</app> est un gestionnaire de mots de passe facile à utiliser.
 Vous pouvez l'utiliser pour entreposer des noms d'utilisateur et des mots de
 passe, et les chiffrer avec un mot de passe principal.</p>
@@ -31,7 +31,7 @@ passe, et les chiffrer avec un mot de passe principal.</p>
 La section de gauche affiche une liste d'entrées, et celle de droite affiche
 les données de l'entrée sélectionnée.</p>
 <p>Pour démarrer avec <app>Pasaffe</app>, visitez la page
-<link xref="new-entry">Ajout d'une nouvelle entrée</link>.</p>
+<link xref="new-entry">Création d'une nouvelle entrée</link>.</p>
 
 <!-- This is the visible index -->
 <section id="contents" style="2column">
