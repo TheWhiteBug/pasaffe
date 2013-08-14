@@ -186,7 +186,7 @@
     <property name="can_focus">False</property>
     <child>
       <object class="GtkMenuItem" id="mnu_add1">
-        <property name="label">Add Entry</property>
+        <property name="label" translatable="yes">Add Entry</property>
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
@@ -196,7 +196,7 @@
     </child>
     <child>
       <object class="GtkMenuItem" id="mnu_add_folder1">
-        <property name="label">Add Folder</property>
+        <property name="label" translatable="yes">Add Folder</property>
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
@@ -381,7 +381,7 @@
                     <property name="can_focus">False</property>
                     <child>
                       <object class="GtkMenuItem" id="mnu_add_entry">
-                        <property name="label">Add Entry</property>
+                        <property name="label" translatable="yes">Add Entry</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -391,7 +391,7 @@
                     </child>
                     <child>
                       <object class="GtkMenuItem" id="mnu_add_folder">
-                        <property name="label">Add Folder</property>
+                        <property name="label" translatable="yes">Add Folder</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -401,7 +401,7 @@
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="mnu_clone">
-                        <property name="label">Clone</property>
+                        <property name="label" translatable="yes">Clone</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
