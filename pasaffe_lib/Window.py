@@ -112,9 +112,10 @@ class Window(Gtk.Window):
             treemodel, treeiter = \
                 self.ui.treeview1.get_selection().get_selected()
             if treeiter != None:
-                entry_uuid = treemodel.get_value(treeiter, 1)
-                self.display_data(entry_uuid,
-                                  show_secrets=settings.get_boolean(key))
+                entry_uuid = treemodel.get_value(treeiter, 2)
+                if "pasaffe_treenode." not in entry_uuid:
+                    self.display_data(entry_uuid,
+                                      show_secrets=settings.get_boolean(key))
 
     def on_preferences_dialog_destroyed(self, widget, data=None):
         '''only affects gui
