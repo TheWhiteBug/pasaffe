@@ -1,19 +1,14 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="guide"
-      id="index">
+      id="index"
+      xml:lang="fr">
 
 <info>
-  <!-- This shows in the title bar so does not show [icon] -->
-  <title type="text">Gestionnaire de mots de passe Pasaffe</title>
-  <desc>Manuel d'aide <app>Pasaffe</app>.</desc>
   <credit type="author">
     <name>Marc Deslauriers</name>
     <email>marc.deslauriers@canonical.com</email>
-    <years>2011</years>
   </credit>
-  <license href="http://creativecommons.org/licenses/by-sa/3.0/">
-  <p>Creative Commons Attribution-Share Alike 3.0 Unported License</p>
-  </license>
+  <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude" />
 </info>
 
 <title>
