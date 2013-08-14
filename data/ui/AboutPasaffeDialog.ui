@@ -9,7 +9,7 @@
     <property name="icon">../media/pasaffe.svg</property>
     <property name="type_hint">normal</property>
     <property name="program_name">Pasaffe</property>
-    <property name="copyright">Copyright (C) 2011-2013 Marc Deslauriers &lt;marc.deslauriers@canonical.com&gt;</property>
+    <property name="copyright">Copyright © 2011-2013 Marc Deslauriers &lt;marc.deslauriers@canonical.com&gt;</property>
     <property name="website">http://www.launchpad.net/pasaffe</property>
     <property name="website_label" translatable="yes">http://www.launchpad.net/pasaffe</property>
     <property name="license">This program is free software: you can redistribute it and/or modify it 
