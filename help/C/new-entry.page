@@ -14,17 +14,18 @@
 
 <title>Adding a new entry</title>
 <p>To create a new entry, click on the icon that looks like a plus sign. If
-you prefer, you may also select <guiseq><gui>Edit</gui><gui>Add</gui></guiseq>.
+you prefer, you may also select <guiseq><gui>Edit</gui><gui>Add Entry</gui></guiseq>.
 A window will appear asking for information.</p>
 
     <steps>
       <title>Adding a new entry in <app>Pasaffe</app></title>
       <item><p>Open the Edit entry window by clicking the icon that looks
-like a plus sign, or selecting <guiseq><gui>Edit</gui><gui>Add</gui></guiseq>.</p></item>
+like a plus sign, or selecting <guiseq><gui>Edit</gui><gui>Add Entry</gui></guiseq>.</p></item>
       <item><p>Enter a name for the new entry into the 'Title:' field.</p></item>
+      <item><p>Select a folder where this new entry will be located in the 'Folder:' field.</p></item>
       <item><p>Enter a URL for the entry into the 'URL:' field.</p></item>
       <item><p>Enter the entry's Username into the 'Username:' field.</p></item>
-      <item><p>Enter the entry's Password into the 'Password:' field.</p></item>
+      <item><p>Enter the entry's Password into the 'Password:' field. You may also click the button to generate a random password.</p></item>
       <item><p>Enter any other information about the entry into the 'Notes:' field.</p></item>
       <item><p>Once you are done entering the information, click <gui>OK</gui></p></item>
     </steps>

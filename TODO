@@ -4,7 +4,6 @@ List of stuff to do:
   - Implement folder expansion state saving in database
   - Make search work with folder names
   - Make import scripts work with folders
-- Update help files
 - Improve icon
 - Design a better layout for details pane
 - Add database merge functionality
