@@ -42,18 +42,37 @@ class PathEntry:
         result = self._sort_name(self.name, other.name)
         return result
 
+    def _lower(self, name):
+        # Doing .lower() is wrong in Python 2 as it doesn't properly
+        # handle certain characters in Unicode languages. Unfortunately,
+        # I can't think of a better solution right now, and it will work
+        # properly once we migrate to Python 3
+        if name:
+            return name.lower()
+        else:
+            return name
+
     def _sort_name(self, first, second):
+        # Perform a case-insensitive sort
+        nocase_first = self._lower(first)
+        nocase_second = self._lower(second)
         # We assume empty names are folders, so they need to
         # lose to be first in the list
-        if first in (None, "") and second in (None, ""):
+        if nocase_first in (None, "") and nocase_second in (None, ""):
             return 0
-        elif first < second:
+        elif nocase_first < nocase_second:
             return -1
-        elif first > second:
+        elif nocase_first > nocase_second:
             return 1
         else:
-            # Gah, fail.
-            return 0
+            # If they are the same when they are case-insensitive, we now
+            # want to sort in a case-sensitive way
+            if first < second:
+                return -1
+            elif first > second:
+                return 1
+            else:
+                return 0
 
     def _sort_path(self, first, second):
 
@@ -72,6 +91,12 @@ class PathEntry:
                     return 1
                 if not len(second[i]):
                     return -1
+                # First test in a case insensitive way
+                if self._lower(path) < self._lower(second[i]):
+                    return -1
+                if self._lower(path) > self._lower(second[i]):
+                    return 1
+                # Now try in a case-sensitive way
                 if path < second[i]:
                     return -1
                 if path > second[i]:
@@ -85,6 +110,12 @@ class PathEntry:
                     return -1
                 if not len(first[i]):
                     return 1
+                # First test in a case insensitive way
+                if self._lower(path) > self._lower(first[i]):
+                    return -1
+                if self._lower(path) < self._lower(first[i]):
+                    return 1
+                # Now try in a case-sensitive way
                 if path > first[i]:
                     return -1
                 if path < first[i]:
@@ -98,6 +129,12 @@ class PathEntry:
                     return 1
                 if not len(second[i]):
                     return -1
+                # First test in a case insensitive way
+                if self._lower(path) < self._lower(second[i]):
+                    return -1
+                if self._lower(path) > self._lower(second[i]):
+                    return 1
+                # Now try in a case-sensitive way
                 if path < second[i]:
                     return -1
                 if path > second[i]:

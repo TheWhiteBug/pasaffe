@@ -108,7 +108,10 @@ class TestHelpers(unittest.TestCase):
         names = [ [ "",    "zzz", -1 ],
                   [ None,  "zzz", -1 ],
                   [ "a",   "zzz", -1 ],
+                  [ "A",   "zzz", -1 ],
+                  [ "A",   "a",   -1 ],
                   [ "aaa", "z",   -1 ],
+                  [ "aaa", "Z",   -1 ],
                   [ "aaa", "zzz", -1 ],
                   [ "z",   "zzz", -1 ],
                   [ "aaa", "aaa",  0 ],
@@ -117,6 +120,7 @@ class TestHelpers(unittest.TestCase):
                   [ None,  "",     0 ],
                   [ "",    None,   0 ],
                   [ "zzz", "z",    1 ],
+                  [ "z",   "Z",    1 ],
                   [ "zzz",  "",    1 ],
                   [ "zzz",  None,  1 ]
                 ]
@@ -131,6 +135,8 @@ class TestHelpers(unittest.TestCase):
                   [ ["zzz"],          [],             -1 ],
                   [ ["zzz"],          None,           -1 ],
                   [ ["a"],            ["zzz"],        -1 ],
+                  [ ["A"],            ["zzz"],        -1 ],
+                  [ ["A"],            ["a"],          -1 ],
                   [ ["aaa"],          ["z"],          -1 ],
                   [ ["aaa"],          ["zzz"],        -1 ],
                   [ ["z"],            ["zzz"],        -1 ],
@@ -144,6 +150,7 @@ class TestHelpers(unittest.TestCase):
                   [ ["a"],            ["a", "a"],      1 ],
                   [ ["a", "a"],       ["a", "a", "a"], 1 ],
                   [ ["zzz"],          ["z"],           1 ],
+                  [ ["zzz"],          ["Z"],           1 ],
                   [ [],               ["zzz"],         1 ],
                   [ None,             ["zzz"],         1 ],
                 ]
@@ -154,9 +161,12 @@ class TestHelpers(unittest.TestCase):
     def test_sort_entries(self):
         test_entries = [
                          [ "z",  None ],
+                         [ "Z",  None ],
                          [ "a",  None ],
+                         [ "A",  None ],
                          [ "aa", None ],
                          [ "a",  ["a"] ],
+                         [ "a",  ["A"] ],
                          [ "a",  ["b"] ],
                          [ "z",  ["a", "b"] ],
                          [ "a",  ["a", "b"] ],
@@ -165,14 +175,17 @@ class TestHelpers(unittest.TestCase):
                        ]
 
         test_results = [
+                         [ "a",  ["A"] ],
                          [ None, ["a", "b", "c"] ],
                          [ "a",  ["a", "b"] ],
                          [ "c",  ["a", "b"] ],
                          [ "z",  ["a", "b"] ],
                          [ "a",  ["a"] ],
                          [ "a",  ["b"] ],
+                         [ "A",  None ],
                          [ "a",  None ],
                          [ "aa", None ],
+                         [ "Z",  None ],
                          [ "z",  None ],
                        ]
 
