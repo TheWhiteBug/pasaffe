@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-12 19:42-0400\n"
-"PO-Revision-Date: 2013-08-09 14:33+0000\n"
+"POT-Creation-Date: 2013-08-14 17:40-0400\n"
+"PO-Revision-Date: 2013-08-15 00:50+0000\n"
 "Last-Translator: Hélion du Mas des Bourboux <helion331990@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-13 05:56+0000\n"
+"X-Launchpad-Export-Date: 2013-08-15 05:42+0000\n"
 "X-Generator: Launchpad (build 16723)\n"
 "Language: fr\n"
 
@@ -237,146 +237,150 @@ msgid "Unlock"
 msgstr "Déverrouiller"
 
 #: ../data/ui/PasaffeWindow.ui.h:3
-msgid "Clone"
-msgstr "Dupliquer"
+msgid "Add Entry"
+msgstr "Ajouter une entrée"
 
 #: ../data/ui/PasaffeWindow.ui.h:4
-msgid "Copy URL"
-msgstr "Copier l'URL"
-
-#: ../data/ui/PasaffeWindow.ui.h:5
-msgid "Copy Username"
-msgstr "Copier le nom d'utilisateur"
-
-#: ../data/ui/PasaffeWindow.ui.h:6
-msgid "Copy Password"
-msgstr "Copier le mot de passe"
-
-#: ../data/ui/PasaffeWindow.ui.h:7 ../pasaffe.desktop.in.h:1
-msgid "Pasaffe"
-msgstr "Pasaffe"
-
-#: ../data/ui/PasaffeWindow.ui.h:8
-msgid "_File"
-msgstr "_Fichier"
-
-#: ../data/ui/PasaffeWindow.ui.h:9
-msgid "Lock"
-msgstr "Verrouiller"
-
-#: ../data/ui/PasaffeWindow.ui.h:10
-msgid "Change Master Password"
-msgstr "Changer le mot de passe principal"
-
-#: ../data/ui/PasaffeWindow.ui.h:11
-msgid "_Edit"
-msgstr "_Éditer"
-
-#: ../data/ui/PasaffeWindow.ui.h:12
-msgid "Find"
-msgstr "Rechercher"
-
-#: ../data/ui/PasaffeWindow.ui.h:13
-msgid "_View"
-msgstr "_Visualiser"
-
-#: ../data/ui/PasaffeWindow.ui.h:14
-msgid "Display Secrets"
-msgstr "Afficher les secrets"
-
-#: ../data/ui/PasaffeWindow.ui.h:15
-msgid "Open URL"
-msgstr "Ouvrir l'URL"
-
-#: ../data/ui/PasaffeWindow.ui.h:16
-msgid "Database Information"
-msgstr "Informations sur la base de données"
-
-#: ../data/ui/PasaffeWindow.ui.h:17
-msgid "_Help"
-msgstr "_Aide"
-
-#: ../data/ui/PasaffeWindow.ui.h:18
-msgid "Contents"
-msgstr "Contenu"
-
-#: ../data/ui/PasaffeWindow.ui.h:19
-msgid "Save changes"
-msgstr "Sauvegarder les changements"
-
-#: ../data/ui/PasaffeWindow.ui.h:20
-msgid "Save"
-msgstr "Sauvegarder"
-
-#: ../data/ui/PasaffeWindow.ui.h:21
-msgid "Add a new entry"
-msgstr "Ajouter une nouvelle entrée"
-
-#: ../data/ui/PasaffeWindow.ui.h:22
-msgid "Add"
-msgstr "Ajouter"
-
-#: ../data/ui/PasaffeWindow.ui.h:23
-msgid "Add a new folder"
-msgstr "Ajouter un nouveau dossier"
-
-#: ../data/ui/PasaffeWindow.ui.h:24
 msgid "Add Folder"
 msgstr "Ajouter le dossier"
 
+#: ../data/ui/PasaffeWindow.ui.h:5
+msgid "Clone"
+msgstr "Dupliquer"
+
+#: ../data/ui/PasaffeWindow.ui.h:6
+msgid "Copy URL"
+msgstr "Copier l'URL"
+
+#: ../data/ui/PasaffeWindow.ui.h:7
+msgid "Copy Username"
+msgstr "Copier le nom d'utilisateur"
+
+#: ../data/ui/PasaffeWindow.ui.h:8
+msgid "Copy Password"
+msgstr "Copier le mot de passe"
+
+#: ../data/ui/PasaffeWindow.ui.h:9 ../pasaffe.desktop.in.h:1
+msgid "Pasaffe"
+msgstr "Pasaffe"
+
+#: ../data/ui/PasaffeWindow.ui.h:10
+msgid "_File"
+msgstr "_Fichier"
+
+#: ../data/ui/PasaffeWindow.ui.h:11
+msgid "Lock"
+msgstr "Verrouiller"
+
+#: ../data/ui/PasaffeWindow.ui.h:12
+msgid "Change Master Password"
+msgstr "Changer le mot de passe principal"
+
+#: ../data/ui/PasaffeWindow.ui.h:13
+msgid "_Edit"
+msgstr "_Éditer"
+
+#: ../data/ui/PasaffeWindow.ui.h:14
+msgid "Find"
+msgstr "Rechercher"
+
+#: ../data/ui/PasaffeWindow.ui.h:15
+msgid "_View"
+msgstr "_Visualiser"
+
+#: ../data/ui/PasaffeWindow.ui.h:16
+msgid "Display Secrets"
+msgstr "Afficher les secrets"
+
+#: ../data/ui/PasaffeWindow.ui.h:17
+msgid "Open URL"
+msgstr "Ouvrir l'URL"
+
+#: ../data/ui/PasaffeWindow.ui.h:18
+msgid "Database Information"
+msgstr "Informations sur la base de données"
+
+#: ../data/ui/PasaffeWindow.ui.h:19
+msgid "_Help"
+msgstr "_Aide"
+
+#: ../data/ui/PasaffeWindow.ui.h:20
+msgid "Contents"
+msgstr "Contenu"
+
+#: ../data/ui/PasaffeWindow.ui.h:21
+msgid "Save changes"
+msgstr "Sauvegarder les changements"
+
+#: ../data/ui/PasaffeWindow.ui.h:22
+msgid "Save"
+msgstr "Sauvegarder"
+
+#: ../data/ui/PasaffeWindow.ui.h:23
+msgid "Add a new entry"
+msgstr "Ajouter une nouvelle entrée"
+
+#: ../data/ui/PasaffeWindow.ui.h:24
+msgid "Add"
+msgstr "Ajouter"
+
 #: ../data/ui/PasaffeWindow.ui.h:25
+msgid "Add a new folder"
+msgstr "Ajouter un nouveau dossier"
+
+#: ../data/ui/PasaffeWindow.ui.h:26
 msgid "Edit the selected entry"
 msgstr "Éditer l'entrée sélectionnée"
 
-#: ../data/ui/PasaffeWindow.ui.h:26
+#: ../data/ui/PasaffeWindow.ui.h:27
 msgid "Edit"
 msgstr "Éditer"
 
-#: ../data/ui/PasaffeWindow.ui.h:27
+#: ../data/ui/PasaffeWindow.ui.h:28
 msgid "Delete the selected entry"
 msgstr "Supprimer l'entrée sélectionnée"
 
-#: ../data/ui/PasaffeWindow.ui.h:28
+#: ../data/ui/PasaffeWindow.ui.h:29
 msgid "Remove"
 msgstr "Supprimer"
 
-#: ../data/ui/PasaffeWindow.ui.h:29
+#: ../data/ui/PasaffeWindow.ui.h:30
 msgid "Open the URL"
 msgstr "Ouvrir l'URL"
 
-#: ../data/ui/PasaffeWindow.ui.h:30
+#: ../data/ui/PasaffeWindow.ui.h:31
 msgid "Copy the username"
 msgstr "Copier le nom d'utilisateur"
 
-#: ../data/ui/PasaffeWindow.ui.h:31
+#: ../data/ui/PasaffeWindow.ui.h:32
 msgid "Copy the password"
 msgstr "Copier le mot de passe"
 
-#: ../data/ui/PasaffeWindow.ui.h:32
+#: ../data/ui/PasaffeWindow.ui.h:33
 msgid "Find entries"
 msgstr "Rechercher"
 
-#: ../data/ui/PasaffeWindow.ui.h:33
+#: ../data/ui/PasaffeWindow.ui.h:34
 msgid "Display secrets"
 msgstr "Afficher les secrets"
 
-#: ../data/ui/PasaffeWindow.ui.h:34
+#: ../data/ui/PasaffeWindow.ui.h:35
 msgid "icon"
 msgstr "icône"
 
-#: ../data/ui/PasaffeWindow.ui.h:35
+#: ../data/ui/PasaffeWindow.ui.h:36
 msgid "name"
 msgstr "nom"
 
-#: ../data/ui/PasaffeWindow.ui.h:36
+#: ../data/ui/PasaffeWindow.ui.h:37
 msgid "Close find"
 msgstr "Fermer"
 
-#: ../data/ui/PasaffeWindow.ui.h:37
+#: ../data/ui/PasaffeWindow.ui.h:38
 msgid "Previous result"
 msgstr "Résultat précédent"
 
-#: ../data/ui/PasaffeWindow.ui.h:38
+#: ../data/ui/PasaffeWindow.ui.h:39
 msgid "Next result"
 msgstr "Résultat suivant"
 
