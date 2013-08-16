@@ -6,6 +6,7 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
 
  * Bug fixes:
+   - Set icon column sizing to automatic so tree doesn't move around
 
 0.28 (2013-08-15)
 
