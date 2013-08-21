@@ -6,6 +6,11 @@
       <summary>Pasaffe database location</summary>
       <description>Full path to the location where Pasaffe stores the password database.</description>
     </key>
+    <key name="tree-expansion" type="s">
+      <default>"saved"</default>
+      <summary>Pasaffe folder expansion preference</summary>
+      <description>How Pasaffe expands the folder tree when starting.</description>
+    </key>
     <key name="idle-timeout" type="i">
       <default>5</default>
       <summary>Timeout before Pasaffe is locked</summary>

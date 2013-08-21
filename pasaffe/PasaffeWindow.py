@@ -283,8 +283,12 @@ class PasaffeWindow(Window):
 
         expansion_status = self.passfile.get_tree_status()
 
-        if expansion_status == None:
+        config = self.settings.get_string('tree-expansion')
+        if config == "expanded" or expansion_status == None:
             self.ui.treeview1.expand_all()
+            return
+        elif config == "collapsed":
+            self.ui.treeview1.collapse_all()
             return
 
         for folder in self.passfile.get_all_folders():
