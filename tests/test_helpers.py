@@ -22,6 +22,7 @@ import time
 sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__), "..")))
 
 from pasaffe_lib.helpers import folder_list_to_field
+from pasaffe_lib.helpers import field_to_folder_list
 from pasaffe_lib.helpers import folder_list_to_path
 from pasaffe_lib.helpers import folder_path_to_list
 from pasaffe_lib.helpers import PathEntry
@@ -45,6 +46,24 @@ class TestHelpers(unittest.TestCase):
 
         for (folder, field) in folder_list:
             self.assertEqual(folder_list_to_field(folder), field)
+
+    def test_field_to_folder_list(self):
+
+        folder_list = [ [ "", [ ] ],
+                        [ "foldera", [ "foldera" ] ],
+                        [ "folder\.a", [ "folder.a" ] ],
+                        [ "foldera\.", [ "foldera." ] ],
+                        [ "\.foldera", [ ".foldera" ] ],
+                        [ "foldera\..folderb\.", [ "foldera.", "folderb." ] ],
+                        [ "foldera.folderb", [ "foldera", "folderb" ] ],
+                        [ "folder\.a.folderb", [ "folder.a", "folderb" ] ],
+                        [ "foldera.folder\.b", [ "foldera", "folder.b" ] ],
+                        [ "folder\.a.folder\.b", [ "folder.a", "folder.b" ] ],
+                        [ "folder\.a.folder\.b.folder\.c", [ "folder.a", "folder.b", "folder.c" ] ],
+                      ]
+
+        for (field, folder) in folder_list:
+            self.assertEqual(field_to_folder_list(field), folder)
 
     def test_folder_list_to_path(self):
 

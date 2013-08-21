@@ -432,5 +432,33 @@ class TestReadDB(unittest.TestCase):
         self.assertTrue(uuid_hex_D in self.passfile.records)
         self.assertTrue(self.passfile.get_empty_folders() == [ [ 'secondA' ] ])
 
+    def test_get_tree_status(self):
+
+        self.passfile.new_db("test")
+        self.assertEqual(self.passfile.get_tree_status(), None)
+
+        self.passfile.header[6] = "Pasaffe test"
+        self.assertEqual(self.passfile.get_tree_status(), None)
+
+        self.passfile.header[3] = "101010"
+        self.assertEqual(self.passfile.get_tree_status(), "101010")
+
+        self.passfile.header[6] = "AnotherApp v1"
+        self.assertEqual(self.passfile.get_tree_status(), None)
+
+    def test_set_tree_status(self):
+
+        self.passfile.new_db("test")
+        self.passfile.header[6] = "Pasaffe test"
+        self.assertEqual(self.passfile.get_tree_status(), None)
+
+        self.passfile.set_tree_status("101010")
+        self.assertEqual(self.passfile.get_tree_status(), "101010")
+        self.assertTrue(3 in self.passfile.header)
+
+        self.passfile.set_tree_status(None)
+        self.assertEqual(self.passfile.get_tree_status(), None)
+        self.assertFalse(3 in self.passfile.header)
+
 if __name__ == '__main__':
     unittest.main()
