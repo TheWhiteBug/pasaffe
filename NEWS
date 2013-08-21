@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.29 (UNRELEASED)
 
  * Enhancements:
+   - Implemented folder expansion saving to database
 
  * Bug fixes:
    - Set icon column sizing to automatic so tree doesn't move around

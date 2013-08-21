@@ -214,6 +214,22 @@ class PassSafeFile:
         else:
             return None
 
+    def get_tree_status(self):
+        '''Returns the tree display status'''
+        # Tree display status is implementation specific
+        if self.header[6].startswith("Pasaffe") and 3 in self.header:
+            return self.header.get(3)
+        else:
+            return None
+
+    def set_tree_status(self, status):
+        '''Sets the tree display status'''
+        if status == None:
+            if 3 in self.header:
+                del self.header[3]
+        else:
+            self.header[3] = status
+
     def get_folder_list(self, uuid):
         '''Returns a list of folders an entry belongs to'''
         if uuid not in self.records:

@@ -222,6 +222,33 @@ def folder_list_to_field(folder_list):
         field += folder.replace(".", "\\.")
     return field
 
+def field_to_folder_list(field):
+    '''Converts a folder field to a folder list'''
+
+    # We need to split into folders using the "." character, but not
+    # if it is escaped with a \
+    folders = []
+
+    if field == "":
+        return folders
+
+    index = 0
+    location = 0
+    while index < len(field):
+        location = field.find(".", location + 1)
+
+        if location == -1:
+            break
+
+        if field[location - 1] == "\\":
+            continue
+
+        folders.append(field[index:location].replace("\\",''))
+        index = location + 1
+
+    folders.append(field[index:len(field)].replace('\\',''))
+    return folders
+
 def folder_list_to_path(folders, index=None):
     '''Converts a folder list to a folder path'''
     if len(folders) == 0 or folders == None:

@@ -1,7 +1,6 @@
 List of stuff to do:
 
 - Improve folder support
-  - Implement folder expansion state saving in database
   - Make search work with folder names
   - Make import scripts work with folders
 - Improve icon

@@ -42,6 +42,7 @@ from pasaffe.PreferencesPasaffeDialog import PreferencesPasaffeDialog
 from pasaffe_lib.readdb import PassSafeFile
 from pasaffe_lib.helpersgui import get_builder
 from pasaffe_lib.helpers import folder_list_to_field
+from pasaffe_lib.helpers import field_to_folder_list
 from pasaffe_lib.helpers import folder_list_to_path
 from pasaffe_lib.helpers import folder_path_to_list
 from pasaffe_lib.helpers import PathEntry
@@ -90,6 +91,7 @@ class PasaffeWindow(Window):
         self.find_results = []
         self.find_results_index = None
         self.find_value = ""
+        self.folder_state = {}
 
         if database == None:
             self.database = self.settings.get_string('database-path')
@@ -113,6 +115,7 @@ class PasaffeWindow(Window):
             self.set_window_size()
             self.set_show_password_status()
             self.display_entries()
+            self.set_initial_tree_expansion()
             self.display_welcome()
 
         # Set inactivity timer
@@ -245,7 +248,7 @@ class PasaffeWindow(Window):
             parent = self.create_folders(record.path)
             if record.name != "":
                 self.ui.liststore1.append(parent, ["gtk-file", record.name, record.uuid])
-        self.ui.treeview1.expand_all()
+        self.set_tree_expansion()
         self.set_menu_for_entry(False)
 
         # enable drag and drop
@@ -260,6 +263,63 @@ class PasaffeWindow(Window):
                                                  Gdk.DragAction.DEFAULT)
         self.ui.treeview1.connect("drag_data_received",
                                   self.drag_data_received_data)
+
+    def set_tree_expansion(self):
+        for folder in self.folder_state:
+            folder_iter = self.search_folder(field_to_folder_list(folder))
+            if folder_iter != None:
+                path = self.ui.treeview1.get_model().get_path(folder_iter)
+                if self.folder_state[folder] == True:
+                    self.ui.treeview1.expand_row(path, False)
+                else:
+                    self.ui.treeview1.collapse_row(path)
+
+    def set_folder_state(self, folder, state):
+        folder_field = folder_list_to_field(folder)
+        self.folder_state[folder_field] = state
+
+    def set_initial_tree_expansion(self):
+        entries = []
+
+        expansion_status = self.passfile.get_tree_status()
+
+        if expansion_status == None:
+            self.ui.treeview1.expand_all()
+            return
+
+        for folder in self.passfile.get_all_folders():
+            entry = PathEntry("", "", folder)
+            entries.append(entry)
+
+        index = 0
+        for record in sorted(entries):
+            if index + 1 > len(expansion_status):
+                return
+            folder_iter = self.search_folder(record.path)
+            if folder_iter != None:
+                path = self.ui.treeview1.get_model().get_path(folder_iter)
+                if expansion_status[index] == "1":
+                    self.ui.treeview1.expand_row(path, False)
+            index += 1
+
+    def save_tree_expansion(self):
+        entries = []
+        expansion_status=""
+
+        for folder in self.passfile.get_all_folders():
+            entry = PathEntry("", "", folder)
+            entries.append(entry)
+
+        for record in sorted(entries):
+            if self.folder_state.get(folder_list_to_field(record.path), False) == True:
+                expansion_status += "1"
+            else:
+                expansion_status += "0"
+
+        if expansion_status == "":
+            expansion_status = None
+
+        self.passfile.set_tree_status(expansion_status)
 
     def drag_data_received_data(self, treeview, context, x, y, selection,
                                 info, etime):
@@ -574,8 +634,8 @@ class PasaffeWindow(Window):
 
         new_iter = self.ui.liststore1.append(treeiter, ['gtk-directory', 'New Folder',"pasaffe_treenode.New Folder"])
         if treeiter != None:
-            # FIXME: only expand current selected folder
-            self.ui.treeview1.expand_all()
+            path = self.ui.treeview1.get_model().get_path(treeiter)
+            self.ui.treeview1.expand_row(path, False)
 
         self.ui.treeview1.get_selection().select_iter(new_iter)
         self.display_folder(self.ui.liststore1.get_value(new_iter, 1))
@@ -939,8 +999,19 @@ class PasaffeWindow(Window):
         else:
             self.edit_entry(entry_uuid)
 
+    def on_treeview1_row_expanded(self, treeview, treeiter, _path):
+        treemodel = treeview.get_model()
+        folder = self.get_folders_from_iter(treemodel, treeiter)
+        self.set_folder_state(folder, True)
+
+    def on_treeview1_row_collapsed(self, treeview, treeiter, _path):
+        treemodel = treeview.get_model()
+        folder = self.get_folders_from_iter(treemodel, treeiter)
+        self.set_folder_state(folder, False)
+
     def save_db(self):
         if self.get_save_status() == True:
+            self.save_tree_expansion()
             self.passfile.writefile(self.database, backup=True)
             self.set_save_status(False)
 
