@@ -149,6 +149,16 @@ class PasaffeWindow(Window):
         self.state.set_int('entry-size-width', width)
         self.state.set_int('entry-size-height', height)
 
+    def set_folder_window_size(self):
+        width = self.state.get_int('folder-size-width')
+        height = self.state.get_int('folder-size-height')
+        self.editfolder_dialog.ui.edit_folder_dialog.resize(width, height)
+
+    def save_folder_window_size(self):
+        (width, height) = self.editfolder_dialog.ui.edit_folder_dialog.get_size()
+        self.state.set_int('folder-size-width', width)
+        self.state.set_int('folder-size-height', height)
+
     def save_warning(self):
         if self.get_save_status() == True:
             savechanges_dialog = self.SaveChangesDialog()
@@ -858,6 +868,7 @@ class PasaffeWindow(Window):
             parent_folder = self.get_folders_from_iter(treemodel, treeiter)[:-1]
             self.populate_folders(liststore, combobox, parent_folder)
 
+            self.set_folder_window_size()
             response = self.editfolder_dialog.run()
             if response == Gtk.ResponseType.OK:
                 new_name = self.editfolder_dialog.ui.folder_name_entry.get_text()
@@ -889,6 +900,7 @@ class PasaffeWindow(Window):
                     if self.settings.get_boolean('auto-save') == True:
                         self.save_db()
 
+            self.save_folder_window_size()
             self.editfolder_dialog.destroy()
             self.editfolder_dialog = None
 
