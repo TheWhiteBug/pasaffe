@@ -5,6 +5,7 @@ For a detailed list of changes, please see ChangeLog.
 
  * Enhancements:
    - Implemented folder expansion saving to database
+   - Folder window size is now saved
 
  * Bug fixes:
    - Set icon column sizing to automatic so tree doesn't move around
