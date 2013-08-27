@@ -331,6 +331,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="model">liststore1</property>
+                        <property name="id_column">1</property>
                         <child>
                           <object class="GtkCellRendererText" id="cellrenderertext2"/>
                           <attributes>

@@ -53,5 +53,8 @@ class PreferencesPasaffeDialog(PreferencesDialog):
         widget = self.builder.get_object('password-length')
         settings.bind("password-length", widget, "value",
                       Gio.SettingsBindFlags.DEFAULT)
+        widget = self.builder.get_object('tree-expansion')
+        settings.bind("tree-expansion", widget, "active-id",
+                      Gio.SettingsBindFlags.DEFAULT)
 
         # Code for other initialization actions should be added here.
