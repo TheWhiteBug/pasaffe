@@ -233,7 +233,7 @@
                   <object class="GtkHBox" id="hbox2">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="homogeneous">True</property>
+                    <property name="homogeneous">False</property>
                     <child>
                       <object class="GtkLabel" id="password-length-label1">
                         <property name="visible">True</property>
@@ -241,8 +241,8 @@
                         <property name="label" translatable="yes">Passwords are</property>
                       </object>
                       <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
                         <property name="position">0</property>
                       </packing>
                     </child>
@@ -313,7 +313,7 @@
                   <object class="GtkHBox" id="hbox3">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="homogeneous">True</property>
+                    <property name="homogeneous">False</property>
                     <child>
                       <object class="GtkLabel" id="tree-label1">
                         <property name="visible">True</property>
@@ -321,8 +321,8 @@
                         <property name="label" translatable="yes">Folders</property>
                       </object>
                       <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
                         <property name="position">0</property>
                       </packing>
                     </child>
@@ -340,8 +340,8 @@
                         </child>
                       </object>
                       <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
                         <property name="padding">5</property>
                         <property name="position">1</property>
                       </packing>
