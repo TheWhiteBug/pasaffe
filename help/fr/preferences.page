@@ -34,6 +34,7 @@ soient cachées par défaut aussi.</p></item>
 de <app>Pasaffe</app> verrouillera la base de données et exigera de nouveau le mot de passe
 principal après un certain nombre de minutes. Le nombre de minutes peut être ajusté.</p></item>
 <item><p><em>Les mots de passe ont (12) caractères :</em> Ceci permets d'ajuster la longueur des mots de passe aléatoires générés par le bouton.</p></item>
+<item><p><em>Les dossiers :</em> Lorsque Pasaffe démarre, les dossiers peuvent être ouverts, fermés, ou dans l'état du dernier sauvegarde.</p></item>
 </list>
 
 </page>
