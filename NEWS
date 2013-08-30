@@ -5,6 +5,7 @@ For a detailed list of changes, please see ChangeLog.
 
  * Enhancements:
    - Implemented folder expansion saving to database
+   - Implemented folder expansion preferences
    - Folder window size is now saved
 
  * Bug fixes:
