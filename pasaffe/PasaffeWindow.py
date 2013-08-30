@@ -615,6 +615,10 @@ class PasaffeWindow(Window):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         folder = self.get_folders_from_iter(treemodel, treeiter)
         if folder != None:
+            # expand folder
+            path = self.ui.treeview1.get_model().get_path(treeiter)
+            self.ui.treeview1.expand_row(path, False)
+
             self.passfile.records[uuid_hex][2] = folder_list_to_field(folder)
 
         response = self.edit_entry(uuid_hex)
