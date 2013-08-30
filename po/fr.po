@@ -186,15 +186,15 @@ msgstr "Ancien mot de passe invalide ! Veuillez essayer de nouveau."
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:1
 msgid "start expanded"
-msgstr ""
+msgstr "sont ouverts au démarrage"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:2
 msgid "start collapsed"
-msgstr ""
+msgstr "sont fermés au démarrage"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:3
 msgid "are remembered from last save"
-msgstr ""
+msgstr "sont dans l'état du dernier sauvegarde"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:4
 msgid "Pasaffe Preferences"
@@ -242,11 +242,11 @@ msgstr "<b>Générateur de mot de passe</b>"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:15
 msgid "Folders"
-msgstr ""
+msgstr "Les dossiers"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:16
 msgid "<b>Folder Preferences</b>"
-msgstr ""
+msgstr "Options des dossiers"
 
 #: ../data/ui/PasaffeWindow.ui.h:1
 msgid "<big><b>The password database is currently locked.</b></big>"
