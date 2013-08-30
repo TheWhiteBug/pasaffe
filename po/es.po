@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-08-15 16:45-0400\n"
+"POT-Creation-Date: 2013-08-28 10:31-0700\n"
 "PO-Revision-Date: 2012-10-06 05:11+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-29 05:16+0000\n"
-"X-Generator: Launchpad (build 16738)\n"
+"X-Launchpad-Export-Date: 2013-08-30 05:19+0000\n"
+"X-Generator: Launchpad (build 16750)\n"
 
 #: ../data/ui/EditFolderDialog.ui.h:1
 msgid "<big><b>Edit folder</b></big>"
@@ -53,16 +53,16 @@ msgstr "usar ARCHIVO de base de datos"
 msgid "set database as default"
 msgstr "establecer base de datos como predeterminada"
 
-#: ../pasaffe/PasaffeWindow.py:414
+#: ../pasaffe/PasaffeWindow.py:488
 msgid "Secrets are currently hidden."
 msgstr "Los secretos están ocultos actualmente."
 
-#: ../pasaffe/PasaffeWindow.py:418
+#: ../pasaffe/PasaffeWindow.py:492
 #, python-format
 msgid "Username: %s\n"
 msgstr "Nombre de usuario: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:420
+#: ../pasaffe/PasaffeWindow.py:494
 #, python-format
 msgid ""
 "Password: %s\n"
@@ -71,7 +71,7 @@ msgstr ""
 "Contraseña: %s\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:422
+#: ../pasaffe/PasaffeWindow.py:496
 msgid ""
 "Password: *****\n"
 "\n"
@@ -79,21 +79,21 @@ msgstr ""
 "Contraseña: *****\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:427
+#: ../pasaffe/PasaffeWindow.py:501
 #, python-format
 msgid "Last updated: %s\n"
 msgstr "Última actualización: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:432
+#: ../pasaffe/PasaffeWindow.py:506
 #, python-format
 msgid "Password updated: %s\n"
 msgstr "Contraseña actualizada: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:436
+#: ../pasaffe/PasaffeWindow.py:510
 msgid "Welcome to Pasaffe!"
 msgstr "Bienvenido/a a Passaffe."
 
-#: ../pasaffe/PasaffeWindow.py:437
+#: ../pasaffe/PasaffeWindow.py:511
 msgid ""
 "Pasaffe is an easy to use\n"
 "password manager for Gnome."
@@ -101,11 +101,11 @@ msgstr ""
 "Pasaffe es un gestor de contraseñas\n"
 "fácil de usar para Gnome."
 
-#: ../pasaffe/PasaffeWindow.py:441
+#: ../pasaffe/PasaffeWindow.py:515
 msgid "This is a folder."
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:623
+#: ../pasaffe/PasaffeWindow.py:697
 #, python-format
 msgid ""
 "<big><b>Are you sure you wish to remove \"%s\"?</b></big>\n"
@@ -114,22 +114,22 @@ msgstr ""
 "<big><b>¿Está seguro de que quiere quitar «%s»?</b></big>\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:624
+#: ../pasaffe/PasaffeWindow.py:698
 msgid "Contents of the entry will be lost.\n"
 msgstr "Se perderá todo el contenido de la entrada.\n"
 
-#: ../pasaffe/PasaffeWindow.py:639
+#: ../pasaffe/PasaffeWindow.py:713
 #, python-format
 msgid ""
 "<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
 "\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:640
+#: ../pasaffe/PasaffeWindow.py:714
 msgid "All entries in this folder will be lost.\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:1057
+#: ../pasaffe/PasaffeWindow.py:1144
 msgid ""
 "<big><b>Database Information</b></big>\n"
 "\n"
@@ -137,91 +137,111 @@ msgstr ""
 "<big><b>Información de la base de datos</b></big>\n"
 "\n"
 
-#: ../pasaffe/PasaffeWindow.py:1058
+#: ../pasaffe/PasaffeWindow.py:1145
 #, python-format
 msgid "Number of entries: %s\n"
 msgstr "Número de entradas: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:1059
+#: ../pasaffe/PasaffeWindow.py:1146
 #, python-format
 msgid "Database version: %s\n"
 msgstr "Versión de la base de datos: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:1061
+#: ../pasaffe/PasaffeWindow.py:1148
 #, python-format
 msgid "Last saved by: %s\n"
 msgstr "Guardado por última vez por: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:1063
+#: ../pasaffe/PasaffeWindow.py:1150
 #, python-format
 msgid "Last saved on host: %s\n"
 msgstr "Guardado por última vez en el equipo: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:1064
+#: ../pasaffe/PasaffeWindow.py:1151
 #, python-format
 msgid "Last save date: %s\n"
 msgstr "Guardado por última vez el: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:1066
+#: ../pasaffe/PasaffeWindow.py:1153
 #, python-format
 msgid "Application used: %s\n"
 msgstr "Aplicación usada: %s\n"
 
-#: ../pasaffe/PasaffeWindow.py:1188 ../data/ui/NewDatabaseDialog.ui.h:5
+#: ../pasaffe/PasaffeWindow.py:1275 ../data/ui/NewDatabaseDialog.ui.h:5
 msgid "Passwords don't match! Please try again."
 msgstr "Las contraseñas no coinciden, inténtelo de nuevo."
 
-#: ../pasaffe/PasaffeWindow.py:1192
+#: ../pasaffe/PasaffeWindow.py:1279
 msgid "New password cannot be blank! Please try again."
 msgstr "La contraseña nueva no puede estar vacía, inténtelo de nuevo."
 
-#: ../pasaffe/PasaffeWindow.py:1196
+#: ../pasaffe/PasaffeWindow.py:1283
 msgid "Old password is invalid! Please try again."
 msgstr "La contraseña anterior no es válida, inténtelo de nuevo."
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:1
+msgid "start expanded"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:2
+msgid "start collapsed"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:3
+msgid "are remembered from last save"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:4
 msgid "Pasaffe Preferences"
 msgstr "Preferencias de Pasaffe"
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:2
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:5
 msgid "Automatically save changes"
 msgstr "Guardar automáticamente los cambios"
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:3
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:6
 msgid "Display secrets by default"
 msgstr "Mostrar secretos de manera predeterminada"
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:4
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:7
 msgid "Only passwords are secret"
 msgstr "Solo las contraseñas son secretas"
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:5
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:8
 msgid "<b>Secrets</b>"
 msgstr "<b>Secretos</b>"
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:6
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:9
 msgid "Lock database after"
 msgstr "Bloquear la base de datos después de"
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:7
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:10
 msgid "minutes"
 msgstr "minutos"
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:8
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:11
 msgid "<b>Lock</b>"
 msgstr "<b>Bloquear</b>"
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:9
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:12
 msgid "Passwords are"
 msgstr "Las contraseñas son de"
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:10
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:13
 msgid "characters long"
 msgstr "caracteres"
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:11
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:14
 msgid "<b>Password Generator</b>"
 msgstr "<b>Generador de contraseñas</b>"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:15
+msgid "Folders"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:16
+msgid "<b>Folder Preferences</b>"
+msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:1
 msgid "<big><b>The password database is currently locked.</b></big>"
