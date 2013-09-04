@@ -313,6 +313,9 @@ class PasaffeWindow(Window):
             if folder_iter != None:
                 path = self.ui.treeview1.get_model().get_path(folder_iter)
                 if expansion_status[index] == "1":
+                    # FIXME: For some reason, GtkTreeView will not expand
+                    # a folder inside a folder that is collapsed. Need to
+                    # find a workaround.
                     self.ui.treeview1.expand_row(path, False)
             index += 1
 

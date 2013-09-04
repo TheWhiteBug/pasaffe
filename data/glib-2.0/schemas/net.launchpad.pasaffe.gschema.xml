@@ -7,7 +7,7 @@
       <description>Full path to the location where Pasaffe stores the password database.</description>
     </key>
     <key name="tree-expansion" type="s">
-      <default>"saved"</default>
+      <default>"collapsed"</default>
       <summary>Pasaffe folder expansion preference</summary>
       <description>How Pasaffe expands the folder tree when starting.</description>
     </key>
