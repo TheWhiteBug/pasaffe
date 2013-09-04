@@ -1,7 +1,7 @@
 This file summarizes the major and interesting changes for each release.
 For a detailed list of changes, please see ChangeLog.
 
-0.29 (UNRELEASED)
+0.29 (2013-09-04)
 
  * Enhancements:
    - Implemented folder expansion saving to database
