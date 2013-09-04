@@ -704,7 +704,10 @@ class PasaffeWindow(Window):
             information = _('<big><b>Are you sure you wish to remove "%s"?</b></big>\n\n') % entry_name
             information += _('Contents of the entry will be lost.\n')
 
-            info_dialog = Gtk.MessageDialog(parent=self, flags=Gtk.DialogFlags.MODAL, type=Gtk.MessageType.QUESTION, buttons=Gtk.ButtonsType.YES_NO)
+            info_dialog = Gtk.MessageDialog(self,
+                                            Gtk.DialogFlags.MODAL,
+                                            Gtk.MessageType.QUESTION,
+                                            Gtk.ButtonsType.YES_NO)
             info_dialog.set_markup(information)
             result = info_dialog.run()
             info_dialog.destroy()
@@ -720,7 +723,10 @@ class PasaffeWindow(Window):
             information = _('<big><b>Are you sure you wish to remove folder "%s"?</b></big>\n\n') % folder_name
             information += _('All entries in this folder will be lost.\n')
 
-            info_dialog = Gtk.MessageDialog(parent=self, flags=Gtk.DialogFlags.MODAL, type=Gtk.MessageType.QUESTION, buttons=Gtk.ButtonsType.YES_NO)
+            info_dialog = Gtk.MessageDialog(self,
+                                            Gtk.DialogFlags.MODAL,
+                                            Gtk.MessageType.QUESTION,
+                                            Gtk.ButtonsType.YES_NO)
             info_dialog.set_markup(information)
             result = info_dialog.run()
             info_dialog.destroy()
@@ -1159,7 +1165,10 @@ class PasaffeWindow(Window):
         if self.passfile.get_saved_application():
             information += _('Application used: %s\n') % self.passfile.get_saved_application()
 
-        info_dialog = Gtk.MessageDialog(type=Gtk.MessageType.INFO, buttons=Gtk.ButtonsType.OK)
+        info_dialog = Gtk.MessageDialog(self,
+                                        Gtk.DialogFlags.MODAL,
+                                        Gtk.MessageType.INFO,
+                                        Gtk.ButtonsType.OK)
         info_dialog.set_markup(information)
         info_dialog.run()
         info_dialog.destroy()
