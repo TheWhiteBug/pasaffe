@@ -79,6 +79,7 @@ class InstallAndUpdateDataDirectory(DistUtilsExtra.auto.install_auto):
         # needed a ghelp: URL
         if DistUtilsExtra.auto.__version__ < '2.38':
             values['__help_prefix__'] = 'ghelp:'
+            values['__help_separator__'] = '#'
 
         previous_values = update_config(values)
         update_desktop_file(self.prefix + '/share/pasaffe/')

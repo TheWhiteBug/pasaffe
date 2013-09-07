@@ -31,6 +31,7 @@ __pasaffe_data_directory__ = '../data/'
 __license__ = 'GPL-3'
 __version__ = '0'
 __help_prefix__ = 'help:'
+__help_separator__ = '/'
 
 import os
 
@@ -78,3 +79,7 @@ def get_version():
 
 def get_help_prefix():
     return __help_prefix__
+
+
+def get_help_separator():
+    return __help_separator__
