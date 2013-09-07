@@ -202,7 +202,7 @@ def get_help_uri(page=None):
     if page is not None:
         help_uri = '%s%s%s' % (help_uri, separator, page)
 
-    return '%s%s' (prefix, help_uri)
+    return '%s%s' % (prefix, help_uri)
 
 
 def alias(alternative_function_name):
