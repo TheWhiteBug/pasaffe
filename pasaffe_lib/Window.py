@@ -66,7 +66,7 @@ class Window(Gtk.Window):
         self.settings.connect('changed', self.on_preferences_changed)
 
     def on_mnu_contents_activate(self, widget, data=None):
-        show_uri(self, "ghelp:%s" % get_help_uri())
+        show_uri(self, get_help_uri())
 
     def on_mnu_about_activate(self, widget, data=None):
         """Display the about box for pasaffe."""

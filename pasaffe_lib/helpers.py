@@ -19,6 +19,7 @@ import logging
 import os
 
 from . pasaffeconfig import get_data_file
+from . pasaffeconfig import get_help_prefix
 
 import gettext
 from gettext import gettext as _
@@ -187,16 +188,18 @@ def get_help_uri(page=None):
     # help_uri from source tree - default language
     here = os.path.dirname(__file__)
     help_uri = os.path.abspath(os.path.join(here, '..', 'help', 'C'))
+    prefix = 'ghelp:'
 
     if not os.path.exists(help_uri):
         # installed so use gnome help tree - user's language
         help_uri = 'pasaffe'
+        prefix = get_help_prefix()
 
     # unspecified page is the index.page
     if page is not None:
         help_uri = '%s#%s' % (help_uri, page)
 
-    return help_uri
+    return prefix + help_uri
 
 
 def alias(alternative_function_name):

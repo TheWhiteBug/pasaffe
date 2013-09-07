@@ -74,6 +74,12 @@ class InstallAndUpdateDataDirectory(DistUtilsExtra.auto.install_auto):
     def run(self):
         values = {'__pasaffe_data_directory__': "'%s'" % (self.prefix + '/share/pasaffe/'),
                   '__version__': "'%s'" % self.distribution.get_version()}
+
+        # Older DistUtilsExtra put help files in /usr/share/gnome/help and
+        # needed a ghelp: URL
+        if DistUtilsExtra.auto.__version__ < '2.38':
+            values['__help_prefix__'] = 'ghelp:'
+
         previous_values = update_config(values)
         update_desktop_file(self.prefix + '/share/pasaffe/')
         DistUtilsExtra.auto.install_auto.run(self)

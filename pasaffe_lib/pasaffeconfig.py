@@ -30,6 +30,7 @@ __all__ = [
 __pasaffe_data_directory__ = '../data/'
 __license__ = 'GPL-3'
 __version__ = '0'
+__help_prefix__ = 'help:'
 
 import os
 
@@ -73,3 +74,7 @@ def get_data_path():
 
 def get_version():
     return __version__
+
+
+def get_help_prefix():
+    return __help_prefix__

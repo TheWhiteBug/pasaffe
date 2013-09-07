@@ -6,6 +6,7 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
 
  * Bug fixes:
+   - Fix help file location when using python-distutils-extra >= 2.38
 
 0.29 (2013-09-04)
 
