@@ -407,10 +407,20 @@ class PasaffeWindow(Window):
 
     def goto_uuid(self, uuid):
         item = self.search_uuid(uuid)
+
         if (item != None):
+            treemodel = self.ui.treeview1.get_model()
+
+            # See if we need to expand some folders
+            parent = treemodel.iter_parent(item)
+            while parent != None:
+                path = treemodel.get_path(parent)
+                self.ui.treeview1.expand_row(path, False)
+                parent = treemodel.iter_parent(parent)
+
             self.ui.treeview1.get_selection().select_iter(item)
             self.display_data(uuid)
-            path = self.ui.treeview1.get_model().get_path(item)
+            path = treemodel.get_path(item)
             self.ui.treeview1.scroll_to_cell(path)
             self.set_menu_for_entry(True)
 
@@ -1232,9 +1242,10 @@ class PasaffeWindow(Window):
                         break
 
             if found == True:
-                results.append([self.passfile.records[uuid][3], uuid])
+                entry = PathEntry(self.passfile.records[uuid][3], uuid, self.passfile.get_folder_list(uuid))
+                results.append(entry)
 
-        self.find_results = sorted(results, key=lambda results: results[0].lower())
+        self.find_results = sorted(results)
         self.find_results_index = None
         self.find_value = find
 
@@ -1256,7 +1267,7 @@ class PasaffeWindow(Window):
                 self.find_results_index -= 1
 
         result = self.find_results[self.find_results_index]
-        uuid_hex = result[1]
+        uuid_hex = result.uuid
 
         self.goto_uuid(uuid_hex)
 

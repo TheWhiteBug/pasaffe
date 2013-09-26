@@ -6,6 +6,7 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
 
  * Bug fixes:
+   - Allow search to work on entries in collapsed folders
 
 0.31 (2013-09-26)
 
