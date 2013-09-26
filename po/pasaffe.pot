@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-08 11:47-0400\n"
+"POT-Creation-Date: 2013-09-26 15:32-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,73 +99,73 @@ msgstr ""
 msgid "This is a folder."
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:704
+#: ../pasaffe/PasaffeWindow.py:708
 #, python-format
 msgid ""
 "<big><b>Are you sure you wish to remove \"%s\"?</b></big>\n"
 "\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:705
+#: ../pasaffe/PasaffeWindow.py:709
 msgid "Contents of the entry will be lost.\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:723
+#: ../pasaffe/PasaffeWindow.py:727
 #, python-format
 msgid ""
 "<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
 "\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:724
+#: ../pasaffe/PasaffeWindow.py:728
 msgid "All entries in this folder will be lost.\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:1157
+#: ../pasaffe/PasaffeWindow.py:1161
 msgid ""
 "<big><b>Database Information</b></big>\n"
 "\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:1158
+#: ../pasaffe/PasaffeWindow.py:1162
 #, python-format
 msgid "Number of entries: %s\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:1159
+#: ../pasaffe/PasaffeWindow.py:1163
 #, python-format
 msgid "Database version: %s\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:1161
+#: ../pasaffe/PasaffeWindow.py:1165
 #, python-format
 msgid "Last saved by: %s\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:1163
+#: ../pasaffe/PasaffeWindow.py:1167
 #, python-format
 msgid "Last saved on host: %s\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:1164
+#: ../pasaffe/PasaffeWindow.py:1168
 #, python-format
 msgid "Last save date: %s\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:1166
+#: ../pasaffe/PasaffeWindow.py:1170
 #, python-format
 msgid "Application used: %s\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:1291 ../data/ui/NewDatabaseDialog.ui.h:5
+#: ../pasaffe/PasaffeWindow.py:1295 ../data/ui/NewDatabaseDialog.ui.h:5
 msgid "Passwords don't match! Please try again."
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:1295
+#: ../pasaffe/PasaffeWindow.py:1299
 msgid "New password cannot be blank! Please try again."
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:1299
+#: ../pasaffe/PasaffeWindow.py:1303
 msgid "Old password is invalid! Please try again."
 msgstr ""
 
