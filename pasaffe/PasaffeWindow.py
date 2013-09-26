@@ -616,7 +616,11 @@ class PasaffeWindow(Window):
         uuid_hex = self.passfile.new_entry()
 
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
-        folder = self.get_folders_from_iter(treemodel, treeiter)
+
+        folder = None
+        if treeiter != None:
+            folder = self.get_folders_from_iter(treemodel, treeiter)
+
         if folder != None:
             # expand folder
             path = self.ui.treeview1.get_model().get_path(treeiter)
