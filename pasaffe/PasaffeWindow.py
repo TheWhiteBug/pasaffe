@@ -1220,6 +1220,10 @@ class PasaffeWindow(Window):
 
         find = self.ui.find_entry.get_text()
 
+        # Don't crash with stupid "bogus escape (end of line)" error
+        while find[-1:] == '\\':
+            find = find[:-1]
+
         if find == "":
             self.find_results = []
             self.find_results_index = None
