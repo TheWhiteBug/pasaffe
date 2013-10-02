@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-26 16:55-0400\n"
+"POT-Creation-Date: 2013-10-02 16:49-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -157,15 +157,15 @@ msgstr ""
 msgid "Application used: %s\n"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:1306 ../data/ui/NewDatabaseDialog.ui.h:5
+#: ../pasaffe/PasaffeWindow.py:1310 ../data/ui/NewDatabaseDialog.ui.h:5
 msgid "Passwords don't match! Please try again."
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:1310
+#: ../pasaffe/PasaffeWindow.py:1314
 msgid "New password cannot be blank! Please try again."
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:1314
+#: ../pasaffe/PasaffeWindow.py:1318
 msgid "Old password is invalid! Please try again."
 msgstr ""
 
