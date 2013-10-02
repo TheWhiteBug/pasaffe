@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.33 (UNRELEASED)
 
  * Enhancements:
+   - Updated translations
 
  * Bug fixes:
    - Don't crash when search string ends with a backslash (LP: #1231744)
