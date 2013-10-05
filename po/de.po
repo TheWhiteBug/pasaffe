@@ -8,30 +8,30 @@ msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-10-02 16:49-0400\n"
-"PO-Revision-Date: 2012-11-03 16:35+0000\n"
-"Last-Translator: Dennis Baudys <Unknown>\n"
+"PO-Revision-Date: 2013-10-04 13:51+0000\n"
+"Last-Translator: tschoie <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-03 05:47+0000\n"
+"X-Launchpad-Export-Date: 2013-10-05 05:52+0000\n"
 "X-Generator: Launchpad (build 16791)\n"
 
 #: ../data/ui/EditFolderDialog.ui.h:1
 msgid "<big><b>Edit folder</b></big>"
-msgstr ""
+msgstr "<big><b>Ordner bearbeiten</b></big>"
 
 #: ../data/ui/EditFolderDialog.ui.h:2
 msgid "Parent folder:"
-msgstr ""
+msgstr "Übergeordneter Ordner:"
 
 #: ../data/ui/EditFolderDialog.ui.h:3
 msgid "Folder name:"
-msgstr ""
+msgstr "Ordnername:"
 
 #: ../data/ui/EditFolderDialog.ui.h:4
 msgid "The parent folder for this new folder"
-msgstr ""
+msgstr "Der übergeordnete Ordner für diesen neuen Ordner"
 
 #: ../data/ui/PasswordEntryDialog.ui.h:1
 msgid "<big><b>Please enter your master password:</b></big>"
@@ -104,7 +104,7 @@ msgstr ""
 
 #: ../pasaffe/PasaffeWindow.py:528
 msgid "This is a folder."
-msgstr ""
+msgstr "Dies ist ein Ordner."
 
 #: ../pasaffe/PasaffeWindow.py:718
 #, python-format
@@ -125,10 +125,12 @@ msgid ""
 "<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
 "\n"
 msgstr ""
+"<big><b>Soll der Ordner \"%s\" wirklich gelöscht werden?</b></big>\n"
+"\n"
 
 #: ../pasaffe/PasaffeWindow.py:738
 msgid "All entries in this folder will be lost.\n"
-msgstr ""
+msgstr "Alle Einträge in diesem Ordner werden verloren gehen.\n"
 
 #: ../pasaffe/PasaffeWindow.py:1171
 msgid ""
@@ -182,15 +184,15 @@ msgstr "Altes Passwort ist ungültig! Bitte erneut versuchen."
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:1
 msgid "start expanded"
-msgstr ""
+msgstr "ausgeklappt beginnen"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:2
 msgid "start collapsed"
-msgstr ""
+msgstr "eingeklappt beginnen"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:3
 msgid "are remembered from last save"
-msgstr ""
+msgstr "werden vom letzten Speicherzeitpunkt erinnert"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:4
 msgid "Pasaffe Preferences"
@@ -238,11 +240,11 @@ msgstr "<b>Passworterzeugung</b>"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:15
 msgid "Folders"
-msgstr ""
+msgstr "Ordner"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:16
 msgid "<b>Folder Preferences</b>"
-msgstr ""
+msgstr "<b>Ordnereinstellungen</b>"
 
 #: ../data/ui/PasaffeWindow.ui.h:1
 msgid "<big><b>The password database is currently locked.</b></big>"
@@ -250,15 +252,15 @@ msgstr "<big><b>Die Passwortdatenbank ist derzeit gesperrt.</b></big>"
 
 #: ../data/ui/PasaffeWindow.ui.h:2
 msgid "Unlock"
-msgstr "Entsprerren"
+msgstr "Entsperren"
 
 #: ../data/ui/PasaffeWindow.ui.h:3
 msgid "Add Entry"
-msgstr ""
+msgstr "Eintrag hinzufügen"
 
 #: ../data/ui/PasaffeWindow.ui.h:4
 msgid "Add Folder"
-msgstr ""
+msgstr "Ordner hinzufügen"
 
 #: ../data/ui/PasaffeWindow.ui.h:5
 msgid "Clone"
@@ -342,7 +344,7 @@ msgstr "Hinzufügen"
 
 #: ../data/ui/PasaffeWindow.ui.h:25
 msgid "Add a new folder"
-msgstr ""
+msgstr "Neuen Ordner hinzufügen"
 
 #: ../data/ui/PasaffeWindow.ui.h:26
 msgid "Edit the selected entry"
@@ -358,7 +360,7 @@ msgstr "Den ausgewählten Eintrag löschen"
 
 #: ../data/ui/PasaffeWindow.ui.h:29
 msgid "Remove"
-msgstr ""
+msgstr "Entfernen"
 
 #: ../data/ui/PasaffeWindow.ui.h:30
 msgid "Open the URL"
@@ -382,11 +384,11 @@ msgstr "Vertrauliches anzeigen"
 
 #: ../data/ui/PasaffeWindow.ui.h:35
 msgid "icon"
-msgstr ""
+msgstr "Symbol"
 
 #: ../data/ui/PasaffeWindow.ui.h:36
 msgid "name"
-msgstr ""
+msgstr "Name"
 
 #: ../data/ui/PasaffeWindow.ui.h:37
 msgid "Close find"
@@ -436,7 +438,7 @@ msgstr "Der Name für diesen Eintrag"
 
 #: ../data/ui/EditDetailsDialog.ui.h:3
 msgid "The folder for this entry"
-msgstr ""
+msgstr "Der Ordner für diesen Eintrag"
 
 #: ../data/ui/EditDetailsDialog.ui.h:4
 msgid "The entry's username"
@@ -448,7 +450,7 @@ msgstr "Titel:"
 
 #: ../data/ui/EditDetailsDialog.ui.h:6
 msgid "Folder:"
-msgstr ""
+msgstr "Ordner:"
 
 #: ../data/ui/EditDetailsDialog.ui.h:7
 msgid "Username:"
@@ -490,7 +492,7 @@ msgstr "Ihre Änderungen gehen verloren, wenn Sie sie nicht speichern."
 
 #: ../data/ui/SaveChangesDialog.ui.h:3
 msgid "Close without Saving"
-msgstr ""
+msgstr "Schließen, ohne zu speichern"
 
 #: ../data/ui/NewPasswordDialog.ui.h:1
 msgid "<big><b>Change master password</b></big>"
