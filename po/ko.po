@@ -1,0 +1,509 @@
+# Korean translation for pasaffe
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the pasaffe package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: pasaffe\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-10-02 16:49-0400\n"
+"PO-Revision-Date: 2013-11-19 22:21+0000\n"
+"Last-Translator: Litty <Unknown>\n"
+"Language-Team: Korean <ko@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-11-20 05:36+0000\n"
+"X-Generator: Launchpad (build 16831)\n"
+
+#: ../data/ui/EditFolderDialog.ui.h:1
+msgid "<big><b>Edit folder</b></big>"
+msgstr ""
+
+#: ../data/ui/EditFolderDialog.ui.h:2
+msgid "Parent folder:"
+msgstr "상위 폴더:"
+
+#: ../data/ui/EditFolderDialog.ui.h:3
+msgid "Folder name:"
+msgstr "폴더 이름:"
+
+#: ../data/ui/EditFolderDialog.ui.h:4
+msgid "The parent folder for this new folder"
+msgstr "이 새 폴더의 상위 폴더"
+
+#: ../data/ui/PasswordEntryDialog.ui.h:1
+msgid "<big><b>Please enter your master password:</b></big>"
+msgstr ""
+
+#: ../data/ui/PasswordEntryDialog.ui.h:2
+msgid "Invalid password! Please try again."
+msgstr ""
+
+#: ../pasaffe/__init__.py:36
+msgid "Show debug messages (-vv debugs pasaffe_lib also)"
+msgstr ""
+
+#: ../pasaffe/__init__.py:39
+msgid "use database FILE"
+msgstr ""
+
+#: ../pasaffe/__init__.py:42
+msgid "set database as default"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:501
+msgid "Secrets are currently hidden."
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:505
+#, python-format
+msgid "Username: %s\n"
+msgstr "사용자 이름: %s\n"
+
+#: ../pasaffe/PasaffeWindow.py:507
+#, python-format
+msgid ""
+"Password: %s\n"
+"\n"
+msgstr ""
+"암호: %s\n"
+"\n"
+
+#: ../pasaffe/PasaffeWindow.py:509
+msgid ""
+"Password: *****\n"
+"\n"
+msgstr ""
+"암호: *****\n"
+"\n"
+
+#: ../pasaffe/PasaffeWindow.py:514
+#, python-format
+msgid "Last updated: %s\n"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:519
+#, python-format
+msgid "Password updated: %s\n"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:523
+msgid "Welcome to Pasaffe!"
+msgstr "Pasaffe에 오신 것을 환영합니다!"
+
+#: ../pasaffe/PasaffeWindow.py:524
+msgid ""
+"Pasaffe is an easy to use\n"
+"password manager for Gnome."
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:528
+msgid "This is a folder."
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:718
+#, python-format
+msgid ""
+"<big><b>Are you sure you wish to remove \"%s\"?</b></big>\n"
+"\n"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:719
+msgid "Contents of the entry will be lost.\n"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:737
+#, python-format
+msgid ""
+"<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
+"\n"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:738
+msgid "All entries in this folder will be lost.\n"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:1171
+msgid ""
+"<big><b>Database Information</b></big>\n"
+"\n"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:1172
+#, python-format
+msgid "Number of entries: %s\n"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:1173
+#, python-format
+msgid "Database version: %s\n"
+msgstr "데이터 베이스 버전: %s\n"
+
+#: ../pasaffe/PasaffeWindow.py:1175
+#, python-format
+msgid "Last saved by: %s\n"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:1177
+#, python-format
+msgid "Last saved on host: %s\n"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:1178
+#, python-format
+msgid "Last save date: %s\n"
+msgstr "마지막 저장 날짜: %s\n"
+
+#: ../pasaffe/PasaffeWindow.py:1180
+#, python-format
+msgid "Application used: %s\n"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:1310 ../data/ui/NewDatabaseDialog.ui.h:5
+msgid "Passwords don't match! Please try again."
+msgstr "암호가 일치하지 않습니다! 다시 시도해주십시오."
+
+#: ../pasaffe/PasaffeWindow.py:1314
+msgid "New password cannot be blank! Please try again."
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:1318
+msgid "Old password is invalid! Please try again."
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:1
+msgid "start expanded"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:2
+msgid "start collapsed"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:3
+msgid "are remembered from last save"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:4
+msgid "Pasaffe Preferences"
+msgstr "Pasaffe 설정"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:5
+msgid "Automatically save changes"
+msgstr "변경 사항 자동 저장"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:6
+msgid "Display secrets by default"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:7
+msgid "Only passwords are secret"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:8
+msgid "<b>Secrets</b>"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:9
+msgid "Lock database after"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:10
+msgid "minutes"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:11
+msgid "<b>Lock</b>"
+msgstr "<b>잠금</b>"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:12
+msgid "Passwords are"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:13
+msgid "characters long"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:14
+msgid "<b>Password Generator</b>"
+msgstr "<b>암호 생성기</b>"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:15
+msgid "Folders"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:16
+msgid "<b>Folder Preferences</b>"
+msgstr "<b>폴더 설정</b>"
+
+#: ../data/ui/PasaffeWindow.ui.h:1
+msgid "<big><b>The password database is currently locked.</b></big>"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:2
+msgid "Unlock"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:3
+msgid "Add Entry"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:4
+msgid "Add Folder"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:5
+msgid "Clone"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:6
+msgid "Copy URL"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:7
+msgid "Copy Username"
+msgstr "사용자 이름 복사"
+
+#: ../data/ui/PasaffeWindow.ui.h:8
+msgid "Copy Password"
+msgstr "암호 복사"
+
+#: ../data/ui/PasaffeWindow.ui.h:9 ../pasaffe.desktop.in.h:1
+msgid "Pasaffe"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:10
+msgid "_File"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:11
+msgid "Lock"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:12
+msgid "Change Master Password"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:13
+msgid "_Edit"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:14
+msgid "Find"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:15
+msgid "_View"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:16
+msgid "Display Secrets"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:17
+msgid "Open URL"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:18
+msgid "Database Information"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:19
+msgid "_Help"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:20
+msgid "Contents"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:21
+msgid "Save changes"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:22
+msgid "Save"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:23
+msgid "Add a new entry"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:24
+msgid "Add"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:25
+msgid "Add a new folder"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:26
+msgid "Edit the selected entry"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:27
+msgid "Edit"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:28
+msgid "Delete the selected entry"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:29
+msgid "Remove"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:30
+msgid "Open the URL"
+msgstr "URL 열기"
+
+#: ../data/ui/PasaffeWindow.ui.h:31
+msgid "Copy the username"
+msgstr "사용자 이름 복사"
+
+#: ../data/ui/PasaffeWindow.ui.h:32
+msgid "Copy the password"
+msgstr "암호 복사"
+
+#: ../data/ui/PasaffeWindow.ui.h:33
+msgid "Find entries"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:34
+msgid "Display secrets"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:35
+msgid "icon"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:36
+msgid "name"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:37
+msgid "Close find"
+msgstr ""
+
+#: ../data/ui/PasaffeWindow.ui.h:38
+msgid "Previous result"
+msgstr "이전 결과"
+
+#: ../data/ui/PasaffeWindow.ui.h:39
+msgid "Next result"
+msgstr "다음 결과"
+
+#: ../data/ui/NewDatabaseDialog.ui.h:1
+msgid "<big><b>Welcome to Pasaffe!</b></big>"
+msgstr ""
+
+#: ../data/ui/NewDatabaseDialog.ui.h:2
+msgid ""
+"No existing database was found.\n"
+"A new one will be created.\n"
+"Please enter a master password to protect it."
+msgstr ""
+
+#: ../data/ui/NewDatabaseDialog.ui.h:6
+msgid "Enter password:"
+msgstr ""
+
+#: ../data/ui/NewDatabaseDialog.ui.h:7
+msgid "Confirm password:"
+msgstr ""
+
+#: ../pasaffe.desktop.in.h:2
+msgid "Pasaffe password manager"
+msgstr "Pasaffe 암호 관리자"
+
+#: ../data/ui/EditDetailsDialog.ui.h:1
+msgid "<big><b>Edit entry</b></big>"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:2
+msgid "The name for this entry"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:3
+msgid "The folder for this entry"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:4
+msgid "The entry's username"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:5
+msgid "Title:"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:6
+msgid "Folder:"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:7
+msgid "Username:"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:8
+msgid "Password:"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:9
+msgid "Notes:"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:10
+msgid "URL:"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:11
+msgid "The website for this entry"
+msgstr ""
+
+#: ../data/ui/EditDetailsDialog.ui.h:12
+msgid "Pick a random password"
+msgstr ""
+
+#: ../data/ui/AboutPasaffeDialog.ui.h:1
+msgid "http://www.launchpad.net/pasaffe"
+msgstr ""
+
+#: ../data/ui/SaveChangesDialog.ui.h:1
+msgid ""
+"<big><b>Save changes to your password database before closing?</b></big>"
+msgstr "<big><b>닫기 전에 암호 데이터 베이스에 변경 사항을 저장하시겠습니까?</b></big>"
+
+#: ../data/ui/SaveChangesDialog.ui.h:2
+msgid "Your changes will be lost if you don't save them."
+msgstr ""
+
+#: ../data/ui/SaveChangesDialog.ui.h:3
+msgid "Close without Saving"
+msgstr ""
+
+#: ../data/ui/NewPasswordDialog.ui.h:1
+msgid "<big><b>Change master password</b></big>"
+msgstr ""
+
+#: ../data/ui/NewPasswordDialog.ui.h:2
+msgid ""
+"Enter your old master password,\n"
+"and a new master password.\n"
+"You must confirm the new password."
+msgstr ""
+
+#: ../data/ui/NewPasswordDialog.ui.h:5
+msgid "error message"
+msgstr ""
+
+#: ../data/ui/NewPasswordDialog.ui.h:6
+msgid "Old password:"
+msgstr ""
+
+#: ../data/ui/NewPasswordDialog.ui.h:7
+msgid "New password:"
+msgstr ""
+
+#: ../data/ui/NewPasswordDialog.ui.h:8
+msgid "Confirm new password:"
+msgstr "새 암호 확인:"
