@@ -8,22 +8,22 @@ msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-10-02 16:49-0400\n"
-"PO-Revision-Date: 2013-09-27 04:37+0000\n"
+"PO-Revision-Date: 2013-11-20 10:52+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-03 05:47+0000\n"
-"X-Generator: Launchpad (build 16791)\n"
+"X-Launchpad-Export-Date: 2013-11-21 05:35+0000\n"
+"X-Generator: Launchpad (build 16831)\n"
 
 #: ../data/ui/EditFolderDialog.ui.h:1
 msgid "<big><b>Edit folder</b></big>"
-msgstr ""
+msgstr "<big><b>Editar la carpeta</b></big>"
 
 #: ../data/ui/EditFolderDialog.ui.h:2
 msgid "Parent folder:"
-msgstr ""
+msgstr "Carpeta contenedora:"
 
 #: ../data/ui/EditFolderDialog.ui.h:3
 msgid "Folder name:"
@@ -31,7 +31,7 @@ msgstr "Nombre de la carpeta:"
 
 #: ../data/ui/EditFolderDialog.ui.h:4
 msgid "The parent folder for this new folder"
-msgstr ""
+msgstr "La carpeta que contiene esta carpeta nueva"
 
 #: ../data/ui/PasswordEntryDialog.ui.h:1
 msgid "<big><b>Please enter your master password:</b></big>"
@@ -124,10 +124,12 @@ msgid ""
 "<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
 "\n"
 msgstr ""
+"<big><b>¿Está seguro de que quiere eliminar la carpeta «%s»?</b></big>\n"
+"\n"
 
 #: ../pasaffe/PasaffeWindow.py:738
 msgid "All entries in this folder will be lost.\n"
-msgstr ""
+msgstr "Se perderán todas las entradas en esta carpeta.\n"
 
 #: ../pasaffe/PasaffeWindow.py:1171
 msgid ""
