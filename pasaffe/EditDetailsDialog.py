@@ -52,7 +52,7 @@ class EditDetailsDialog(Gtk.Dialog):
         self.builder = builder
         self.ui = builder.get_ui(self)
 
-        settings = Gio.Settings("net.launchpad.pasaffe")
+        settings = Gio.Settings.new("net.launchpad.pasaffe")
         self.password_length = settings.get_int("password-length")
 
     def on_btn_ok_clicked(self, widget, data=None):
