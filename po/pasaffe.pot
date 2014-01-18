@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-02 16:49-0400\n"
+"POT-Creation-Date: 2014-01-18 17:29-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,18 +39,6 @@ msgstr ""
 
 #: ../data/ui/PasswordEntryDialog.ui.h:2
 msgid "Invalid password! Please try again."
-msgstr ""
-
-#: ../pasaffe/__init__.py:36
-msgid "Show debug messages (-vv debugs pasaffe_lib also)"
-msgstr ""
-
-#: ../pasaffe/__init__.py:39
-msgid "use database FILE"
-msgstr ""
-
-#: ../pasaffe/__init__.py:42
-msgid "set database as default"
 msgstr ""
 
 #: ../pasaffe/PasaffeWindow.py:501
@@ -502,4 +490,16 @@ msgstr ""
 
 #: ../data/ui/NewPasswordDialog.ui.h:8
 msgid "Confirm new password:"
+msgstr ""
+
+#: ../pasaffe/__init__.py:36
+msgid "Show debug messages (-vv debugs pasaffe_lib also)"
+msgstr ""
+
+#: ../pasaffe/__init__.py:39
+msgid "use database FILE"
+msgstr ""
+
+#: ../pasaffe/__init__.py:42
+msgid "set database as default"
 msgstr ""
