@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-10-02 16:49-0400\n"
+"POT-Creation-Date: 2014-01-18 17:29-0500\n"
 "PO-Revision-Date: 2012-05-19 14:59+0000\n"
 "Last-Translator: Paolo Stivanin <Unknown>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-03 05:47+0000\n"
-"X-Generator: Launchpad (build 16791)\n"
+"X-Launchpad-Export-Date: 2014-01-19 05:50+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 
 #: ../data/ui/EditFolderDialog.ui.h:1
 msgid "<big><b>Edit folder</b></big>"
@@ -40,18 +40,6 @@ msgstr "<big><b>Inserisci la tua password principale:</b></big>"
 #: ../data/ui/PasswordEntryDialog.ui.h:2
 msgid "Invalid password! Please try again."
 msgstr "Password non valida! Riprova."
-
-#: ../pasaffe/__init__.py:36
-msgid "Show debug messages (-vv debugs pasaffe_lib also)"
-msgstr "Mostra messaggi debug (-vv debugs pasaffe_lib also)"
-
-#: ../pasaffe/__init__.py:39
-msgid "use database FILE"
-msgstr "Usare il database FILE"
-
-#: ../pasaffe/__init__.py:42
-msgid "set database as default"
-msgstr "Impostare il database come predefinito"
 
 #: ../pasaffe/PasaffeWindow.py:501
 msgid "Secrets are currently hidden."
@@ -520,3 +508,15 @@ msgstr "Nuova password:"
 #: ../data/ui/NewPasswordDialog.ui.h:8
 msgid "Confirm new password:"
 msgstr "Conferma nuova password:"
+
+#: ../pasaffe/__init__.py:36
+msgid "Show debug messages (-vv debugs pasaffe_lib also)"
+msgstr "Mostra messaggi debug (-vv debugs pasaffe_lib also)"
+
+#: ../pasaffe/__init__.py:39
+msgid "use database FILE"
+msgstr "Usare il database FILE"
+
+#: ../pasaffe/__init__.py:42
+msgid "set database as default"
+msgstr "Impostare il database come predefinito"

@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-10-02 16:49-0400\n"
+"POT-Creation-Date: 2014-01-18 17:29-0500\n"
 "PO-Revision-Date: 2012-10-25 09:29+0000\n"
 "Last-Translator: Eugene Marshal <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-03 05:47+0000\n"
-"X-Generator: Launchpad (build 16791)\n"
+"X-Launchpad-Export-Date: 2014-01-19 05:50+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 "X-Poedit-Language: Russian\n"
 
@@ -42,18 +42,6 @@ msgstr "<big><b>Введите свой главный пароль:</b></big>"
 #: ../data/ui/PasswordEntryDialog.ui.h:2
 msgid "Invalid password! Please try again."
 msgstr "Неправильный пароль! Попробуйте снова."
-
-#: ../pasaffe/__init__.py:36
-msgid "Show debug messages (-vv debugs pasaffe_lib also)"
-msgstr "Показывать отладочные сообщения (-vv — отлаживать также pasaffe_lib)"
-
-#: ../pasaffe/__init__.py:39
-msgid "use database FILE"
-msgstr "использовать ФАЙЛ базы данных"
-
-#: ../pasaffe/__init__.py:42
-msgid "set database as default"
-msgstr "установить базу данных по умолчанию"
 
 #: ../pasaffe/PasaffeWindow.py:501
 msgid "Secrets are currently hidden."
@@ -522,3 +510,15 @@ msgstr "Новый пароль:"
 #: ../data/ui/NewPasswordDialog.ui.h:8
 msgid "Confirm new password:"
 msgstr "Подтвердите новый пароль:"
+
+#: ../pasaffe/__init__.py:36
+msgid "Show debug messages (-vv debugs pasaffe_lib also)"
+msgstr "Показывать отладочные сообщения (-vv — отлаживать также pasaffe_lib)"
+
+#: ../pasaffe/__init__.py:39
+msgid "use database FILE"
+msgstr "использовать ФАЙЛ базы данных"
+
+#: ../pasaffe/__init__.py:42
+msgid "set database as default"
+msgstr "установить базу данных по умолчанию"
