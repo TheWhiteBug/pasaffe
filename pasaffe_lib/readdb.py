@@ -24,6 +24,7 @@ import time
 import tempfile
 import shutil
 import pwd
+from binascii import hexlify, unhexlify
 
 from . import pytwofishcbc
 import logging
@@ -45,8 +46,12 @@ class PassSafeFile:
         self.dbfile = None
         self.empty_folders = []
 
+        # These fields need converting between strings and bytes
+        self.header_text = [ 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x11 ]
+        self.record_text = [ 0x02, 0x03, 0x04, 0x05, 0x06, 0x0d ]
+
         # Use version 0x030B, since we support saving empty folders
-        self.db_version = '\x0B\x03'
+        self.db_version = b'\x0B\x03'
 
         if req_cipher == 'Twofish':
             self.cipher = pytwofishcbc.TwofishCBC()
@@ -61,12 +66,12 @@ class PassSafeFile:
         '''Parses database file'''
         logger.debug('Opening database: %s' % filename)
         try:
-            self.dbfile = open(filename, 'r')
+            self.dbfile = open(filename, 'rb')
         except Exception:
             raise RuntimeError("Could not open %s. Aborting." % filename)
 
         tag = self.dbfile.read(4)
-        if tag != "PWS3":
+        if tag != b"PWS3":
             raise RuntimeError("File %s is not a password safe database."
                                " Aborting." % filename)
 
@@ -167,7 +172,7 @@ class PassSafeFile:
 
         tempname = self.dbfile.name
 
-        self.dbfile.write("PWS3")
+        self.dbfile.write(b"PWS3")
         self._writekeys()
         self._writeheader()
         self._writerecords()
@@ -187,8 +192,8 @@ class PassSafeFile:
 
     def get_database_version_string(self):
         '''Returns a string of the current database version'''
-        return '%s.%s' % (self.header[0][1].encode('hex'),
-                          self.header[0][0].encode('hex'))
+        return '%s.%s' % (hexlify(self.header[0][1:2]).decode('utf-8'),
+                          hexlify(self.header[0][0:1]).decode('utf-8'))
 
     def get_saved_name(self):
         '''Returns the username of the last save'''
@@ -463,7 +468,7 @@ class PassSafeFile:
     def new_entry(self):
         '''Creates a new entry'''
         uuid = os.urandom(16)
-        uuid_hex = uuid.encode("hex")
+        uuid_hex = hexlify(uuid)
         timestamp = struct.pack("<I", int(time.time()))
         new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
                      7: timestamp, 8: timestamp, 12: timestamp, 13: ''}
@@ -473,7 +478,7 @@ class PassSafeFile:
 
     def _keystretch(self, password, salt, iters):
         '''Takes a password, and stretches it using iters iterations'''
-        password = hashlib.sha256(password + salt).digest()
+        password = hashlib.sha256(password.encode('utf-8') + salt).digest()
         for i in range(iters):
             password = hashlib.sha256(password).digest()
         return password
@@ -498,21 +503,21 @@ class PassSafeFile:
                                                    self.keys['ITER'])
         # Don't need the password anymore, clear it out
         password = ''
-        #logger.debug("stretched pass is %s" % stretched_key.encode("hex"))
+        #logger.debug("stretched pass is %s" % hexlify(stretched_key))
         if hashlib.sha256(stretched_key).digest() != self.keys['HP']:
             raise ValueError("Password supplied doesn't match database."
                              " Aborting.")
 
         self.cipher.set_key(stretched_key)
         # Don't need the stretched key anymore, clear it out
-        stretched_key = ''
+        stretched_key = b''
         self.keys['K'] = self.cipher.decrypt(self.keys['B1']) + \
                          self.cipher.decrypt(self.keys['B2'])
         self.keys['L'] = self.cipher.decrypt(self.keys['B3']) + \
                          self.cipher.decrypt(self.keys['B4'])
         self.hmac = hmac.new(self.keys['L'], digestmod=hashlib.sha256)
-        #logger.debug("K is %s and L is %s" % (self.keys['K'].encode("hex"),
-        #                                      self.keys['L'].encode("hex")))
+        #logger.debug("K is %s and L is %s" % (hexlify(self.keys['K']),
+        #                                      hexlify(self.keys['L']))
 
     def _writekeys(self):
         self.dbfile.write(self.keys['SALT'])
@@ -534,6 +539,10 @@ class PassSafeFile:
             if status == False:
                 raise RuntimeError("Malformed file, "
                                    "was expecting more data in header")
+
+            # Convert from bytes to strings
+            if field_type in self.header_text:
+                field_data = field_data.decode('utf-8')
 
             if field_type == 0xff:
                 logger.debug("Found end field")
@@ -559,14 +568,21 @@ class PassSafeFile:
             # Skip Version Type, we've already handled it
             if entry == 0x00:
                 continue
+
+            # Convert from strings to bytes
+            if entry in self.header_text:
+                value = self.header[entry].encode('utf-8')
+            else:
+                value = self.header[entry]
+
             logger.debug("Writing %.2x" % entry)
-            self._writefield(entry, self.header[entry])
+            self._writefield(entry, value)
 
         # Now handle empty folders
         logger.debug("Writing empty folders")
         for folder in self.empty_folders:
             logger.debug("writing empty folder: %s" % folder)
-            self._writefield(0x11, folder)
+            self._writefield(0x11, folder.encode('utf-8'))
 
         self._writefieldend()
 
@@ -581,10 +597,15 @@ class PassSafeFile:
                 break
             if field_type == 0xff:
                 logger.debug("Found end field")
-                uuid = record[1].encode('hex')
+                uuid = hexlify(record[1])
                 self.records[uuid] = record
                 record = {}
             else:
+
+                # Convert from bytes to strings
+                if field_type in self.record_text:
+                    field_data = field_data.decode('utf-8')
+
                 record[field_type] = field_data
                 logger.debug("Found field 0x%.2x" % field_type)
 
@@ -595,7 +616,14 @@ class PassSafeFile:
 
         for uuid in self.records:
             for field in list(self.records[uuid].keys()):
-                self._writefield(field, self.records[uuid][field])
+
+                # Convert from strings to bytes
+                if entry in self.record_text:
+                    value = self.records[uuid][field].encode('utf-8')
+                else:
+                    value = self.records[uuid][field]
+
+                self._writefield(field, value)
             self._writefieldend()
 
     def _readfield(self):
@@ -675,7 +703,7 @@ class PassSafeFile:
 
     def _readblock(self):
         block = self.dbfile.read(self.cipher_block_size)
-        if block == 'PWS3-EOFPWS3-EOF':
+        if block == b'PWS3-EOFPWS3-EOF':
             return False, block
         return True, self.cipher.decryptCBC(block)
 
@@ -684,7 +712,7 @@ class PassSafeFile:
         self.dbfile.write(self.cipher.encryptCBC(block))
 
     def _writeeofblock(self):
-        self.dbfile.write('PWS3-EOFPWS3-EOF')
+        self.dbfile.write(b'PWS3-EOFPWS3-EOF')
 
     def _validatehmac(self):
         hmac = self.dbfile.read(32)

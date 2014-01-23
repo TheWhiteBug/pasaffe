@@ -19,6 +19,8 @@ import sys
 import os.path
 import unittest
 import time
+from binascii import hexlify, unhexlify
+
 sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__), "..")))
 
 from pasaffe_lib.readdb import PassSafeFile
@@ -67,12 +69,12 @@ class TestReadDB(unittest.TestCase):
 
         self.passfile.new_db("test")
 
-        expected = '%s.%s' % (self.passfile.db_version[1].encode('hex'),
-                              self.passfile.db_version[0].encode('hex'))
+        expected = '%s.%s' % (hexlify(self.passfile.db_version[1:2]).decode('utf-8'),
+                              hexlify(self.passfile.db_version[0:1]).decode('utf-8'))
 
         self.assertEqual(self.passfile.get_database_version_string(), expected)
 
-        self.passfile.header[0] = '\x0B\x03'
+        self.passfile.header[0] = b'\x0B\x03'
 
         self.assertEqual(self.passfile.get_database_version_string(), "03.0b")
 
