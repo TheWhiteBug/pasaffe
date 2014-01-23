@@ -85,12 +85,12 @@ class EditDetailsDialog(Gtk.Dialog):
                    "-x", str(self.password_length)]
         try:
             passwords = subprocess.check_output(command).splitlines()  # pylint: disable=E1103
-            self.ui.password1.set_label(passwords[0])
-            self.ui.password2.set_label(passwords[1])
-            self.ui.password3.set_label(passwords[2])
-            self.ui.password4.set_label(passwords[3])
-            self.ui.password5.set_label(passwords[4])
-            self.ui.password6.set_label(passwords[5])
+            self.ui.password1.set_label(passwords[0].decode('utf-8'))
+            self.ui.password2.set_label(passwords[1].decode('utf-8'))
+            self.ui.password3.set_label(passwords[2].decode('utf-8'))
+            self.ui.password4.set_label(passwords[3].decode('utf-8'))
+            self.ui.password5.set_label(passwords[4].decode('utf-8'))
+            self.ui.password6.set_label(passwords[5].decode('utf-8'))
             self.ui.password_menu.popup(None, None, None, None,
                                         0, Gtk.get_current_event_time())
         except:
