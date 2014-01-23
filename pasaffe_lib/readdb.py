@@ -47,7 +47,7 @@ class PassSafeFile:
         self.empty_folders = []
 
         # These fields need converting between strings and bytes
-        self.header_text = [ 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x11 ]
+        self.header_text = [ 0x03, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x11 ]
         self.record_text = [ 0x02, 0x03, 0x04, 0x05, 0x06, 0x0d ]
 
         # Use version 0x030B, since we support saving empty folders
@@ -468,7 +468,7 @@ class PassSafeFile:
     def new_entry(self):
         '''Creates a new entry'''
         uuid = os.urandom(16)
-        uuid_hex = hexlify(uuid)
+        uuid_hex = hexlify(uuid).decode('utf-8')
         timestamp = struct.pack("<I", int(time.time()))
         new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
                      7: timestamp, 8: timestamp, 12: timestamp, 13: ''}
@@ -597,7 +597,7 @@ class PassSafeFile:
                 break
             if field_type == 0xff:
                 logger.debug("Found end field")
-                uuid = hexlify(record[1])
+                uuid = hexlify(record[1]).decode('utf-8')
                 self.records[uuid] = record
                 record = {}
             else:
@@ -618,7 +618,7 @@ class PassSafeFile:
             for field in list(self.records[uuid].keys()):
 
                 # Convert from strings to bytes
-                if entry in self.record_text:
+                if field in self.record_text:
                     value = self.records[uuid][field].encode('utf-8')
                 else:
                     value = self.records[uuid][field]
@@ -664,7 +664,7 @@ class PassSafeFile:
         field_length = len(field_data)
         field_free_space = self.cipher_block_size - 5
         index = 0
-        block = ''
+        block = b''
         block += struct.pack("I", field_length)
         block += struct.pack("B", field_type)
 
@@ -679,7 +679,7 @@ class PassSafeFile:
                     block += struct.pack("B", random.randint(0, 254))
                 self._writeblock(block)
                 field_length = -1
-                block = ''
+                block = b''
             else:
                 logger.debug("bigger than block")
                 block += field_data[index:index + field_free_space]
@@ -689,7 +689,7 @@ class PassSafeFile:
                     field_length = -1
                 index += field_free_space
                 field_free_space = self.cipher_block_size
-                block = ''
+                block = b''
 
     def _writefieldend(self):
         block = struct.pack("I", 0)

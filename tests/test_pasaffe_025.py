@@ -71,7 +71,7 @@ class TestPasaffe025(unittest.TestCase):
                          'Tue, 30 Jul 2013 22:41:13')
 
     def test_entry_1(self):
-        uuid = b'2db404cb1cf50cb15b16e8df8629530b'
+        uuid = '2db404cb1cf50cb15b16e8df8629530b'
         self.assertFalse(2 in self.passfile.records[uuid])
         self.assertEqual(self.passfile.get_folder_list(uuid), None)
         self.assertEqual(self.passfile.records[uuid][3], 'topentry1')
@@ -83,7 +83,7 @@ class TestPasaffe025(unittest.TestCase):
         self.assertEqual(self.passfile.records[uuid][13], 'http://www.example.com')
 
     def test_entry_2(self):
-        uuid = b'4b23ce8123e1aa44a1265209ecd6c7a3'
+        uuid = '4b23ce8123e1aa44a1265209ecd6c7a3'
         self.assertEqual(self.passfile.records[uuid][2], 'level1group')
         self.assertEqual(self.passfile.get_folder_list(uuid), ['level1group'])
         self.assertEqual(self.passfile.records[uuid][3], 'level1entry')
@@ -94,7 +94,7 @@ class TestPasaffe025(unittest.TestCase):
                          'Tue, 30 Jul 2013 22:41:13')
 
     def test_entry_3(self):
-        uuid = b'8a213ac1aec45b187a4da87c142342a3'
+        uuid = '8a213ac1aec45b187a4da87c142342a3'
         self.assertEqual(self.passfile.records[uuid][2], 'level1group.level2group.level3group')
         self.assertEqual(self.passfile.get_folder_list(uuid),
                          ['level1group', 'level2group', 'level3group'])

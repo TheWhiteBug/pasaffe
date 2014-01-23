@@ -71,7 +71,7 @@ class TestPasswordSafe331(unittest.TestCase):
                          'Thu, 25 Jul 2013 23:57:08')
 
     def test_entry_1(self):
-        uuid = b'4a32a8ad616343b692e85c721bfce0e2'
+        uuid = '4a32a8ad616343b692e85c721bfce0e2'
         self.assertFalse(2 in self.passfile.records[uuid])
         self.assertEqual(self.passfile.get_folder_list(uuid), None)
         self.assertEqual(self.passfile.records[uuid][3], 'topentry1')
@@ -84,7 +84,7 @@ class TestPasswordSafe331(unittest.TestCase):
         self.assertEqual(self.passfile.records[uuid][13], 'http://www.example.com')
 
     def test_entry_2(self):
-        uuid = b'722328d418584201803a119fa517b799'
+        uuid = '722328d418584201803a119fa517b799'
         self.assertEqual(self.passfile.records[uuid][2], 'level1group')
         self.assertEqual(self.passfile.get_folder_list(uuid), ['level1group'])
         self.assertEqual(self.passfile.records[uuid][3], 'level1entry')
@@ -95,7 +95,7 @@ class TestPasswordSafe331(unittest.TestCase):
                          'Thu, 25 Jul 2013 00:25:42')
 
     def test_entry_3(self):
-        uuid = b'cb16d230853247ad8cb12ef6ea615cb4'
+        uuid = 'cb16d230853247ad8cb12ef6ea615cb4'
         self.assertEqual(self.passfile.records[uuid][2], 'level1group.level2group.level3group')
         self.assertEqual(self.passfile.get_folder_list(uuid),
                          ['level1group', 'level2group', 'level3group'])
