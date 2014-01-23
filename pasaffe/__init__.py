@@ -19,7 +19,7 @@ import os
 
 import gettext
 t = gettext.translation('pasaffe', fallback=True)
-_ = t.ugettext
+_ = t.gettext
 
 from gi.repository import Gio, Gtk  # pylint: disable=E0611
 
