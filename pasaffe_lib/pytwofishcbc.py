@@ -16,19 +16,20 @@
 
 from . import pytwofish
 import operator
+import struct
 
 
 class TwofishCBC(pytwofish.Twofish):
 
-    cbc_iv = "\0" * 16
+    cbc_iv = b"\0" * 16
 
     def _xor(self, string, pw):
-        result = ''
+        result = b''
         for k in range(len(string)):
-            result += chr(operator.xor(ord(string[k]), ord(pw[k])))
+            result += struct.pack("B", operator.xor(ord(string[k:k+1]), ord(pw[k:k+1])))
         return result
 
-    def initCBC(self, iv="\0" * 16):
+    def initCBC(self, iv=b"\0" * 16):
         """Sets the CBC mode initialization vector."""
         self.cbc_iv = iv
 

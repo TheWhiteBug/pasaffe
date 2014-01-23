@@ -627,12 +627,12 @@ class PassSafeFile:
             self._writefieldend()
 
     def _readfield(self):
-        field_data = ''
+        field_data = b''
         status, first_block = self._readblock()
         if status == False:
-            return False, 0xFF, ''
+            return False, 0xFF, b''
         field_length = struct.unpack("<I", first_block[0:4])[0]
-        field_type = struct.unpack("B", first_block[4])[0]
+        field_type = struct.unpack("B", first_block[4:5])[0]
 
         logger.debug("field length is %d" % field_length)
         logger.debug("field_type is 0x%.2x" % field_type)
