@@ -198,13 +198,13 @@ def qp(n, x):  # word32, byte
 
 
 def gen_qtab(pkey):
-    for i in xrange(256):
+    for i in range(256):
         pkey.q_tab[0][i] = qp(0, i)
         pkey.q_tab[1][i] = qp(1, i)
 
 
 def gen_mtab(pkey):
-    for i in xrange(256):
+    for i in range(256):
         f01 = pkey.q_tab[1][i]
         f01 = pkey.q_tab[1][i]
         f5b = ((f01) ^ ((f01) >> 2) ^ tab_5b[(f01) & 3])
@@ -221,7 +221,7 @@ def gen_mtab(pkey):
 
 def gen_mk_tab(pkey, key):
     if pkey.k_len == 2:
-        for i in xrange(256):
+        for i in range(256):
             by = i % 0x100
             pkey.mk_tab[0][i] = pkey.m_tab[0][pkey.q_tab[0][ \
                                 pkey.q_tab[0][by] ^ byte(key[1], 0)] ^ \
@@ -236,7 +236,7 @@ def gen_mk_tab(pkey, key):
                                 pkey.q_tab[1][by] ^ byte(key[1], 3)] ^ \
                                 byte(key[0], 3)]
     if pkey.k_len == 3:
-        for i in xrange(256):
+        for i in range(256):
             by = i % 0x100
             pkey.mk_tab[0][i] = pkey.m_tab[0][pkey.q_tab[0][ \
                                 pkey.q_tab[0][pkey.q_tab[1][by] ^ \
@@ -255,7 +255,7 @@ def gen_mk_tab(pkey, key):
                                 byte(key[2], 3)] ^ byte(key[1], 3)] ^ \
                                 byte(key[0], 3)]
     if pkey.k_len == 4:
-        for i in xrange(256):
+        for i in range(256):
             by = i % 0x100
             pkey.mk_tab[0][i] = pkey.m_tab[0][pkey.q_tab[0][ \
                                 pkey.q_tab[0][pkey.q_tab[1][ \
@@ -309,7 +309,7 @@ def h_fun(pkey, x, key):
 
 def mds_rem(p0, p1):
     i, t, u = 0, 0, 0
-    for i in xrange(8):
+    for i in range(8):
         t = p1 >> 24
         p1 = ((p1 << 8) & 0xffffffff) | (p0 >> 24)
         p0 = (p0 << 8) & 0xffffffff
@@ -339,7 +339,7 @@ def set_key(pkey, in_key, key_len):
     b = 0
     me_key = [0, 0, 0, 0]
     mo_key = [0, 0, 0, 0]
-    for i in xrange(pkey.k_len):
+    for i in range(pkey.k_len):
         if WORD_BIGENDIAN:
             a = byteswap32(in_key[i + 1])
             me_key[i] = a
@@ -350,7 +350,7 @@ def set_key(pkey, in_key, key_len):
             b = in_key[i + i + 1]
         mo_key[i] = b
         pkey.s_key[pkey.k_len - i - 1] = mds_rem(a, b)
-    for i in xrange(0, 40, 2):
+    for i in range(0, 40, 2):
         a = (0x01010101 * i) % 0x100000000
         b = (a + 0x01010101) % 0x100000000
         a = h_fun(pkey, a, me_key)
@@ -374,7 +374,7 @@ def encrypt(pkey, in_blk):
         blk[2] = in_blk[2] ^ pkey.l_key[2]
         blk[3] = in_blk[3] ^ pkey.l_key[3]
 
-    for i in xrange(8):
+    for i in range(8):
         t1 = (pkey.mk_tab[0][byte(blk[1], 3)] ^
               pkey.mk_tab[1][byte(blk[1], 0)] ^
               pkey.mk_tab[2][byte(blk[1], 1)] ^
@@ -431,7 +431,7 @@ def decrypt(pkey, in_blk):
         blk[2] = in_blk[2] ^ pkey.l_key[6]
         blk[3] = in_blk[3] ^ pkey.l_key[7]
 
-    for i in xrange(7, -1, -1):
+    for i in range(7, -1, -1):
         t1 = (pkey.mk_tab[0][byte(blk[1], 3)] ^
               pkey.mk_tab[1][byte(blk[1], 0)] ^
               pkey.mk_tab[2][byte(blk[1], 1)] ^

@@ -20,7 +20,7 @@ import hashlib
 import os
 import time
 
-import blowfish
+from . import blowfish
 import logging
 logger = logging.getLogger('pasaffe_lib')
 

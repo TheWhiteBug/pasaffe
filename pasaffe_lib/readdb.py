@@ -25,7 +25,7 @@ import tempfile
 import shutil
 import pwd
 
-import pytwofishcbc
+from . import pytwofishcbc
 import logging
 logger = logging.getLogger('pasaffe_lib')
 from . pasaffeconfig import get_version
@@ -290,7 +290,7 @@ class PassSafeFile:
             if field not in self.empty_folders:
                 # Make sure it's actually empty
                 found = False
-                for uuid in self.records.keys():
+                for uuid in list(self.records.keys()):
                     if 2 not in self.records[uuid]:
                         continue
                     if self.records[uuid][2] == field:
@@ -354,7 +354,7 @@ class PassSafeFile:
         field = self._folder_list_to_field(folder)
 
         # Do the records first
-        for uuid in self.records.keys():
+        for uuid in list(self.records.keys()):
             if 2 not in self.records[uuid]:
                 continue
             if self.records[uuid][2] == field:
@@ -555,7 +555,7 @@ class PassSafeFile:
         logger.debug("Writing Version Type field")
         self._writefield(0x00, self.header[0x00])
 
-        for entry in self.header.keys():
+        for entry in list(self.header.keys()):
             # Skip Version Type, we've already handled it
             if entry == 0x00:
                 continue
@@ -594,7 +594,7 @@ class PassSafeFile:
         record = {}
 
         for uuid in self.records:
-            for field in self.records[uuid].keys():
+            for field in list(self.records[uuid].keys()):
                 self._writefield(field, self.records[uuid][field])
             self._writefieldend()
 

@@ -116,7 +116,7 @@ class Blowfish:
     DECRYPT = 1
 
     # For the __round_func
-    modulus = long(2) ** 32
+    modulus = int(2) ** 32
 
     def __init__(self, key):
 
@@ -457,10 +457,10 @@ class Blowfish:
 
         # Perform all ops as longs then and out the last 32-bits to
         # obtain the integer
-        f = (long(self.s_boxes[0][a]) + \
-             long(self.s_boxes[1][b])) % self.modulus
-        f = f ^ long(self.s_boxes[2][c])
-        f = f + long(self.s_boxes[3][d])
+        f = (int(self.s_boxes[0][a]) + \
+             int(self.s_boxes[1][b])) % self.modulus
+        f = f ^ int(self.s_boxes[2][c])
+        f = f + int(self.s_boxes[3][d])
         f = (f % self.modulus) & 0xFFFFFFFF
 
         return f
@@ -518,7 +518,7 @@ class Blowfish:
         with this method one after the other without any intermediate work.
         Each buffer must be a multiple of 8-octets (64-bits) in length.
         """
-        if type(data) != types.StringType:
+        if type(data) != bytes:
             raise RuntimeError("Can only work on 8-bit strings")
         if (len(data) % 8) != 0:
             raise RuntimeError("Can only work with data in 64-bit"
@@ -529,15 +529,15 @@ class Blowfish:
         block_size = self.block_size()
         for i in range(0, len(data), block_size):
             p_block = data[i:i + block_size]
-            pair = zip(p_block, self.cbc_iv)
-            j_block = ''.join(map(chr, map(xor, pair)))
+            pair = list(zip(p_block, self.cbc_iv))
+            j_block = ''.join(map(chr, list(map(xor, pair))))
             c_block = self.encrypt(j_block)
             result += c_block
             self.cbc_iv = c_block
         return result
 
     def decryptCBC(self, data):
-        if type(data) != types.StringType:
+        if type(data) != bytes:
             raise RuntimeError("Can only work on 8-bit strings")
         if (len(data) % 8) != 0:
             raise RuntimeError("Can only work with data in 64-bit"
@@ -549,8 +549,8 @@ class Blowfish:
         for i in range(0, len(data), block_size):
             c_block = data[i:i + block_size]
             j_block = self.decrypt(c_block)
-            pair = zip(j_block, self.cbc_iv)
-            p_block = ''.join(map(chr, map(xor, pair)))
+            pair = list(zip(j_block, self.cbc_iv))
+            p_block = ''.join(map(chr, list(map(xor, pair))))
             result += p_block
             self.cbc_iv = c_block
         return result
@@ -583,7 +583,7 @@ class Blowfish:
         (belonging to the same logical stream of buffers) can be encrypted
         with this method one after the other without any intermediate work.
         """
-        if type(data) != types.StringType:
+        if type(data) != bytes:
             raise RuntimeException("Can only work on 8-bit strings")
         result = []
         for ch in data:
@@ -620,7 +620,7 @@ class Blowfish:
             c = Blowfish(binascii.a2b_hex(v[0]))
             e = binascii.b2a_hex(c.encrypt(binascii.a2b_hex(v[1]))).upper()
             if e != v[2]:
-                print "VECTOR TEST FAIL: expecting %s, got %s" % (repr(v), e)
+                print("VECTOR TEST FAIL: expecting %s, got %s" % (repr(v), e))
                 ok = False
         return ok
 
@@ -629,58 +629,58 @@ class Blowfish:
 
 if __name__ == '__main__':
     if not Blowfish.testVectors():
-        print "WARNING: The implementation doesn't pass " + \
-              "algorithm test vectors!"
+        print("WARNING: The implementation doesn't pass " + \
+              "algorithm test vectors!")
     else:
-        print "The implementation passes algorithm test vectors (ECB)."
+        print("The implementation passes algorithm test vectors (ECB).")
 
     key = 'This is a test key'
     cipher = Blowfish(key)
 
-    print "Testing encryption:"
+    print("Testing encryption:")
     xl = 123456
     xr = 654321
-    print "\tPlain text: (%s, %s)" % (xl, xr)
+    print("\tPlain text: (%s, %s)" % (xl, xr))
     cl, cr = cipher.cipher(xl, xr, cipher.ENCRYPT)
-    print "\tCrypted is: (%s, %s)" % (cl, cr)
+    print("\tCrypted is: (%s, %s)" % (cl, cr))
     dl, dr = cipher.cipher(cl, cr, cipher.DECRYPT)
-    print "\tUnencrypted is: (%s, %s)" % (dl, dr)
+    print("\tUnencrypted is: (%s, %s)" % (dl, dr))
 
-    print "Testing block encrypt:"
+    print("Testing block encrypt:")
     text = 'testtest'
-    print "\tText:\t\t%s" % text
+    print("\tText:\t\t%s" % text)
     crypted = cipher.encrypt(text)
-    print "\tEncrypted:\t%s" % repr(crypted)
+    print("\tEncrypted:\t%s" % repr(crypted))
     decrypted = cipher.decrypt(crypted)
-    print "\tDecrypted:\t%s" % decrypted
+    print("\tDecrypted:\t%s" % decrypted)
 
-    print "Testing CTR encrypt:"
+    print("Testing CTR encrypt:")
     cipher.initCTR()
     text = "The quick brown fox jumps over the lazy dog"
-    print "\tText:\t\t", text
+    print("\tText:\t\t", text)
     crypted = cipher.encryptCTR(text)
-    print "\tEncrypted:\t", repr(crypted)
+    print("\tEncrypted:\t", repr(crypted))
     cipher.initCTR()
     decrypted = cipher.decryptCTR(crypted)
-    print "\tDecrypted:\t", decrypted
+    print("\tDecrypted:\t", decrypted)
 
-    print "Testing CBC encrypt:"
+    print("Testing CBC encrypt:")
     cipher.initCBC()
     text = "Owen's Ornery Old Oryx Obstructed Olga's Optics."
-    print "\tText:\t\t", text
+    print("\tText:\t\t", text)
     crypted = cipher.encryptCBC(text)
-    print "\tEncrypted:\t", repr(crypted)
+    print("\tEncrypted:\t", repr(crypted))
     cipher.initCBC()
     decrypted = cipher.decryptCBC(crypted)
-    print "\tDecrypted:\t", decrypted
+    print("\tDecrypted:\t", decrypted)
 
-    print "Testing speed"
+    print("Testing speed")
     from time import time
     t1 = time()
     n = 0
     tlen = 0
     while True:
-        for i in xrange(1000):
+        for i in range(1000):
             tstr = "The quick brown fox jumps over the lazy dog %d" % i
             enc = cipher.encryptCTR(tstr)
             tlen += len(tstr)
@@ -689,5 +689,5 @@ if __name__ == '__main__':
         if t2 - t1 > 5:
             break
     t = t2 - t1
-    print "%d encryptions in %0.1f seconds:" + \
-          " %0.1f enc/s, %0.1f bytes/s" % (n, t, n / t, tlen / t)
+    print("%d encryptions in %0.1f seconds:" + \
+          " %0.1f enc/s, %0.1f bytes/s" % (n, t, n / t, tlen / t))

@@ -14,7 +14,7 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 ### END LICENSE
 
-import pytwofish
+from . import pytwofish
 import operator
 
 
@@ -24,7 +24,7 @@ class TwofishCBC(pytwofish.Twofish):
 
     def _xor(self, string, pw):
         result = ''
-        for k in xrange(len(string)):
+        for k in range(len(string)):
             result += chr(operator.xor(ord(string[k]), ord(pw[k])))
         return result
 
