@@ -33,7 +33,7 @@ class PathEntry:
         self.uuid = uuid
         self.path = path
 
-    def __cmp__(self, other):
+    def _mycmp(self, other):
 
         # First, we sort by path
         result = self._sort_path(self.path, other.path)
@@ -44,6 +44,24 @@ class PathEntry:
         result = self._sort_name(self.name, other.name)
         return result
 
+    def __lt__(self, other):
+        return self._mycmp(other) < 0
+
+    def __gt__(self, other):
+        return self._mycmp(other) > 0
+
+    def __eq__(self, other):
+        return self._mycmp(other) == 0
+
+    def __le__(self, other):
+        return self._mycmp(other) <= 0
+
+    def __ge__(self, other):
+        return self._mycmp(other) >= 0
+
+    def __ne__(self, other):
+        return self._mycmp(other) != 0
+
     def _lower(self, name):
         # Doing .lower() is wrong in Python 2 as it doesn't properly
         # handle certain characters in Unicode languages. Unfortunately,
@@ -52,7 +70,7 @@ class PathEntry:
         if name:
             return name.lower()
         else:
-            return name
+            return ""
 
     def _sort_name(self, first, second):
         # Perform a case-insensitive sort
@@ -143,6 +161,9 @@ class PathEntry:
                     return 1
                 i += 1
             return 0
+
+    def __repr__(self):
+        return repr((self.name, self.uuid, self.path))
 
 # Owais Lone : To get quick access to icons and stuff.
 def get_media_file(media_file_name):
