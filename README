@@ -7,7 +7,7 @@ It stores information in a Password Safe 3.0 compatible database.
 Requirements:
 -------------
 
-- python 2.x
+- python 3.x
 - pygobject
 - gtk+ 3.0
 - gobject-introspection

@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.35 (UNRELEASED)
 
  * Enhancements:
+   - Migrated to Python 3
 
  * Bug fixes:
 

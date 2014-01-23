@@ -10,4 +10,3 @@ List of stuff to do:
 - Add database merge functionality
 - Add better toolbar icons
 - Implement sanity check after saving db temp file
-- Fix compatibility with Python 3
