@@ -87,11 +87,11 @@ def confirm(prompt=None, resp=False):
         prompt = '%s [%s]|%s: ' % (prompt, 'n', 'y')
 
     while True:
-        ans = raw_input(prompt)
+        ans = input(prompt)
         if not ans:
             return resp
         if ans not in ['y', 'Y', 'n', 'N']:
-            print 'please enter y or n.'
+            print('please enter y or n.')
             continue
         if ans == 'y' or ans == 'Y':
             return True
@@ -103,21 +103,21 @@ if options.filename == None:
 else:
     filename = options.filename
 
-print "Attempting to import GPass passwords..."
-print "Database filename is %s" % filename
-print
+print("Attempting to import GPass passwords...")
+print("Database filename is %s" % filename)
+print()
 
 if not os.path.exists(filename):
-    print "Could not locate database file!"
+    print("Could not locate database file!")
     sys.exit(1)
 
-if os.environ.has_key('XDG_DATA_HOME'):
+if 'XDG_DATA_HOME' in os.environ:
     basedir = os.path.join(os.environ['XDG_DATA_HOME'], 'pasaffe')
 else:
     basedir = os.path.join(os.environ['HOME'], '.local/share/pasaffe')
 
 if not os.path.exists(basedir):
-    os.mkdir(basedir, 0700)
+    os.mkdir(basedir, 0o700)
 
 db_filename = os.path.join(basedir, 'pasaffe.psafe3')
 
@@ -128,24 +128,24 @@ gpass = gpassfile.GPassFile(filename, password)
 items = len(gpass.records)
 
 if items == 0:
-    print "Database was empty!"
+    print("Database was empty!")
     sys.exit(1)
 else:
-    print "Located %s passwords in the database!" % items
+    print("Located %s passwords in the database!" % items)
 
 if not os.path.exists(db_filename) and options.overwrite != True:
-    print "WARNING: Could not locate a Pasaffe database."
+    print("WARNING: Could not locate a Pasaffe database.")
     response = confirm(prompt='Create a new database?', resp=False)
     options.overwrite = True
 elif options.overwrite == True:
-    print "If you continue, your current Pasaffe database will be DELETED."
+    print("If you continue, your current Pasaffe database will be DELETED.")
     response = confirm(prompt='Overwrite database?', resp=False)
 else:
-    print "If you continue, passwords will be imported into Pasaffe."
+    print("If you continue, passwords will be imported into Pasaffe.")
     response = confirm(prompt='Import to database?', resp=False)
 
 if response == False:
-    print "Aborting."
+    print("Aborting.")
     sys.exit(1)
 
 
@@ -158,12 +158,12 @@ if options.overwrite == True and os.path.exists(db_filename):
 
 # Get password for Pasaffe database
 if options.overwrite == True:
-    print "You now must enter a master password for the new Pasaffe database"
+    print("You now must enter a master password for the new Pasaffe database")
     while(1):
         password = getpass.getpass("New password: ")
         password_conf = getpass.getpass("Confirm password: ")
         if password != password_conf:
-            print "ERROR: passwords don't match, try again.\n\n"
+            print("ERROR: passwords don't match, try again.\n\n")
         else:
             break
     passsafe = readdb.PassSafeFile()
@@ -172,7 +172,7 @@ if options.overwrite == True:
     passsafe.writefile(db_filename)
 
 else:
-    print "You must now enter the Pasaffe database password."
+    print("You must now enter the Pasaffe database password.")
     password = getpass.getpass()
 
     passsafe = readdb.PassSafeFile(db_filename, password)
@@ -180,5 +180,5 @@ else:
         passsafe.records[entry] = gpass.records[entry]
     passsafe.writefile(db_filename, backup=True)
 
-print "Success!"
+print("Success!")
 
