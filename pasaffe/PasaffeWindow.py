@@ -795,7 +795,7 @@ class PasaffeWindow(Window):
             self.disable_idle_timeout()
             self.editdetails_dialog = self.EditDetailsDialog()
 
-            for record_type, widget_name in record_dict.items():
+            for record_type, widget_name in list(record_dict.items()):
                 # Handle folders separately
                 if record_type == 2:
                     liststore = self.editdetails_dialog.builder.get_object('liststore1')
@@ -814,7 +814,7 @@ class PasaffeWindow(Window):
             tree_changed = False
 
             if response == Gtk.ResponseType.OK:
-                for record_type, widget_name in record_dict.items():
+                for record_type, widget_name in list(record_dict.items()):
                     # Get the new value
                     if record_type == 2:
                         combo = self.editdetails_dialog.builder.get_object('folder_combo')

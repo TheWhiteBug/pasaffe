@@ -54,7 +54,7 @@ def get_database_path():
         basedir = os.path.join(os.environ['HOME'], '.local/share/pasaffe')
 
     if not os.path.exists(basedir):
-        os.mkdir(basedir, 0700)
+        os.mkdir(basedir, 0o700)
 
     return os.path.join(basedir, 'pasaffe.psafe3')
 
