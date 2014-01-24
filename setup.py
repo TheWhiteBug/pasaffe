@@ -31,8 +31,8 @@ def update_config(values = {}):
 
     oldvalues = {}
     try:
-        fin = file('pasaffe_lib/pasaffeconfig.py', 'r')
-        fout = file(fin.name + '.new', 'w')
+        fin = open('pasaffe_lib/pasaffeconfig.py', 'r')
+        fout = open(fin.name + '.new', 'w')
 
         for line in fin:
             fields = line.split(' = ') # Separate variable from value
@@ -54,8 +54,8 @@ def update_config(values = {}):
 def update_desktop_file(datadir):
 
     try:
-        fin = file('pasaffe.desktop.in', 'r')
-        fout = file(fin.name + '.new', 'w')
+        fin = open('pasaffe.desktop.in', 'r')
+        fout = open(fin.name + '.new', 'w')
 
         for line in fin:
             if 'Icon=' in line:
