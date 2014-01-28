@@ -26,7 +26,7 @@ from gi.repository import Gio, Gtk  # pylint: disable=E0611
 from pasaffe import PasaffeWindow
 
 from pasaffe_lib import set_up_logging, get_version
-
+from pasaffe_lib.helpers import get_database_path
 
 def parse_options():
     """Support for command line options"""
@@ -44,19 +44,6 @@ def parse_options():
 
     set_up_logging(options)
     return options
-
-
-def get_database_path():
-    """Determines standard XDG location for database"""
-    if 'XDG_DATA_HOME' in os.environ:
-        basedir = os.path.join(os.environ['XDG_DATA_HOME'], 'pasaffe')
-    else:
-        basedir = os.path.join(os.environ['HOME'], '.local/share/pasaffe')
-
-    if not os.path.exists(basedir):
-        os.mkdir(basedir, 0o700)
-
-    return os.path.join(basedir, 'pasaffe.psafe3')
 
 
 def main():

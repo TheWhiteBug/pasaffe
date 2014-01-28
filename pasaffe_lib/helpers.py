@@ -325,4 +325,57 @@ def folder_path_to_list(folder_path):
     folders.append(folder_path[index:len(folder_path)].replace('\\',''))
     return folders
 
+def confirm(prompt=None, resp=False):
+    """prompts for yes or no response from the user. Returns True for yes and
+    False for no.
+
+    'resp' should be set to the default value assumed by the caller when
+    user simply types ENTER.
+
+    >>> confirm(prompt='Create Directory?', resp=True)
+    Create Directory? [y]|n: 
+    True
+    >>> confirm(prompt='Create Directory?', resp=False)
+    Create Directory? [n]|y: 
+    False
+    >>> confirm(prompt='Create Directory?', resp=False)
+    Create Directory? [n]|y: y
+    True
+
+    """
+
+    if options.yes:
+        return resp
+
+    if prompt is None:
+        prompt = 'Confirm'
+
+    if resp:
+        prompt = '%s [%s]|%s: ' % (prompt, 'y', 'n')
+    else:
+        prompt = '%s [%s]|%s: ' % (prompt, 'n', 'y')
+
+    while True:
+        ans = input(prompt)
+        if not ans:
+            return resp
+        if ans not in ['y', 'Y', 'n', 'N']:
+            print('please enter y or n.')
+            continue
+        if ans == 'y' or ans == 'Y':
+            return True
+        if ans == 'n' or ans == 'N':
+            return False
+
+def get_database_path():
+    """Determines standard XDG location for database"""
+    if 'XDG_DATA_HOME' in os.environ:
+        basedir = os.path.join(os.environ['XDG_DATA_HOME'], 'pasaffe')
+    else:
+        basedir = os.path.join(os.environ['HOME'], '.local/share/pasaffe')
+
+    if not os.path.exists(basedir):
+        os.mkdir(basedir, 0o700)
+
+    return os.path.join(basedir, 'pasaffe.psafe3')
 

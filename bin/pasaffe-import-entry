@@ -45,12 +45,13 @@ if python_path:
 
 from pasaffe_lib import readdb
 from pasaffe_lib import set_up_logging, get_version
+from pasaffe_lib.helpers import get_database_path
 
 parser = OptionParser()
 parser.add_option("-v", "--verbose", action="count", dest="verbose",
                   help="Show debug messages (-vv debugs pasaffe_lib also)")
 parser.add_option("-f", "--file", dest="filename",
-                  help="specify alternate GPass database file", metavar="FILE")
+                  help="specify alternate Pasaffe database file", metavar="FILE")
 parser.add_option("-m", "--master", dest="master",
                   default='', help="specify database master password")
 parser.add_option("-e", "--entry", dest="entry",
@@ -68,13 +69,10 @@ parser.add_option("-n", "--notes", dest="notes",
 
 set_up_logging(options)
 
-if 'XDG_DATA_HOME' in os.environ:
-    db_filename = os.path.join(os.environ['XDG_DATA_HOME'], 'pasaffe/pasaffe.psafe3')
-else:
-    db_filename = os.path.join(os.environ['HOME'], '.local/share/pasaffe/pasaffe.psafe3')
-
 if options.filename != None:
     db_filename = options.filename
+else:
+    db_filename = get_database_path()
 
 print("Attempting to import new entry...", end=' ')
 
