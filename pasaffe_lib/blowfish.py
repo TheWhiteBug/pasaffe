@@ -404,10 +404,10 @@ class Blowfish:
         key_len = len(key)
         index = 0
         for i in range(len(self.p_boxes)):
-            val = (ord(key[index % key_len]) << 24) + \
-                  (ord(key[(index + 1) % key_len]) << 16) + \
-                  (ord(key[(index + 2) % key_len]) << 8) + \
-                   ord(key[(index + 3) % key_len])
+            val = (key[index % key_len] << 24) + \
+                  (key[(index + 1) % key_len] << 16) + \
+                  (key[(index + 2) % key_len] << 8) + \
+                   key[(index + 3) % key_len]
             self.p_boxes[i] = self.p_boxes[i] ^ val
             index = index + 4
 
@@ -471,19 +471,22 @@ class Blowfish:
                                " length: %s" % len(data))
 
         # Use big endianess since that's what everyone else uses
-        xl = ord(data[3]) | (ord(data[2]) << 8) | (ord(data[1]) << 16) | \
-            (ord(data[0]) << 24)
-        xr = ord(data[7]) | (ord(data[6]) << 8) | (ord(data[5]) << 16) | \
-            (ord(data[4]) << 24)
+        xl = data[3] | (data[2] << 8) | (data[1] << 16) | \
+            (data[0] << 24)
+        xr = data[7] | (data[6] << 8) | (data[5] << 16) | \
+            (data[4] << 24)
 
         cl, cr = self.cipher(xl, xr, self.ENCRYPT)
-        chars = ''.join([
-            chr((cl >> 24) & 0xFF), chr((cl >> 16) & 0xFF),
-            chr((cl >> 8) & 0xFF), chr(cl & 0xFF),
-            chr((cr >> 24) & 0xFF), chr((cr >> 16) & 0xFF),
-            chr((cr >> 8) & 0xFF), chr(cr & 0xFF)
-        ])
-        return chars
+        chars = bytearray()
+        chars.append((cl >> 24) & 0xFF)
+        chars.append((cl >> 16) & 0xFF)
+        chars.append((cl >> 8) & 0xFF)
+        chars.append(cl & 0xFF)
+        chars.append((cr >> 24) & 0xFF)
+        chars.append((cr >> 16) & 0xFF)
+        chars.append((cr >> 8) & 0xFF)
+        chars.append(cr & 0xFF)
+        return bytes(chars)
 
     def decrypt(self, data):
         if not len(data) == 8:
@@ -491,19 +494,22 @@ class Blowfish:
                                " length: %s" % len(data))
 
         # Use big endianess since that's what everyone else uses
-        cl = ord(data[3]) | (ord(data[2]) << 8) | \
-            (ord(data[1]) << 16) | (ord(data[0]) << 24)
-        cr = ord(data[7]) | (ord(data[6]) << 8) | \
-            (ord(data[5]) << 16) | (ord(data[4]) << 24)
+        cl = data[3] | (data[2] << 8) | \
+            (data[1] << 16) | (data[0] << 24)
+        cr = data[7] | (data[6] << 8) | \
+            (data[5] << 16) | (data[4] << 24)
 
         xl, xr = self.cipher(cl, cr, self.DECRYPT)
-        chars = ''.join([
-            chr((xl >> 24) & 0xFF), chr((xl >> 16) & 0xFF),
-            chr((xl >> 8) & 0xFF), chr(xl & 0xFF),
-            chr((xr >> 24) & 0xFF), chr((xr >> 16) & 0xFF),
-            chr((xr >> 8) & 0xFF), chr(xr & 0xFF)
-        ])
-        return chars
+        chars = bytearray()
+        chars.append((xl >> 24) & 0xFF)
+        chars.append((xl >> 16) & 0xFF)
+        chars.append((xl >> 8) & 0xFF)
+        chars.append(xl & 0xFF)
+        chars.append((xr >> 24) & 0xFF)
+        chars.append((xr >> 16) & 0xFF)
+        chars.append((xr >> 8) & 0xFF)
+        chars.append(xr & 0xFF)
+        return bytes(chars)
 
     # ==== CBC Mode ====
     def initCBC(self, iv=0):
@@ -524,13 +530,13 @@ class Blowfish:
             raise RuntimeError("Can only work with data in 64-bit"
                                " multiples in CBC mode")
 
-        xor = lambda t: ord(t[0]) ^ ord(t[1])
-        result = ''
+        xor = lambda t: t[0] ^ t[1]
+        result = b''
         block_size = self.block_size()
         for i in range(0, len(data), block_size):
             p_block = data[i:i + block_size]
             pair = list(zip(p_block, self.cbc_iv))
-            j_block = ''.join(map(chr, list(map(xor, pair))))
+            j_block = bytes(list(map(xor, pair)))
             c_block = self.encrypt(j_block)
             result += c_block
             self.cbc_iv = c_block
@@ -543,14 +549,14 @@ class Blowfish:
             raise RuntimeError("Can only work with data in 64-bit"
                                " multiples in CBC mode")
 
-        xor = lambda t: ord(t[0]) ^ ord(t[1])
-        result = ''
+        xor = lambda t: t[0] ^ t[1]
+        result = b''
         block_size = self.block_size()
         for i in range(0, len(data), block_size):
             c_block = data[i:i + block_size]
             j_block = self.decrypt(c_block)
             pair = list(zip(j_block, self.cbc_iv))
-            p_block = ''.join(map(chr, list(map(xor, pair))))
+            p_block = bytes(list(map(xor, pair)))
             result += p_block
             self.cbc_iv = c_block
         return result
@@ -571,7 +577,7 @@ class Blowfish:
 
     def _nextCTRByte(self):
         """Returns one byte of CTR keystream"""
-        b = ord(self.ctr_cks[self.ctr_pos])
+        b = self.ctr_cks[self.ctr_pos]
         self.ctr_pos += 1
         if self.ctr_pos >= len(self.ctr_cks):
             self._calcCTRBUF()
@@ -585,10 +591,10 @@ class Blowfish:
         """
         if type(data) != bytes:
             raise RuntimeException("Can only work on 8-bit strings")
-        result = []
+        result = bytearray()
         for ch in data:
-            result.append(chr(ord(ch) ^ self._nextCTRByte()))
-        return "".join(result)
+            result.append(ch ^ self._nextCTRByte())
+        return bytes(result)
 
     def decryptCTR(self, data):
         return self.encryptCTR(data)
@@ -607,13 +613,13 @@ class Blowfish:
         import binascii
         # for more vectors see http://www.schneier.com/code/vectors.txt
         vectors = (
-            ('0000000000000000', '0000000000000000', '4EF997456198DD78'),
-            ('FFFFFFFFFFFFFFFF', 'FFFFFFFFFFFFFFFF', '51866FD5B85ECB8A'),
-            ('3000000000000000', '1000000000000001', '7D856F9A613063F2'),
-            ('1111111111111111', '1111111111111111', '2466DD878B963C9D'),
-            ('49E95D6D4CA229BF', '02FE55778117F12A', 'CF9C5D7A4986ADB5'),
-            ('E0FEE0FEF1FEF1FE', '0123456789ABCDEF', 'C39E072D9FAC631D'),
-            ('07A7137045DA2A16', '3BDD119049372802', '2EEDDA93FFD39C79'),
+            (b'0000000000000000', b'0000000000000000', b'4EF997456198DD78'),
+            (b'FFFFFFFFFFFFFFFF', b'FFFFFFFFFFFFFFFF', b'51866FD5B85ECB8A'),
+            (b'3000000000000000', b'1000000000000001', b'7D856F9A613063F2'),
+            (b'1111111111111111', b'1111111111111111', b'2466DD878B963C9D'),
+            (b'49E95D6D4CA229BF', b'02FE55778117F12A', b'CF9C5D7A4986ADB5'),
+            (b'E0FEE0FEF1FEF1FE', b'0123456789ABCDEF', b'C39E072D9FAC631D'),
+            (b'07A7137045DA2A16', b'3BDD119049372802', b'2EEDDA93FFD39C79'),
         )
         ok = True
         for v in vectors:
@@ -634,7 +640,7 @@ if __name__ == '__main__':
     else:
         print("The implementation passes algorithm test vectors (ECB).")
 
-    key = 'This is a test key'
+    key = b'This is a test key'
     cipher = Blowfish(key)
 
     print("Testing encryption:")
@@ -647,7 +653,7 @@ if __name__ == '__main__':
     print("\tUnencrypted is: (%s, %s)" % (dl, dr))
 
     print("Testing block encrypt:")
-    text = 'testtest'
+    text = b'testtest'
     print("\tText:\t\t%s" % text)
     crypted = cipher.encrypt(text)
     print("\tEncrypted:\t%s" % repr(crypted))
@@ -656,7 +662,7 @@ if __name__ == '__main__':
 
     print("Testing CTR encrypt:")
     cipher.initCTR()
-    text = "The quick brown fox jumps over the lazy dog"
+    text = b"The quick brown fox jumps over the lazy dog"
     print("\tText:\t\t", text)
     crypted = cipher.encryptCTR(text)
     print("\tEncrypted:\t", repr(crypted))
@@ -666,7 +672,7 @@ if __name__ == '__main__':
 
     print("Testing CBC encrypt:")
     cipher.initCBC()
-    text = "Owen's Ornery Old Oryx Obstructed Olga's Optics."
+    text = b"Owen's Ornery Old Oryx Obstructed Olga's Optics."
     print("\tText:\t\t", text)
     crypted = cipher.encryptCBC(text)
     print("\tEncrypted:\t", repr(crypted))
@@ -682,12 +688,13 @@ if __name__ == '__main__':
     while True:
         for i in range(1000):
             tstr = "The quick brown fox jumps over the lazy dog %d" % i
-            enc = cipher.encryptCTR(tstr)
-            tlen += len(tstr)
+            tbts = tstr.encode('utf-8')
+            enc = cipher.encryptCTR(tbts)
+            tlen += len(tbts)
         n += 1000
         t2 = time()
         if t2 - t1 > 5:
             break
     t = t2 - t1
-    print("%d encryptions in %0.1f seconds:" + \
-          " %0.1f enc/s, %0.1f bytes/s" % (n, t, n / t, tlen / t))
+    print("%d encryptions in %0.1f seconds:" % (n, t) +
+          " %0.1f enc/s, %0.1f bytes/s" % (n / t, tlen / t))

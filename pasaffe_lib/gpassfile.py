@@ -19,6 +19,7 @@ import struct
 import hashlib
 import os
 import time
+from binascii import hexlify, unhexlify
 
 from . import blowfish
 import logging
@@ -27,15 +28,15 @@ logger = logging.getLogger('pasaffe_lib')
 
 class GPassFile:
 
-    records = {}
-    gpass_iv = "\x05\x17\x01\x7b\x0c\x03\x36\x5e"
-    decoded_db = None
-    index = 0
-
-    cipher = None
-
     def __init__(self, filename=None, password=None):
         '''Reads a GPass file'''
+
+        self.records = {}
+        self.gpass_iv = b"\x05\x17\x01\x7b\x0c\x03\x36\x5e"
+        self.decoded_db = None
+        self.index = 0
+
+        self.cipher = None
 
         if filename != None:
             self.readfile(filename, password)
@@ -43,15 +44,17 @@ class GPassFile:
     def readfile(self, filename, password):
         '''Parses database file'''
         try:
-            dbfile = open(filename, 'r').read()
+            dbfile = open(filename, 'rb')
         except Exception:
             raise RuntimeError("Could not open %s. Aborting." % filename)
 
-        key = hashlib.sha1(password).digest()
+        dbdata = dbfile.read()
+
+        key = hashlib.sha1(password.encode('utf-8')).digest()
         self.cipher = blowfish.Blowfish(key)
         self.cipher.initCBC(iv=struct.unpack("Q", self.gpass_iv)[0])
 
-        self.decoded_db = self.cipher.decryptCBC(dbfile)
+        self.decoded_db = self.cipher.decryptCBC(dbdata)
         self.remove_padding()
         self.validate_header()
 
@@ -59,27 +62,27 @@ class GPassFile:
 
         while self.index < len(self.decoded_db):
             uuid = os.urandom(16)
-            uuid_hex = uuid.encode('hex')
+            uuid_hex = hexlify(uuid).decode('utf-8')
             timestamp = struct.pack("<I", int(time.time()))
             new_entry = {1: uuid, 3: '', 4: '', 6: '',
                          7: timestamp, 8: timestamp, 12: timestamp}
 
             # We just generate a new UUID instead of using the GPass id
             entry_id = self.get_int()
-            logger.debug("id is %s" % entry_id.encode("hex"))
+            logger.debug("id is %s" % hexlify(entry_id))
 
             # We don't handle parents in Pasaffe for now
             parent_id = self.get_int()
-            logger.debug("parent_id is %s" % parent_id.encode("hex"))
+            logger.debug("parent_id is %s" % hexlify(parent_id))
 
-            entry_type = self.get_string()
+            entry_type = self.get_bytes()
             logger.debug("entry_type is %s" % entry_type)
 
-            entry_data = self.get_string()
+            entry_data = self.get_bytes()
             #logger.debug("entry_data is %s" % entry_data)
 
             # We don't handle anything else than standard entries for now
-            if entry_type != "general":
+            if entry_type != b"general":
                 continue
 
             # OK, now parse entry data
@@ -99,7 +102,7 @@ class GPassFile:
             entry_index, entry_ctime = self.get_entry_int(entry_data,
                                                           entry_index)
             new_entry[7] = entry_ctime
-            logger.debug("creation time is %s" % entry_ctime.encode("hex"))
+            logger.debug("creation time is %s" % hexlify(entry_ctime))
 
             entry_index, entry_mtime = self.get_entry_int(entry_data,
                                                           entry_index)
@@ -107,17 +110,17 @@ class GPassFile:
             new_entry[8] = entry_mtime
             new_entry[12] = entry_mtime
             logger.debug("modification time is %s" %
-                         entry_mtime.encode("hex"))
+                         hexlify(entry_mtime))
 
             entry_index, entry_expflag = self.get_entry_int(entry_data,
                                                             entry_index)
-            logger.debug("expiration flag is %s" % entry_expflag.encode("hex"))
+            logger.debug("expiration flag is %s" % hexlify(entry_expflag))
 
             entry_index, entry_etime = self.get_entry_int(entry_data,
                                                           entry_index)
             if struct.unpack("<I", entry_expflag)[0] != 0:
                 new_entry[10] = entry_etime
-            logger.debug("expiration time is %s" % entry_etime.encode("hex"))
+            logger.debug("expiration time is %s" % hexlify(entry_etime))
 
             entry_index, entry_username = self.get_entry_string(entry_data,
                                                                 entry_index)
@@ -137,17 +140,19 @@ class GPassFile:
 
             self.records[uuid_hex] = new_entry
 
+        dbfile.close()
+
     def remove_padding(self):
         padding = self.decoded_db[-1]
 
-        for byte in self.decoded_db[-ord(padding):]:
+        for byte in self.decoded_db[-padding:]:
             if byte != padding:
                 return
 
-        self.decoded_db = self.decoded_db[:-ord(padding)]
+        self.decoded_db = self.decoded_db[:-padding]
 
     def validate_header(self):
-        gpass_magic_prefix = "GPassFile version 1.1.0"
+        gpass_magic_prefix = b"GPassFile version 1.1.0"
 
         logger.debug("decoded_db header is %s" %
                      self.decoded_db[:len(gpass_magic_prefix)])
@@ -165,7 +170,7 @@ class GPassFile:
         self.index += 4
         return value
 
-    def get_string(self):
+    def get_bytes(self):
         length = struct.unpack("<I", self.get_int())[0]
         value = self.decoded_db[self.index:self.index + length]
         self.index += length
@@ -176,7 +181,7 @@ class GPassFile:
         b = 1
 
         for i in range(6):
-            c = ord(entry[entry_index + i])
+            c = entry[entry_index + i]
             if c & 0x80:
                 value += b * (c & 0x7f)
                 b *= 0x80
@@ -189,4 +194,4 @@ class GPassFile:
         length = struct.unpack("<I", length)[0]
         value = entry[entry_index:entry_index + length]
         entry_index += length
-        return entry_index, value
+        return entry_index, value.decode('utf-8')
