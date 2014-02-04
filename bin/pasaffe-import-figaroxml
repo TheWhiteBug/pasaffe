@@ -62,6 +62,9 @@ parser.add_option("-y", "--yes", dest="yes", action="store_true",
                   default=False, help="don't ask for confirmation (may result in data loss!)")
 parser.add_option("-m", "--masterpassword", dest="master",
                   default=None, help="specify Pasaffe database master password")
+parser.add_option("-q", "--quiet", dest="quiet", action="store_true",
+                  default=False, help="quiet messages")
+
 (options, args) = parser.parse_args()
 
 set_up_logging(options)
@@ -73,9 +76,10 @@ if options.filename == None:
 else:
     filename = options.filename
 
-print("Attempting to import FPM2 passwords...")
-print("Database filename is %s" % filename)
-print()
+if not options.quiet:
+    print("Attempting to import FPM2 passwords...")
+    print("Database filename is %s" % filename)
+    print()
 
 if not os.path.exists(filename):
     print("Could not locate database file!")
@@ -94,8 +98,9 @@ if items == 0:
     print("Database was empty!")
     sys.exit(1)
 else:
-    print("Located %s passwords in the database!" % items)
-    print()
+    if not options.quiet:
+        print("Located %s passwords in the database!" % items)
+        print()
 
 if len(fpmxml.skipped) > 0:
     print("WARNING: The following fields will be ignored by this script:")
@@ -104,7 +109,7 @@ if len(fpmxml.skipped) > 0:
     print("content of those fields will not be imported into Pasaffe.")
     print()
 
-if opt.yes == True:
+if options.yes == True:
     if options.overwrite == True and os.path.exists(db_filename):
         shutil.copy(db_filename, db_filename + ".bak")
         os.unlink(db_filename)
@@ -128,8 +133,8 @@ else:
 
 # Get password for Pasaffe database
 if os.path.exists(db_filename):
-    if opt.master != None:
-        password = opt.master
+    if options.master != None:
+        password = options.master
     else:
         print("You must now enter the Pasaffe database password.")
         password = getpass.getpass()
@@ -139,8 +144,8 @@ if os.path.exists(db_filename):
         passsafe.records[entry] = fpmxl.records[entry]
     passsafe.writefile(db_filename, backup=True)
 else:
-    if opt.master != None:
-        password = opt.master
+    if options.master != None:
+        password = options.master
     else:
         print("You now must enter a master password for the new Pasaffe database")
         while(1):
@@ -155,5 +160,5 @@ else:
     passsafe.records = fpmxl.records
     passsafe.writefile(db_filename)
 
-
-print("Success!")
+if not options.quiet:
+    print("Success!")

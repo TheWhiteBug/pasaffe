@@ -64,6 +64,9 @@ parser.add_option("-p", "--password", dest="password",
                   default='', help="specify entry password")
 parser.add_option("-n", "--notes", dest="notes",
                   default='', help="specify entry notes")
+parser.add_option("-q", "--quiet", dest="quiet", action="store_true",
+                  default=False, help="quiet messages")
+
 
 (options, args) = parser.parse_args()
 
@@ -74,7 +77,8 @@ if options.filename != None:
 else:
     db_filename = get_database_path()
 
-print("Attempting to import new entry...", end=' ')
+if not options.quiet:
+    print("Attempting to import new entry...", end=' ')
 
 if not os.path.exists(db_filename):
     print("\n\nERROR: Could not locate database file!")
@@ -100,5 +104,6 @@ passfile.records[uuid_hex] = new_entry
 
 passfile.writefile(db_filename, backup=True)
 
-print("Success!")
+if not options.quiet:
+    print("Success!")
 
