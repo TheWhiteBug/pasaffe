@@ -5,6 +5,8 @@ For a detailed list of changes, please see ChangeLog.
 
  * Enhancements:
    - Migrated to Python 3
+   - Added translator credits to about dialog (LP: #1273673)
+   - Updated translations
 
  * Bug fixes:
 
