@@ -22,6 +22,11 @@ msgstr ""
 msgid "<big><b>Edit folder</b></big>"
 msgstr "<big><b>Modifier le dossier</b></big>"
 
+#: ../data/ui/AboutPasaffeDialog.ui.h:2
+msgid "translator-credits"
+msgstr ""
+"Marc Deslauriers <marc.deslauriers@canonical.com>"
+
 #: ../data/ui/EditFolderDialog.ui.h:2
 msgid "Parent folder:"
 msgstr "Dossier parent :"
