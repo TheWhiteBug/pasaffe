@@ -20,20 +20,20 @@ import struct
 import hashlib
 import os
 import time
+from binascii import hexlify, unhexlify
 from xml.etree import cElementTree as ET
 import logging
 logger = logging.getLogger('pasaffe_lib')
 
 
 class KeePassX:
-    records = {}
-    skipped = []
-    index = 0
-
-    cipher = None
-
     def __init__(self, filename=None):
         """ Reads a KeePassX/KeePass2 XML file"""
+
+        self.records = {}
+        self.skipped = []
+        self.index = 0
+        self.cipher = None
 
         if filename != None:
             self.readfile(filename)
@@ -67,29 +67,29 @@ class KeePassX:
 
                 for pwitem in groupitem.iter('entry'):
                     uuid = os.urandom(16)
-                    uuid_hex = uuid.encode('hex')
+                    uuid_hex = hexlify(uuid).decode('utf-8')
                     timestamp = struct.pack("<I", int(time.time()))
                     new_entry = {1: uuid, 3: '', 4: '', 6: '',
                                  7: timestamp, 8: timestamp, 12: timestamp}
 
                     for x in list(pwitem):
                         if x.tag == 'title':
-                            new_entry[3] = (x.text or 'Untitled item').encode("utf-8")
+                            new_entry[3] = (x.text or 'Untitled item')
                         elif x.tag == 'username':
-                            new_entry[4] = (x.text or '').encode("utf-8")
+                            new_entry[4] = (x.text or '')
                         elif x.tag == 'password':
-                            new_entry[6] = (x.text or '').encode("utf-8")
+                            new_entry[6] = (x.text or '')
                         elif x.tag == 'url':
-                            new_entry[13] = (x.text or '').encode("utf-8")
+                            new_entry[13] = (x.text or '')
                         elif x.tag == 'creation':
                             new_entry[7] = self._convert_time(x.text, False)
                         elif x.tag == 'lastmod':
                             new_entry[8] = self._convert_time(x.text, False)
                             new_entry[12] = self._convert_time(x.text, False)
                         elif x.tag == 'comment':
-                            new_entry[5] = (x.text or '').encode("utf-8")
+                            new_entry[5] = (x.text or '')
                             for subelement in list(x):
-                                new_entry[5] += "\n" + (subelement.tail or '').encode("utf-8")
+                                new_entry[5] += "\n" + (subelement.tail or '')
                         else:
                             if x.tag not in self.skipped:
                                 self.skipped.append(x.tag)
@@ -100,7 +100,7 @@ class KeePassX:
             for groupitem in element.findall('./Root/Group'):
                 for pwitem in list(groupitem):
                     uuid = os.urandom(16)
-                    uuid_hex = uuid.encode('hex')
+                    uuid_hex = hexlify(uuid).decode('utf-8')
                     timestamp = struct.pack("<I", int(time.time()))
                     new_entry = {1: uuid, 3: '', 4: '', 6: '',
                                  7: timestamp, 8: timestamp, 12: timestamp}
@@ -118,15 +118,15 @@ class KeePassX:
                             elif x.tag == 'String':
                                 for stritem in list(x):
                                     if stritem.text == 'Title':
-                                        new_entry[3] = (x.find('Value').text or 'Untitled item').encode("utf-8")
+                                        new_entry[3] = (x.find('Value').text or 'Untitled item')
                                     elif stritem.text == 'UserName':
-                                        new_entry[4] = (x.find('Value').text or '').encode("utf-8")
+                                        new_entry[4] = (x.find('Value').text or '')
                                     elif stritem.text == 'Password':
-                                        new_entry[6] = (x.find('Value').text or '').encode("utf-8")
+                                        new_entry[6] = (x.find('Value').text or '')
                                     elif stritem.text == 'URL':
-                                        new_entry[13] = (x.find('Value').text or '').encode("utf-8")
+                                        new_entry[13] = (x.find('Value').text or '')
                                     elif stritem.text == 'Notes':
-                                        new_entry[5] = (x.find('Value').text or '').encode("utf-8")
+                                        new_entry[5] = (x.find('Value').text or '')
                                     else:
                                         if stritem.tag == 'Key' and stritem.text not in self.skipped:
                                             self.skipped.append(stritem.text)

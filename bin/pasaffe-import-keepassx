@@ -101,7 +101,7 @@ else:
         print("Located %s passwords in the database!" % items)
         print()
 
-if len(keepassx.skipped) > 0:
+if not options.quiet and len(keepassx.skipped) > 0:
     print("WARNING: The following fields will be ignored by this script:")
     print(" ".join(keepassx.skipped))
     print("Please keep a copy of your original KeePassX/KeePass2 database, as")

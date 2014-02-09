@@ -1,0 +1,55 @@
+<!DOCTYPE KEEPASSX_DATABASE>
+<database>
+ <group>
+  <title>Internet</title>
+  <icon>1</icon>
+  <group>
+   <title>subgroup</title>
+   <icon>0</icon>
+   <group>
+    <title>emptygroup</title>
+    <icon>0</icon>
+   </group>
+   <entry>
+    <title>subgroupentry1</title>
+    <username>username3</username>
+    <password>password3</password>
+    <url>hostname3</url>
+    <comment>comment3</comment>
+    <icon>0</icon>
+    <creation>2014-02-09T08:32:01</creation>
+    <lastaccess>2014-02-09T08:32:21</lastaccess>
+    <lastmod>2014-02-09T08:32:21</lastmod>
+    <expire>Never</expire>
+   </entry>
+  </group>
+  <entry>
+   <title>topentry1</title>
+   <username>username1</username>
+   <password>password1</password>
+   <url>hostname1</url>
+   <comment>This is a comment<br/>Second line<br/>Unicode: ééé</comment>
+   <icon>1</icon>
+   <creation>2014-02-09T08:29:59</creation>
+   <lastaccess>2014-02-09T08:30:41</lastaccess>
+   <lastmod>2014-02-09T08:30:31</lastmod>
+   <expire>Never</expire>
+  </entry>
+ </group>
+ <group>
+  <title>eMail</title>
+  <icon>19</icon>
+  <entry>
+   <title>topentry2</title>
+   <username>username2</username>
+   <password>password2</password>
+   <url>hostname2</url>
+   <comment>This is a comment<br/>Second line<br/></comment>
+   <icon>1</icon>
+   <creation>2014-02-09T08:30:46</creation>
+   <lastaccess>2014-02-09T08:31:21</lastaccess>
+   <lastmod>2014-02-09T08:31:21</lastmod>
+   <expire>Never</expire>
+  </entry>
+ </group>
+</database>
