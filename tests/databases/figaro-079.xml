@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<FPM full_version="00.75.00" min_version="00.75.00" display_version="0.75"><KeyInfo cipher="none"/><LauncherList/><PasswordList><PasswordItem><title>topcategory3</title><user>username3</user><url>hostname3</url><password>password3</password><notes>This is notes
+Line 2</notes><category>category1</category><launcher/></PasswordItem><PasswordItem><title>topentry1</title><user>username1</user><url>hostname1</url><password>password1</password><notes>This is a note
+Second line
+Unicode: &#xE9;&#xE9;&#xE9;
+</notes><category/><launcher/></PasswordItem><PasswordItem><title>topentry2</title><user>username2</user><url>hostname2</url><password>password2</password><notes>This is a note</notes><category/><launcher/></PasswordItem></PasswordList></FPM>

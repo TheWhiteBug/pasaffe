@@ -102,7 +102,7 @@ else:
         print("Located %s passwords in the database!" % items)
         print()
 
-if len(fpmxml.skipped) > 0:
+if not options.quiet and len(fpmxml.skipped) > 0:
     print("WARNING: The following fields will be ignored by this script:")
     print(" ".join(fpmxml.skipped))
     print("Please keep a copy of your original FPM2 database, as the")
@@ -140,8 +140,8 @@ if os.path.exists(db_filename):
         password = getpass.getpass()
 
     passsafe = readdb.PassSafeFile(db_filename, password)
-    for entry in keepassx.records:
-        passsafe.records[entry] = fpmxl.records[entry]
+    for entry in fpmxml.records:
+        passsafe.records[entry] = fpmxml.records[entry]
     passsafe.writefile(db_filename, backup=True)
 else:
     if options.master != None:
@@ -157,7 +157,7 @@ else:
                 break
     passsafe = readdb.PassSafeFile()
     passsafe.new_db(password)
-    passsafe.records = fpmxl.records
+    passsafe.records = fpmxml.records
     passsafe.writefile(db_filename)
 
 if not options.quiet:

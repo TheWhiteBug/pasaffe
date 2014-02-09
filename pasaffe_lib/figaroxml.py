@@ -19,20 +19,20 @@ import struct
 import hashlib
 import os
 import time
+from binascii import hexlify, unhexlify
 from xml.etree import cElementTree as ET
 import logging
 logger = logging.getLogger('pasaffe_lib')
 
 
 class FigaroXML:
-    records = {}
-    skipped = []
-    index = 0
-
-    cipher = None
-
     def __init__(self, filename=None):
         """ Reads a FPM2 file"""
+
+        self.records = {}
+        self.skipped = []
+        self.index = 0
+        self.cipher = None
 
         if filename != None:
             self.readfile(filename)
@@ -49,22 +49,22 @@ class FigaroXML:
 
         for pwitem in element.findall('./PasswordList/PasswordItem'):
             uuid = os.urandom(16)
-            uuid_hex = uuid.encode('hex')
+            uuid_hex = hexlify(uuid).decode('utf-8')
             timestamp = struct.pack("<I", int(time.time()))
             new_entry = {1: uuid, 3: '', 4: '', 6: '',
                          7: timestamp, 8: timestamp, 12: timestamp}
 
             for x in list(pwitem):
                 if x.tag == 'title':
-                    new_entry[3] = (x.text or 'Untitled item').encode("utf-8")
+                    new_entry[3] = (x.text or 'Untitled item')
                 elif x.tag == 'user':
-                    new_entry[4] = (x.text or '').encode("utf-8")
+                    new_entry[4] = (x.text or '')
                 elif x.tag == 'password':
-                    new_entry[6] = (x.text or '').encode("utf-8")
+                    new_entry[6] = (x.text or '')
                 elif x.tag == 'url':
-                    new_entry[13] = (x.text or '').encode("utf-8")
+                    new_entry[13] = (x.text or '')
                 elif x.tag == 'notes':
-                    new_entry[5] = (x.text or '').encode("utf-8")
+                    new_entry[5] = (x.text or '')
                 else:
                     if x.tag not in self.skipped:
                         self.skipped.append(x.tag)
