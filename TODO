@@ -10,3 +10,4 @@ List of stuff to do:
 - Add database merge functionality
 - Add better toolbar icons
 - Implement sanity check after saving db temp file
+- Implement translations for the help files
