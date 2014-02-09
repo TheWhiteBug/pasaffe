@@ -25,23 +25,54 @@ import shutil
 import subprocess
 sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__), "..")))
 
-from pasaffe_lib.gpassfile import GPassFile
 from pasaffe_lib.readdb import PassSafeFile
-from test_gpass_050 import TestGPass50
 
-class TestGPassImport(TestGPass50):
+class TestImportEntry(unittest.TestCase):
     def setUp(self):
         self.tempdir = tempfile.mkdtemp()
-        self.imported_db = os.path.join(self.tempdir, 'imported.psafe3')
-        rc = subprocess.call(['bin/pasaffe-import-gpass', '-q',
-                              '-f', './tests/databases/gpass-050.gps',
-                              '-d', self.imported_db,
-                              '-y', '-p', 'pasaffe', '-m', 'pasaffe'])
-        self.passfile = PassSafeFile(self.imported_db, 'pasaffe')
+        self.test_db = os.path.join(self.tempdir, 'test.psafe3')
+        shutil.copy('./tests/databases/pasaffe-025.psafe3', self.test_db)
 
     def tearDown(self):
         if os.path.exists(self.tempdir):
             shutil.rmtree(self.tempdir)
+
+    def test_orig_db(self):
+        passfile = PassSafeFile(self.test_db, 'pasaffe')
+        self.assertEqual(len(passfile.records), 3)
+
+    def test_import_entry(self):
+
+        name = 'testimport1'
+        url = 'http://www.launchpad.net/pasaffe'
+        user = 'testuser'
+        password = 'testpass'
+        note = "This is a note"
+
+        rc = subprocess.call(['bin/pasaffe-import-entry', '-q',
+                              '-f', self.test_db,
+                              '-m', 'pasaffe',
+                              '-e', name,
+                              '-l', url,
+                              '-u', user,
+                              '-p', password,
+                              '-n', note])
+
+        self.assertEqual(rc, 0)
+
+        passfile = PassSafeFile(self.test_db, 'pasaffe')
+        self.assertEqual(len(passfile.records), 4)
+
+        # Locate the new entry
+        for uuid in passfile.records:
+            if passfile.records[uuid][3] == name:
+                break
+
+        self.assertEqual(passfile.records[uuid][3], name)
+        self.assertEqual(passfile.records[uuid][4], user)
+        self.assertEqual(passfile.records[uuid][5], note)
+        self.assertEqual(passfile.records[uuid][6], password)
+        self.assertEqual(passfile.records[uuid][13], url)
 
 if __name__ == '__main__':
     unittest.main()

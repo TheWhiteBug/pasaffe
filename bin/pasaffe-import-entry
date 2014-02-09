@@ -94,13 +94,12 @@ if options.master == '':
 
 passfile = readdb.PassSafeFile(db_filename, options.master)
 
-uuid = os.urandom(16)
-uuid_hex = uuid.encode("hex")
-timestamp = struct.pack("<I", int(time.time()))
-new_entry = {1: uuid, 3: options.entry, 4: options.username, 5: options.notes,
-             6: options.password, 7: timestamp, 8: timestamp, 12: timestamp,
-             13: options.url}
-passfile.records[uuid_hex] = new_entry
+entry = passfile.new_entry()
+passfile.records[entry][3] = options.entry
+passfile.records[entry][4] = options.username
+passfile.records[entry][5] = options.notes
+passfile.records[entry][6] = options.password
+passfile.records[entry][13] = options.url
 
 passfile.writefile(db_filename, backup=True)
 
