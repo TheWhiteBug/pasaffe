@@ -6,7 +6,6 @@ List of stuff to do:
   - Fix loading expanded folders inside collapsed folders
   - Allow dragging more than one folder at a time
 - Improve icon
-- Design a better layout for details pane
 - Add database merge functionality
 - Add better toolbar icons
 - Implement sanity check after saving db temp file

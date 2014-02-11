@@ -488,51 +488,125 @@ class PasaffeWindow(Window):
        return item, None
 
     def display_data(self, entry_uuid, show_secrets=False):
-        title = self.passfile.records[entry_uuid].get(3)
+        ttt = self.get_texttagtable()
+        data_buffer = Gtk.TextBuffer.new(ttt)
 
-        url = None
+        # title
+        data_buffer.insert(data_buffer.get_start_iter(), "\n")
+        data_buffer.insert_with_tags(data_buffer.get_end_iter(),
+                                     self.passfile.records[entry_uuid].get(3),
+                                     ttt.lookup('title'))
+        data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
+
+        # url
         if 13 in self.passfile.records[entry_uuid]:
-            url = "%s\n\n" % self.passfile.records[entry_uuid].get(13)
+            data_buffer.insert_with_tags(data_buffer.get_end_iter(),
+                                         _("URL:") + "\n",
+                                         ttt.lookup('section'))
+            data_buffer.insert_with_tags(data_buffer.get_end_iter(),
+                                         self.passfile.records[entry_uuid].get(13),
+                                         ttt.lookup('url'))
+            data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
+
 
         contents = ''
         if show_secrets == False and \
            self.settings.get_boolean('only-passwords-are-secret') == False and \
            self.settings.get_boolean('visible-secrets') == False:
-            contents += _("Secrets are currently hidden.")
+            data_buffer.insert(data_buffer.get_end_iter(),
+                               _("Secrets are currently hidden."))
         else:
-            if 5 in self.passfile.records[entry_uuid]:
-                contents += "%s\n\n" % self.passfile.records[entry_uuid].get(5)
-            contents += _("Username: %s\n") % self.passfile.records[entry_uuid].get(4)
+            # username
+            data_buffer.insert_with_tags(data_buffer.get_end_iter(),
+                                         _("Username:") + "\n",
+                                         ttt.lookup('section'))
+            data_buffer.insert(data_buffer.get_end_iter(),
+                               self.passfile.records[entry_uuid].get(4))
+            data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
+
+            # password
+            data_buffer.insert_with_tags(data_buffer.get_end_iter(),
+                                         _("Password:") + "\n",
+                                         ttt.lookup('section'))
+
             if show_secrets == True or self.settings.get_boolean('visible-secrets') == True:
-                contents += _("Password: %s\n\n") % self.passfile.records[entry_uuid].get(6)
+                data_buffer.insert(data_buffer.get_end_iter(),
+                                   self.passfile.records[entry_uuid].get(6))
             else:
-                contents += _("Password: *****\n\n")
-            if 12 in self.passfile.records[entry_uuid]:
-                last_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
-                               time.localtime(struct.unpack("<I",
-                               self.passfile.records[entry_uuid][12])[0]))
-                contents += _("Last updated: %s\n") % last_updated
-            if 8 in self.passfile.records[entry_uuid]:
-                pass_updated = time.strftime("%a, %d %b %Y %H:%M:%S",
-                               time.localtime(struct.unpack("<I",
-                                   self.passfile.records[entry_uuid][8])[0]))
-                contents += _("Password updated: %s\n") % pass_updated
-        self.fill_display(title, url, contents)
+                data_buffer.insert(data_buffer.get_end_iter(), '*****')
+            data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
+
+            # notes
+            if 5 in self.passfile.records[entry_uuid]:
+                data_buffer.insert_with_tags(data_buffer.get_end_iter(),
+                                             _("Notes:") + "\n",
+                                             ttt.lookup('section'))
+                data_buffer.insert(data_buffer.get_end_iter(),
+                                   self.passfile.records[entry_uuid].get(5))
+                data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
+
+            # modification time
+            last_updated = self.passfile.get_modification_time(entry_uuid)
+            if last_updated != None:
+                data_buffer.insert_with_tags(data_buffer.get_end_iter(),
+                                             _("Last updated:") + "\n",
+                                             ttt.lookup('section'))
+                data_buffer.insert(data_buffer.get_end_iter(),
+                                   last_updated)
+                data_buffer.insert(data_buffer.get_end_iter(), "\n")
+
+            # password updated time
+            pass_updated = self.passfile.get_password_time(entry_uuid)
+            if pass_updated != None:
+                data_buffer.insert_with_tags(data_buffer.get_end_iter(),
+                                             _("Password updated:") + "\n",
+                                             ttt.lookup('section'))
+                data_buffer.insert(data_buffer.get_end_iter(),
+                                   pass_updated)
+                data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
+
+        self.ui.textview1.set_buffer(data_buffer)
 
     def display_welcome(self):
-        self.fill_display(_("Welcome to Pasaffe!"), None,
-                          _("Pasaffe is an easy to use\npassword manager for Gnome."))
+        ttt = self.get_texttagtable()
+        data_buffer = Gtk.TextBuffer.new(ttt)
+
+        data_buffer.insert(data_buffer.get_start_iter(), "\n")
+        data_buffer.insert_with_tags(data_buffer.get_end_iter(),
+                                     _("Welcome to Pasaffe!"),
+                                     ttt.lookup('title'))
+        data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
+
+        data_buffer.insert(data_buffer.get_end_iter(),
+                           _("Pasaffe is an easy to use\npassword manager."))
+
+        self.ui.textview1.set_buffer(data_buffer)
 
     def display_folder(self, folder_name):
-        self.fill_display(folder_name, None,
-                          _("This is a folder."))
+        ttt = self.get_texttagtable()
+        data_buffer = Gtk.TextBuffer.new(ttt)
 
-    def fill_display(self, title, url, contents):
+        data_buffer.insert(data_buffer.get_start_iter(), "\n")
+        data_buffer.insert_with_tags(data_buffer.get_end_iter(),
+                                     folder_name,
+                                     ttt.lookup('title'))
+        data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
+
+        data_buffer.insert(data_buffer.get_end_iter(),
+                           _("This is a folder."))
+
+        self.ui.textview1.set_buffer(data_buffer)
+
+    def get_texttagtable(self):
         texttagtable = Gtk.TextTagTable()
-        texttag_big = Gtk.TextTag.new("big")
+        texttag_big = Gtk.TextTag.new("title")
         texttag_big.set_property("weight", Pango.Weight.BOLD)
-        texttag_big.set_property("size", 12 * Pango.SCALE)
+        texttag_big.set_property("size", 14 * Pango.SCALE)
         texttagtable.add(texttag_big)
+
+        texttag_section = Gtk.TextTag.new("section")
+        texttag_section.set_property("weight", Pango.Weight.BOLD)
+        texttagtable.add(texttag_section)
 
         texttag_url = Gtk.TextTag.new("url")
         texttag_url.set_property("foreground", "blue")
@@ -540,15 +614,7 @@ class PasaffeWindow(Window):
         texttag_url.connect("event", self.url_event_handler)
         texttagtable.add(texttag_url)
 
-        data_buffer = Gtk.TextBuffer.new(texttagtable)
-        data_buffer.insert_with_tags(data_buffer.get_start_iter(), "\n" + title + "\n\n", texttag_big)
-        if url != None:
-            data_buffer.insert(data_buffer.get_end_iter(), "\n")
-            data_buffer.insert_with_tags(data_buffer.get_end_iter(), url, texttag_url)
-            data_buffer.insert(data_buffer.get_end_iter(), "\n")
-        data_buffer.insert(data_buffer.get_end_iter(), contents)
-
-        self.ui.textview1.set_buffer(data_buffer)
+        return texttagtable
 
     def url_event_handler(self, _tag, _widget, event, _iter):
         # We also used to check event.button == 1 here, but event.button
