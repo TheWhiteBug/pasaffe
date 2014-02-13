@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-02-11 16:59-0500\n"
+"POT-Creation-Date: 2014-02-12 07:59-0500\n"
 "PO-Revision-Date: 2014-02-07 20:12+0000\n"
 "Last-Translator: Marc Deslauriers <marc.deslauriers@canonical.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-02-12 06:14+0000\n"
+"X-Launchpad-Export-Date: 2014-02-13 06:39+0000\n"
 "X-Generator: Launchpad (build 16916)\n"
 
 #: ../pasaffe/__init__.py:36
@@ -29,95 +29,52 @@ msgstr ""
 msgid "set database as default"
 msgstr ""
 
-#: ../data/ui/NewPasswordDialog.ui.h:1
-msgid "<big><b>Change master password</b></big>"
+#: ../data/ui/EditDetailsDialog.ui.h:1
+msgid "<big><b>Edit entry</b></big>"
 msgstr ""
 
-#: ../data/ui/NewPasswordDialog.ui.h:2
-msgid ""
-"Enter your old master password,\n"
-"and a new master password.\n"
-"You must confirm the new password."
+#: ../data/ui/EditDetailsDialog.ui.h:2
+msgid "The name for this entry"
 msgstr ""
 
-#: ../data/ui/NewPasswordDialog.ui.h:5
-msgid "error message"
-msgstr "foutmelding"
-
-#: ../data/ui/NewPasswordDialog.ui.h:6
-msgid "Old password:"
-msgstr "Oud wachtwoord:"
-
-#: ../data/ui/NewPasswordDialog.ui.h:7
-msgid "New password:"
-msgstr "Nieuw wachtwoord:"
-
-#: ../data/ui/NewPasswordDialog.ui.h:8
-msgid "Confirm new password:"
-msgstr "Bevestig nieuw wachtwoord:"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:1
-msgid "start expanded"
+#: ../data/ui/EditDetailsDialog.ui.h:3
+msgid "The folder for this entry"
 msgstr ""
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:2
-msgid "start collapsed"
+#: ../data/ui/EditDetailsDialog.ui.h:4
+msgid "The entry's username"
 msgstr ""
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:3
-msgid "are remembered from last save"
+#: ../data/ui/EditDetailsDialog.ui.h:5
+msgid "Title:"
+msgstr "Titel:"
+
+#: ../data/ui/EditDetailsDialog.ui.h:6
+msgid "Folder:"
 msgstr ""
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:4
-msgid "Pasaffe Preferences"
+#: ../data/ui/EditDetailsDialog.ui.h:7 ../pasaffe/PasaffeWindow.py:521
+msgid "Username:"
+msgstr "Gebruikersnaam:"
+
+#: ../data/ui/EditDetailsDialog.ui.h:8 ../pasaffe/PasaffeWindow.py:529
+msgid "Password:"
+msgstr "Wachtwoord:"
+
+#: ../data/ui/EditDetailsDialog.ui.h:9 ../pasaffe/PasaffeWindow.py:542
+msgid "Notes:"
+msgstr "Opmerkingen:"
+
+#: ../data/ui/EditDetailsDialog.ui.h:10 ../pasaffe/PasaffeWindow.py:504
+msgid "URL:"
+msgstr "URL-adres:"
+
+#: ../data/ui/EditDetailsDialog.ui.h:11
+msgid "The website for this entry"
 msgstr ""
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:5
-msgid "Automatically save changes"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:6
-msgid "Display secrets by default"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:7
-msgid "Only passwords are secret"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:8
-msgid "<b>Secrets</b>"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:9
-msgid "Lock database after"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:10
-msgid "minutes"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:11
-msgid "<b>Lock</b>"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:12
-msgid "Passwords are"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:13
-msgid "characters long"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:14
-msgid "<b>Password Generator</b>"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:15
-msgid "Folders"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:16
-msgid "<b>Folder Preferences</b>"
+#: ../data/ui/EditDetailsDialog.ui.h:12
+msgid "Pick a random password"
 msgstr ""
 
 #: ../data/ui/EditFolderDialog.ui.h:1
@@ -136,25 +93,21 @@ msgstr ""
 msgid "The parent folder for this new folder"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:504 ../data/ui/EditDetailsDialog.ui.h:10
-msgid "URL:"
-msgstr "URL-adres:"
+#: ../data/ui/AboutPasaffeDialog.ui.h:1
+msgid "http://www.launchpad.net/pasaffe"
+msgstr ""
+
+#: ../data/ui/AboutPasaffeDialog.ui.h:2
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Marc Deslauriers https://launchpad.net/~mdeslaur\n"
+"  Wim Champagne https://launchpad.net/~fng-deactivatedaccount-"
+"deactivatedaccount"
 
 #: ../pasaffe/PasaffeWindow.py:517
 msgid "Secrets are currently hidden."
 msgstr ""
-
-#: ../pasaffe/PasaffeWindow.py:521 ../data/ui/EditDetailsDialog.ui.h:7
-msgid "Username:"
-msgstr "Gebruikersnaam:"
-
-#: ../pasaffe/PasaffeWindow.py:529 ../data/ui/EditDetailsDialog.ui.h:8
-msgid "Password:"
-msgstr "Wachtwoord:"
-
-#: ../pasaffe/PasaffeWindow.py:542 ../data/ui/EditDetailsDialog.ui.h:9
-msgid "Notes:"
-msgstr "Opmerkingen:"
 
 #: ../pasaffe/PasaffeWindow.py:552
 msgid "Last updated:"
@@ -248,6 +201,110 @@ msgstr "Het nieuwe wachtwoord kan niet leeg zijn! Probeer nog een keer."
 
 #: ../pasaffe/PasaffeWindow.py:1384
 msgid "Old password is invalid! Please try again."
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:1
+msgid "start expanded"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:2
+msgid "start collapsed"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:3
+msgid "are remembered from last save"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:4
+msgid "Pasaffe Preferences"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:5
+msgid "Automatically save changes"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:6
+msgid "Display secrets by default"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:7
+msgid "Only passwords are secret"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:8
+msgid "<b>Secrets</b>"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:9
+msgid "Lock database after"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:10
+msgid "minutes"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:11
+msgid "<b>Lock</b>"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:12
+msgid "Passwords are"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:13
+msgid "characters long"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:14
+msgid "<b>Password Generator</b>"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:15
+msgid "Folders"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:16
+msgid "<b>Folder Preferences</b>"
+msgstr ""
+
+#: ../data/ui/PasswordEntryDialog.ui.h:1
+msgid "<big><b>Please enter your master password:</b></big>"
+msgstr ""
+
+#: ../data/ui/PasswordEntryDialog.ui.h:2
+msgid "Invalid password! Please try again."
+msgstr "Foutief wachtwoord! Probeer nog een keer."
+
+#: ../data/ui/NewDatabaseDialog.ui.h:1
+msgid "<big><b>Welcome to Pasaffe!</b></big>"
+msgstr "<big><b>welkom bij Pasaffe!</b></big>"
+
+#: ../data/ui/NewDatabaseDialog.ui.h:2
+msgid ""
+"No existing database was found.\n"
+"A new one will be created.\n"
+"Please enter a master password to protect it."
+msgstr ""
+
+#: ../data/ui/NewDatabaseDialog.ui.h:6
+msgid "Enter password:"
+msgstr "Voer wachtwoord in:"
+
+#: ../data/ui/NewDatabaseDialog.ui.h:7
+msgid "Confirm password:"
+msgstr "Bevestig wachtwoord:"
+
+#: ../data/ui/SaveChangesDialog.ui.h:1
+msgid ""
+"<big><b>Save changes to your password database before closing?</b></big>"
+msgstr ""
+
+#: ../data/ui/SaveChangesDialog.ui.h:2
+msgid "Your changes will be lost if you don't save them."
+msgstr "Uw wijzigingen zullen verloren gaan als u ze niet opslaat."
+
+#: ../data/ui/SaveChangesDialog.ui.h:3
+msgid "Close without Saving"
 msgstr ""
 
 #: ../data/ui/PasaffeWindow.ui.h:1
@@ -406,90 +463,33 @@ msgstr ""
 msgid "Next result"
 msgstr ""
 
-#: ../data/ui/AboutPasaffeDialog.ui.h:1
-msgid "http://www.launchpad.net/pasaffe"
+#: ../data/ui/NewPasswordDialog.ui.h:1
+msgid "<big><b>Change master password</b></big>"
 msgstr ""
 
-#: ../data/ui/AboutPasaffeDialog.ui.h:2
-msgid "translator-credits"
-msgstr ""
-"Launchpad Contributions:\n"
-"  Marc Deslauriers https://launchpad.net/~mdeslaur\n"
-"  Wim Champagne https://launchpad.net/~fng-deactivatedaccount-"
-"deactivatedaccount"
-
-#: ../data/ui/PasswordEntryDialog.ui.h:1
-msgid "<big><b>Please enter your master password:</b></big>"
-msgstr ""
-
-#: ../data/ui/PasswordEntryDialog.ui.h:2
-msgid "Invalid password! Please try again."
-msgstr "Foutief wachtwoord! Probeer nog een keer."
-
-#: ../data/ui/SaveChangesDialog.ui.h:1
+#: ../data/ui/NewPasswordDialog.ui.h:2
 msgid ""
-"<big><b>Save changes to your password database before closing?</b></big>"
+"Enter your old master password,\n"
+"and a new master password.\n"
+"You must confirm the new password."
 msgstr ""
 
-#: ../data/ui/SaveChangesDialog.ui.h:2
-msgid "Your changes will be lost if you don't save them."
-msgstr "Uw wijzigingen zullen verloren gaan als u ze niet opslaat."
+#: ../data/ui/NewPasswordDialog.ui.h:5
+msgid "error message"
+msgstr "foutmelding"
 
-#: ../data/ui/SaveChangesDialog.ui.h:3
-msgid "Close without Saving"
-msgstr ""
+#: ../data/ui/NewPasswordDialog.ui.h:6
+msgid "Old password:"
+msgstr "Oud wachtwoord:"
 
-#: ../data/ui/EditDetailsDialog.ui.h:1
-msgid "<big><b>Edit entry</b></big>"
-msgstr ""
+#: ../data/ui/NewPasswordDialog.ui.h:7
+msgid "New password:"
+msgstr "Nieuw wachtwoord:"
 
-#: ../data/ui/EditDetailsDialog.ui.h:2
-msgid "The name for this entry"
-msgstr ""
-
-#: ../data/ui/EditDetailsDialog.ui.h:3
-msgid "The folder for this entry"
-msgstr ""
-
-#: ../data/ui/EditDetailsDialog.ui.h:4
-msgid "The entry's username"
-msgstr ""
-
-#: ../data/ui/EditDetailsDialog.ui.h:5
-msgid "Title:"
-msgstr "Titel:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:6
-msgid "Folder:"
-msgstr ""
-
-#: ../data/ui/EditDetailsDialog.ui.h:11
-msgid "The website for this entry"
-msgstr ""
-
-#: ../data/ui/EditDetailsDialog.ui.h:12
-msgid "Pick a random password"
-msgstr ""
+#: ../data/ui/NewPasswordDialog.ui.h:8
+msgid "Confirm new password:"
+msgstr "Bevestig nieuw wachtwoord:"
 
 #: ../pasaffe.desktop.in.h:2
 msgid "Pasaffe password manager"
 msgstr "Pasaffe wachtwoord manager"
-
-#: ../data/ui/NewDatabaseDialog.ui.h:1
-msgid "<big><b>Welcome to Pasaffe!</b></big>"
-msgstr "<big><b>welkom bij Pasaffe!</b></big>"
-
-#: ../data/ui/NewDatabaseDialog.ui.h:2
-msgid ""
-"No existing database was found.\n"
-"A new one will be created.\n"
-"Please enter a master password to protect it."
-msgstr ""
-
-#: ../data/ui/NewDatabaseDialog.ui.h:6
-msgid "Enter password:"
-msgstr "Voer wachtwoord in:"
-
-#: ../data/ui/NewDatabaseDialog.ui.h:7
-msgid "Confirm password:"
-msgstr "Bevestig wachtwoord:"
