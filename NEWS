@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.36 (UNRELEASED)
 
  * Enhancements:
+   - GPass import script now handles folders
 
  * Bug fixes:
 

@@ -154,6 +154,7 @@ else:
     passsafe = readdb.PassSafeFile()
     passsafe.new_db(password)
     passsafe.records = gpass.records
+    passsafe.empty_folders = gpass.empty_folders
     passsafe.writefile(db_filename)
 
 if not options.quiet:
