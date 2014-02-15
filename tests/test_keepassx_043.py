@@ -51,7 +51,7 @@ class TestKeePassX043(unittest.TestCase):
         entry_name = "topentry1"
         uuid = self._find_uuid(entry_name)
 
-        self.assertFalse(2 in self.passfile.records[uuid])
+        self.assertEqual(self.passfile.records[uuid][2], 'Internet')
         self.assertEqual(self.passfile.records[uuid][3], entry_name)
         self.assertEqual(self.passfile.records[uuid][4], 'username1')
         self.assertEqual(self.passfile.records[uuid][5],
@@ -67,6 +67,7 @@ class TestKeePassX043(unittest.TestCase):
         entry_name = "topentry2"
         uuid = self._find_uuid(entry_name)
 
+        self.assertEqual(self.passfile.records[uuid][2], 'eMail')
         self.assertEqual(self.passfile.records[uuid][3], entry_name)
         self.assertEqual(self.passfile.records[uuid][4], 'username2')
         self.assertEqual(self.passfile.records[uuid][5],
@@ -82,6 +83,7 @@ class TestKeePassX043(unittest.TestCase):
         entry_name = "subgroupentry1"
         uuid = self._find_uuid(entry_name)
 
+        self.assertEqual(self.passfile.records[uuid][2], 'Internet.subgroup')
         self.assertEqual(self.passfile.records[uuid][3], entry_name)
         self.assertEqual(self.passfile.records[uuid][4], 'username3')
         self.assertEqual(self.passfile.records[uuid][5], 'comment3')

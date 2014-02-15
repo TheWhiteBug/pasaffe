@@ -34,6 +34,7 @@ class KeePassX:
         self.skipped = []
         self.index = 0
         self.cipher = None
+        self.parent_map = None
 
         if filename != None:
             self.readfile(filename)
@@ -52,12 +53,51 @@ class KeePassX:
 
         return struct.pack("<I", int(value))
 
+    def _folder_list_to_field(self, folder_list):
+        '''Converts a folder list to a folder field'''
+        field = ""
+
+        if folder_list == None:
+            return field
+
+        if folder_list == []:
+            return field
+
+        for folder in folder_list:
+            if field != "":
+                field += "."
+            field += folder.replace(".", "\\.")
+        return field
+
+    def _get_folders(self, entry):
+        '''Searches parent map to locate folders'''
+        folder_list = []
+        if entry not in self.parent_map:
+            return folder_list
+
+        parent = self.parent_map[entry]
+        while True:
+            if parent.tag == 'group':
+                for x in list(parent):
+                    if x.tag == 'title':
+                        folder_list.insert(0, x.text)
+                        break
+            if parent not in self.parent_map:
+                break
+            else:
+                parent = self.parent_map[parent]
+
+        return folder_list
+
+
     def readfile(self, filename):
         """ Parses database file"""
         try:
             element = ET.parse(filename)
         except Exception:
             raise RuntimeError("Could not open %s. Aborting." % filename)
+
+        self.parent_map = {c:p for p in element.iter() for c in p}
 
         if element.getroot().tag == 'database':
             for groupitem in element.findall('./group'):
@@ -93,6 +133,10 @@ class KeePassX:
                         else:
                             if x.tag not in self.skipped:
                                 self.skipped.append(x.tag)
+
+                    folders = self._get_folders(pwitem)
+                    if folders != []:
+                        new_entry[2] = self._folder_list_to_field(folders)
 
                     self.records[uuid_hex] = new_entry
 

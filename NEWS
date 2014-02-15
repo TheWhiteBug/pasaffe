@@ -5,6 +5,7 @@ For a detailed list of changes, please see ChangeLog.
 
  * Enhancements:
    - GPass import script now handles folders
+   - KeePassX import script now handles folders
 
  * Bug fixes:
 
