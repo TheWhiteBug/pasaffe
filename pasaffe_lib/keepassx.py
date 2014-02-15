@@ -70,7 +70,7 @@ class KeePassX:
         return field
 
     def _get_folders(self, entry):
-        '''Searches parent map to locate folders'''
+        '''Searches parent map to locate folders for KeePassX'''
         folder_list = []
         if entry not in self.parent_map:
             return folder_list
@@ -86,6 +86,29 @@ class KeePassX:
                 break
             else:
                 parent = self.parent_map[parent]
+
+        return folder_list
+
+    def _get_folders_v2(self, entry):
+        '''Searches parent map to locate folders for KeePass2'''
+        folder_list = []
+        if entry not in self.parent_map:
+            return folder_list
+
+        parent = self.parent_map[entry]
+        while True:
+            if parent.tag == 'Group':
+                for x in list(parent):
+                    if x.tag == 'Name':
+                        folder_list.insert(0, x.text)
+                        break
+            if parent not in self.parent_map:
+                break
+            else:
+                parent = self.parent_map[parent]
+
+        # Remove the top-level 'NewDatabase' folder
+        folder_list.pop(0)
 
         return folder_list
 
@@ -142,44 +165,47 @@ class KeePassX:
 
         elif element.getroot().tag == 'KeePassFile':
             for groupitem in element.findall('./Root/Group'):
-                for pwitem in list(groupitem):
+                for pwitem in groupitem.iter('Entry'):
                     uuid = os.urandom(16)
                     uuid_hex = hexlify(uuid).decode('utf-8')
                     timestamp = struct.pack("<I", int(time.time()))
                     new_entry = {1: uuid, 3: '', 4: '', 6: '',
                                  7: timestamp, 8: timestamp, 12: timestamp}
 
-                    if pwitem.tag == 'Entry':
-                        for x in list(pwitem):
-                            if x.tag == 'Times':
-                                for timesitem in list(x):
-                                    if timesitem.tag == 'CreationTime':
-                                        new_entry[7] = self._convert_time(timesitem.text, True)
-                                    elif timesitem.tag == 'LastModificationTime':
-                                        new_entry[8] = self._convert_time(timesitem.text, True)
-                                        new_entry[12] = self._convert_time(timesitem.text, True)
+                    for x in list(pwitem):
+                        if x.tag == 'Times':
+                            for timesitem in list(x):
+                                if timesitem.tag == 'CreationTime':
+                                    new_entry[7] = self._convert_time(timesitem.text, True)
+                                elif timesitem.tag == 'LastModificationTime':
+                                    new_entry[8] = self._convert_time(timesitem.text, True)
+                                    new_entry[12] = self._convert_time(timesitem.text, True)
 
-                            elif x.tag == 'String':
-                                for stritem in list(x):
-                                    if stritem.text == 'Title':
-                                        new_entry[3] = (x.find('Value').text or 'Untitled item')
-                                    elif stritem.text == 'UserName':
-                                        new_entry[4] = (x.find('Value').text or '')
-                                    elif stritem.text == 'Password':
-                                        new_entry[6] = (x.find('Value').text or '')
-                                    elif stritem.text == 'URL':
-                                        new_entry[13] = (x.find('Value').text or '')
-                                    elif stritem.text == 'Notes':
-                                        new_entry[5] = (x.find('Value').text or '')
-                                    else:
-                                        if stritem.tag == 'Key' and stritem.text not in self.skipped:
-                                            self.skipped.append(stritem.text)
+                        elif x.tag == 'String':
+                            for stritem in list(x):
+                                if stritem.text == 'Title':
+                                    new_entry[3] = (x.find('Value').text or 'Untitled item')
+                                elif stritem.text == 'UserName':
+                                    new_entry[4] = (x.find('Value').text or '')
+                                elif stritem.text == 'Password':
+                                    new_entry[6] = (x.find('Value').text or '')
+                                elif stritem.text == 'URL':
+                                    new_entry[13] = (x.find('Value').text or '')
+                                elif stritem.text == 'Notes':
+                                    new_entry[5] = (x.find('Value').text or '')
+                                else:
+                                    if stritem.tag == 'Key' and stritem.text not in self.skipped:
+                                        self.skipped.append(stritem.text)
 
-                            else:
-                                if x.tag not in self.skipped:
-                                    self.skipped.append(x.tag)
+                        else:
+                            if x.tag not in self.skipped:
+                                self.skipped.append(x.tag)
 
-                        self.records[uuid_hex] = new_entry
+                    folders = self._get_folders_v2(pwitem)
+                    if folders != []:
+                        new_entry[2] = self._folder_list_to_field(folders)
+
+                    self.records[uuid_hex] = new_entry
 
         else:
             raise RuntimeError("Not a valid KeePassX or KeePass2 XML file")

@@ -5,9 +5,10 @@ For a detailed list of changes, please see ChangeLog.
 
  * Enhancements:
    - GPass import script now handles folders
-   - KeePassX import script now handles folders
+   - KeePassX/KeePass2 import script now handles folders
 
  * Bug fixes:
+   - Fixed KeePass2 import script and added tests
 
 0.36 (2014-02-12)
 
