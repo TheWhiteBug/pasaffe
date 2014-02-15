@@ -1,7 +1,7 @@
 This file summarizes the major and interesting changes for each release.
 For a detailed list of changes, please see ChangeLog.
 
-0.36 (UNRELEASED)
+0.36 (2014-02-15)
 
  * Enhancements:
    - Import scripts now handle folders
