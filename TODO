@@ -2,7 +2,6 @@ List of stuff to do:
 
 - Improve folder support
   - Make search work with folder names
-  - Make import scripts work with folders
   - Fix loading expanded folders inside collapsed folders
   - Allow dragging more than one folder at a time
 - Improve icon

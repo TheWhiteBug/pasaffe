@@ -65,6 +65,10 @@ class FigaroXML:
                     new_entry[13] = (x.text or '')
                 elif x.tag == 'notes':
                     new_entry[5] = (x.text or '')
+                elif x.tag == 'category':
+                    category = x.text
+                    if category != None:
+                        new_entry[2] = category.replace(".", "\\.")
                 else:
                     if x.tag not in self.skipped:
                         self.skipped.append(x.tag)

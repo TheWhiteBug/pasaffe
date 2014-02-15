@@ -64,6 +64,7 @@ class TestFigaroXML079(unittest.TestCase):
         entry_name = "topentry2"
         uuid = self._find_uuid(entry_name)
 
+        self.assertFalse(2 in self.passfile.records[uuid])
         self.assertEqual(self.passfile.records[uuid][3], entry_name)
         self.assertEqual(self.passfile.records[uuid][4], 'username2')
         self.assertEqual(self.passfile.records[uuid][5], 'This is a note')
@@ -75,6 +76,7 @@ class TestFigaroXML079(unittest.TestCase):
         entry_name = "topcategory3"
         uuid = self._find_uuid(entry_name)
 
+        self.assertEqual(self.passfile.records[uuid][2], 'category1')
         self.assertEqual(self.passfile.records[uuid][3], entry_name)
         self.assertEqual(self.passfile.records[uuid][4], 'username3')
         self.assertEqual(self.passfile.records[uuid][5], 'This is notes\nLine 2')
