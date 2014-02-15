@@ -4,9 +4,8 @@ For a detailed list of changes, please see ChangeLog.
 0.36 (UNRELEASED)
 
  * Enhancements:
-   - GPass import script now handles folders
-   - KeePassX/KeePass2 import script now handles folders
-   - Figaro import script now handles folders
+   - Import scripts now handle folders
+   - Updated translations
 
  * Bug fixes:
    - Fixed KeePass2 import script and added tests
