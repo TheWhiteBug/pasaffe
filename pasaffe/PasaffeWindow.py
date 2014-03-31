@@ -733,7 +733,7 @@ class PasaffeWindow(Window):
 
         # TODO: make sure folder name is unique in same level
 
-        new_iter = self.ui.liststore1.append(treeiter, ['gtk-directory', 'New Folder',"pasaffe_treenode.New Folder"])
+        new_iter = self.ui.liststore1.append(treeiter, ['gtk-directory', _('New Folder'),"pasaffe_treenode.New Folder"])
         if treeiter != None:
             path = self.ui.treeview1.get_model().get_path(treeiter)
             self.ui.treeview1.expand_row(path, False)
