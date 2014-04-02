@@ -1,14 +1,15 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="topic"
-      id="new-entry">
+      id="new-entry"
+      xml:lang="fr">
 
 <info>
   <link type="guide" xref="index#contents"/>
   <credit type="author">
     <name>Marc Deslauriers</name>
     <email>marc.deslauriers@canonical.com</email>
-    <years>2011</years>
   </credit>
+  <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude" />
   <desc>Comment créer une nouvelle entrée pour entreposer un nom d'utilisateur et un mot de passe.</desc>
 </info>
 

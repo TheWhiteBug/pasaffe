@@ -1,14 +1,15 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="topic"
-      id="delete-entry">
+      id="delete-entry"
+      xml:lang="fr">
 
 <info>
   <link type="guide" xref="index#contents"/>
   <credit type="author">
     <name>Marc Deslauriers</name>
     <email>marc.deslauriers@canonical.com</email>
-    <years>2011</years>
   </credit>
+  <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude" />
   <desc>Comment supprimer une entrée.</desc>
 </info>
 
