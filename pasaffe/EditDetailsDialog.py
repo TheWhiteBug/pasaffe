@@ -80,7 +80,7 @@ class EditDetailsDialog(Gtk.Dialog):
 
     def show_passwords_menu(self):
         """Generate some new passwords"""
-        command = ["apg", "-n", "6", "-M", "sNC",
+        command = ["apg", "-a", "1", "-n", "6", "-M", "NCL",
                    "-m", str(self.password_length),
                    "-x", str(self.password_length)]
         try:

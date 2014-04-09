@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.39 (UNRELEASED)
 
  * Enhancements:
+   - Improve random password generation
 
  * Bug fixes:
 
