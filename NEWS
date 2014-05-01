@@ -7,6 +7,7 @@ For a detailed list of changes, please see ChangeLog.
    - Improve random password generation
 
  * Bug fixes:
+   - Fixed [icon] text in help file, and license text. (LP: #1314956)
 
 0.38 (2014-04-04)
 

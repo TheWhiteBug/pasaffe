@@ -1,5 +1,5 @@
 <page xmlns="http://projectmallard.org/1.0/"
-      type="guide"
+      type="guide" style="task"
       id="index"
       xml:lang="fr">
 
@@ -14,7 +14,7 @@
 <title>
 <!-- This shows on the page in title font -->
 <!-- the icon only shows when installed -->
-<media type="image" mime="image/png" src="figures/icon.png">[icon]</media>
+<media type="image" mime="image/png" src="figures/icon.png" />
 Gestionnaire de mots de passe <app>Pasaffe</app>
 </title>
 
