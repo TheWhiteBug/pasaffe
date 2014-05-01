@@ -1236,14 +1236,18 @@ class PasaffeWindow(Window):
     def on_mnu_info_activate(self, _menuitem):
         information = _('<big><b>Database Information</b></big>\n\n')
         information += _('Number of entries: %s\n') % len(self.passfile.records)
-        information += _('Database version: %s\n') % self.passfile.get_database_version_string()
+        information += '\n'
         if self.passfile.get_saved_name():
             information += _('Last saved by: %s\n') % self.passfile.get_saved_name()
         if self.passfile.get_saved_host():
             information += _('Last saved on host: %s\n') % self.passfile.get_saved_host()
             information += _('Last save date: %s\n') % self.passfile.get_saved_date_string()
+        information += '\n'
+        information += _('Database version: %s\n') % self.passfile.get_database_version_string()
         if self.passfile.get_saved_application():
             information += _('Application used: %s\n') % self.passfile.get_saved_application()
+        information += '\n'
+        information += _('Database location:\n%s\n') % self.database
 
         info_dialog = Gtk.MessageDialog(transient_for=self,
                                         modal=True,

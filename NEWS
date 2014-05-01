@@ -5,6 +5,8 @@ For a detailed list of changes, please see ChangeLog.
 
  * Enhancements:
    - Improve random password generation
+   - Improve layout of database information window
+   - Display database file location in information window
 
  * Bug fixes:
    - Fixed [icon] text in help file, and license text. (LP: #1314956)
