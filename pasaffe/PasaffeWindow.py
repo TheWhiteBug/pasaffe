@@ -704,7 +704,7 @@ class PasaffeWindow(Window):
 
             self.passfile.records[uuid_hex][2] = folder_list_to_field(folder)
 
-        response = self.edit_entry(uuid_hex)
+        response = self.edit_entry(uuid_hex, True)
         if response != Gtk.ResponseType.OK:
             self.delete_entry(uuid_hex, save=False)
         else:
@@ -842,7 +842,7 @@ class PasaffeWindow(Window):
            item = liststore.iter_next(item)
        return None
 
-    def edit_entry(self, entry_uuid):
+    def edit_entry(self, entry_uuid, new_entry=False):
         if "pasaffe_treenode." in entry_uuid:
             return None
         record_dict = {2: 'folder_entry',
@@ -860,6 +860,9 @@ class PasaffeWindow(Window):
         if self.EditDetailsDialog is not None:
             self.disable_idle_timeout()
             self.editdetails_dialog = self.EditDetailsDialog()
+            if new_entry == True:
+                title = self.editdetails_dialog.builder.get_object('title')
+                title.set_markup("<big><b>New entry</b></big>")
 
             for record_type, widget_name in list(record_dict.items()):
                 # Handle folders separately
@@ -951,6 +954,10 @@ class PasaffeWindow(Window):
         if self.EditFolderDialog is not None:
             self.disable_idle_timeout()
             self.editfolder_dialog = self.EditFolderDialog()
+
+            if new_folder == True:
+                title = self.editfolder_dialog.builder.get_object('title')
+                title.set_markup("<big><b>New folder</b></big>")
 
             folder_name = treemodel.get_value(treeiter, 1)
             self.editfolder_dialog.ui.folder_name_entry.set_text(folder_name)
