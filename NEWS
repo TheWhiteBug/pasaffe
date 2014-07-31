@@ -8,6 +8,7 @@ For a detailed list of changes, please see ChangeLog.
    - Improve layout of database information window
    - Display database file location in information window
    - Corrected title in new entry and new folder windows (LP: #1314950)
+   - Edit button in toolbar now also edits folders (LP: #1350294)
 
  * Bug fixes:
    - Fixed [icon] text in help file, and license text. (LP: #1314956)

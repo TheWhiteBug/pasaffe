@@ -1508,7 +1508,10 @@ class PasaffeWindow(Window):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
         if treeiter != None:
             entry_uuid = treemodel.get_value(treeiter, 2)
-            self.edit_entry(entry_uuid)
+            if "pasaffe_treenode." in entry_uuid:
+                self.edit_folder(treemodel, treeiter)
+            else:
+                self.edit_entry(entry_uuid)
 
     def on_remove_clicked(self, _toolbutton):
         treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
