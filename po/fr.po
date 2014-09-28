@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-31 19:03-0400\n"
-"PO-Revision-Date: 2014-09-21 13:16+0000\n"
+"PO-Revision-Date: 2014-09-27 09:21+0000\n"
 "Last-Translator: londumas <helion331990@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-09-22 06:46+0000\n"
+"X-Launchpad-Export-Date: 2014-09-28 06:23+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 "Language: fr\n"
 
@@ -44,7 +44,7 @@ msgstr "sont fermés au démarrage"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:3
 msgid "are remembered from last save"
-msgstr "sont dans l'état du dernier sauvegarde"
+msgstr "sont dans l'état de la dernière sauvegarde"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:4
 msgid "Pasaffe Preferences"
@@ -68,7 +68,7 @@ msgstr "<b>Secrets</b>"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:9
 msgid "Lock database after"
-msgstr "Verrouiller le base de données après"
+msgstr "Verrouiller la base de données après"
 
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:10
 msgid "minutes"
@@ -528,4 +528,4 @@ msgstr "Le mot de passe ne peut être vide ! Veuillez recommencer."
 
 #: ../pasaffe/PasaffeWindow.py:1395
 msgid "Old password is invalid! Please try again."
-msgstr "Ancien mot de passe invalide ! Veuillez essayer de nouveau."
+msgstr "Ancien mot de passe invalide ! Veuillez recommencer."
