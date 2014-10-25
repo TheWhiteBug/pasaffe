@@ -22,3 +22,8 @@ entries with no password fields, and entries with no username fields. If an
 entry is created with no password field, there is also no password
 modification time field.
 
+Password Safe for Windows v3.26, and possibly other versions, will not
+create en entry with no password, it will display an error message if the
+user doesn't use the password field. Entries with no usernames are created
+with a username field composed of a blank string.
+
