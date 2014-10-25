@@ -56,6 +56,8 @@ parser.add_option("-m", "--masterpassword", dest="master",
                   default=None, help="specify Pasaffe database master password")
 parser.add_option("-q", "--quiet", dest="quiet", action="store_true",
                   default=False, help="quiet messages")
+parser.add_option("-d", "--dump", dest="dump", action="store_true",
+                  default=False, help="print raw dump")
 
 (options, args) = parser.parse_args()
 
@@ -95,6 +97,11 @@ record_dict = { 'Entry'    : 3,
                 'Password' : 6,
                 'URL'      : 13
               }
+
+if options.dump:
+    print("Printing raw dump of database:\n")
+    print(passfile.records)
+    sys.exit(0)
 
 for record in sorted(list(passfile.records.values()), key=lambda entry: entry[3].lower()):
     # specify order of labels and values
