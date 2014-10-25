@@ -73,6 +73,11 @@ if not os.path.exists(db_filename):
 if not options.quiet:
     print("WARNING: this will display all password entries.")
 
+if options.dump:
+    fixup = False
+else:
+    fixup = True
+
 count = 0
 max_tries = 3
 while count < max_tries:
@@ -82,7 +87,7 @@ while count < max_tries:
     else:
         master = getpass.getpass("Password> ")
     try:
-        passfile = readdb.PassSafeFile(db_filename, master)
+        passfile = readdb.PassSafeFile(db_filename, master, fixup=fixup)
         break
     except ValueError:
         print("Sorry, try again.")

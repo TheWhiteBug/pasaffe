@@ -10,20 +10,31 @@ database, and migrate existing entries on import.
 
 2- Missing passwords
 
-Pasaffe allows creating entries with no password fields. Password Gorilla
-v1.5.3.6.3 on Ubuntu 13.04, and possibly other versions, has no trouble
-with missing password fields, but Password Safe for Windows v3.31, and
-possibly other versions, gives an error dialog when opening the database
-and proceeds to set a default password for all entries with no password
-fields.
+Pasaffe used to allow creating entries with no password fields. Password
+Gorilla v1.5.3.6.3 on Ubuntu 13.04, and possibly other versions, has no
+trouble with missing password fields, but Password Safe for Windows v3.31,
+and possibly other versions, gives an error dialog when opening the
+database and proceeds to set a default password for all entries with no
+password fields.
 
 Password Gorilla v1.5.3.7, and possibly other versions, allows creating
-entries with no password fields, and entries with no username fields.
+entries with no password fields.
 
 Password Safe for Windows v3.26, and possibly other versions, will not
 create en entry with no password, it will display an error message if the
-user doesn't use the password field. Entries with no usernames are created
-with a username field composed of a blank string.
+user doesn't use the password field.
+
+PasswdSafe for Android will not create an entry with no password.
+
+3- Missing usernames
+
+Password Gorilla v1.5.3.7, and possibly other versions, allows creating
+entries with no username fields.
+
+Password Safe for Windows v3.26, and possibly other versions, creates
+entries with no usernames with a username field composed of a blank string.
+
+PasswdSafe for Android will create entries with no username field.
 
 3- Password Modification Time
 

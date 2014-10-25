@@ -73,8 +73,8 @@ class TestPasswdSafeAndroid510(unittest.TestCase):
         self.assertEqual(self.passfile.get_folder_list(uuid), None)
         self.assertEqual(self.passfile.records[uuid][3], 'Toplevel')
         self.assertEqual(self.passfile.records[uuid][4], 'topuser')
-        self.assertEqual(self.passfile.records[uuid][5], 'This is a note\r\n' +
-                                                         'This is line 2\r\n' +
+        self.assertEqual(self.passfile.records[uuid][5], 'This is a note\n' +
+                                                         'This is line 2\n' +
                                                          'Unicode: éléphant')
         self.assertEqual(self.passfile.records[uuid][6], 'toppass')
         self.assertFalse(8 in self.passfile.records[uuid])
@@ -85,7 +85,7 @@ class TestPasswdSafeAndroid510(unittest.TestCase):
         self.assertEqual(self.passfile.records[uuid][2], 'Top.withdot')
         self.assertEqual(self.passfile.get_folder_list(uuid), ['Top', 'withdot'])
         self.assertEqual(self.passfile.records[uuid][3], 'Indot')
-        self.assertFalse(4 in self.passfile.records[uuid])
+        self.assertEqual(self.passfile.records[uuid][4], '')
         self.assertFalse(5 in self.passfile.records[uuid])
         self.assertEqual(self.passfile.records[uuid][6], 'password')
         self.assertFalse(8 in self.passfile.records[uuid])

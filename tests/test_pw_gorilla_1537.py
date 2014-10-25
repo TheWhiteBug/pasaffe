@@ -99,7 +99,7 @@ class TestPasswordGorilla1537(unittest.TestCase):
         self.assertEqual(self.passfile.records[uuid][3], 'entrylevel1')
         self.assertEqual(self.passfile.records[uuid][4], 'username1')
         self.assertEqual(self.passfile.records[uuid][5],
-                         'This is a note\r\nThis is a second line\r\nUnicode: éléphant')
+                         'This is a note\nThis is a second line\nUnicode: éléphant')
         self.assertEqual(self.passfile.records[uuid][6], 'password1')
         self.assertEqual(self.passfile.get_password_time(uuid, False),
                          'Sat, 25 Oct 2014 15:07:24')
@@ -113,7 +113,7 @@ class TestPasswordGorilla1537(unittest.TestCase):
         self.assertEqual(self.passfile.records[uuid][3], 'topnopass')
         self.assertEqual(self.passfile.records[uuid][4], 'topusername')
         self.assertFalse(5 in self.passfile.records[uuid])
-        self.assertFalse(6 in self.passfile.records[uuid])
+        self.assertEqual(self.passfile.records[uuid][6], '')
         self.assertEqual(self.passfile.get_password_time(uuid, False),
                          None)
         self.assertEqual(self.passfile.get_modification_time(uuid, False),
@@ -124,7 +124,7 @@ class TestPasswordGorilla1537(unittest.TestCase):
         self.assertFalse(2 in self.passfile.records[uuid])
         self.assertEqual(self.passfile.get_folder_list(uuid), None)
         self.assertEqual(self.passfile.records[uuid][3], 'topnouser')
-        self.assertFalse(4 in self.passfile.records[uuid])
+        self.assertEqual(self.passfile.records[uuid][4], '')
         self.assertFalse(5 in self.passfile.records[uuid])
         self.assertEqual(self.passfile.records[uuid][6], 'toppassword')
         self.assertEqual(self.passfile.get_password_time(uuid, False),

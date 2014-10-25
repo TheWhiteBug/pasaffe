@@ -77,7 +77,7 @@ class TestPasswordSafe331(unittest.TestCase):
         self.assertEqual(self.passfile.records[uuid][3], 'topentry1')
         self.assertEqual(self.passfile.records[uuid][4], 'username1')
         self.assertEqual(self.passfile.records[uuid][5],
-                         'This is a note\r\nThis is a second line\r\nUnicode: éléphant')
+                         'This is a note\nThis is a second line\nUnicode: éléphant')
         self.assertEqual(self.passfile.records[uuid][6], 'password1')
         self.assertEqual(self.passfile.get_creation_time(uuid, False),
                          'Thu, 25 Jul 2013 00:21:00')
@@ -89,7 +89,7 @@ class TestPasswordSafe331(unittest.TestCase):
         self.assertEqual(self.passfile.get_folder_list(uuid), ['level1group'])
         self.assertEqual(self.passfile.records[uuid][3], 'level1entry')
         self.assertEqual(self.passfile.records[uuid][4], 'username1')
-        self.assertEqual(self.passfile.records[uuid][5], 'This is a note\r\n')
+        self.assertEqual(self.passfile.records[uuid][5], 'This is a note\n')
         self.assertEqual(self.passfile.records[uuid][6], 'password1')
         self.assertEqual(self.passfile.get_creation_time(uuid, False),
                          'Thu, 25 Jul 2013 00:25:42')
