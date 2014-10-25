@@ -11,8 +11,14 @@ migrate existing entries on import.
 2- Missing passwords
 
 Pasaffe allows creating entries with no password fields. Password Gorilla
-v1.5.3.6.3 on Ubuntu 13.04 has no trouble with missing password fields, but
-Password Safe for Windows v3.31 gives an error dialog when opening the
-database and proceeds to set a default password for all entries with no
-password fields.
+v1.5.3.6.3 on Ubuntu 13.04, and possibly other versions, has no trouble
+with missing password fields, but Password Safe for Windows v3.31, and
+possibly other versions, gives an error dialog when opening the database
+and proceeds to set a default password for all entries with no password
+fields.
+
+Password Gorilla v1.5.3.7, and possibly other versions, allows creating
+entries with no password fields, and entries with no username fields. If an
+entry is created with no password field, there is also no password
+modification time field.
 
