@@ -462,5 +462,45 @@ class TestReadDB(unittest.TestCase):
         self.assertEqual(self.passfile.get_tree_status(), None)
         self.assertFalse(3 in self.passfile.header)
 
+    def test_fixups(self):
+
+        self.passfile.new_db("test")
+        uuid_hex = self.passfile.new_entry()
+
+        # New entry should have empty strings
+        self.assertEqual(self.passfile.records[uuid_hex][4], '')
+        self.assertEqual(self.passfile.records[uuid_hex][5], '')
+        self.assertEqual(self.passfile.records[uuid_hex][6], '')
+
+        # Delete username and password
+        del self.passfile.records[uuid_hex][4]
+        del self.passfile.records[uuid_hex][6]
+
+        # add a comment with CRLF terminators
+        crlf = ("First line\r\n" +
+                "Second line\r\n" +
+                "Third line")
+
+        lf = ("First line\n" +
+              "Second line\n" +
+              "Third line")
+
+        self.passfile.records[uuid_hex][5] = crlf
+
+        self.assertTrue(4 not in self.passfile.records[uuid_hex])
+        self.assertTrue(6 not in self.passfile.records[uuid_hex])
+        self.assertEqual(self.passfile.records[uuid_hex][5], crlf)
+
+        # Now do the postread fixup
+        self.passfile._postread_fixup()
+
+        self.assertEqual(self.passfile.records[uuid_hex][4], '')
+        self.assertEqual(self.passfile.records[uuid_hex][5], lf)
+        self.assertEqual(self.passfile.records[uuid_hex][6], '')
+
+        # OK, do the presave fixup
+        self.passfile._presave_fixup()
+        self.assertEqual(self.passfile.records[uuid_hex][5], crlf)
+
 if __name__ == '__main__':
     unittest.main()
