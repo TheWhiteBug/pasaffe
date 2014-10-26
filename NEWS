@@ -4,8 +4,14 @@ For a detailed list of changes, please see ChangeLog.
 0.40 (UNRELEASED)
 
  * Enhancements:
+   - Updated translations
+   - Store notes field with CRLF in the database for interopability
+     reasons
+   - Add a raw dump option to pasaffe-dump-db
 
  * Bug fixes:
+   - Properly handle databases that don't contain username or password
+     fields (LP: #1384710)
 
 0.39 (2014-07-31)
 
