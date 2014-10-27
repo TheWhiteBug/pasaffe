@@ -162,6 +162,7 @@ class PasaffeWindow(Window):
     def save_warning(self):
         if self.get_save_status() == True:
             savechanges_dialog = self.SaveChangesDialog()
+            savechanges_dialog.set_transient_for(self)
             response = savechanges_dialog.run()
             if response == Gtk.ResponseType.OK:
                 self.save_db()
@@ -173,6 +174,7 @@ class PasaffeWindow(Window):
     def fetch_password(self):
         success = True
         password_dialog = self.PasswordEntryDialog()
+        password_dialog.set_transient_for(self)
         while self.passfile == None:
             response = password_dialog.run()
             if response == Gtk.ResponseType.OK:
@@ -192,6 +194,7 @@ class PasaffeWindow(Window):
     def new_database(self):
         success = False
         newdb_dialog = self.NewDatabaseDialog()
+        newdb_dialog.set_transient_for(self)
         while success == False:
             response = newdb_dialog.run()
             if response == Gtk.ResponseType.OK:
@@ -877,6 +880,7 @@ class PasaffeWindow(Window):
                     self.editdetails_dialog.builder.get_object(widget_name).set_text(self.passfile.records[entry_uuid][record_type])
 
             self.set_entry_window_size()
+            self.editdetails_dialog.set_transient_for(self)
             response = self.editdetails_dialog.run()
 
             data_changed = False
@@ -969,6 +973,7 @@ class PasaffeWindow(Window):
             self.populate_folders(liststore, combobox, parent_folder)
 
             self.set_folder_window_size()
+            self.editfolder_dialog.set_transient_for(self)
             response = self.editfolder_dialog.run()
             if response == Gtk.ResponseType.OK:
                 new_name = self.editfolder_dialog.ui.folder_name_entry.get_text()
@@ -1377,6 +1382,8 @@ class PasaffeWindow(Window):
     def on_mnu_chg_password_activate(self, _menuitem):
         success = False
         newpass_dialog = self.NewPasswordDialog()
+        newpass_dialog.set_transient_for(self)
+
         while success == False:
             response = newpass_dialog.run()
             if response == Gtk.ResponseType.OK:

@@ -90,6 +90,7 @@ class Window(Gtk.Window):
             logger.debug('create new preferences_dialog')
             self.preferences_dialog = \
                 self.PreferencesDialog()  # pylint: disable=E1102
+            self.preferences_dialog.set_transient_for(self)
             self.preferences_dialog.connect('destroy',
                 self.on_preferences_dialog_destroyed)
             self.preferences_dialog.show()
