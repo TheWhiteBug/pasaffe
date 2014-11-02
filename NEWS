@@ -14,6 +14,7 @@ For a detailed list of changes, please see ChangeLog.
      fields (LP: #1384710)
    - Make sure all dialogs have transient parents (LP: #1386064)
    - Stop using deprecated Gtk stock items (LP: #1386064)
+   - Disable menu and toolbar entries for missing fields
 
 0.39 (2014-07-31)
 

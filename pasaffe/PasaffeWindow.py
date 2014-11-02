@@ -425,7 +425,6 @@ class PasaffeWindow(Window):
             self.display_data(uuid)
             path = treemodel.get_path(item)
             self.ui.treeview1.scroll_to_cell(path)
-            self.set_menu_for_entry(True)
 
     def goto_folder(self, folders):
         item = self.search_folder(folders)
@@ -434,7 +433,6 @@ class PasaffeWindow(Window):
             self.display_folder(self.ui.liststore1.get_value(item, 1))
             path = self.ui.treeview1.get_model().get_path(item)
             self.ui.treeview1.scroll_to_cell(path)
-            self.set_menu_for_entry(False)
 
     def search_uuid(self, uuid, item=None, toplevel=True):
        if toplevel == True:
@@ -570,6 +568,26 @@ class PasaffeWindow(Window):
 
         self.ui.textview1.set_buffer(data_buffer)
 
+        self.set_menu_for_entry(True)
+
+        # Now disable menus for blank entries
+        if self.passfile.records[entry_uuid].get(13) in [ None, "" ]:
+            self.ui.url_copy.set_sensitive(False)
+            self.ui.mnu_open_url.set_sensitive(False)
+            self.ui.url_copy1.set_sensitive(False)
+            self.ui.open_url.set_sensitive(False)
+
+        if self.passfile.records[entry_uuid].get(4) in [ None, "" ]:
+            self.ui.username_copy.set_sensitive(False)
+            self.ui.username_copy1.set_sensitive(False)
+            self.ui.copy_username.set_sensitive(False)
+
+        if self.passfile.records[entry_uuid].get(6) in [ None, "" ]:
+            self.ui.password_copy.set_sensitive(False)
+            self.ui.password_copy1.set_sensitive(False)
+            self.ui.copy_password.set_sensitive(False)
+
+
     def display_welcome(self):
         ttt = self.get_texttagtable()
         data_buffer = Gtk.TextBuffer.new(ttt)
@@ -599,6 +617,7 @@ class PasaffeWindow(Window):
                            _("This is a folder."))
 
         self.ui.textview1.set_buffer(data_buffer)
+        self.set_menu_for_entry(False)
 
     def get_texttagtable(self):
         texttagtable = Gtk.TextTagTable()
@@ -663,10 +682,8 @@ class PasaffeWindow(Window):
                 entry_uuid = treemodel.get_value(treeiter, 2)
                 if "pasaffe_treenode." in entry_uuid:
                     self.display_folder(treemodel.get_value(treeiter, 1))
-                    self.set_menu_for_entry(False)
                 else:
                     self.display_data(entry_uuid)
-                    self.set_menu_for_entry(True)
 
                 # Reset the show password button and menu item
                 self.ui.display_secrets.set_active(False)
@@ -743,7 +760,6 @@ class PasaffeWindow(Window):
 
         self.ui.treeview1.get_selection().select_iter(new_iter)
         self.display_folder(self.ui.liststore1.get_value(new_iter, 1))
-        self.set_menu_for_entry(False)
 
         new_folder = self.get_folders_from_iter(treemodel, new_iter)
         response = self.edit_folder(self.ui.liststore1, new_iter, True)
@@ -942,7 +958,6 @@ class PasaffeWindow(Window):
                 treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
                 if treeiter != None and treemodel.get_value(treeiter, 2) == entry_uuid:
                     self.display_data(entry_uuid)
-                    self.set_menu_for_entry(True)
 
             self.set_idle_timeout()
             self.update_find_results(force=True)
@@ -1065,10 +1080,8 @@ class PasaffeWindow(Window):
             entry_uuid = treemodel.get_value(treeiter, 2)
             if "pasaffe_treenode." in entry_uuid:
                 self.display_folder(treemodel.get_value(treeiter, 1))
-                self.set_menu_for_entry(False)
             else:
                 self.display_data(entry_uuid)
-                self.set_menu_for_entry(True)
         else:
             self.display_welcome()
 
@@ -1097,10 +1110,8 @@ class PasaffeWindow(Window):
             entry_uuid = treemodel.get_value(treeiter, 2)
             if "pasaffe_treenode." in entry_uuid:
                 self.display_folder(treemodel.get_value(treeiter, 1))
-                self.set_menu_for_entry(False)
             else:
                 self.display_data(entry_uuid)
-                self.set_menu_for_entry(True)
         else:
             self.display_welcome()
 
