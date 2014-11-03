@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.41 (UNRELEASED)
 
  * Enhancements:
+   - Updated translations
 
  * Bug fixes:
    - Fixed a regression in 0.40 that added extra lines in notes at
