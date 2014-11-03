@@ -6,6 +6,8 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
 
  * Bug fixes:
+   - Fixed a regression in 0.40 that added extra lines in notes at
+     each save
 
 0.40 (2014-11-02)
 

@@ -176,8 +176,6 @@ class PassSafeFile:
 
         tempname = self.dbfile.name
 
-        self._presave_fixup()
-
         self.dbfile.write(b"PWS3")
         self._writekeys()
         self._writeheader()
@@ -623,11 +621,14 @@ class PassSafeFile:
         for uuid in self.records:
             for field in list(self.records[uuid].keys()):
 
+                # Fix up some of the fields
+                fixed_value = self._presave_fixup(uuid, field)
+
                 # Convert from strings to bytes
                 if field in self.record_text:
-                    value = self.records[uuid][field].encode('utf-8')
+                    value = fixed_value.encode('utf-8')
                 else:
-                    value = self.records[uuid][field]
+                    value = fixed_value
 
                 self._writefield(field, value)
             self._writefieldend()
@@ -752,12 +753,13 @@ class PassSafeFile:
             if 5 in self.records[uuid]:
                 self.records[uuid][5] = self.records[uuid][5].replace("\r\n", "\n")
 
-    def _presave_fixup(self):
+    def _presave_fixup(self, uuid, field):
         '''Performs some cleanup before saving certain databases'''
 
-        for uuid in self.records:
+        if field == 5:
             # Most apps use CRLF line terminators. Convert LF to CRLF
             # before saving
-            if 5 in self.records[uuid]:
-                self.records[uuid][5] = self.records[uuid][5].replace("\n", "\r\n")
+            return self.records[uuid][5].replace("\n", "\r\n")
+        else:
+            return self.records[uuid][field]
 

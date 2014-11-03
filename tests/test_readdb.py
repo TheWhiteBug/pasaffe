@@ -499,8 +499,7 @@ class TestReadDB(unittest.TestCase):
         self.assertEqual(self.passfile.records[uuid_hex][6], '')
 
         # OK, do the presave fixup
-        self.passfile._presave_fixup()
-        self.assertEqual(self.passfile.records[uuid_hex][5], crlf)
+        self.assertEqual(self.passfile._presave_fixup(uuid_hex, 5), crlf)
 
 if __name__ == '__main__':
     unittest.main()
