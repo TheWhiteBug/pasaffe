@@ -7,15 +7,35 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-11-02 20:05-0500\n"
+"POT-Creation-Date: 2014-11-03 11:32-0500\n"
 "PO-Revision-Date: 2014-10-29 12:54+0000\n"
 "Last-Translator: Marc Deslauriers <marc.deslauriers@canonical.com>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-11-03 06:18+0000\n"
+"X-Launchpad-Export-Date: 2014-11-04 06:45+0000\n"
 "X-Generator: Launchpad (build 17211)\n"
+
+#: ../data/ui/PasswordEntryDialog.ui.h:1 ../data/ui/EditDetailsDialog.ui.h:13
+#: ../data/ui/NewPasswordDialog.ui.h:1 ../data/ui/SaveChangesDialog.ui.h:4
+#: ../data/ui/EditFolderDialog.ui.h:1 ../data/ui/NewDatabaseDialog.ui.h:1
+msgid "_Cancel"
+msgstr "_Cancel"
+
+#: ../data/ui/PasswordEntryDialog.ui.h:2 ../data/ui/EditDetailsDialog.ui.h:14
+#: ../data/ui/NewPasswordDialog.ui.h:2 ../data/ui/EditFolderDialog.ui.h:2
+#: ../data/ui/NewDatabaseDialog.ui.h:2
+msgid "_OK"
+msgstr "_OK"
+
+#: ../data/ui/PasswordEntryDialog.ui.h:3
+msgid "<big><b>Please enter your master password:</b></big>"
+msgstr "<big><b>Please enter your master password:</b></big>"
+
+#: ../data/ui/PasswordEntryDialog.ui.h:4
+msgid "Invalid password! Please try again."
+msgstr "Invalid password! Please try again."
 
 #: ../data/ui/EditDetailsDialog.ui.h:1
 msgid "<big><b>Edit entry</b></big>"
@@ -65,17 +85,47 @@ msgstr "The website for this entry"
 msgid "Pick a random password"
 msgstr "Pick a random password"
 
-#: ../data/ui/EditDetailsDialog.ui.h:13 ../data/ui/EditFolderDialog.ui.h:1
-#: ../data/ui/NewDatabaseDialog.ui.h:1 ../data/ui/NewPasswordDialog.ui.h:1
-#: ../data/ui/SaveChangesDialog.ui.h:4 ../data/ui/PasswordEntryDialog.ui.h:1
-msgid "_Cancel"
-msgstr "_Cancel"
+#: ../data/ui/NewPasswordDialog.ui.h:3
+msgid "<big><b>Change master password</b></big>"
+msgstr "<big><b>Change master password</b></big>"
 
-#: ../data/ui/EditDetailsDialog.ui.h:14 ../data/ui/EditFolderDialog.ui.h:2
-#: ../data/ui/NewDatabaseDialog.ui.h:2 ../data/ui/NewPasswordDialog.ui.h:2
-#: ../data/ui/PasswordEntryDialog.ui.h:2
-msgid "_OK"
-msgstr "_OK"
+#: ../data/ui/NewPasswordDialog.ui.h:4
+msgid ""
+"Enter your old master password,\n"
+"and a new master password.\n"
+"You must confirm the new password."
+msgstr ""
+"Enter your old master password,\n"
+"and a new master password.\n"
+"You must confirm the new password."
+
+#: ../data/ui/NewPasswordDialog.ui.h:7
+msgid "error message"
+msgstr "error message"
+
+#: ../data/ui/NewPasswordDialog.ui.h:8
+msgid "Old password:"
+msgstr "Old password:"
+
+#: ../data/ui/NewPasswordDialog.ui.h:9
+msgid "New password:"
+msgstr "New password:"
+
+#: ../data/ui/NewPasswordDialog.ui.h:10
+msgid "Confirm new password:"
+msgstr "Confirm new password:"
+
+#: ../pasaffe/__init__.py:36
+msgid "Show debug messages (-vv debugs pasaffe_lib also)"
+msgstr "Show debug messages (-vv debugs pasaffe_lib also)"
+
+#: ../pasaffe/__init__.py:39
+msgid "use database FILE"
+msgstr "use database FILE"
+
+#: ../pasaffe/__init__.py:42
+msgid "set database as default"
+msgstr "set database as default"
 
 #: ../pasaffe/PasaffeWindow.py:518
 msgid "Secrets are currently hidden."
@@ -195,17 +245,31 @@ msgstr "New password cannot be blank! Please try again."
 msgid "Old password is invalid! Please try again."
 msgstr "Old password is invalid! Please try again."
 
-#: ../pasaffe/__init__.py:36
-msgid "Show debug messages (-vv debugs pasaffe_lib also)"
-msgstr "Show debug messages (-vv debugs pasaffe_lib also)"
+#: ../pasaffe.desktop.in.h:1 ../data/ui/PasaffeWindow.ui.h:12
+msgid "Pasaffe"
+msgstr "Pasaffe"
 
-#: ../pasaffe/__init__.py:39
-msgid "use database FILE"
-msgstr "use database FILE"
+#: ../pasaffe.desktop.in.h:2
+msgid "Pasaffe password manager"
+msgstr "Pasaffe password manager"
 
-#: ../pasaffe/__init__.py:42
-msgid "set database as default"
-msgstr "set database as default"
+#: ../data/ui/SaveChangesDialog.ui.h:1
+msgid ""
+"<big><b>Save changes to your password database before closing?</b></big>"
+msgstr ""
+"<big><b>Save changes to your password database before closing?</b></big>"
+
+#: ../data/ui/SaveChangesDialog.ui.h:2
+msgid "Your changes will be lost if you don't save them."
+msgstr "Your changes will be lost if you don't save them."
+
+#: ../data/ui/SaveChangesDialog.ui.h:3
+msgid "Close without Saving"
+msgstr "Close without Saving"
+
+#: ../data/ui/SaveChangesDialog.ui.h:5 ../data/ui/PasaffeWindow.ui.h:14
+msgid "_Save"
+msgstr "_Save"
 
 #: ../data/ui/EditFolderDialog.ui.h:3
 msgid "<big><b>Edit folder</b></big>"
@@ -297,93 +361,7 @@ msgstr "_Help"
 msgid "_Close"
 msgstr "_Close"
 
-#: ../data/ui/NewDatabaseDialog.ui.h:3
-msgid "<big><b>Welcome to Pasaffe!</b></big>"
-msgstr "<big><b>Welcome to Pasaffe!</b></big>"
-
-#: ../data/ui/NewDatabaseDialog.ui.h:4
-msgid ""
-"No existing database was found.\n"
-"A new one will be created.\n"
-"Please enter a master password to protect it."
-msgstr ""
-"No existing database was found.\n"
-"A new one will be created.\n"
-"Please enter a master password to protect it."
-
-#: ../data/ui/NewDatabaseDialog.ui.h:8
-msgid "Enter password:"
-msgstr "Enter password:"
-
-#: ../data/ui/NewDatabaseDialog.ui.h:9
-msgid "Confirm password:"
-msgstr "Confirm password:"
-
-#: ../data/ui/NewPasswordDialog.ui.h:3
-msgid "<big><b>Change master password</b></big>"
-msgstr "<big><b>Change master password</b></big>"
-
-#: ../data/ui/NewPasswordDialog.ui.h:4
-msgid ""
-"Enter your old master password,\n"
-"and a new master password.\n"
-"You must confirm the new password."
-msgstr ""
-"Enter your old master password,\n"
-"and a new master password.\n"
-"You must confirm the new password."
-
-#: ../data/ui/NewPasswordDialog.ui.h:7
-msgid "error message"
-msgstr "error message"
-
-#: ../data/ui/NewPasswordDialog.ui.h:8
-msgid "Old password:"
-msgstr "Old password:"
-
-#: ../data/ui/NewPasswordDialog.ui.h:9
-msgid "New password:"
-msgstr "New password:"
-
-#: ../data/ui/NewPasswordDialog.ui.h:10
-msgid "Confirm new password:"
-msgstr "Confirm new password:"
-
-#: ../data/ui/SaveChangesDialog.ui.h:1
-msgid ""
-"<big><b>Save changes to your password database before closing?</b></big>"
-msgstr ""
-"<big><b>Save changes to your password database before closing?</b></big>"
-
-#: ../data/ui/SaveChangesDialog.ui.h:2
-msgid "Your changes will be lost if you don't save them."
-msgstr "Your changes will be lost if you don't save them."
-
-#: ../data/ui/SaveChangesDialog.ui.h:3
-msgid "Close without Saving"
-msgstr "Close without Saving"
-
-#: ../data/ui/SaveChangesDialog.ui.h:5 ../data/ui/PasaffeWindow.ui.h:14
-msgid "_Save"
-msgstr "_Save"
-
-#: ../data/ui/PasswordEntryDialog.ui.h:3
-msgid "<big><b>Please enter your master password:</b></big>"
-msgstr "<big><b>Please enter your master password:</b></big>"
-
-#: ../data/ui/PasswordEntryDialog.ui.h:4
-msgid "Invalid password! Please try again."
-msgstr "Invalid password! Please try again."
-
 #. Code for other initialization actions should be added here.
-#: ../pasaffe.desktop.in.h:1 ../data/ui/PasaffeWindow.ui.h:12
-msgid "Pasaffe"
-msgstr "Pasaffe"
-
-#: ../pasaffe.desktop.in.h:2
-msgid "Pasaffe password manager"
-msgstr "Pasaffe password manager"
-
 #: ../data/ui/PasaffeWindow.ui.h:1
 msgid "<big><b>The password database is currently locked.</b></big>"
 msgstr "<big><b>The password database is currently locked.</b></big>"
@@ -547,6 +525,28 @@ msgstr "Previous result"
 #: ../data/ui/PasaffeWindow.ui.h:45
 msgid "Next result"
 msgstr "Next result"
+
+#: ../data/ui/NewDatabaseDialog.ui.h:3
+msgid "<big><b>Welcome to Pasaffe!</b></big>"
+msgstr "<big><b>Welcome to Pasaffe!</b></big>"
+
+#: ../data/ui/NewDatabaseDialog.ui.h:4
+msgid ""
+"No existing database was found.\n"
+"A new one will be created.\n"
+"Please enter a master password to protect it."
+msgstr ""
+"No existing database was found.\n"
+"A new one will be created.\n"
+"Please enter a master password to protect it."
+
+#: ../data/ui/NewDatabaseDialog.ui.h:8
+msgid "Enter password:"
+msgstr "Enter password:"
+
+#: ../data/ui/NewDatabaseDialog.ui.h:9
+msgid "Confirm password:"
+msgstr "Confirm password:"
 
 #: ../data/ui/AboutPasaffeDialog.ui.h:1
 msgid "http://www.launchpad.net/pasaffe"
