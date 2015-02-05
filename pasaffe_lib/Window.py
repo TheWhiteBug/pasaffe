@@ -72,6 +72,7 @@ class Window(Gtk.Window):
         """Display the about box for pasaffe."""
         if self.AboutDialog is not None:
             about = self.AboutDialog()  # pylint: disable=E1102
+            about.set_transient_for(self)
             response = about.run()
             about.destroy()
 
