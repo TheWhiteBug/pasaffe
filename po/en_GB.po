@@ -7,24 +7,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-11-03 11:32-0500\n"
+"POT-Creation-Date: 2015-02-05 17:06-0500\n"
 "PO-Revision-Date: 2014-10-29 12:54+0000\n"
 "Last-Translator: Marc Deslauriers <marc.deslauriers@canonical.com>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-11-04 06:45+0000\n"
-"X-Generator: Launchpad (build 17211)\n"
+"X-Launchpad-Export-Date: 2015-02-07 07:13+0000\n"
+"X-Generator: Launchpad (build 17331)\n"
 
-#: ../data/ui/PasswordEntryDialog.ui.h:1 ../data/ui/EditDetailsDialog.ui.h:13
-#: ../data/ui/NewPasswordDialog.ui.h:1 ../data/ui/SaveChangesDialog.ui.h:4
-#: ../data/ui/EditFolderDialog.ui.h:1 ../data/ui/NewDatabaseDialog.ui.h:1
+#: ../data/ui/PasswordEntryDialog.ui.h:1 ../data/ui/EditFolderDialog.ui.h:1
+#: ../data/ui/EditDetailsDialog.ui.h:13 ../data/ui/SaveChangesDialog.ui.h:4
+#: ../data/ui/NewPasswordDialog.ui.h:1 ../data/ui/NewDatabaseDialog.ui.h:1
 msgid "_Cancel"
 msgstr "_Cancel"
 
-#: ../data/ui/PasswordEntryDialog.ui.h:2 ../data/ui/EditDetailsDialog.ui.h:14
-#: ../data/ui/NewPasswordDialog.ui.h:2 ../data/ui/EditFolderDialog.ui.h:2
+#: ../data/ui/PasswordEntryDialog.ui.h:2 ../data/ui/EditFolderDialog.ui.h:2
+#: ../data/ui/EditDetailsDialog.ui.h:14 ../data/ui/NewPasswordDialog.ui.h:2
 #: ../data/ui/NewDatabaseDialog.ui.h:2
 msgid "_OK"
 msgstr "_OK"
@@ -36,6 +36,34 @@ msgstr "<big><b>Please enter your master password:</b></big>"
 #: ../data/ui/PasswordEntryDialog.ui.h:4
 msgid "Invalid password! Please try again."
 msgstr "Invalid password! Please try again."
+
+#: ../pasaffe/__init__.py:36
+msgid "Show debug messages (-vv debugs pasaffe_lib also)"
+msgstr "Show debug messages (-vv debugs pasaffe_lib also)"
+
+#: ../pasaffe/__init__.py:39
+msgid "use database FILE"
+msgstr "use database FILE"
+
+#: ../pasaffe/__init__.py:42
+msgid "set database as default"
+msgstr "set database as default"
+
+#: ../data/ui/EditFolderDialog.ui.h:3
+msgid "<big><b>Edit folder</b></big>"
+msgstr "<big><b>Edit folder</b></big>"
+
+#: ../data/ui/EditFolderDialog.ui.h:4
+msgid "Parent folder:"
+msgstr "Parent folder:"
+
+#: ../data/ui/EditFolderDialog.ui.h:5
+msgid "Folder name:"
+msgstr "Folder name:"
+
+#: ../data/ui/EditFolderDialog.ui.h:6
+msgid "The parent folder for this new folder"
+msgstr "The parent folder for this new folder"
 
 #: ../data/ui/EditDetailsDialog.ui.h:1
 msgid "<big><b>Edit entry</b></big>"
@@ -85,47 +113,98 @@ msgstr "The website for this entry"
 msgid "Pick a random password"
 msgstr "Pick a random password"
 
-#: ../data/ui/NewPasswordDialog.ui.h:3
-msgid "<big><b>Change master password</b></big>"
-msgstr "<big><b>Change master password</b></big>"
+#: ../data/ui/AboutPasaffeDialog.ui.h:1
+msgid "http://www.launchpad.net/pasaffe"
+msgstr "http://www.launchpad.net/pasaffe"
 
-#: ../data/ui/NewPasswordDialog.ui.h:4
-msgid ""
-"Enter your old master password,\n"
-"and a new master password.\n"
-"You must confirm the new password."
+#: ../data/ui/AboutPasaffeDialog.ui.h:2
+msgid "translator-credits"
 msgstr ""
-"Enter your old master password,\n"
-"and a new master password.\n"
-"You must confirm the new password."
+"Launchpad Contributions:\n"
+"  Anthony Harrington https://launchpad.net/~untaintableangel\n"
+"  Marc Deslauriers https://launchpad.net/~mdeslaur"
 
-#: ../data/ui/NewPasswordDialog.ui.h:7
-msgid "error message"
-msgstr "error message"
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:1
+msgid "start expanded"
+msgstr "start expanded"
 
-#: ../data/ui/NewPasswordDialog.ui.h:8
-msgid "Old password:"
-msgstr "Old password:"
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:2
+msgid "start collapsed"
+msgstr "start collapsed"
 
-#: ../data/ui/NewPasswordDialog.ui.h:9
-msgid "New password:"
-msgstr "New password:"
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:3
+msgid "are remembered from last save"
+msgstr "are remembered from last save"
 
-#: ../data/ui/NewPasswordDialog.ui.h:10
-msgid "Confirm new password:"
-msgstr "Confirm new password:"
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:4
+msgid "Pasaffe Preferences"
+msgstr "Pasaffe Preferences"
 
-#: ../pasaffe/__init__.py:36
-msgid "Show debug messages (-vv debugs pasaffe_lib also)"
-msgstr "Show debug messages (-vv debugs pasaffe_lib also)"
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:5
+msgid "Automatically save changes"
+msgstr "Automatically save changes"
 
-#: ../pasaffe/__init__.py:39
-msgid "use database FILE"
-msgstr "use database FILE"
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:6
+msgid "Display secrets by default"
+msgstr "Display secrets by default"
 
-#: ../pasaffe/__init__.py:42
-msgid "set database as default"
-msgstr "set database as default"
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:7
+msgid "Only passwords are secret"
+msgstr "Only passwords are secret"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:8
+msgid "<b>Secrets</b>"
+msgstr "<b>Secrets</b>"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:9
+msgid "Lock database after"
+msgstr "Lock database after"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:10
+msgid "minutes"
+msgstr "minutes"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:11
+msgid "<b>Lock</b>"
+msgstr "<b>Lock</b>"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:12
+msgid "Passwords are"
+msgstr "Passwords are"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:13
+msgid "characters long"
+msgstr "characters long"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:14
+msgid "<b>Password Generator</b>"
+msgstr "<b>Password Generator</b>"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:15
+msgid "Folders"
+msgstr "Folders"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:16
+msgid "<b>Folder Preferences</b>"
+msgstr "<b>Folder Preferences</b>"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:17
+#: ../data/ui/PasaffeWindow.ui.h:24
+msgid "_Help"
+msgstr "_Help"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:18
+#: ../data/ui/PasaffeWindow.ui.h:17
+msgid "_Close"
+msgstr "_Close"
+
+#: ../pasaffe.desktop.in.h:1 ../data/ui/PasaffeWindow.ui.h:12
+msgid "Pasaffe"
+msgstr "Pasaffe"
+
+#: ../pasaffe.desktop.in.h:2
+msgid "Pasaffe password manager"
+msgstr "Pasaffe password manager"
 
 #: ../pasaffe/PasaffeWindow.py:518
 msgid "Secrets are currently hidden."
@@ -245,14 +324,6 @@ msgstr "New password cannot be blank! Please try again."
 msgid "Old password is invalid! Please try again."
 msgstr "Old password is invalid! Please try again."
 
-#: ../pasaffe.desktop.in.h:1 ../data/ui/PasaffeWindow.ui.h:12
-msgid "Pasaffe"
-msgstr "Pasaffe"
-
-#: ../pasaffe.desktop.in.h:2
-msgid "Pasaffe password manager"
-msgstr "Pasaffe password manager"
-
 #: ../data/ui/SaveChangesDialog.ui.h:1
 msgid ""
 "<big><b>Save changes to your password database before closing?</b></big>"
@@ -271,97 +342,36 @@ msgstr "Close without Saving"
 msgid "_Save"
 msgstr "_Save"
 
-#: ../data/ui/EditFolderDialog.ui.h:3
-msgid "<big><b>Edit folder</b></big>"
-msgstr "<big><b>Edit folder</b></big>"
+#: ../data/ui/NewPasswordDialog.ui.h:3
+msgid "<big><b>Change master password</b></big>"
+msgstr "<big><b>Change master password</b></big>"
 
-#: ../data/ui/EditFolderDialog.ui.h:4
-msgid "Parent folder:"
-msgstr "Parent folder:"
+#: ../data/ui/NewPasswordDialog.ui.h:4
+msgid ""
+"Enter your old master password,\n"
+"and a new master password.\n"
+"You must confirm the new password."
+msgstr ""
+"Enter your old master password,\n"
+"and a new master password.\n"
+"You must confirm the new password."
 
-#: ../data/ui/EditFolderDialog.ui.h:5
-msgid "Folder name:"
-msgstr "Folder name:"
+#: ../data/ui/NewPasswordDialog.ui.h:7
+msgid "error message"
+msgstr "error message"
 
-#: ../data/ui/EditFolderDialog.ui.h:6
-msgid "The parent folder for this new folder"
-msgstr "The parent folder for this new folder"
+#: ../data/ui/NewPasswordDialog.ui.h:8
+msgid "Old password:"
+msgstr "Old password:"
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:1
-msgid "start expanded"
-msgstr "start expanded"
+#: ../data/ui/NewPasswordDialog.ui.h:9
+msgid "New password:"
+msgstr "New password:"
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:2
-msgid "start collapsed"
-msgstr "start collapsed"
+#: ../data/ui/NewPasswordDialog.ui.h:10
+msgid "Confirm new password:"
+msgstr "Confirm new password:"
 
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:3
-msgid "are remembered from last save"
-msgstr "are remembered from last save"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:4
-msgid "Pasaffe Preferences"
-msgstr "Pasaffe Preferences"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:5
-msgid "Automatically save changes"
-msgstr "Automatically save changes"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:6
-msgid "Display secrets by default"
-msgstr "Display secrets by default"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:7
-msgid "Only passwords are secret"
-msgstr "Only passwords are secret"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:8
-msgid "<b>Secrets</b>"
-msgstr "<b>Secrets</b>"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:9
-msgid "Lock database after"
-msgstr "Lock database after"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:10
-msgid "minutes"
-msgstr "minutes"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:11
-msgid "<b>Lock</b>"
-msgstr "<b>Lock</b>"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:12
-msgid "Passwords are"
-msgstr "Passwords are"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:13
-msgid "characters long"
-msgstr "characters long"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:14
-msgid "<b>Password Generator</b>"
-msgstr "<b>Password Generator</b>"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:15
-msgid "Folders"
-msgstr "Folders"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:16
-msgid "<b>Folder Preferences</b>"
-msgstr "<b>Folder Preferences</b>"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:17
-#: ../data/ui/PasaffeWindow.ui.h:24
-msgid "_Help"
-msgstr "_Help"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:18
-#: ../data/ui/PasaffeWindow.ui.h:17
-msgid "_Close"
-msgstr "_Close"
-
-#. Code for other initialization actions should be added here.
 #: ../data/ui/PasaffeWindow.ui.h:1
 msgid "<big><b>The password database is currently locked.</b></big>"
 msgstr "<big><b>The password database is currently locked.</b></big>"
@@ -547,14 +557,3 @@ msgstr "Enter password:"
 #: ../data/ui/NewDatabaseDialog.ui.h:9
 msgid "Confirm password:"
 msgstr "Confirm password:"
-
-#: ../data/ui/AboutPasaffeDialog.ui.h:1
-msgid "http://www.launchpad.net/pasaffe"
-msgstr "http://www.launchpad.net/pasaffe"
-
-#: ../data/ui/AboutPasaffeDialog.ui.h:2
-msgid "translator-credits"
-msgstr ""
-"Launchpad Contributions:\n"
-"  Anthony Harrington https://launchpad.net/~untaintableangel\n"
-"  Marc Deslauriers https://launchpad.net/~mdeslaur"
