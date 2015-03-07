@@ -4,8 +4,10 @@ For a detailed list of changes, please see ChangeLog.
 0.43 (UNRELEASED)
 
  * Enhancements:
+   - Updated translations
 
  * Bug fixes:
+   - Make sure left pane is focused on startup
 
 0.42 (2015-02-05)
 

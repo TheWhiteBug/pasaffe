@@ -117,6 +117,7 @@ class PasaffeWindow(Window):
             self.display_entries()
             self.set_initial_tree_expansion()
             self.display_welcome()
+            self.ui.treeview1.grab_focus()
 
         # Set inactivity timer
         self.set_idle_timeout()
