@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-### BEGIN LICENSE
+#
 # Copyright (C) 2011-2013 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -12,7 +12,7 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-### END LICENSE
+#
 
 import optparse
 import os
@@ -21,12 +21,13 @@ import gettext
 t = gettext.translation('pasaffe', fallback=True)
 _ = t.gettext
 
-from gi.repository import Gio, Gtk  # pylint: disable=E0611
+from gi.repository import Gio, Gtk
 
 from pasaffe import PasaffeWindow
 
 from pasaffe_lib import set_up_logging, get_version
 from pasaffe_lib.helpers import get_database_path
+
 
 def parse_options():
     """Support for command line options"""
@@ -59,7 +60,7 @@ def main():
         settings.set_string('database-path', filename)
 
     # Override path that was saved with path from command line
-    if options.set_default and options.filename != None:
+    if options.set_default and options.filename is not None:
         settings.set_string('database-path', options.filename)
 
     # Run the application.

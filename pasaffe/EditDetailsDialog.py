@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-### BEGIN LICENSE
+#
 # Copyright (C) 2011-2013 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -12,7 +12,7 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-### END LICENSE
+#
 
 from gi.repository import Gio, Gtk  # pylint: disable=E0611
 
@@ -25,6 +25,7 @@ gettext.textdomain('pasaffe')
 import subprocess
 
 # pylint: disable=E1101
+
 
 class EditDetailsDialog(Gtk.Dialog):
     __gtype_name__ = "EditDetailsDialog"
@@ -84,7 +85,7 @@ class EditDetailsDialog(Gtk.Dialog):
                    "-m", str(self.password_length),
                    "-x", str(self.password_length)]
         try:
-            passwords = subprocess.check_output(command).splitlines()  # pylint: disable=E1103
+            passwords = subprocess.check_output(command).splitlines()
             self.ui.password1.set_label(passwords[0].decode('utf-8'))
             self.ui.password2.set_label(passwords[1].decode('utf-8'))
             self.ui.password3.set_label(passwords[2].decode('utf-8'))
