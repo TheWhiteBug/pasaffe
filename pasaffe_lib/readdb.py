@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-### BEGIN LICENSE
+#
 # Copyright (C) 2011-2013 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -12,7 +12,7 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-### END LICENSE
+#
 
 import sys
 import struct
@@ -48,8 +48,8 @@ class PassSafeFile:
         self.empty_folders = []
 
         # These fields need converting between strings and bytes
-        self.header_text = [ 0x03, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x11 ]
-        self.record_text = [ 0x02, 0x03, 0x04, 0x05, 0x06, 0x0d ]
+        self.header_text = [0x03, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x11]
+        self.record_text = [0x02, 0x03, 0x04, 0x05, 0x06, 0x0d]
 
         # Use version 0x030B, since we support saving empty folders
         self.db_version = b'\x0B\x03'
@@ -60,7 +60,7 @@ class PassSafeFile:
         else:
             raise ValueError("Sorry, we don't support %s yet." % cipher)
 
-        if filename != None:
+        if filename is not None:
             self.readfile(filename, password, fixup=fixup)
 
     def readfile(self, filename, password, fixup=True):
@@ -119,7 +119,7 @@ class PassSafeFile:
         self.keys['SALT'] = os.urandom(32)
 
         stretched_key = self._keystretch(password, self.keys['SALT'],
-                                                   self.keys['ITER'])
+                                         self.keys['ITER'])
         # Don't need the password anymore, clear it out
         password = ''
         self.keys['HP'] = hashlib.sha256(stretched_key).digest()
@@ -163,7 +163,7 @@ class PassSafeFile:
                 self.header[0] = self.db_version
 
         # Create backup if requested
-        if backup == True and os.path.exists(filename):
+        if backup is True and os.path.exists(filename):
             shutil.copy(filename, filename + ".bak")
 
         basedir = os.path.dirname(filename)
@@ -211,7 +211,7 @@ class PassSafeFile:
         '''Returns the application of the last save'''
         return self.header.get(6)
 
-    def get_saved_date_string(self, localtime = True):
+    def get_saved_date_string(self, localtime=True):
         '''Returns a string of the date of the last save'''
         if 4 in self.header:
             unpacked_time = struct.unpack("<I", self.header[4])[0]
@@ -233,7 +233,7 @@ class PassSafeFile:
 
     def set_tree_status(self, status):
         '''Sets the tree display status'''
-        if status == None:
+        if status is None:
             if 3 in self.header:
                 del self.header[3]
         else:
@@ -290,7 +290,7 @@ class PassSafeFile:
     def add_empty_folder(self, folder):
         '''Adds a folder to the empty folders list'''
 
-        if folder == None or folder == []:
+        if folder is None or folder == []:
             return
 
         for part in range(len(folder)):
@@ -307,7 +307,7 @@ class PassSafeFile:
                         found = True
                         break
 
-                if found == False:
+                if found is False:
                     logger.debug("adding %s" % field)
                     self.empty_folders.append(field)
 
@@ -331,7 +331,8 @@ class PassSafeFile:
             if self.records[uuid][2] == old_field:
                 self.records[uuid][2] = new_field
             elif self.records[uuid][2].startswith(old_field + '.'):
-                updated_field = self.records[uuid][2].replace(old_field, new_field, 1)
+                updated_field = self.records[uuid][2].replace(
+                    old_field, new_field, 1)
                 self.records[uuid][2] = updated_field
             else:
                 continue
@@ -346,7 +347,8 @@ class PassSafeFile:
                 self.empty_folders.append(new_field)
             elif empty_folder.startswith(old_field + '.'):
                 updated_field = empty_folder.replace(old_field, new_field, 1)
-                logger.debug("renaming %s to %s" % (empty_folder, updated_field))
+                logger.debug("renaming %s to %s" % (empty_folder,
+                                                    updated_field))
                 self.empty_folders.remove(empty_folder)
                 self.empty_folders.append(updated_field)
 
@@ -357,7 +359,7 @@ class PassSafeFile:
     def delete_folder(self, folder):
         '''Deletes a folder and all contents'''
 
-        if folder == None or folder == []:
+        if folder is None or folder == []:
             return
 
         field = self._folder_list_to_field(folder)
@@ -400,7 +402,7 @@ class PassSafeFile:
         timestamp = struct.pack("<I", int(time.time()))
         self.records[uuid][12] = timestamp
 
-    def get_modification_time(self, uuid, localtime = True):
+    def get_modification_time(self, uuid, localtime=True):
         '''Returns a string of the entry modification time'''
         return self.get_time(uuid, 12, localtime)
 
@@ -409,15 +411,15 @@ class PassSafeFile:
         timestamp = struct.pack("<I", int(time.time()))
         self.records[uuid][8] = timestamp
 
-    def get_password_time(self, uuid, localtime = True):
+    def get_password_time(self, uuid, localtime=True):
         '''Returns a string of the password modification time'''
         return self.get_time(uuid, 8, localtime)
 
-    def get_creation_time(self, uuid, localtime = True):
+    def get_creation_time(self, uuid, localtime=True):
         '''Returns a string of the creation time'''
         return self.get_time(uuid, 7, localtime)
 
-    def get_time(self, uuid, entry, localtime = True):
+    def get_time(self, uuid, entry, localtime=True):
         '''Returns a string of time'''
         if entry in self.records[uuid]:
             unpacked_time = struct.unpack("<I", self.records[uuid][entry])[0]
@@ -433,7 +435,7 @@ class PassSafeFile:
         '''Converts a folder list to a folder field'''
         field = ""
 
-        if folder_list == None:
+        if folder_list is None:
             return field
 
         for folder in folder_list:
@@ -463,10 +465,10 @@ class PassSafeFile:
             if field[location - 1] == "\\":
                 continue
 
-            folders.append(field[index:location].replace("\\",''))
+            folders.append(field[index:location].replace("\\", ''))
             index = location + 1
 
-        folders.append(field[index:len(field)].replace('\\',''))
+        folders.append(field[index:len(field)].replace('\\', ''))
         return folders
 
     def new_entry(self):
@@ -496,7 +498,7 @@ class PassSafeFile:
                                self.keys['ITER'])
         logger.debug("Number of iters is %d" % self.keys['ITER'])
         self.keys['HP'] = self.dbfile.read(32)
-        #logger.debug("hp is %s" % self.keys['HP'])
+        # logger.debug("hp is %s" % self.keys['HP'])
         self.keys['B1'] = self.dbfile.read(16)
         self.keys['B2'] = self.dbfile.read(16)
         self.keys['B3'] = self.dbfile.read(16)
@@ -504,10 +506,10 @@ class PassSafeFile:
         self.keys['IV'] = self.dbfile.read(16)
         self.cipher.initCBC(self.keys['IV'])
         stretched_key = self._keystretch(password, self.keys['SALT'],
-                                                   self.keys['ITER'])
+                                         self.keys['ITER'])
         # Don't need the password anymore, clear it out
         password = ''
-        #logger.debug("stretched pass is %s" % hexlify(stretched_key))
+        # logger.debug("stretched pass is %s" % hexlify(stretched_key))
         if hashlib.sha256(stretched_key).digest() != self.keys['HP']:
             raise ValueError("Password supplied doesn't match database."
                              " Aborting.")
@@ -516,12 +518,12 @@ class PassSafeFile:
         # Don't need the stretched key anymore, clear it out
         stretched_key = b''
         self.keys['K'] = self.cipher.decrypt(self.keys['B1']) + \
-                         self.cipher.decrypt(self.keys['B2'])
+            self.cipher.decrypt(self.keys['B2'])
         self.keys['L'] = self.cipher.decrypt(self.keys['B3']) + \
-                         self.cipher.decrypt(self.keys['B4'])
+            self.cipher.decrypt(self.keys['B4'])
         self.hmac = hmac.new(self.keys['L'], digestmod=hashlib.sha256)
-        #logger.debug("K is %s and L is %s" % (hexlify(self.keys['K']),
-        #                                      hexlify(self.keys['L']))
+        # logger.debug("K is %s and L is %s" % (hexlify(self.keys['K']),
+        #                                       hexlify(self.keys['L']))
 
     def _writekeys(self):
         self.dbfile.write(self.keys['SALT'])
@@ -540,7 +542,7 @@ class PassSafeFile:
 
         while(1):
             status, field_type, field_data = self._readfield()
-            if status == False:
+            if status is False:
                 raise RuntimeError("Malformed file, "
                                    "was expecting more data in header")
 
@@ -597,7 +599,7 @@ class PassSafeFile:
 
         while(1):
             status, field_type, field_data = self._readfield()
-            if status == False:
+            if status is False:
                 break
             if field_type == 0xff:
                 logger.debug("Found end field")
@@ -636,7 +638,7 @@ class PassSafeFile:
     def _readfield(self):
         field_data = b''
         status, first_block = self._readblock()
-        if status == False:
+        if status is False:
             return False, 0xFF, b''
         field_length = struct.unpack("<I", first_block[0:4])[0]
         field_type = struct.unpack("B", first_block[4:5])[0]
@@ -654,7 +656,7 @@ class PassSafeFile:
             while field_length > 0:
                 logger.debug("extra block")
                 status, data = self._readblock()
-                if status == False:
+                if status is False:
                     raise RuntimeError("Malformed file, "
                                        "was expecting more data")
                 field_data += data[0:field_length]
@@ -751,7 +753,8 @@ class PassSafeFile:
             # when opening in Pasaffe, we'll convert them back to CRLF
             # before saving
             if 5 in self.records[uuid]:
-                self.records[uuid][5] = self.records[uuid][5].replace("\r\n", "\n")
+                self.records[uuid][5] = self.records[uuid][5].replace(
+                    "\r\n", "\n")
 
     def _presave_fixup(self, uuid, field):
         '''Performs some cleanup before saving certain databases'''
@@ -762,4 +765,3 @@ class PassSafeFile:
             return self.records[uuid][5].replace("\n", "\r\n")
         else:
             return self.records[uuid][field]
-

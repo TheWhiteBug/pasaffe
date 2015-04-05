@@ -1,38 +1,38 @@
-## twofish.py - pure Python implementation of the Twofish algorithm.
-## Bjorn Edstrom <be@bjrn.se> 13 december 2007.
-##
-## Copyrights
-## ==========
-##
-## This code is a derived from an implementation by Dr Brian Gladman
-## (gladman@seven77.demon.co.uk) which is subject to the following license.
-## This Python implementation is not subject to any other license.
-##
-##/* This is an independent implementation of the encryption algorithm:   */
-##/*                                                                      */
-##/*         Twofish by Bruce Schneier and colleagues                     */
-##/*                                                                      */
-##/* which is a candidate algorithm in the Advanced Encryption Standard   */
-##/* programme of the US National Institute of Standards and Technology.  */
-##/*                                                                      */
-##/* Copyright in this implementation is held by Dr B R Gladman but I     */
-##/* hereby give permission for its free direct or derivative use subject */
-##/* to acknowledgment of its origin and compliance with any conditions   */
-##/* that the originators of t he algorithm place on its exploitation.    */
-##/*                                                                      */
-##/* My thanks to Doug Whiting and Niels Ferguson for comments that led   */
-##/* to improvements in this implementation.                              */
-##/*                                                                      */
-##/* Dr Brian Gladman (gladman@seven77.demon.co.uk) 14th January 1999     */
-##
-## The above copyright notice must not be removed.
-##
-## Information
-## ===========
-##
-## Anyone thinking of using this code should reconsider. It's slow.
-## Try python-mcrypt instead. In case a faster library is not installed
-## on the target system, this code can be used as a portable fallback.
+# twofish.py - pure Python implementation of the Twofish algorithm.
+# Bjorn Edstrom <be@bjrn.se> 13 december 2007.
+#
+# Copyrights
+# ==========
+#
+# This code is a derived from an implementation by Dr Brian Gladman
+# (gladman@seven77.demon.co.uk) which is subject to the following license.
+# This Python implementation is not subject to any other license.
+#
+# /* This is an independent implementation of the encryption algorithm:   */
+# /*                                                                      */
+# /*         Twofish by Bruce Schneier and colleagues                     */
+# /*                                                                      */
+# /* which is a candidate algorithm in the Advanced Encryption Standard   */
+# /* programme of the US National Institute of Standards and Technology.  */
+# /*                                                                      */
+# /* Copyright in this implementation is held by Dr B R Gladman but I     */
+# /* hereby give permission for its free direct or derivative use subject */
+# /* to acknowledgment of its origin and compliance with any conditions   */
+# /* that the originators of t he algorithm place on its exploitation.    */
+# /*                                                                      */
+# /* My thanks to Doug Whiting and Niels Ferguson for comments that led   */
+# /* to improvements in this implementation.                              */
+# /*                                                                      */
+# /* Dr Brian Gladman (gladman@seven77.demon.co.uk) 14th January 1999     */
+#
+# The above copyright notice must not be removed.
+#
+# Information
+# ===========
+#
+# Anyone thinking of using this code should reconsider. It's slow.
+# Try python-mcrypt instead. In case a faster library is not installed
+# on the target system, this code can be used as a portable fallback.
 
 try:
     import psyco
@@ -223,60 +223,60 @@ def gen_mk_tab(pkey, key):
     if pkey.k_len == 2:
         for i in range(256):
             by = i % 0x100
-            pkey.mk_tab[0][i] = pkey.m_tab[0][pkey.q_tab[0][ \
-                                pkey.q_tab[0][by] ^ byte(key[1], 0)] ^ \
-                                byte(key[0], 0)]
-            pkey.mk_tab[1][i] = pkey.m_tab[1][pkey.q_tab[0][ \
-                                pkey.q_tab[1][by] ^ byte(key[1], 1)] ^ \
-                                byte(key[0], 1)]
-            pkey.mk_tab[2][i] = pkey.m_tab[2][pkey.q_tab[1][ \
-                                pkey.q_tab[0][by] ^ byte(key[1], 2)] ^ \
-                                byte(key[0], 2)]
-            pkey.mk_tab[3][i] = pkey.m_tab[3][pkey.q_tab[1][ \
-                                pkey.q_tab[1][by] ^ byte(key[1], 3)] ^ \
-                                byte(key[0], 3)]
+            pkey.mk_tab[0][i] = pkey.m_tab[0][pkey.q_tab[0][
+                pkey.q_tab[0][by] ^ byte(key[1], 0)] ^
+                byte(key[0], 0)]
+            pkey.mk_tab[1][i] = pkey.m_tab[1][pkey.q_tab[0][
+                pkey.q_tab[1][by] ^ byte(key[1], 1)] ^
+                byte(key[0], 1)]
+            pkey.mk_tab[2][i] = pkey.m_tab[2][pkey.q_tab[1][
+                pkey.q_tab[0][by] ^ byte(key[1], 2)] ^
+                byte(key[0], 2)]
+            pkey.mk_tab[3][i] = pkey.m_tab[3][pkey.q_tab[1][
+                pkey.q_tab[1][by] ^ byte(key[1], 3)] ^
+                byte(key[0], 3)]
     if pkey.k_len == 3:
         for i in range(256):
             by = i % 0x100
-            pkey.mk_tab[0][i] = pkey.m_tab[0][pkey.q_tab[0][ \
-                                pkey.q_tab[0][pkey.q_tab[1][by] ^ \
-                                byte(key[2], 0)] ^ byte(key[1], 0)] ^ \
-                                byte(key[0], 0)]
-            pkey.mk_tab[1][i] = pkey.m_tab[1][pkey.q_tab[0][ \
-                                pkey.q_tab[1][pkey.q_tab[1][by] ^ \
-                                byte(key[2], 1)] ^ byte(key[1], 1)] ^ \
-                                byte(key[0], 1)]
-            pkey.mk_tab[2][i] = pkey.m_tab[2][pkey.q_tab[1][ \
-                                pkey.q_tab[0][pkey.q_tab[0][by] ^ \
-                                byte(key[2], 2)] ^ byte(key[1], 2)] ^ \
-                                byte(key[0], 2)]
-            pkey.mk_tab[3][i] = pkey.m_tab[3][pkey.q_tab[1][ \
-                                pkey.q_tab[1][pkey.q_tab[0][by] ^ \
-                                byte(key[2], 3)] ^ byte(key[1], 3)] ^ \
-                                byte(key[0], 3)]
+            pkey.mk_tab[0][i] = pkey.m_tab[0][pkey.q_tab[0][
+                pkey.q_tab[0][pkey.q_tab[1][by] ^
+                              byte(key[2], 0)] ^ byte(key[1], 0)] ^
+                byte(key[0], 0)]
+            pkey.mk_tab[1][i] = pkey.m_tab[1][pkey.q_tab[0][
+                pkey.q_tab[1][pkey.q_tab[1][by] ^
+                              byte(key[2], 1)] ^ byte(key[1], 1)] ^
+                byte(key[0], 1)]
+            pkey.mk_tab[2][i] = pkey.m_tab[2][pkey.q_tab[1][
+                pkey.q_tab[0][pkey.q_tab[0][by] ^
+                              byte(key[2], 2)] ^ byte(key[1], 2)] ^
+                byte(key[0], 2)]
+            pkey.mk_tab[3][i] = pkey.m_tab[3][pkey.q_tab[1][
+                pkey.q_tab[1][pkey.q_tab[0][by] ^
+                              byte(key[2], 3)] ^ byte(key[1], 3)] ^
+                byte(key[0], 3)]
     if pkey.k_len == 4:
         for i in range(256):
             by = i % 0x100
-            pkey.mk_tab[0][i] = pkey.m_tab[0][pkey.q_tab[0][ \
-                                pkey.q_tab[0][pkey.q_tab[1][ \
-                                pkey.q_tab[1][by] ^ byte(key[3], 0)] ^ \
-                                byte(key[2], 0)] ^ byte(key[1], 0)] ^ \
-                                byte(key[0], 0)]
-            pkey.mk_tab[1][i] = pkey.m_tab[1][pkey.q_tab[0][ \
-                                pkey.q_tab[1][pkey.q_tab[1][ \
-                                pkey.q_tab[0][by] ^ byte(key[3], 1)] ^ \
-                                byte(key[2], 1)] ^ byte(key[1], 1)] ^ \
-                                byte(key[0], 1)]
-            pkey.mk_tab[2][i] = pkey.m_tab[2][pkey.q_tab[1][ \
-                                pkey.q_tab[0][pkey.q_tab[0][ \
-                                pkey.q_tab[0][by] ^ byte(key[3], 2)] ^ \
-                                byte(key[2], 2)] ^ byte(key[1], 2)] ^ \
-                                byte(key[0], 2)]
-            pkey.mk_tab[3][i] = pkey.m_tab[3][pkey.q_tab[1][ \
-                                pkey.q_tab[1][pkey.q_tab[0][ \
-                                pkey.q_tab[1][by] ^ byte(key[3], 3)] ^ \
-                                byte(key[2], 3)] ^ byte(key[1], 3)] ^ \
-                                byte(key[0], 3)]
+            pkey.mk_tab[0][i] = pkey.m_tab[0][pkey.q_tab[0][
+                pkey.q_tab[0][pkey.q_tab[1][
+                    pkey.q_tab[1][by] ^ byte(key[3], 0)] ^
+                    byte(key[2], 0)] ^ byte(key[1], 0)] ^
+                byte(key[0], 0)]
+            pkey.mk_tab[1][i] = pkey.m_tab[1][pkey.q_tab[0][
+                pkey.q_tab[1][pkey.q_tab[1][
+                    pkey.q_tab[0][by] ^ byte(key[3], 1)] ^
+                    byte(key[2], 1)] ^ byte(key[1], 1)] ^
+                byte(key[0], 1)]
+            pkey.mk_tab[2][i] = pkey.m_tab[2][pkey.q_tab[1][
+                pkey.q_tab[0][pkey.q_tab[0][
+                    pkey.q_tab[0][by] ^ byte(key[3], 2)] ^
+                    byte(key[2], 2)] ^ byte(key[1], 2)] ^
+                byte(key[0], 2)]
+            pkey.mk_tab[3][i] = pkey.m_tab[3][pkey.q_tab[1][
+                pkey.q_tab[1][pkey.q_tab[0][
+                    pkey.q_tab[1][by] ^ byte(key[3], 3)] ^
+                    byte(key[2], 3)] ^ byte(key[1], 3)] ^
+                byte(key[0], 3)]
 
 
 def h_fun(pkey, x, key):
@@ -295,16 +295,16 @@ def h_fun(pkey, x, key):
         b2 = pkey.q_tab[0][b2] ^ byte(key[2], 2)
         b3 = pkey.q_tab[0][b3] ^ byte(key[2], 3)
     if pkey.k_len >= 2:
-        b0 = pkey.q_tab[0][pkey.q_tab[0][b0] ^ \
+        b0 = pkey.q_tab[0][pkey.q_tab[0][b0] ^
                            byte(key[1], 0)] ^ byte(key[0], 0)
-        b1 = pkey.q_tab[0][pkey.q_tab[1][b1] ^ \
+        b1 = pkey.q_tab[0][pkey.q_tab[1][b1] ^
                            byte(key[1], 1)] ^ byte(key[0], 1)
-        b2 = pkey.q_tab[1][pkey.q_tab[0][b2] ^ \
+        b2 = pkey.q_tab[1][pkey.q_tab[0][b2] ^
                            byte(key[1], 2)] ^ byte(key[0], 2)
-        b3 = pkey.q_tab[1][pkey.q_tab[1][b3] ^ \
+        b3 = pkey.q_tab[1][pkey.q_tab[1][b3] ^
                            byte(key[1], 3)] ^ byte(key[0], 3)
     return pkey.m_tab[0][b0] ^ pkey.m_tab[1][b1] ^ \
-           pkey.m_tab[2][b2] ^ pkey.m_tab[3][b3]
+        pkey.m_tab[2][b2] ^ pkey.m_tab[3][b3]
 
 
 def mds_rem(p0, p1):
@@ -385,9 +385,9 @@ def encrypt(pkey, in_blk):
               pkey.mk_tab[3][byte(blk[0], 3)])
 
         blk[2] = rotr32(blk[2] ^
-            ((t0 + t1 + pkey.l_key[4 * (i) + 8]) % 0x100000000), 1)
-        blk[3] = rotl32(blk[3], 1) ^ ((t0 +
-            2 * t1 + pkey.l_key[4 * (i) + 9]) % 0x100000000)
+                        ((t0 + t1 + pkey.l_key[4 * (i) + 8]) % 0x100000000), 1)
+        blk[3] = rotl32(blk[3], 1) ^ \
+            ((t0 + 2 * t1 + pkey.l_key[4 * (i) + 9]) % 0x100000000)
 
         t1 = (pkey.mk_tab[0][byte(blk[3], 3)] ^
               pkey.mk_tab[1][byte(blk[3], 0)] ^
@@ -399,9 +399,10 @@ def encrypt(pkey, in_blk):
               pkey.mk_tab[3][byte(blk[2], 3)])
 
         blk[0] = rotr32(blk[0] ^
-            ((t0 + t1 + pkey.l_key[4 * (i) + 10]) % 0x100000000), 1)
-        blk[1] = rotl32(blk[1], 1) ^ ((t0 +
-            2 * t1 + pkey.l_key[4 * (i) + 11]) % 0x100000000)
+                        ((t0 + t1 + pkey.l_key[4 * (i) + 10]) %
+                         0x100000000), 1)
+        blk[1] = rotl32(blk[1], 1) ^ \
+            ((t0 + 2 * t1 + pkey.l_key[4 * (i) + 11]) % 0x100000000)
 
     if WORD_BIGENDIAN:
         in_blk[0] = byteswap32(blk[2] ^ pkey.l_key[4])
@@ -442,9 +443,9 @@ def decrypt(pkey, in_blk):
               pkey.mk_tab[3][byte(blk[0], 3)])
 
         blk[2] = rotl32(blk[2], 1) ^ ((t0 + t1 +
-            pkey.l_key[4 * (i) + 10]) % 0x100000000)
-        blk[3] = rotr32(blk[3] ^
-            ((t0 + 2 * t1 + pkey.l_key[4 * (i) + 11]) % 0x100000000), 1)
+                                       pkey.l_key[4 * (i) + 10]) % 0x100000000)
+        blk[3] = rotr32(blk[3] ^ ((t0 + 2 * t1 +
+                                   pkey.l_key[4 * (i) + 11]) % 0x100000000), 1)
 
         t1 = (pkey.mk_tab[0][byte(blk[3], 3)] ^
               pkey.mk_tab[1][byte(blk[3], 0)] ^
@@ -456,9 +457,9 @@ def decrypt(pkey, in_blk):
               pkey.mk_tab[3][byte(blk[2], 3)])
 
         blk[0] = rotl32(blk[0], 1) ^ ((t0 + t1 +
-            pkey.l_key[4 * (i) + 8]) % 0x100000000)
-        blk[1] = rotr32(blk[1] ^
-            ((t0 + 2 * t1 + pkey.l_key[4 * (i) + 9]) % 0x100000000), 1)
+                                       pkey.l_key[4 * (i) + 8]) % 0x100000000)
+        blk[1] = rotr32(blk[1] ^ ((t0 + 2 * t1 +
+                                   pkey.l_key[4 * (i) + 9]) % 0x100000000), 1)
 
     if WORD_BIGENDIAN:
         in_blk[0] = byteswap32(blk[2] ^ pkey.l_key[0])

@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-### BEGIN LICENSE
+#
 # Copyright (C) 2011-2013 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -12,17 +12,18 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-### END LICENSE
+#
 
 """this dialog adjusts values in gsettings
 """
 
-from gi.repository import Gtk  # pylint: disable=E0611
+from gi.repository import Gtk
 import logging
 logger = logging.getLogger('pasaffe_lib')
 
 from . helpers import get_help_uri
 from . helpersgui import get_builder, show_uri
+
 
 class PreferencesDialog(Gtk.Dialog):
     __gtype_name__ = "PreferencesDialog"

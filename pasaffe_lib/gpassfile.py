@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-### BEGIN LICENSE
+#
 # Copyright (C) 2011-2013 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -12,7 +12,7 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-### END LICENSE
+#
 
 import sys
 import struct
@@ -40,7 +40,7 @@ class GPassFile:
 
         self.cipher = None
 
-        if filename != None:
+        if filename is not None:
             self._readfile(filename, password)
 
     def _parse_entry(self, entry_id, parent_id, entry_data):
@@ -88,7 +88,7 @@ class GPassFile:
         logger.debug("expiration flag is %s" % hexlify(entry_expflag))
 
         entry_index, entry_etime = self.get_entry_int(entry_data,
-                                                          entry_index)
+                                                      entry_index)
         if struct.unpack("<I", entry_expflag)[0] != 0:
             new_entry[10] = entry_etime
         logger.debug("expiration time is %s" % hexlify(entry_etime))
@@ -101,7 +101,7 @@ class GPassFile:
         entry_index, entry_pass = self.get_entry_string(entry_data,
                                                         entry_index)
         new_entry[6] = entry_pass
-        #logger.debug("password is %s" % entry_pass)
+        # logger.debug("password is %s" % entry_pass)
 
         entry_index, entry_url = self.get_entry_string(entry_data,
                                                        entry_index)
@@ -125,27 +125,26 @@ class GPassFile:
         # We don't actually do anything with these, but leave them
         # here in case we do parse them at some point
         #
-        #entry_index, entry_desc = self.get_entry_string(entry_data,
+        # entry_index, entry_desc = self.get_entry_string(entry_data,
         #                                                entry_index)
-        #logger.debug("entry_desc is %s" % entry_desc)
+        # logger.debug("entry_desc is %s" % entry_desc)
         #
-        #entry_index, entry_ctime = self.get_entry_int(entry_data,
+        # entry_index, entry_ctime = self.get_entry_int(entry_data,
         #                                              entry_index)
-        #logger.debug("creation time is %s" % hexlify(entry_ctime))
+        # logger.debug("creation time is %s" % hexlify(entry_ctime))
         #
-        #entry_index, entry_mtime = self.get_entry_int(entry_data,
+        # entry_index, entry_mtime = self.get_entry_int(entry_data,
         #                                              entry_index)
-        #logger.debug("modification time is %s" %
+        # logger.debug("modification time is %s" %
         #             hexlify(entry_mtime))
         #
-        #entry_index, entry_expflag = self.get_entry_int(entry_data,
+        # entry_index, entry_expflag = self.get_entry_int(entry_data,
         #                                                entry_index)
-        #logger.debug("expiration flag is %s" % hexlify(entry_expflag))
+        # logger.debug("expiration flag is %s" % hexlify(entry_expflag))
         #
-        #entry_index, entry_etime = self.get_entry_int(entry_data,
+        # entry_index, entry_etime = self.get_entry_int(entry_data,
         #                                                  entry_index)
-        #logger.debug("expiration time is %s" % hexlify(entry_etime))
-
+        # logger.debug("expiration time is %s" % hexlify(entry_etime))
 
     def _readfile(self, filename, password):
         '''Parses database file'''
@@ -194,12 +193,11 @@ class GPassFile:
         self._set_folders()
         self._find_empty_folders()
 
-
     def _folder_list_to_field(self, folder_list):
         '''Converts a folder list to a folder field'''
         field = ""
 
-        if folder_list == None:
+        if folder_list is None:
             return field
 
         for folder in folder_list:
@@ -233,7 +231,7 @@ class GPassFile:
     def add_empty_folder(self, folder):
         '''Adds a folder to the empty folders list'''
 
-        if folder == None or folder == []:
+        if folder is None or folder == []:
             return
 
         for part in range(len(folder)):
@@ -250,7 +248,7 @@ class GPassFile:
                         found = True
                         break
 
-                if found == False:
+                if found is False:
                     logger.debug("adding %s" % field)
                     self.empty_folders.append(field)
 

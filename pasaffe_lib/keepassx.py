@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-### BEGIN LICENSE
+#
 # Copyright (C) 2011 Francesco Marella <fra.marella@gmx.com>
 # Copyright (C) 2012 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-### END LICENSE
+#
 
 import sys
 import struct
@@ -36,7 +36,7 @@ class KeePassX:
         self.cipher = None
         self.parent_map = None
 
-        if filename != None:
+        if filename is not None:
             self.readfile(filename)
 
     def _convert_time(self, timestring, tz):
@@ -57,7 +57,7 @@ class KeePassX:
         '''Converts a folder list to a folder field'''
         field = ""
 
-        if folder_list == None:
+        if folder_list is None:
             return field
 
         if folder_list == []:
@@ -112,7 +112,6 @@ class KeePassX:
 
         return folder_list
 
-
     def readfile(self, filename):
         """ Parses database file"""
         try:
@@ -120,7 +119,7 @@ class KeePassX:
         except Exception:
             raise RuntimeError("Could not open %s. Aborting." % filename)
 
-        self.parent_map = {c:p for p in element.iter() for c in p}
+        self.parent_map = {c: p for p in element.iter() for c in p}
 
         if element.getroot().tag == 'database':
             for groupitem in element.findall('./group'):
@@ -176,25 +175,34 @@ class KeePassX:
                         if x.tag == 'Times':
                             for timesitem in list(x):
                                 if timesitem.tag == 'CreationTime':
-                                    new_entry[7] = self._convert_time(timesitem.text, True)
+                                    new_entry[7] = self._convert_time(
+                                        timesitem.text, True)
                                 elif timesitem.tag == 'LastModificationTime':
-                                    new_entry[8] = self._convert_time(timesitem.text, True)
-                                    new_entry[12] = self._convert_time(timesitem.text, True)
+                                    new_entry[8] = self._convert_time(
+                                        timesitem.text, True)
+                                    new_entry[12] = self._convert_time(
+                                        timesitem.text, True)
 
                         elif x.tag == 'String':
                             for stritem in list(x):
                                 if stritem.text == 'Title':
-                                    new_entry[3] = (x.find('Value').text or 'Untitled item')
+                                    new_entry[3] = (x.find('Value').text or
+                                                    'Untitled item')
                                 elif stritem.text == 'UserName':
-                                    new_entry[4] = (x.find('Value').text or '')
+                                    new_entry[4] = (x.find('Value').text or
+                                                    '')
                                 elif stritem.text == 'Password':
-                                    new_entry[6] = (x.find('Value').text or '')
+                                    new_entry[6] = (x.find('Value').text or
+                                                    '')
                                 elif stritem.text == 'URL':
-                                    new_entry[13] = (x.find('Value').text or '')
+                                    new_entry[13] = (x.find('Value').text or
+                                                     '')
                                 elif stritem.text == 'Notes':
-                                    new_entry[5] = (x.find('Value').text or '')
+                                    new_entry[5] = (x.find('Value').text or
+                                                    '')
                                 else:
-                                    if stritem.tag == 'Key' and stritem.text not in self.skipped:
+                                    if (stritem.tag == 'Key' and
+                                            stritem.text not in self.skipped):
                                         self.skipped.append(stritem.text)
 
                         else:

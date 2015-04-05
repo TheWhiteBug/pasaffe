@@ -405,9 +405,9 @@ class Blowfish:
         index = 0
         for i in range(len(self.p_boxes)):
             val = (key[index % key_len] << 24) + \
-                  (key[(index + 1) % key_len] << 16) + \
-                  (key[(index + 2) % key_len] << 8) + \
-                   key[(index + 3) % key_len]
+                (key[(index + 1) % key_len] << 16) + \
+                (key[(index + 2) % key_len] << 8) + \
+                key[(index + 3) % key_len]
             self.p_boxes[i] = self.p_boxes[i] ^ val
             index = index + 4
 
@@ -457,7 +457,7 @@ class Blowfish:
 
         # Perform all ops as longs then and out the last 32-bits to
         # obtain the integer
-        f = (int(self.s_boxes[0][a]) + \
+        f = (int(self.s_boxes[0][a]) +
              int(self.s_boxes[1][b])) % self.modulus
         f = f ^ int(self.s_boxes[2][c])
         f = f + int(self.s_boxes[3][d])
@@ -635,7 +635,7 @@ class Blowfish:
 
 if __name__ == '__main__':
     if not Blowfish.testVectors():
-        print("WARNING: The implementation doesn't pass " + \
+        print("WARNING: The implementation doesn't pass "
               "algorithm test vectors!")
     else:
         print("The implementation passes algorithm test vectors (ECB).")

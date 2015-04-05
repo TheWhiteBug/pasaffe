@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-### BEGIN LICENSE
+#
 # Copyright (C) 2011-2012 Francesco Marella <fra.marella@gmx.com>
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -12,7 +12,7 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-### END LICENSE
+#
 
 import sys
 import struct
@@ -34,7 +34,7 @@ class FigaroXML:
         self.index = 0
         self.cipher = None
 
-        if filename != None:
+        if filename is not None:
             self.readfile(filename)
 
     def readfile(self, filename):
@@ -67,7 +67,7 @@ class FigaroXML:
                     new_entry[5] = (x.text or '')
                 elif x.tag == 'category':
                     category = x.text
-                    if category != None:
+                    if category is not None:
                         new_entry[2] = category.replace(".", "\\.")
                 else:
                     if x.tag not in self.skipped:

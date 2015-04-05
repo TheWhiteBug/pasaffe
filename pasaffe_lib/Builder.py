@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-### BEGIN LICENSE
+#
 # Copyright (C) 2011-2013 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -12,11 +12,11 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-### END LICENSE
+#
 
 '''Enhances builder connections, provides object to access glade objects'''
 
-from gi.repository import GObject, Gtk  # pylint: disable=E0611
+from gi.repository import GObject, Gtk
 
 import inspect
 import functools
@@ -52,15 +52,15 @@ class Builder(Gtk.Builder):
 
 # pylint: disable=R0201
 # this is a method so that a subclass of Builder can redefine it
-    def default_handler(self,
-        handler_name, filename, *args, **kwargs):
+    def default_handler(self, handler_name, filename, *args, **kwargs):
         '''helps the apprentice guru
 
-    glade defined handlers that do not exist come here instead.
-    An apprentice guru might wonder which signal does what he wants,
-    now he can define any likely candidates in glade and notice which
-    ones get triggered when he plays with the project.
-    this method does not appear in Gtk.Builder'''
+        glade defined handlers that do not exist come here instead.
+        An apprentice guru might wonder which signal does what he wants,
+        now he can define any likely candidates in glade and notice which
+        ones get triggered when he plays with the project.
+        this method does not appear in Gtk.Builder'''
+
         logger.debug('''tried to call non-existent function:%s()
         expected in %s
         args:%s
@@ -97,8 +97,8 @@ class Builder(Gtk.Builder):
 
             connections = [
                 (name,
-                ele_signal.attrib['name'],
-                ele_signal.attrib['handler']) for ele_signal in ele_signals]
+                 ele_signal.attrib['name'],
+                 ele_signal.attrib['handler']) for ele_signal in ele_signals]
 
             if connections:
                 self.connections.extend(connections)
@@ -106,7 +106,7 @@ class Builder(Gtk.Builder):
         ele_signals = tree.getiterator("signal")
         for ele_signal in ele_signals:
             self.glade_handler_dict.update(
-            {ele_signal.attrib["handler"]: None})
+                {ele_signal.attrib["handler"]: None})
 
     def connect_signals(self, callback_obj):
         '''connect the handlers defined in glade
@@ -127,8 +127,8 @@ class Builder(Gtk.Builder):
                 connection_dict[item[0]] = handler
 
                 # replace the run time warning
-                logger.warn("expected handler '%s' in %s",
-                 item[0], filename)
+                logger.warn("expected handler '%s' in %s", item[0],
+                            filename)
 
         # connect glade define handlers
         Gtk.Builder.connect_signals(self, connection_dict)
@@ -137,7 +137,7 @@ class Builder(Gtk.Builder):
         for connection in self.connections:
             widget_name, signal_name, handler_name = connection
             logger.debug("connect builder by design '%s', '%s', '%s'",
-             widget_name, signal_name, handler_name)
+                         widget_name, signal_name, handler_name)
 
     def get_ui(self, callback_obj=None, by_name=True):
         '''Creates the ui object with widgets as attributes
@@ -200,7 +200,7 @@ def make_pyname(name):
     pyname = ''
     for character in name:
         if (character.isalpha() or character == '_' or
-            (pyname and character.isdigit())):
+                (pyname and character.isdigit())):
             pyname += character
         else:
             pyname += '_'
@@ -230,10 +230,10 @@ def dict_from_callback_obj(callback_obj):
     aliased_methods = [x[1] for x in methods if hasattr(x[1], 'aliases')]
 
     # a method may have several aliases
-    #~ @alias('on_btn_foo_clicked')
-    #~ @alias('on_tool_foo_activate')
-    #~ on_menu_foo_activate():
-        #~ pass
+    # @alias('on_btn_foo_clicked')
+    # @alias('on_tool_foo_activate')
+    # on_menu_foo_activate():
+    #    pass
     alias_groups = [(x.aliases, x) for x in aliased_methods]
 
     aliases = []
@@ -282,14 +282,14 @@ def auto_connect_by_name(callback_obj, builder):
             if widget is callback_obj:
                 handler_names.append("on_%s" % sig)
 
-            do_connect(item, sig, handler_names,
-             callback_handler_dict, builder.connections)
+            do_connect(item, sig, handler_names, callback_handler_dict,
+                       builder.connections)
 
     log_unconnected_functions(callback_handler_dict, builder.connections)
 
 
-def do_connect(item, signal_name, handler_names,
-        callback_handler_dict, connections):
+def do_connect(item, signal_name, handler_names, callback_handler_dict,
+               connections):
     '''connect this signal to an unused handler'''
     widget_name, widget = item
 
@@ -302,7 +302,7 @@ def do_connect(item, signal_name, handler_names,
             connections.append(connection)
 
             logger.debug("connect builder by name '%s','%s', '%s'",
-             widget_name, signal_name, handler_name)
+                         widget_name, signal_name, handler_name)
 
 
 def log_unconnected_functions(callback_handler_dict, connections):

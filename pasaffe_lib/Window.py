@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-### BEGIN LICENSE
+#
 # Copyright (C) 2011-2013 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -12,9 +12,9 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-### END LICENSE
+#
 
-from gi.repository import Gio, Gtk  # pylint: disable=E0611
+from gi.repository import Gio, Gtk
 import logging
 logger = logging.getLogger('pasaffe_lib')
 
@@ -92,8 +92,8 @@ class Window(Gtk.Window):
             self.preferences_dialog = \
                 self.PreferencesDialog()  # pylint: disable=E1102
             self.preferences_dialog.set_transient_for(self)
-            self.preferences_dialog.connect('destroy',
-                self.on_preferences_dialog_destroyed)
+            self.preferences_dialog.connect(
+                'destroy', self.on_preferences_dialog_destroyed)
             self.preferences_dialog.show()
         # destroy command moved into dialog to allow for a help button
 
@@ -107,13 +107,13 @@ class Window(Gtk.Window):
         Gtk.main_quit()
 
     def on_preferences_changed(self, settings, key, data=None):
-        logger.debug('preference changed: %s = %s' % (key,
-            str(settings.get_value(key))))
+        logger.debug('preference changed: %s = %s' %
+                     (key, str(settings.get_value(key))))
         if key == 'visible-secrets':
             self.set_show_password_status()
             treemodel, treeiter = \
                 self.ui.treeview1.get_selection().get_selected()
-            if treeiter != None:
+            if treeiter is not None:
                 entry_uuid = treemodel.get_value(treeiter, 2)
                 if "pasaffe_treenode." not in entry_uuid:
                     self.display_data(entry_uuid,
