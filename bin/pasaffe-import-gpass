@@ -1,19 +1,19 @@
 #!/usr/bin/python3
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-### BEGIN LICENSE
+#
 # Copyright (C) 2011-2013 Marc Deslauriers <marc.deslauriers@canonical.com>
-# This program is free software: you can redistribute it and/or modify it 
-# under the terms of the GNU General Public License version 3, as published 
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
-# 
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranties of 
-# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR 
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranties of
+# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR
 # PURPOSE.  See the GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License along 
+#
+# You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-### END LICENSE
+#
 
 import sys
 import os
@@ -31,17 +31,19 @@ PROJECT_ROOT_DIRECTORY = os.path.abspath(
 
 python_path = []
 if os.path.abspath(__file__).startswith('/opt'):
-    syspath = sys.path[:] # copy to avoid infinite loop in pending objects
+    syspath = sys.path[:]  # copy to avoid infinite loop in pending objects
     for path in syspath:
         opt_path = path.replace('/usr', '/opt/extras.ubuntu.com/pasaffe')
         python_path.insert(0, opt_path)
         sys.path.insert(0, opt_path)
 if (os.path.exists(os.path.join(PROJECT_ROOT_DIRECTORY, 'pasaffe'))
-    and PROJECT_ROOT_DIRECTORY not in sys.path):
+        and PROJECT_ROOT_DIRECTORY not in sys.path):
     python_path.insert(0, PROJECT_ROOT_DIRECTORY)
     sys.path.insert(0, PROJECT_ROOT_DIRECTORY)
 if python_path:
-    os.putenv('PYTHONPATH', "%s:%s" % (os.getenv('PYTHONPATH', ''), ':'.join(python_path))) # for subprocesses
+    # for subprocesses
+    os.putenv('PYTHONPATH', "%s:%s" % (os.getenv('PYTHONPATH', ''),
+                                       ':'.join(python_path)))
 
 from pasaffe_lib import gpassfile
 from pasaffe_lib import readdb
@@ -56,13 +58,15 @@ parser.add_option("-f", "--file", dest="filename",
 parser.add_option("-d", "--database", dest="database",
                   default=None, help="specify alternate Pasaffe database file")
 parser.add_option("-o", "--overwrite", dest="overwrite", action="store_true",
-                  default=False, help="overwrite existing Pasaffe password store")
+                  default=False,
+                  help="overwrite existing Pasaffe password store")
 parser.add_option("-y", "--yes", dest="yes", action="store_true",
-                  default=False, help="don't ask for confirmation (may result in data loss!)")
+                  default=False,
+                  help="don't ask for confirmation (may result in data loss!)")
 parser.add_option("-p", "--password", dest="password",
                   default=None, help="specify GPass database password")
-parser.add_option("-m", "--masterpassword", dest="master",
-                  default=None, help="specify Pasaffe database master password")
+parser.add_option("-m", "--masterpassword", dest="master", default=None,
+                  help="specify Pasaffe database master password")
 parser.add_option("-q", "--quiet", dest="quiet", action="store_true",
                   default=False, help="quiet messages")
 
@@ -70,7 +74,7 @@ parser.add_option("-q", "--quiet", dest="quiet", action="store_true",
 
 set_up_logging(options)
 
-if options.filename == None:
+if options.filename is None:
     filename = os.path.join(os.environ['HOME'], '.gpass/passwords.gps')
 else:
     filename = options.filename
@@ -84,12 +88,12 @@ if not os.path.exists(filename):
     print("Could not locate database file!")
     sys.exit(1)
 
-if options.database == None:
+if options.database is None:
     db_filename = get_database_path()
 else:
     db_filename = options.database
 
-if options.password == None:
+if options.password is None:
     password = getpass.getpass()
 else:
     password = options.password
@@ -105,31 +109,32 @@ else:
     if not options.quiet:
         print("Located %s passwords in the database!" % items)
 
-if options.yes == True:
-    if options.overwrite == True and os.path.exists(db_filename):
+if options.yes is True:
+    if options.overwrite is True and os.path.exists(db_filename):
         shutil.copy(db_filename, db_filename + ".bak")
         os.unlink(db_filename)
 else:
     if not os.path.exists(db_filename):
         print("WARNING: Could not locate a Pasaffe database.")
         response = confirm(prompt='Create a new database?', resp=False)
-    elif options.overwrite == True:
-        print("If you continue, your current Pasaffe database will be DELETED.")
+    elif options.overwrite is True:
+        print("If you continue, your current Pasaffe database will"
+              " be DELETED.")
         response = confirm(prompt='Overwrite database?', resp=False)
-        if response == True:
+        if response is True:
             shutil.copy(db_filename, db_filename + ".bak")
             os.unlink(db_filename)
     else:
         print("If you continue, passwords will be imported into Pasaffe.")
         response = confirm(prompt='Import to database?', resp=False)
 
-    if response == False:
+    if response is False:
         print("Aborting.")
         sys.exit(1)
 
 # Get password for Pasaffe database
 if os.path.exists(db_filename):
-    if options.master != None:
+    if options.master is not None:
         password = options.master
     else:
         print("You must now enter the Pasaffe database password.")
@@ -140,10 +145,11 @@ if os.path.exists(db_filename):
         passsafe.records[entry] = gpass.records[entry]
     passsafe.writefile(db_filename, backup=True)
 else:
-    if options.master != None:
+    if options.master is not None:
         password = options.master
     else:
-        print("You now must enter a master password for the new Pasaffe database")
+        print("You now must enter a master password for the new"
+              " Pasaffe database")
         while(1):
             password = getpass.getpass("New password: ")
             password_conf = getpass.getpass("Confirm password: ")
@@ -159,4 +165,3 @@ else:
 
 if not options.quiet:
     print("Success!")
-

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-### BEGIN LICENSE
+#
 # Copyright (C) 2011 Jamie Strandboge <jamie@canonical.com>
 # Based on work by Marc Deslauriers <marc.deslauriers@canonical.com>
 #
@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-### END LICENSE
+#
 
 import getpass
 import sys
@@ -34,17 +34,19 @@ PROJECT_ROOT_DIRECTORY = os.path.abspath(
 
 python_path = []
 if os.path.abspath(__file__).startswith('/opt'):
-    syspath = sys.path[:] # copy to avoid infinite loop in pending objects
+    syspath = sys.path[:]  # copy to avoid infinite loop in pending objects
     for path in syspath:
         opt_path = path.replace('/usr', '/opt/extras.ubuntu.com/pasaffe')
         python_path.insert(0, opt_path)
         sys.path.insert(0, opt_path)
 if (os.path.exists(os.path.join(PROJECT_ROOT_DIRECTORY, 'pasaffe'))
-    and PROJECT_ROOT_DIRECTORY not in sys.path):
+        and PROJECT_ROOT_DIRECTORY not in sys.path):
     python_path.insert(0, PROJECT_ROOT_DIRECTORY)
     sys.path.insert(0, PROJECT_ROOT_DIRECTORY)
 if python_path:
-    os.putenv('PYTHONPATH', "%s:%s" % (os.getenv('PYTHONPATH', ''), ':'.join(python_path))) # for subprocesses
+    # for subprocesses
+    os.putenv('PYTHONPATH', "%s:%s" % (os.getenv('PYTHONPATH', ''),
+                                       ':'.join(python_path)))
 
 from pasaffe_lib import readdb
 from pasaffe_lib.helpers import get_database_path
@@ -52,8 +54,8 @@ from pasaffe_lib.helpers import get_database_path
 parser = OptionParser()
 parser.add_option("-f", "--file", dest="filename",
                   help="specify alternate GPass database file", metavar="FILE")
-parser.add_option("-m", "--masterpassword", dest="master",
-                  default=None, help="specify Pasaffe database master password")
+parser.add_option("-m", "--masterpassword", dest="master", default=None,
+                  help="specify Pasaffe database master password")
 parser.add_option("-q", "--quiet", dest="quiet", action="store_true",
                   default=False, help="quiet messages")
 parser.add_option("-d", "--dump", dest="dump", action="store_true",
@@ -61,7 +63,7 @@ parser.add_option("-d", "--dump", dest="dump", action="store_true",
 
 (options, args) = parser.parse_args()
 
-if options.filename == None:
+if options.filename is None:
     db_filename = get_database_path()
 else:
     db_filename = options.filename
@@ -82,7 +84,7 @@ count = 0
 max_tries = 3
 while count < max_tries:
     count += 1
-    if options.master != None:
+    if options.master is not None:
         master = options.master
     else:
         master = getpass.getpass("Password> ")
@@ -96,23 +98,23 @@ while count < max_tries:
         print(("%d incorrect password attempts" % (count)))
         sys.exit(1)
 
-record_dict = { 'Entry'    : 3,
-                'Username' : 4,
-                'Notes'    : 5,
-                'Password' : 6,
-                'URL'      : 13
-              }
+record_dict = {'Entry':    3,
+               'Username': 4,
+               'Notes':    5,
+               'Password': 6,
+               'URL':      13
+               }
 
 if options.dump:
     print("Printing raw dump of database:\n")
     print(passfile.records)
     sys.exit(0)
 
-for record in sorted(list(passfile.records.values()), key=lambda entry: entry[3].lower()):
+for record in sorted(list(passfile.records.values()),
+                     key=lambda entry: entry[3].lower()):
     # specify order of labels and values
     for label in ['Entry', 'Username', 'Password', 'URL', 'Notes']:
         record_type = record_dict[label]
         if record_type in record and record[record_type] != "":
             print(("%s: %s" % (label, record[record_type])))
     print("")
-
