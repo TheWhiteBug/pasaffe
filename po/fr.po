@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-08 14:29-0400\n"
-"PO-Revision-Date: 2014-10-29 12:53+0000\n"
-"Last-Translator: Marc Deslauriers <marc.deslauriers@canonical.com>\n"
+"PO-Revision-Date: 2015-04-11 16:57+0000\n"
+"Last-Translator: Jean Marc <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-03-09 05:50+0000\n"
-"X-Generator: Launchpad (build 17383)\n"
+"X-Launchpad-Export-Date: 2015-04-12 05:44+0000\n"
+"X-Generator: Launchpad (build 17423)\n"
 "Language: fr\n"
 
 #: ../pasaffe/PasaffeWindow.py:506 ../data/ui/EditDetailsDialog.ui.h:10
@@ -178,7 +178,7 @@ msgstr "Dossier :"
 
 #: ../data/ui/EditDetailsDialog.ui.h:11
 msgid "The website for this entry"
-msgstr "Le site Web pour cette entrée"
+msgstr "Le site web pour cette entrée"
 
 #: ../data/ui/EditDetailsDialog.ui.h:12
 msgid "Pick a random password"
@@ -274,7 +274,7 @@ msgstr "Verrouiller"
 
 #: ../data/ui/PasaffeWindow.ui.h:16
 msgid "Change Master Password"
-msgstr "Changer le mot de passe principal"
+msgstr "Modifier le mot de passe principal"
 
 #: ../data/ui/PasaffeWindow.ui.h:17
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:18
@@ -320,11 +320,11 @@ msgstr "_À propos"
 
 #: ../data/ui/PasaffeWindow.ui.h:27
 msgid "Save changes"
-msgstr "Sauvegarder les changements"
+msgstr "Enregistrer les modifications"
 
 #: ../data/ui/PasaffeWindow.ui.h:28
 msgid "Save"
-msgstr "Sauvegarder"
+msgstr "Enregistrer"
 
 #: ../data/ui/PasaffeWindow.ui.h:29
 msgid "Add a new entry"
@@ -521,6 +521,7 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Binnette https://launchpad.net/~binnette\n"
 "  Eliovir https://launchpad.net/~eliovir\n"
+"  Jean Marc https://launchpad.net/~m-balthazar\n"
 "  LEROY Jean-Christophe https://launchpad.net/~celtic2-deactivatedaccount\n"
 "  Marc Deslauriers https://launchpad.net/~mdeslaur\n"
 "  demonipuch https://launchpad.net/~demonipuch\n"
