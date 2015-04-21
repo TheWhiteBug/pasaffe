@@ -43,7 +43,7 @@ class TestPasswordGorilla15363(unittest.TestCase):
     def test_get_database_uuid(self):
         self.assertEqual(self.passfile.header[1],
                          b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
-                         '\x00\x00\x00\x00\x00')
+                         b'\x00\x00\x00\x00\x00')
 
     def test_get_saved_name(self):
         self.assertEqual(self.passfile.get_saved_name(), None)
