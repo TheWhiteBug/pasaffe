@@ -1,28 +1,30 @@
 #!/usr/bin/python3
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-### BEGIN LICENSE
+#
 # Copyright (C) 2013 Marc Deslauriers <marc.deslauriers@canonical.com>
-# This program is free software: you can redistribute it and/or modify it 
-# under the terms of the GNU General Public License version 3, as published 
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
-# 
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranties of 
-# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR 
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranties of
+# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR
 # PURPOSE.  See the GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License along 
+#
+# You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-### END LICENSE
+#
 
 import sys
 import os.path
 import unittest
 import time
 import struct
-sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__),
+                                                 "..")))
 
 from pasaffe_lib.figaroxml import FigaroXML
+
 
 class TestFigaroXML079(unittest.TestCase):
     def setUp(self):
@@ -37,7 +39,8 @@ class TestFigaroXML079(unittest.TestCase):
     def _get_time(self, uuid, entry):
         '''Returns a string of time'''
         if entry in self.passfile.records[uuid]:
-            unpacked_time = struct.unpack("<I", self.passfile.records[uuid][entry])[0]
+            unpacked_time = struct.unpack(
+                "<I", self.passfile.records[uuid][entry])[0]
             converted_time = time.gmtime(unpacked_time)
             return time.strftime("%a, %d %b %Y %H:%M:%S", converted_time)
         else:
@@ -79,7 +82,8 @@ class TestFigaroXML079(unittest.TestCase):
         self.assertEqual(self.passfile.records[uuid][2], 'category1')
         self.assertEqual(self.passfile.records[uuid][3], entry_name)
         self.assertEqual(self.passfile.records[uuid][4], 'username3')
-        self.assertEqual(self.passfile.records[uuid][5], 'This is notes\nLine 2')
+        self.assertEqual(self.passfile.records[uuid][5],
+                         'This is notes\nLine 2')
         self.assertEqual(self.passfile.records[uuid][6], 'password3')
         self.assertEqual(self.passfile.records[uuid][13], 'hostname3')
 

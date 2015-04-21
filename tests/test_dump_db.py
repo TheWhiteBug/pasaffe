@@ -1,36 +1,38 @@
 #!/usr/bin/python3
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-### BEGIN LICENSE
+#
 # Copyright (C) 2013 Marc Deslauriers <marc.deslauriers@canonical.com>
-# This program is free software: you can redistribute it and/or modify it 
-# under the terms of the GNU General Public License version 3, as published 
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
-# 
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranties of 
-# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR 
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranties of
+# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR
 # PURPOSE.  See the GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License along 
+#
+# You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-### END LICENSE
+#
 
 import sys
 import os.path
 import unittest
 import time
 import subprocess
-sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__),
+                                                 "..")))
 
 from pasaffe_lib.readdb import PassSafeFile
+
 
 class TestDumpDB(unittest.TestCase):
     def setUp(self):
         pass
 
     def test_dump_db(self):
-        out = subprocess.check_output(['bin/pasaffe-dump-db', '-q',
-                                       '-f', './tests/databases/pasaffe-025.psafe3',
+        out = subprocess.check_output(['bin/pasaffe-dump-db', '-q', '-f',
+                                       './tests/databases/pasaffe-025.psafe3',
                                        '-m', 'pasaffe'])
 
         expected_out = b'''Entry: level1entry
@@ -52,12 +54,12 @@ Notes: This is a note
         self.assertEqual(out, expected_out)
 
     def test_dump_db_verbose(self):
-        out = subprocess.check_output(['bin/pasaffe-dump-db',
-                                       '-f', './tests/databases/pasaffe-025.psafe3',
+        out = subprocess.check_output(['bin/pasaffe-dump-db', '-f',
+                                       './tests/databases/pasaffe-025.psafe3',
                                        '-m', 'pasaffe'])
 
-
-        self.assertTrue(b'WARNING: this will display all password entries.' in out)
+        self.assertTrue(b'WARNING: this will display all password entries.'
+                        in out)
 
 
 if __name__ == '__main__':
