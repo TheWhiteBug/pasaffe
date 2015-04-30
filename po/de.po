@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-03-08 14:29-0400\n"
-"PO-Revision-Date: 2014-04-03 14:47+0000\n"
-"Last-Translator: Marc Deslauriers <marc.deslauriers@canonical.com>\n"
+"PO-Revision-Date: 2015-04-29 17:40+0000\n"
+"Last-Translator: tschoie <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-04-28 05:24+0000\n"
+"X-Launchpad-Export-Date: 2015-04-30 05:21+0000\n"
 "X-Generator: Launchpad (build 17453)\n"
 
 #: ../pasaffe/PasaffeWindow.py:506 ../data/ui/EditDetailsDialog.ui.h:10
@@ -136,6 +136,8 @@ msgid ""
 "Database location:\n"
 "%s\n"
 msgstr ""
+"Ort der Datenbank:\n"
+"%s\n"
 
 #: ../pasaffe/PasaffeWindow.py:1406 ../data/ui/NewDatabaseDialog.ui.h:7
 msgid "Passwords don't match! Please try again."
@@ -185,13 +187,13 @@ msgstr "Wählen Sie ein beliebiges Passwort"
 #: ../data/ui/NewDatabaseDialog.ui.h:1 ../data/ui/SaveChangesDialog.ui.h:4
 #: ../data/ui/PasswordEntryDialog.ui.h:1 ../data/ui/NewPasswordDialog.ui.h:1
 msgid "_Cancel"
-msgstr ""
+msgstr "A_bbrechen"
 
 #: ../data/ui/EditDetailsDialog.ui.h:14 ../data/ui/EditFolderDialog.ui.h:2
 #: ../data/ui/NewDatabaseDialog.ui.h:2 ../data/ui/PasswordEntryDialog.ui.h:2
 #: ../data/ui/NewPasswordDialog.ui.h:2
 msgid "_OK"
-msgstr ""
+msgstr "_OK"
 
 #: ../data/ui/EditFolderDialog.ui.h:3
 msgid "<big><b>Edit folder</b></big>"
@@ -215,7 +217,7 @@ msgstr "<big><b>Die Passwortdatenbank ist derzeit gesperrt.</b></big>"
 
 #: ../data/ui/PasaffeWindow.ui.h:2
 msgid "_Quit"
-msgstr ""
+msgstr "_Beenden"
 
 #: ../data/ui/PasaffeWindow.ui.h:3
 msgid "Unlock"
@@ -239,7 +241,7 @@ msgstr "Duplizieren"
 
 #: ../data/ui/PasaffeWindow.ui.h:8
 msgid "_Delete"
-msgstr ""
+msgstr "_Löschen"
 
 #: ../data/ui/PasaffeWindow.ui.h:9
 msgid "Copy URL"
@@ -263,7 +265,7 @@ msgstr "_Datei"
 
 #: ../data/ui/PasaffeWindow.ui.h:14 ../data/ui/SaveChangesDialog.ui.h:5
 msgid "_Save"
-msgstr ""
+msgstr "_Speichern"
 
 #: ../data/ui/PasaffeWindow.ui.h:15
 msgid "Lock"
@@ -276,7 +278,7 @@ msgstr "Hauptpasswort ändern"
 #: ../data/ui/PasaffeWindow.ui.h:17
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:18
 msgid "_Close"
-msgstr ""
+msgstr "S_chließen"
 
 #: ../data/ui/PasaffeWindow.ui.h:18
 msgid "Find"
@@ -284,7 +286,7 @@ msgstr "Finden"
 
 #: ../data/ui/PasaffeWindow.ui.h:19
 msgid "_Preferences"
-msgstr ""
+msgstr "_Einstellungen"
 
 #: ../data/ui/PasaffeWindow.ui.h:20
 msgid "_View"
@@ -313,7 +315,7 @@ msgstr "Inhalt"
 
 #: ../data/ui/PasaffeWindow.ui.h:26
 msgid "_About"
-msgstr ""
+msgstr "_Info"
 
 #: ../data/ui/PasaffeWindow.ui.h:27
 msgid "Save changes"
