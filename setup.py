@@ -51,25 +51,6 @@ def update_config(values = {}):
     return oldvalues
 
 
-def update_desktop_file(datadir):
-
-    try:
-        fin = open('pasaffe.desktop.in', 'r')
-        fout = open(fin.name + '.new', 'w')
-
-        for line in fin:
-            if 'Icon=' in line:
-                line = "Icon=%s\n" % (datadir + 'media/pasaffe.svg')
-            fout.write(line)
-        fout.flush()
-        fout.close()
-        fin.close()
-        os.rename(fout.name, fin.name)
-    except (OSError, IOError) as e:
-        print ("ERROR: Can't find pasaffe.desktop.in")
-        sys.exit(1)
-
-
 class InstallAndUpdateDataDirectory(DistUtilsExtra.auto.install_auto):
     def run(self):
         values = {'__pasaffe_data_directory__': "'%s'" % (self.prefix + '/share/pasaffe/'),
@@ -82,7 +63,6 @@ class InstallAndUpdateDataDirectory(DistUtilsExtra.auto.install_auto):
             values['__help_separator__'] = "'#'"
 
         previous_values = update_config(values)
-        update_desktop_file(self.prefix + '/share/pasaffe/')
         DistUtilsExtra.auto.install_auto.run(self)
         update_config(previous_values)
 

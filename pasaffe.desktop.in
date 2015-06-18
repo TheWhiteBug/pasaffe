@@ -3,6 +3,6 @@ _Name=Pasaffe
 _Comment=Pasaffe password manager
 Categories=GNOME;Utility;
 Exec=pasaffe
-Icon=/usr/share/pasaffe/media/pasaffe.svg
+Icon=pasaffe
 Terminal=false
 Type=Application

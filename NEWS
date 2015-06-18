@@ -7,6 +7,7 @@ For a detailed list of changes, please see ChangeLog.
 
  * Bug fixes:
    - PEP 8 cleanup
+   - No longer hardcode icon location (LP: #1459823)
 
 0.43 (2015-03-08)
 
