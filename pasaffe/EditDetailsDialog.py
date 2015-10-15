@@ -17,12 +17,11 @@
 from gi.repository import Gio, Gtk  # pylint: disable=E0611
 
 from pasaffe_lib.helpersgui import get_builder
+from pasaffe_lib.helpers import gen_password
 
 import gettext
 from gettext import gettext as _
 gettext.textdomain('pasaffe')
-
-import subprocess
 
 # pylint: disable=E1101
 
@@ -81,11 +80,8 @@ class EditDetailsDialog(Gtk.Dialog):
 
     def show_passwords_menu(self):
         """Generate some new passwords"""
-        command = ["apg", "-a", "1", "-n", "6", "-M", "NCL",
-                   "-m", str(self.password_length),
-                   "-x", str(self.password_length)]
         try:
-            passwords = subprocess.check_output(command).splitlines()
+            gen_password(6, self.password_length)
             self.ui.password1.set_label(passwords[0].decode('utf-8'))
             self.ui.password2.set_label(passwords[1].decode('utf-8'))
             self.ui.password3.set_label(passwords[2].decode('utf-8'))

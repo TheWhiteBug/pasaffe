@@ -17,6 +17,8 @@
 """Helpers for an Ubuntu application."""
 import logging
 import os
+import sys
+import subprocess
 
 from . pasaffeconfig import get_data_file
 from . pasaffeconfig import get_help_prefix
@@ -375,7 +377,19 @@ def get_database_path():
         basedir = os.path.join(os.environ['HOME'], '.local/share/pasaffe')
 
     if not os.path.exists(basedir):
-        os.mkdir(basedir, 0o700)
+        os.makedirs(basedir, 0o700)
 
     return os.path.join(basedir, 'pasaffe.psafe3')
 
+
+def gen_password(number, size):
+    """Generate <number> new passwords, each of size <size>"""
+    command = ["apg", "-a", "1", "-n", str(number), "-M", "NCL",
+               "-m", str(size),
+               "-x", str(size)]
+    try:
+        passwords = subprocess.check_output(command).splitlines()  # pylint: disable=E1103
+    except:
+        print(_("error running apg"))
+        passwords = None
+    return passwords
