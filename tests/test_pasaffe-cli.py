@@ -152,7 +152,9 @@ def listEntry(db, pswd, entry="Dummy", fuzzy=False, lstUserId=False, lstPswd=Fal
 
 class TestPasaffeCLI(unittest.TestCase):
     def csetUp(self):
-        pass
+        # remove any left-over pasaffe DB
+        if os.path.isfile(db_name):
+            os.remove(db_name)
 
     def tearDown(self):
         if os.path.isfile(db_name):
