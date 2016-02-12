@@ -1,5 +1,8 @@
 Copyright (C) 2011-2013 Marc Deslauriers <marc.deslauriers@canonical.com>
 
+bin/pasaffe-cli:
+Copyright (C) 2015 C de-Avillez <hggdh2@ubuntu.com>
+
 bin/pasaffe-dump-db:
 Copyright (C) 2011 Jamie Strandboge <jamie@canonical.com>
 
@@ -25,3 +28,6 @@ pasaffe_lib/blowfish.py:
 Copyright (C) 2002 Michael Gilfix <mgilfix@eecs.tufts.edu>
 (c) 2007./08. Ivan Voras <ivoras@gmail.com>
 Joel Edwards <joeledwards@gmail.com>
+
+tests/test_pasaffe-cli.py:
+Copyright (C) 2015 C de-Avillez <hggdh2@ubuntu.com>
