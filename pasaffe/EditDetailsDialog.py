@@ -81,7 +81,7 @@ class EditDetailsDialog(Gtk.Dialog):
     def show_passwords_menu(self):
         """Generate some new passwords"""
         try:
-            gen_password(6, self.password_length)
+            passwords = gen_password(6, self.password_length)
             self.ui.password1.set_label(passwords[0].decode('utf-8'))
             self.ui.password2.set_label(passwords[1].decode('utf-8'))
             self.ui.password3.set_label(passwords[2].decode('utf-8'))
