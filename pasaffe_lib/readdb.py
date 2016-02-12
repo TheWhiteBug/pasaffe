@@ -23,7 +23,11 @@ import os
 import time
 import tempfile
 import shutil
-import pwd
+if os.name is "posix":
+    import pwd
+elif os.name is "nt":
+    import getpass
+#import pwd
 from binascii import hexlify, unhexlify
 
 from . import pytwofishcbc
@@ -143,7 +147,10 @@ class PassSafeFile:
         '''Writes database file'''
 
         # Set username
-        self.header[7] = pwd.getpwuid(os.getuid())[0]
+        if os.name is "posix":
+            self.header[7] = pwd.getpwuid(os.getuid())[0]
+        elif os.name is "nt":
+            self.header[7] = getpass.getuser()
         # Remove the old deprecated username field if it exists
         if 5 in self.header:
             del self.header[5]

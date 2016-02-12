@@ -1,0 +1,529 @@
+#!/usr/bin/python3
+# -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
+### BEGIN LICENSE
+# Copyright (C) 2015 C de-Avillez <hggdh2@ubuntu.com>
+# Based on work by Marc Deslauriers <marc.deslauriers@canonical.com>
+#
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License version 3, as published
+# by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranties of
+# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR
+# PURPOSE.  See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program.  If not, see <http://www.gnu.org/licenses/>.
+### END LICENSE
+
+import getpass
+import sys
+import os
+import traceback
+from optparse import OptionParser
+
+import gettext
+from gettext import gettext as _
+gettext.textdomain('pasaffe')
+
+
+# Add project root directory (enable symlink and trunk execution)
+PROJECT_ROOT_DIRECTORY = os.path.abspath(
+    os.path.dirname(os.path.dirname(os.path.realpath(sys.argv[0]))))
+
+python_path = []
+if os.path.abspath(__file__).startswith('/opt'):
+    syspath = sys.path[:]  # copy to avoid infinite loop in pending objects
+    for path in syspath:
+        opt_path = path.replace('/usr', '/opt/extras.ubuntu.com/pasaffe')
+        python_path.insert(0, opt_path)
+        sys.path.insert(0, opt_path)
+if (os.path.exists(os.path.join(PROJECT_ROOT_DIRECTORY, 'pasaffe'))
+        and PROJECT_ROOT_DIRECTORY not in sys.path):
+    python_path.insert(0, PROJECT_ROOT_DIRECTORY)
+    sys.path.insert(0, PROJECT_ROOT_DIRECTORY)
+if python_path:
+    # for subprocesses
+    os.putenv('PYTHONPATH', "%s:%s" % (os.getenv('PYTHONPATH', ''),
+                                       ':'.join(python_path)))
+
+
+from pasaffe_lib import readdb
+from pasaffe_lib.helpers import get_database_path
+from pasaffe_lib.helpers import gen_password
+
+# we work only on a subset of the PasswordSafe standard
+DICT = dict(UUID=1,
+            GROUP=2,
+            ENTRY=3,
+            USERNAME=4,
+            NOTES=5,
+            PASSWORD=6,
+            URL=13)
+
+
+def warn(text, quiet=False):
+    if not quiet:
+        print(text)
+
+
+def debug(text):
+    if options.debug:
+        print(text)
+
+
+def stack_dump(tpe, value, tracebk):
+    if not options.debug:
+        return
+    print("exception: %s (%s)" % (tpe, value))
+    traceback.print_tb(tracebk)
+
+
+def get_options():
+    """
+    parse the run-time parameters.
+    :return: (options, args) pair
+    """
+
+    parser = OptionParser()
+    parser.add_option("--debug",
+                      dest="debug",
+                      action="store_true",
+                      default=False,
+                      help=_("run with debug"))
+    parser.add_option("-f", "--file",
+                      dest="filename",
+                      default=None,
+                      help=_("specify alternate GPass database file"),
+                      metavar="FILE")
+    parser.add_option("--add",
+                      dest="action_add",
+                      action="store_true",
+                      default=False,
+                      help=_("add a new entry to the database"))
+    parser.add_option("--repl",
+                      dest="action_replace",
+                      action="store_true",
+                      default=False,
+                      help=_("replace an entry in the database"))
+    parser.add_option("--del",
+                      dest="action_delete",
+                      action="store_true",
+                      default=False,
+                      help=_("remove an entry from the database"))
+    parser.add_option("--list",
+                      dest="action_list",
+                      action="store_true",
+                      default=False,
+                      help=_("print out a full entry in the database, except the password"))
+    parser.add_option("--listall",
+                      dest="action_listall",
+                      action="store_true",
+                      default=False,
+                      help=_("print out a full entry in the database, except the password"))
+    parser.add_option("--fuzzy",
+                      dest="fuzzy",
+                      action="store_true",
+                      default=False,
+                      help=_("look for --entry as a substring (default: False)"))
+    parser.add_option("--listgroup",
+                      dest="listGroup",
+                      action="store_true",
+                      default=False,
+                      help=_("print out the group field of the given entry"))
+    parser.add_option("--listuser",
+                      dest="listUser",
+                      action="store_true",
+                      default=False,
+                      help=_("print out the user field of the given entry"))
+    parser.add_option("--listnotes",
+                      dest="listNotes",
+                      action="store_true",
+                      default=False,
+                      help=_("print out the Notes filed of the given entry"))
+    parser.add_option("--listpswd",
+                      dest="listPswd",
+                      action="store_true",
+                      default=False,
+                      help=_("print out the password for the given entry"))
+    parser.add_option("--listurl",
+                      dest="listURL",
+                      action="store_true",
+                      default=False,
+                      help=_("print out the URL field of the given entry"))
+    parser.add_option("--createdb",
+                      dest="action_createDB",
+                      action="store_true",
+                      default=False,
+                      help=_("create a new Pasaffe database"))
+    parser.add_option("-m", "--masterpassword",
+                      dest="master",
+                      default=None,
+                      help=_("specify Pasaffe database master password"))
+    parser.add_option("--newmaster",
+                      dest="newmaster",
+                      default=None,
+                      help=_("specify new Pasaffe database master password"))
+    parser.add_option("-q", "--quiet",
+                      dest="quiet",
+                      action="store_true",
+                      default=False,
+                      help=_("quiet messages"))
+    parser.add_option("-e", "--entry",
+                      dest="entry",
+                      default=None,
+                      help=_("act on this database entry"))
+    parser.add_option("--newentry",
+                      dest="newEntry",
+                      default=None,
+                      help=_("replacement entry string"))
+    parser.add_option("-g", "--group",
+                      dest="group",
+                      default=None,
+                      help=_("group for this entry"))
+    parser.add_option("-u", "--user",
+                      dest="user",
+                      default=None,
+                      help=_("userId for this entry"))
+    parser.add_option("--pswd",
+                      dest="pswd",
+                      default=None,
+                      help=_("password/passphrase for this entry"))
+    parser.add_option("--url",
+                      dest="url",
+                      default=None,
+                      help=_("URL for this entry"))
+    parser.add_option("--notes",
+                      dest="notes",
+                      default=None,
+                      help=_("free-format notes for this entry"))
+    parser.add_option("--genpswd",
+                      dest="gen_pswd",
+                      action="store_true",
+                      default=False,
+                      help="generates a password of ->-pswd_size> characters")
+    parser.add_option("--pswdlen",
+                      dest="pswd_len",
+                      action="store",
+                      default=16,
+                      help="Generated password length. Defaults to 16 characters")
+    return parser.parse_args()
+
+
+def check_options(args):
+    """
+    Check the parameters passed on this run. Options are dealt with as follows:
+    1. --entry must always be provided (notice that --entry is overloaded:
+      *if --list* is passed, then --entry is a substring of an
+       entry title;
+      *if --(add|repl|del), then --entry is the exact match of
+       an entry title.
+    2. actions that change the DB are mutually exclusive with
+       actions that
+       list the DB. Either change or list, but not both, can be
+       requested.
+    3. all fields in an entry are free fields. Anything goes. Your
+       problem.
+    4. --list list all fields in the matching entries, *except* for
+       the password.
+    5. --list_* will list the specific field requested (but not the
+       other fields). So, if you want to:
+       * list *all*: --list --list-paswd --entry=<whatever>
+       * list an entry, but no the password: --list --entry=<whatever>
+       * list URL and user: --list-url --list-user --entry=<whatever>
+       * and so on.
+    6. You cannot create a new DB *and* perform another action at
+       the same time. Yeah, I am lazy.
+    7. So, mutually exclusive actions: action_*, createdb, gen_pswd
+
+    :param args: command-line options
+    :return: True if arg_options are not consistent, False otherwise
+    """
+    # check for basic actions (add/replace/delete)
+    fail = False
+    actions = 0
+
+    if args.action_add:
+        # opinions vary. Should we accept *only the entry name? I think at LEAST
+        # we have to have --user.
+        actions += 1
+        if args.user is None:
+            warn(_("when adding an entry, at least the userId must be provided"))
+            fail = True
+    if args.action_replace:
+        actions += 1
+        if args.newEntry is None and args.group is None and args.user is None and args.pswd is None and args.url is None and args.notes is None:
+            warn(_("--repl MUST be used with at least one of --newentry, --group, --user, --pswd, --url, or --notes"))
+            fail = True
+    if args.action_delete:
+        # if deleting an entry in the DB, we do not care for anything else but --entry
+        # (checked for below)
+        actions += 1
+    if args.action_createDB:
+        actions += 1
+    if args.action_list:
+        args.listUser = True
+        args.listNotes = True
+        args.listGroup = True
+
+    if actions > 1:
+        warn(_("ERROR: only one of --createdb, --list, --add, --repl, or --del can be specified"))
+        fail = True
+
+    # check for list actions
+    if args.listPswd \
+       or args.listUser \
+       or args.listURL:
+        if actions != 0:
+            warn(_("cannot use --list* with any of --add, --del, or --repl"))
+            fail = True
+
+    # no matter what, --entry MUST be specified
+    if args.entry is None \
+       and args.action_createDB is False \
+       and not args.gen_pswd:
+        warn(_("one of --entry, --createdb, or --genpswd MUST be provided"))
+        fail = True
+
+    # check if we have a file name
+    if args.filename is None:
+        args.filename = get_database_path()
+    debug("DB filename resolved to %s" % os.path.realpath(args.filename))
+
+    return fail
+
+
+def find_entry(fuzzy=False):
+    """
+    Find an entry in the database.
+    :param fuzzy: if True, search for a substring of the actual entry,
+           otherwise search for an exact match
+    :return: list of entries (may be empty, one single entry, or many)
+    """
+    match_set = []
+    # deal with a potential "--list-all"
+    if options.entry == "*":
+        return pswd_file.records.values()
+
+    for record in pswd_file.records.values():
+        if fuzzy:
+            if options.entry in record[3]:
+                match_set.append(record)
+        else:
+            if options.entry == record[3]:
+                match_set.append(record)
+    return match_set
+
+
+def action_createDB():
+    if os.path.exists(options.filename):
+        warn(_("ERROR: --createdb requested, but there is already a file with the same name"))
+        sys.exit(1)
+    debug("creating new db under %s" % os.path.realpath('.'))
+    if options.master is None:
+        options.master = getpass.getpass(_("Password> "))
+
+    try:
+        pswd_file.new_db(options.master)
+        saveDB()
+    except:
+        warn(_("error creating new database"))
+        (err_type, err_value, err_tracebk) = sys.exc_info()
+        stack_dump(err_type, err_value, err_tracebk)
+        return False
+    return True
+
+
+def readDB():
+    try:
+        pswd_file.readfile(options.filename, options.master)
+    except ValueError:
+        warn(_("Could not read the database, bad password?"))
+        exit(1)
+
+
+def saveDB(backIt=False):
+    pswd_file.writefile(options.filename, backup=backIt)
+
+
+def action_replace():
+    if options.entry is None:
+        warn(_("need --entry to replace fields in an entry"))
+        exit(1)
+
+    records = find_entry()
+    if len(records) == 0:
+        warn(_("did not find any matching entry"))
+        exit(1)
+    if len(records) != 1:
+        warn(_("found more than one entry to change, cannot change"))
+        exit(1)
+    repl = records[0]
+    uuid = repl[DICT['UUID']]
+    if options.newEntry is not None:
+        repl[DICT['ENTRY']] = options.newEntry
+    if options.user is not None:
+        repl[DICT['USERNAME']] = options.user
+    if options.group is not None:
+        repl[DICT['GROUP']] = options.group
+    if options.pswd is not None:
+        repl[DICT['PASSWORD']] = options.pswd
+    if options.url is not None:
+        repl[DICT['URL']] = options.url
+    if options.notes is not None:
+        repl[DICT['NOTES']] = options.notes
+    pswd_file.records[uuid] = repl
+    saveDB(backIt=True)
+
+
+def action_add():
+    """
+    Add a given entry to the database.
+    :return: nothing
+    """
+    # if we are adding an entry, it cannot already exist
+    if options.entry is None:
+        warn(_("need --entry to add an entry to the database"))
+        exit(1)
+    if find_entry() != []:
+        warn(_("provided --entry already exists in the database"))
+        exit(1)
+    # populate fields
+    new_entry = pswd_file.new_entry()
+    pswd_file.records[new_entry][DICT['ENTRY']] = options.entry
+    if options.user is not None:
+        pswd_file.records[new_entry][DICT['USERNAME']] = options.user
+    if options.group is not None:
+        pswd_file.records[new_entry][DICT['GROUP']] = options.group
+    if options.pswd is not None:
+        pswd_file.records[new_entry][DICT['PASSWORD']] = options.pswd
+    if options.url is not None:
+        pswd_file.records[new_entry][DICT['URL']] = options.url
+    if options.notes is not None:
+        pswd_file.records[new_entry][DICT['NOTES']] = options.notes
+
+    saveDB(backIt=True)
+
+
+def action_list():
+    """
+    List all entries in the matches list, respecting what was asked
+    to be printed out.
+    if options.action_list was requested, then all fields will have
+    labels; otherwise, only the requested values will be printed.
+    :return: nothing
+    """
+    matches = find_entry(fuzzy=options.fuzzy)
+    if matches is None:
+        warn(_("did not find hits for %s in the database" % options.entry))
+        return
+    for record in matches:
+        # ['Group', 'Entry', 'Username', 'Password', 'URL', 'Notes']:
+        if options.listGroup and DICT["GROUP"] in record:
+            out_line = ""
+            if options.action_list:
+                out_line = "Group: "
+            print("%s%s" % (out_line, record[DICT["GROUP"]]))
+        if options.action_list:
+            print("Entry: %s" % record[DICT["ENTRY"]])
+        if options.listUser and DICT["USERNAME"] in record:
+            out_line = ""
+            if options.action_list:
+                out_line = "Username: "
+            print("%s%s" % (out_line, record[DICT["USERNAME"]]))
+        if options.listPswd and DICT["PASSWORD"] in record:
+            out_line = ""
+            if options.action_list:
+                out_line = "Password: "
+            print("%s%s" % (out_line, record[DICT["PASSWORD"]]))
+        if options.listURL and DICT["URL"] in record:
+            out_line = ""
+            if options.action_list:
+                out_line = "URL: "
+            print("%s%s" % (out_line, record[DICT["URL"]]))
+        if options.listNotes and DICT["NOTES"] in record:
+            out_line = ""
+            if options.action_list:
+               out_line = "Notes: "
+            print("%s%s" % (out_line, record[DICT["NOTES"]]))
+        if options.action_list:
+            print("")
+
+
+def action_delete():
+    """
+    Delete an entry from the database. options.entry must be an exact
+    match for the entry.
+    :return: nothing
+    """
+    match = find_entry()
+    if len(match) == 0:
+        warn(_("provided --entry was not found in the database"))
+        exit(1)
+    if len(match) != 1:
+        warn(_("provided --entry occurs multiple times, cannot delete"))
+        exit(1)
+    # OK, delete the beast
+    pswd_file.delete_entry(match[DICT['UUID']])
+    saveDB(backIt=True)
+
+
+def gen_pswd(length):
+    """
+    Generates a random password
+    :param length: length of password
+    :return: generated password
+    """
+    pswd = gen_password(1, length)[0]
+    return pswd.decode('utf-8').strip()
+
+#
+# mainline
+#
+(options, args) = get_options()
+if check_options(options):
+    warn(_("terminating run"))
+    exit(1)
+
+# try the easy one first
+if options.gen_pswd:
+    new_pswd = gen_pswd(options.pswd_len)
+    if new_pswd is None:
+        exit(1)
+    else:
+        print("%s\n" % new_pswd)
+        exit(0)
+
+if options.master is None:
+    options.master = getpass.getpass(_("Password> "))
+
+# OK, we can now initialise the DB structure
+pswd_file = readdb.PassSafeFile()
+
+if options.action_createDB:
+    if action_createDB():
+        sys.exit(0)
+    else:
+        sys.exit(1)
+
+if not os.path.exists(options.filename):
+    warn(_("\nERROR: Could not locate database file!"))
+    sys.exit(1)
+
+readDB()
+if options.newmaster is not None:
+    new_master = pswd_file.new_keys(options.newmaster)
+    saveDB(backIt=True)
+    exit(0)
+if options.action_list or options.listUser or options.listURL or options.listPswd:
+    action_list()
+elif options.action_add:
+    action_add()
+elif options.action_delete:
+    action_delete()
+elif options.action_replace:
+    action_replace()
+
+
+sys.exit(0)
