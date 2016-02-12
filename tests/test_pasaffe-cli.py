@@ -19,12 +19,11 @@ import sys
 import os.path
 import unittest
 import subprocess
+import tempfile
+import shutil
 
 myPath = os.path.dirname(__file__)
 sys.path.insert(0, os.path.realpath(os.path.join(myPath, "..", "../bin", "../lib")))
-
-db_name = "/tmp/test_pasaffe-cli.psafe3"
-
 
 # from pasaffe_lib.readdb import PassSafeFile
 
@@ -151,15 +150,13 @@ def listEntry(db, pswd, entry="Dummy", fuzzy=False, lstUserId=False, lstPswd=Fal
 
 
 class TestPasaffeCLI(unittest.TestCase):
-    def csetUp(self):
-        # remove any left-over pasaffe DB
-        if os.path.isfile(db_name):
-            os.remove(db_name)
+    def setUp(self):
+        self.tempdir = tempfile.mkdtemp()
+        self.db_name = os.path.join(self.tempdir, 'test_pasaffe-cli.psafe3')
 
     def tearDown(self):
-        if os.path.isfile(db_name):
-            os.remove(db_name)
-
+        if os.path.exists(self.tempdir):
+            shutil.rmtree(self.tempdir)
 
     def test_t01GenPassword(self):
         Len = 8
@@ -173,42 +170,42 @@ class TestPasaffeCLI(unittest.TestCase):
     def test_t02createDB(self):
         db_pswd, rc = gen_pswd()
         self.assertEqual(rc, 0, msg="call to genpswd failed")
-        result, rc = createDB(db_name, db_pswd)
+        result, rc = createDB(self.db_name, db_pswd)
         self.assertEqual(rc, 0, msg="DB creation failed")
-        self.assertTrue(os.path.isfile(db_name))
+        self.assertTrue(os.path.isfile(self.db_name))
 
     def test_t03addEntry(self):
         db_pswd, rc = gen_pswd()
         self.assertEqual(rc, 0, msg="call to genpswd failed")
-        result, rc = createDB(db_name, db_pswd)
+        result, rc = createDB(self.db_name, db_pswd)
         self.assertEqual(rc, 0, msg="DB creation failed")
         values = creatEntry(1)
-        result, rc = addEntry(db_name, db_pswd, entry=values[0])
+        result, rc = addEntry(self.db_name, db_pswd, entry=values[0])
         self.assertNotEqual(rc, 0)
         values = creatEntry(2)
-        result, rc = addEntry(db_name, db_pswd, entry=values[0],
+        result, rc = addEntry(self.db_name, db_pswd, entry=values[0],
                               group=values[1])
         self.assertNotEqual(rc, 0)
         values = creatEntry(3)
-        result, rc = addEntry(db_name, db_pswd, entry=values[0],
+        result, rc = addEntry(self.db_name, db_pswd, entry=values[0],
                               group=values[1],
                               userid=values[2])
         self.assertEqual(rc, 0)
         values = creatEntry(4)
-        result, rc = addEntry(db_name, db_pswd, entry=values[0],
+        result, rc = addEntry(self.db_name, db_pswd, entry=values[0],
                               group=values[1],
                               userid=values[2],
                               password=values[3])
         self.assertEqual(rc, 0)
         values = creatEntry(5)
-        result, rc = addEntry(db_name, db_pswd, entry=values[0],
+        result, rc = addEntry(self.db_name, db_pswd, entry=values[0],
                               group=values[1],
                               userid=values[2],
                               password=values[3],
                               url=values[4])
         self.assertEqual(rc, 0)
         values = creatEntry(6)
-        result, rc = addEntry(db_name, db_pswd, entry=values[0],
+        result, rc = addEntry(self.db_name, db_pswd, entry=values[0],
                               group=values[1],
                               userid=values[2],
                               password=values[3],
@@ -219,36 +216,36 @@ class TestPasaffeCLI(unittest.TestCase):
     def test_t04replaceEntry(self):
         db_pswd, rc = gen_pswd()
         self.assertEqual(rc, 0, msg="call to genpswd failed")
-        result, rc = createDB(db_name, db_pswd)
+        result, rc = createDB(self.db_name, db_pswd)
         self.assertEqual(rc, 0, msg="DB creation failed")
         values = creatEntry(1)
-        result, rc = addEntry(db_name, db_pswd, entry=values[0],
+        result, rc = addEntry(self.db_name, db_pswd, entry=values[0],
                               group=values[1],
                               userid=values[2])
         self.assertEqual(rc, 0, msg="adding entry 1 failed")
-        result, rc = replEntry(db_name, db_pswd, entry=values[0],
+        result, rc = replEntry(self.db_name, db_pswd, entry=values[0],
                                group=values[1],
                                newentry="NewEntry1")
         self.assertEqual(rc, 0, msg="replacing entry string failed")
-        result, rc = replEntry(db_name, db_pswd, entry="NewEntry1",
+        result, rc = replEntry(self.db_name, db_pswd, entry="NewEntry1",
                                group="NewGroup1")
         self.assertEqual(rc, 0, msg="replacing group string failed")
-        result, rc = replEntry(db_name, db_pswd, entry="NewEntry1",
+        result, rc = replEntry(self.db_name, db_pswd, entry="NewEntry1",
                                group="Group1",
                                userid="NewUser1")
         self.assertEqual(rc, 0, msg="replacing user string failed")
-        result, rc = replEntry(db_name, db_pswd, entry="NewEntry1",
+        result, rc = replEntry(self.db_name, db_pswd, entry="NewEntry1",
                                group="Group1",
                                userid="User1",
                                password="Password1")
         self.assertEqual(rc, 0, msg="replacing password string failed")
-        result, rc = replEntry(db_name, db_pswd, entry="NewEntry1",
+        result, rc = replEntry(self.db_name, db_pswd, entry="NewEntry1",
                                group="Group1",
                                userid="User1",
                                password="Password1",
                                url="http://127.0.0.1")
         self.assertEqual(rc, 0, msg="replacing URL string failed")
-        result, rc = replEntry(db_name, db_pswd, entry="NewEntry1",
+        result, rc = replEntry(self.db_name, db_pswd, entry="NewEntry1",
                                group="Group1",
                                userid="User1",
                                password="Password1",
@@ -260,31 +257,31 @@ class TestPasaffeCLI(unittest.TestCase):
     def test_t05listEntry(self):
         db_pswd, rc = gen_pswd()
         self.assertEqual(rc, 0, msg="call to genpswd failed")
-        result, rc = createDB(db_name, db_pswd)
+        result, rc = createDB(self.db_name, db_pswd)
         self.assertEqual(rc, 0, msg="DB creation failed")
-        result, rc = addEntry(db_name, db_pswd, entry="Entry1", group="Group1", userid="User1",
+        result, rc = addEntry(self.db_name, db_pswd, entry="Entry1", group="Group1", userid="User1",
                           password="Password1", url="http://127.0.0.1",
                           notes="This is a note for Entry1")
         self.assertEqual(rc, 0, msg="adding entry 1 failed")
-        result, rc = addEntry(db_name, db_pswd, entry="Entry2", group="Group2", userid="User2",
+        result, rc = addEntry(self.db_name, db_pswd, entry="Entry2", group="Group2", userid="User2",
                           password="Password2", url="http://127.0.0.2",
                           notes="This is a note for Entry2")
         self.assertEqual(rc, 0, msg="adding entry 2 failed")
-        result, rc = addEntry(db_name, db_pswd, entry="Entry3", group="Group3", userid="User3",
+        result, rc = addEntry(self.db_name, db_pswd, entry="Entry3", group="Group3", userid="User3",
                           password="Password3", url="http://127.0.0.3",
                           notes="This is a note for Entry3")
         self.assertEqual(rc, 0, msg="adding entry 3 failed")
-        result, rc = listEntry(db_name, db_pswd, entry="Entry1")
+        result, rc = listEntry(self.db_name, db_pswd, entry="Entry1")
         self.assertEqual(rc, 0, "list Entry1 1/n failed")
         print("Result:%s" % result)
-        result, rc = listEntry(db_name, db_pswd, entry="Entry2", )
+        result, rc = listEntry(self.db_name, db_pswd, entry="Entry2", )
         self.assertEqual(rc, 0, "list Entry1 2/n failed")
-        result, rc = listEntry(db_name, db_pswd, entry="Entry3", )
+        result, rc = listEntry(self.db_name, db_pswd, entry="Entry3", )
         self.assertEqual(rc, 0, "list Entry1 2/n failed")
 
 
-def test_t06removeEntry(self):
-    pass
+    def test_t06removeEntry(self):
+        pass
 
 
 if __name__ == '__main__':
