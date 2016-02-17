@@ -17,6 +17,8 @@
 """this dialog adjusts values in gsettings
 """
 
+import gi
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 import logging
 logger = logging.getLogger('pasaffe_lib')

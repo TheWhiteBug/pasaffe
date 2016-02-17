@@ -21,6 +21,8 @@ import gettext
 t = gettext.translation('pasaffe', fallback=True)
 _ = t.gettext
 
+import gi
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gio, Gtk
 
 from pasaffe import PasaffeWindow

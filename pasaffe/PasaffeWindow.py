@@ -18,6 +18,8 @@ import gettext
 from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
+import gi
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gio, Gtk  # pylint: disable=E0611
 from gi.repository import Gdk, Pango, GLib  # pylint: disable=E0611
 import logging

@@ -17,6 +17,8 @@
 """GUI helpers for an Ubuntu application."""
 import os
 
+import gi
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
 from . Builder import Builder

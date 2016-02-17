@@ -16,6 +16,8 @@
 
 '''Enhances builder connections, provides object to access glade objects'''
 
+import gi
+gi.require_version('Gtk', '3.0')
 from gi.repository import GObject, Gtk
 
 import inspect
