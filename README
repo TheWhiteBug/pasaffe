@@ -15,6 +15,7 @@ Requirements:
 - launchpad-integration (optional)
 - yelp
 - apg (for password generation)
+- unidecode
 
 Import scripts:
 ---------------

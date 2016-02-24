@@ -22,6 +22,7 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gio, Gtk  # pylint: disable=E0611
 from gi.repository import Gdk, Pango, GLib  # pylint: disable=E0611
+from unidecode import unidecode
 import logging
 import os
 import re
@@ -1401,6 +1402,13 @@ class PasaffeWindow(Window):
 
         record_list = (3, 5, 13)
         pat = re.compile(find, re.IGNORECASE)
+
+        find_ascii = unidecode(find)
+        if find_ascii != find:
+            pat_ascii = re.compile(unidecode(find), re.IGNORECASE)
+        else:
+            pat_ascii = None
+
         results = []
 
         for uuid in self.passfile.records:
@@ -1409,6 +1417,18 @@ class PasaffeWindow(Window):
                 if record_type in self.passfile.records[uuid]:
                     if pat.search(
                             self.passfile.records[uuid].get(record_type)):
+                        found = True
+                        break
+                    if pat.search(unidecode(
+                            self.passfile.records[uuid].get(record_type))):
+                        found = True
+                        break
+                    if pat_ascii and pat_ascii.search(
+                            self.passfile.records[uuid].get(record_type)):
+                        found = True
+                        break
+                    if pat_ascii and pat_ascii.search(unidecode(
+                            self.passfile.records[uuid].get(record_type))):
                         found = True
                         break
 
