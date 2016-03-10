@@ -19,6 +19,7 @@ import struct
 import hashlib
 import hmac
 import random
+import re
 import os
 import time
 import tempfile
@@ -29,6 +30,8 @@ elif os.name is "nt":
     import getpass
 #import pwd
 from binascii import hexlify, unhexlify
+from unidecode import unidecode
+from pasaffe_lib.helpers import PathEntry
 
 from . import pytwofishcbc
 import logging
@@ -50,6 +53,10 @@ class PassSafeFile:
         self.hmac = None
         self.dbfile = None
         self.empty_folders = []
+
+        self.find_results = []
+        self.find_results_index = None
+        self.find_value = ""
 
         # These fields need converting between strings and bytes
         self.header_text = [0x03, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x11]
@@ -772,3 +779,77 @@ class PassSafeFile:
             return self.records[uuid][5].replace("\n", "\r\n")
         else:
             return self.records[uuid][field]
+
+    def update_find_results(self, find, force=False):
+
+        if find == "":
+            self.find_results = []
+            self.find_results_index = None
+            self.find_value = ""
+            return
+
+        if find == self.find_value and force is False:
+            return
+
+        record_list = (3, 5, 13)
+        pat = re.compile(find, re.IGNORECASE)
+
+        find_ascii = unidecode(find)
+        if find_ascii != find:
+            pat_ascii = re.compile(unidecode(find), re.IGNORECASE)
+        else:
+            pat_ascii = None
+
+        results = []
+
+        for uuid in self.records:
+            found = False
+            for record_type in record_list:
+                if record_type in self.records[uuid]:
+                    if pat.search(
+                            self.records[uuid].get(record_type)):
+                        found = True
+                        break
+                    if pat.search(unidecode(
+                            self.records[uuid].get(record_type))):
+                        found = True
+                        break
+                    if pat_ascii and pat_ascii.search(
+                            self.records[uuid].get(record_type)):
+                        found = True
+                        break
+                    if pat_ascii and pat_ascii.search(unidecode(
+                            self.records[uuid].get(record_type))):
+                        found = True
+                        break
+
+            if found is True:
+                entry = PathEntry(
+                    self.records[uuid][3],
+                    uuid,
+                    self.get_folder_list(uuid))
+                results.append(entry)
+
+        self.find_results = sorted(results)
+        self.find_results_index = None
+        self.find_value = find
+
+    def get_next_find_result(self, backwards=False):
+
+        if len(self.find_results) == 0:
+            return None
+
+        if self.find_results_index is None:
+            self.find_results_index = 0
+        elif backwards is False:
+            self.find_results_index += 1
+            if self.find_results_index == len(self.find_results):
+                self.find_results_index = 0
+        else:
+            if self.find_results_index == 0:
+                self.find_results_index = len(self.find_results) - 1
+            else:
+                self.find_results_index -= 1
+
+        return self.find_results[self.find_results_index].uuid
+

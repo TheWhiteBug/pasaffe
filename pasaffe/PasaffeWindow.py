@@ -22,10 +22,8 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gio, Gtk  # pylint: disable=E0611
 from gi.repository import Gdk, Pango, GLib  # pylint: disable=E0611
-from unidecode import unidecode
 import logging
 import os
-import re
 import struct
 import sys
 import time
@@ -90,9 +88,6 @@ class PasaffeWindow(Window):
         self.is_locked = False
         self.idle_id = None
         self.clipboard_id = None
-        self.find_results = []
-        self.find_results_index = None
-        self.find_value = ""
         self.folder_state = {}
 
         if database is None:
@@ -1391,79 +1386,14 @@ class PasaffeWindow(Window):
         while find[-1:] == '\\':
             find = find[:-1]
 
-        if find == "":
-            self.find_results = []
-            self.find_results_index = None
-            self.find_value = ""
-            return
-
-        if find == self.find_value and force is False:
-            return
-
-        record_list = (3, 5, 13)
-        pat = re.compile(find, re.IGNORECASE)
-
-        find_ascii = unidecode(find)
-        if find_ascii != find:
-            pat_ascii = re.compile(unidecode(find), re.IGNORECASE)
-        else:
-            pat_ascii = None
-
-        results = []
-
-        for uuid in self.passfile.records:
-            found = False
-            for record_type in record_list:
-                if record_type in self.passfile.records[uuid]:
-                    if pat.search(
-                            self.passfile.records[uuid].get(record_type)):
-                        found = True
-                        break
-                    if pat.search(unidecode(
-                            self.passfile.records[uuid].get(record_type))):
-                        found = True
-                        break
-                    if pat_ascii and pat_ascii.search(
-                            self.passfile.records[uuid].get(record_type)):
-                        found = True
-                        break
-                    if pat_ascii and pat_ascii.search(unidecode(
-                            self.passfile.records[uuid].get(record_type))):
-                        found = True
-                        break
-
-            if found is True:
-                entry = PathEntry(
-                    self.passfile.records[uuid][3],
-                    uuid,
-                    self.passfile.get_folder_list(uuid))
-                results.append(entry)
-
-        self.find_results = sorted(results)
-        self.find_results_index = None
-        self.find_value = find
+        self.passfile.update_find_results(find, force)
 
     def goto_next_find_result(self, backwards=False):
 
-        if len(self.find_results) == 0:
-            return
+        uuid_hex = self.passfile.get_next_find_result(backwards)
 
-        if self.find_results_index is None:
-            self.find_results_index = 0
-        elif backwards is False:
-            self.find_results_index += 1
-            if self.find_results_index == len(self.find_results):
-                self.find_results_index = 0
-        else:
-            if self.find_results_index == 0:
-                self.find_results_index = len(self.find_results) - 1
-            else:
-                self.find_results_index -= 1
-
-        result = self.find_results[self.find_results_index]
-        uuid_hex = result.uuid
-
-        self.goto_uuid(uuid_hex)
+        if uuid_hex != None:
+            self.goto_uuid(uuid_hex)
 
     def on_find_entry_activate(self, _entry):
         self.update_find_results()
