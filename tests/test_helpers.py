@@ -69,7 +69,7 @@ class TestHelpers(unittest.TestCase):
     def test_folder_list_to_path(self):
 
         folder_list = [[[], "/"],
-                       [["foldera"],  "/foldera/"],
+                       [["foldera"], "/foldera/"],
                        [["folder.a"], "/folder.a/"],
                        [["folder/a"], "/folder\/a/"],
                        [["foldera."], "/foldera./"],
@@ -78,11 +78,11 @@ class TestHelpers(unittest.TestCase):
                        [["/foldera"], "/\/foldera/"],
                        [["foldera.", "folderb."], "/foldera./folderb./"],
                        [["foldera/", "folderb/"], "/foldera\//folderb\//"],
-                       [["foldera",  "folderb"],  "/foldera/folderb/"],
-                       [["folder.a", "folderb"],  "/folder.a/folderb/"],
-                       [["folder/a", "folderb"],  "/folder\/a/folderb/"],
-                       [["foldera",  "folder.b"], "/foldera/folder.b/"],
-                       [["foldera",  "folder/b"], "/foldera/folder\/b/"],
+                       [["foldera", "folderb"], "/foldera/folderb/"],
+                       [["folder.a", "folderb"], "/folder.a/folderb/"],
+                       [["folder/a", "folderb"], "/folder\/a/folderb/"],
+                       [["foldera", "folder.b"], "/foldera/folder.b/"],
+                       [["foldera", "folder/b"], "/foldera/folder\/b/"],
                        [["folder.a", "folder.b"], "/folder.a/folder.b/"],
                        [["folder/a", "folder/b"], "/folder\/a/folder\/b/"],
                        [["folder.a", "folder.b", "folder.c"],
@@ -123,24 +123,24 @@ class TestHelpers(unittest.TestCase):
     def test_sort_name(self):
         pathentry = PathEntry(None, None, None)
 
-        names = [["",    "zzz", -1],
-                 [None,  "zzz", -1],
-                 ["a",   "zzz", -1],
-                 ["A",   "zzz", -1],
-                 ["A",   "a",   -1],
-                 ["aaa", "z",   -1],
-                 ["aaa", "Z",   -1],
+        names = [["", "zzz", -1],
+                 [None, "zzz", -1],
+                 ["a", "zzz", -1],
+                 ["A", "zzz", -1],
+                 ["A", "a", -1],
+                 ["aaa", "z", -1],
+                 ["aaa", "Z", -1],
                  ["aaa", "zzz", -1],
-                 ["z",   "zzz", -1],
-                 ["aaa", "aaa",  0],
-                 ["zzz", "zzz",  0],
-                 [None,  None,   0],
-                 [None,  "",     0],
-                 ["",    None,   0],
-                 ["zzz", "z",    1],
-                 ["z",   "Z",    1],
-                 ["zzz",  "",    1],
-                 ["zzz",  None,  1]]
+                 ["z", "zzz", -1],
+                 ["aaa", "aaa", 0],
+                 ["zzz", "zzz", 0],
+                 [None, None, 0],
+                 [None, "", 0],
+                 ["", None, 0],
+                 ["zzz", "z", 1],
+                 ["z", "Z", 1],
+                 ["zzz", "", 1],
+                 ["zzz", None, 1]]
 
         for (first, second, result) in names:
             self.assertEqual(pathentry._sort_name(first, second), result)

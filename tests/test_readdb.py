@@ -517,20 +517,20 @@ class TestReadDB(unittest.TestCase):
 
     def _create_find_db(self):
 
-        entries = [{3:  "carte de crédit",
-                    4:  "username1",
-                    5:  "This is a note",
-                    6:  "password1",
+        entries = [{3: "carte de crédit",
+                    4: "username1",
+                    5: "This is a note",
+                    6: "password1",
                     13: "http://www.example.com"},
-                   {2:  "folder1",
-                    3:  "carte de credit",
-                    4:  "username1",
-                    5:  "anothernote",
-                    6:  "password1"},
-                   {2:  "level1group.level2group.level3group",
-                    3:  "level3entry",
-                    4:  "usernamelevel3",
-                    6:  "passwordlevel3",
+                   {2: "folder1",
+                    3: "carte de credit",
+                    4: "username1",
+                    5: "anothernote",
+                    6: "password1"},
+                   {2: "level1group.level2group.level3group",
+                    3: "level3entry",
+                    4: "usernamelevel3",
+                    6: "passwordlevel3",
                     13: "http://note.com"}]
 
         self.passfile.new_db('pasaffe')

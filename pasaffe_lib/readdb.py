@@ -28,7 +28,7 @@ if os.name is "posix":
     import pwd
 elif os.name is "nt":
     import getpass
-#import pwd
+# import pwd
 from binascii import hexlify, unhexlify
 from unidecode import unidecode
 from pasaffe_lib.helpers import PathEntry
@@ -842,4 +842,3 @@ class PassSafeFile:
                 self.find_results_index -= 1
 
         return self.find_results[self.find_results_index].uuid
-

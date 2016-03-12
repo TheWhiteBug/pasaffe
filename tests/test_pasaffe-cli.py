@@ -23,7 +23,10 @@ import tempfile
 import shutil
 
 myPath = os.path.dirname(__file__)
-sys.path.insert(0, os.path.realpath(os.path.join(myPath, "..", "../bin", "../lib")))
+sys.path.insert(0, os.path.realpath(os.path.join(myPath,
+                                                 "..",
+                                                 "../bin",
+                                                 "../lib")))
 
 # from pasaffe_lib.readdb import PassSafeFile
 
@@ -36,7 +39,7 @@ def subproc(command, test):
     rc = 0
     result = None
     try:
-        result = subprocess.check_output(command).splitlines()  # pylint: disable=E1103
+        result = subprocess.check_output(command).splitlines()
     except subprocess.CalledProcessError as err:
         print("%s failed with rc=%s" % (test, err.returncode))
         print("%s" % err.output)
@@ -71,10 +74,11 @@ def creatEntry(suffix):
     return [entry, group, userId, password, url, notes]
 
 
-def addEntry(db, pswd, entry=None, group=None, userid=None, password=None, url=None, notes=None):
+def addEntry(db, pswd, entry=None, group=None, userid=None, password=None,
+             url=None, notes=None):
     command = []
     command.append(cliCmd())
-    #command.append("--debug")
+    # command.append("--debug")
     command.append("--add")
     command.append("--file=%s" % db)
     command.append("--masterpassword=%s" % pswd)
@@ -94,10 +98,11 @@ def addEntry(db, pswd, entry=None, group=None, userid=None, password=None, url=N
     return result, rc
 
 
-def replEntry(db, pswd, entry=None, newentry=None, group=None, userid=None, password=None, url=None, notes=None):
+def replEntry(db, pswd, entry=None, newentry=None, group=None, userid=None,
+              password=None, url=None, notes=None):
     command = []
     command.append(cliCmd())
-    #command.append("--debug")
+    # command.append("--debug")
     command.append("--repl")
     command.append("--file=%s" % db)
     command.append("--masterpassword=%s" % pswd)
@@ -119,11 +124,12 @@ def replEntry(db, pswd, entry=None, newentry=None, group=None, userid=None, pass
     return result, rc
 
 
-def listEntry(db, pswd, entry="Dummy", fuzzy=False, lstUserId=False, lstPswd=False, lstGroup=False, lstURL=False,
-              lstNotes=False, lstAll=False):
+def listEntry(db, pswd, entry="Dummy", fuzzy=False, lstUserId=False,
+              lstPswd=False, lstGroup=False, lstURL=False, lstNotes=False,
+              lstAll=False):
     command = []
     command.append(cliCmd())
-    #command.append("--debug")
+    # command.append("--debug")
     command.append("--file=%s" % db)
     command.append("--masterpassword=%s" % pswd)
     command.append("--entry=%s" % entry)
@@ -132,21 +138,20 @@ def listEntry(db, pswd, entry="Dummy", fuzzy=False, lstUserId=False, lstPswd=Fal
     else:
         command.append("--list")
         if fuzzy:
-           command.append("--fuzzy")
+            command.append("--fuzzy")
         if lstUserId:
-           command.append("--listuser")
+            command.append("--listuser")
         if lstGroup:
-           command.append("--listgroup")
+            command.append("--listgroup")
         if lstPswd:
-           command.append("--listpswd")
+            command.append("--listpswd")
         if lstURL:
-           command.append("--listurl")
+            command.append("--listurl")
         if lstNotes:
-           command.append("--listnotes")
+            command.append("--listnotes")
     print("command=%s" % command)
     result, rc = subproc(command, "listEntry")
     return result, rc
-
 
 
 class TestPasaffeCLI(unittest.TestCase):
@@ -163,8 +168,11 @@ class TestPasaffeCLI(unittest.TestCase):
         while Len < 32:
             password, rc = gen_pswd(size=Len)
             self.assertEqual(rc, 0, msg="call to genpswd failed")
-            self.assertNotEqual(len(password), 0, msg="Failed to generate a password")
-            self.assertEqual(len(password), Len, msg="Length of generated password does not match requested length")
+            self.assertNotEqual(len(password), 0,
+                                msg="Failed to generate a password")
+            self.assertEqual(len(password), Len,
+                             msg="Length of generated password does not" +
+                                 " match requested length")
             Len += 1
 
     def test_t02createDB(self):
@@ -253,23 +261,25 @@ class TestPasaffeCLI(unittest.TestCase):
                                notes="This is a note for newEntry1")
         self.assertEqual(rc, 0, msg="replacing notes string failed")
 
-
     def test_t05listEntry(self):
         db_pswd, rc = gen_pswd()
         self.assertEqual(rc, 0, msg="call to genpswd failed")
         result, rc = createDB(self.db_name, db_pswd)
         self.assertEqual(rc, 0, msg="DB creation failed")
-        result, rc = addEntry(self.db_name, db_pswd, entry="Entry1", group="Group1", userid="User1",
-                          password="Password1", url="http://127.0.0.1",
-                          notes="This is a note for Entry1")
+        result, rc = addEntry(self.db_name, db_pswd, entry="Entry1",
+                              group="Group1", userid="User1",
+                              password="Password1", url="http://127.0.0.1",
+                              notes="This is a note for Entry1")
         self.assertEqual(rc, 0, msg="adding entry 1 failed")
-        result, rc = addEntry(self.db_name, db_pswd, entry="Entry2", group="Group2", userid="User2",
-                          password="Password2", url="http://127.0.0.2",
-                          notes="This is a note for Entry2")
+        result, rc = addEntry(self.db_name, db_pswd, entry="Entry2",
+                              group="Group2", userid="User2",
+                              password="Password2", url="http://127.0.0.2",
+                              notes="This is a note for Entry2")
         self.assertEqual(rc, 0, msg="adding entry 2 failed")
-        result, rc = addEntry(self.db_name, db_pswd, entry="Entry3", group="Group3", userid="User3",
-                          password="Password3", url="http://127.0.0.3",
-                          notes="This is a note for Entry3")
+        result, rc = addEntry(self.db_name, db_pswd, entry="Entry3",
+                              group="Group3", userid="User3",
+                              password="Password3", url="http://127.0.0.3",
+                              notes="This is a note for Entry3")
         self.assertEqual(rc, 0, msg="adding entry 3 failed")
         result, rc = listEntry(self.db_name, db_pswd, entry="Entry1")
         self.assertEqual(rc, 0, "list Entry1 1/n failed")
@@ -278,7 +288,6 @@ class TestPasaffeCLI(unittest.TestCase):
         self.assertEqual(rc, 0, "list Entry1 2/n failed")
         result, rc = listEntry(self.db_name, db_pswd, entry="Entry3", )
         self.assertEqual(rc, 0, "list Entry1 2/n failed")
-
 
     def test_t06removeEntry(self):
         pass

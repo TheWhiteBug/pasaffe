@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-### BEGIN LICENSE
+#
 # Copyright (C) 2011-2013 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -12,7 +12,7 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-### END LICENSE
+#
 
 """Helpers for an Ubuntu application."""
 import logging
@@ -167,6 +167,7 @@ class PathEntry:
     def __repr__(self):
         return repr((self.name, self.uuid, self.path))
 
+
 # Owais Lone : To get quick access to icons and stuff.
 def get_media_file(media_file_name):
     media_filename = get_data_file('media', '%s' % (media_file_name,))
@@ -238,11 +239,12 @@ def alias(alternative_function_name):
         return function
     return decorator
 
+
 def folder_list_to_field(folder_list):
     '''Converts a folder list to a folder field'''
     field = ""
 
-    if folder_list == None:
+    if folder_list is None:
         return field
 
     for folder in folder_list:
@@ -250,6 +252,7 @@ def folder_list_to_field(folder_list):
             field += "."
         field += folder.replace(".", "\\.")
     return field
+
 
 def field_to_folder_list(field):
     '''Converts a folder field to a folder list'''
@@ -272,29 +275,31 @@ def field_to_folder_list(field):
         if field[location - 1] == "\\":
             continue
 
-        folders.append(field[index:location].replace("\\",''))
+        folders.append(field[index:location].replace("\\", ''))
         index = location + 1
 
-    folders.append(field[index:len(field)].replace('\\',''))
+    folders.append(field[index:len(field)].replace('\\', ''))
     return folders
+
 
 def folder_list_to_path(folders, index=None):
     '''Converts a folder list to a folder path'''
-    if len(folders) == 0 or folders == None:
+    if len(folders) is 0 or folders is None:
         return "/"
 
-    if index == None:
+    if index is None:
         index = len(folders)
 
     folder_path = ""
 
-    for folder in folders[0:index+1]:
+    for folder in folders[0:index + 1]:
         folder_path += "/"
         folder_path += folder.replace("/", "\\/")
 
     folder_path += "/"
 
     return folder_path
+
 
 def folder_path_to_list(folder_path):
     '''Converts a folder path to a folder list'''
@@ -318,14 +323,15 @@ def folder_path_to_list(folder_path):
         if location == -1:
             break
 
-        if folder_path[location-1] == "\\":
+        if folder_path[location - 1] == "\\":
             continue
 
-        folders.append(folder_path[index:location].replace("\\",''))
+        folders.append(folder_path[index:location].replace("\\", ''))
         index = location + 1
 
-    folders.append(folder_path[index:len(folder_path)].replace('\\',''))
+    folders.append(folder_path[index:len(folder_path)].replace('\\', ''))
     return folders
+
 
 def confirm(prompt=None, resp=False):
     """prompts for yes or no response from the user. Returns True for yes and
@@ -335,10 +341,10 @@ def confirm(prompt=None, resp=False):
     user simply types ENTER.
 
     >>> confirm(prompt='Create Directory?', resp=True)
-    Create Directory? [y]|n: 
+    Create Directory? [y]|n:
     True
     >>> confirm(prompt='Create Directory?', resp=False)
-    Create Directory? [n]|y: 
+    Create Directory? [n]|y:
     False
     >>> confirm(prompt='Create Directory?', resp=False)
     Create Directory? [n]|y: y
@@ -369,6 +375,7 @@ def confirm(prompt=None, resp=False):
         if ans == 'n' or ans == 'N':
             return False
 
+
 def get_database_path():
     """Determines standard XDG location for database"""
     if 'XDG_DATA_HOME' in os.environ:
@@ -388,7 +395,7 @@ def gen_password(number, size):
                "-m", str(size),
                "-x", str(size)]
     try:
-        passwords = subprocess.check_output(command).splitlines()  # pylint: disable=E1103
+        passwords = subprocess.check_output(command).splitlines()
     except:
         print(_("error running apg"))
         passwords = None

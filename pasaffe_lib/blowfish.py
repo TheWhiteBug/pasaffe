@@ -530,7 +530,9 @@ class Blowfish:
             raise RuntimeError("Can only work with data in 64-bit"
                                " multiples in CBC mode")
 
-        xor = lambda t: t[0] ^ t[1]
+        def xor(t):
+            return t[0] ^ t[1]
+
         result = b''
         block_size = self.block_size()
         for i in range(0, len(data), block_size):
@@ -549,7 +551,9 @@ class Blowfish:
             raise RuntimeError("Can only work with data in 64-bit"
                                " multiples in CBC mode")
 
-        xor = lambda t: t[0] ^ t[1]
+        def xor(t):
+            return t[0] ^ t[1]
+
         result = b''
         block_size = self.block_size()
         for i in range(0, len(data), block_size):

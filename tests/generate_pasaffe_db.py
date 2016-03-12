@@ -33,20 +33,20 @@ def get_test_data():
                      ['emptygroup1', 'test'],
                      ['emptygroup1', 'with/slash']]
 
-    entries = [{3:  "topentry1",
-                4:  "username1",
-                5:  "This is a note",
-                6:  "password1",
+    entries = [{3: "topentry1",
+                4: "username1",
+                5: "This is a note",
+                6: "password1",
                 13: "http://www.example.com"},
-               {2:  "level1group",
-                3:  "level1entry",
-                4:  "username1",
-                5:  "This is a note",
-                6:  "password1"},
-               {2:  "level1group.level2group.level3group",
-                3:  "level3entry",
-                4:  "usernamelevel3",
-                6:  "passwordlevel3"}]
+               {2: "level1group",
+                3: "level1entry",
+                4: "username1",
+                5: "This is a note",
+                6: "password1"},
+               {2: "level1group.level2group.level3group",
+                3: "level3entry",
+                4: "usernamelevel3",
+                6: "passwordlevel3"}]
 
     return entries, empty_folders
 

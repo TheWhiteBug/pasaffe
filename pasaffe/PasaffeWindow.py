@@ -531,8 +531,8 @@ class PasaffeWindow(Window):
 
         contents = ''
         if show_secrets is False and \
-           self.settings.get_boolean('only-passwords-are-secret') is False and \
-           self.settings.get_boolean('visible-secrets') is False:
+           self.settings.get_boolean('only-passwords-are-secret') is False \
+           and self.settings.get_boolean('visible-secrets') is False:
             data_buffer.insert(data_buffer.get_end_iter(),
                                _("Secrets are currently hidden."))
         else:
@@ -1392,7 +1392,7 @@ class PasaffeWindow(Window):
 
         uuid_hex = self.passfile.get_next_find_result(backwards)
 
-        if uuid_hex != None:
+        if uuid_hex is not None:
             self.goto_uuid(uuid_hex)
 
     def on_find_entry_activate(self, _entry):

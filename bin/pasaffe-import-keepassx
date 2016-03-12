@@ -36,8 +36,8 @@ if os.path.abspath(__file__).startswith('/opt'):
         opt_path = path.replace('/usr', '/opt/extras.ubuntu.com/pasaffe')
         python_path.insert(0, opt_path)
         sys.path.insert(0, opt_path)
-if (os.path.exists(os.path.join(PROJECT_ROOT_DIRECTORY, 'pasaffe'))
-        and PROJECT_ROOT_DIRECTORY not in sys.path):
+if (os.path.exists(os.path.join(PROJECT_ROOT_DIRECTORY, 'pasaffe')) and
+        PROJECT_ROOT_DIRECTORY not in sys.path):
     python_path.insert(0, PROJECT_ROOT_DIRECTORY)
     sys.path.insert(0, PROJECT_ROOT_DIRECTORY)
 if python_path:

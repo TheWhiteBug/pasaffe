@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-### BEGIN LICENSE
+#
 # Copyright (C) 2015 C de-Avillez <hggdh2@ubuntu.com>
 # Based on work by Marc Deslauriers <marc.deslauriers@canonical.com>
 #
@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU General Public License along
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
-### END LICENSE
+#
 
 import getpass
 import sys
@@ -39,8 +39,8 @@ if os.path.abspath(__file__).startswith('/opt'):
         opt_path = path.replace('/usr', '/opt/extras.ubuntu.com/pasaffe')
         python_path.insert(0, opt_path)
         sys.path.insert(0, opt_path)
-if (os.path.exists(os.path.join(PROJECT_ROOT_DIRECTORY, 'pasaffe'))
-        and PROJECT_ROOT_DIRECTORY not in sys.path):
+if (os.path.exists(os.path.join(PROJECT_ROOT_DIRECTORY, 'pasaffe')) and
+        PROJECT_ROOT_DIRECTORY not in sys.path):
     python_path.insert(0, PROJECT_ROOT_DIRECTORY)
     sys.path.insert(0, PROJECT_ROOT_DIRECTORY)
 if python_path:
@@ -116,17 +116,20 @@ def get_options():
                       dest="action_list",
                       action="store_true",
                       default=False,
-                      help=_("print out a full entry in the database, except the password"))
+                      help=_("print out a full entry in the database,"
+                             " except the password"))
     parser.add_option("--listall",
                       dest="action_listall",
                       action="store_true",
                       default=False,
-                      help=_("print out a full entry in the database, except the password"))
+                      help=_("print out a full entry in the database,"
+                             " except the password"))
     parser.add_option("--fuzzy",
                       dest="fuzzy",
                       action="store_true",
                       default=False,
-                      help=_("look for --entry as a substring (default: False)"))
+                      help=_("look for --entry as a substring"
+                             " (default: False)"))
     parser.add_option("--listgroup",
                       dest="listGroup",
                       action="store_true",
@@ -207,7 +210,8 @@ def get_options():
                       dest="pswd_len",
                       action="store",
                       default=16,
-                      help="Generated password length. Defaults to 16 characters")
+                      help="Generated password length." +
+                           " Defaults to 16 characters")
     return parser.parse_args()
 
 
@@ -245,20 +249,24 @@ def check_options(args):
     actions = 0
 
     if args.action_add:
-        # opinions vary. Should we accept *only the entry name? I think at LEAST
-        # we have to have --user.
+        # opinions vary. Should we accept *only the entry name? I think at
+        # LEAST we have to have --user.
         actions += 1
         if args.user is None:
-            warn(_("when adding an entry, at least the userId must be provided"))
+            warn(_("when adding an entry,"
+                   " at least the userId must be provided"))
             fail = True
     if args.action_replace:
         actions += 1
-        if args.newEntry is None and args.group is None and args.user is None and args.pswd is None and args.url is None and args.notes is None:
-            warn(_("--repl MUST be used with at least one of --newentry, --group, --user, --pswd, --url, or --notes"))
+        if (args.newEntry is None and args.group is None and
+                args.user is None and args.pswd is None and
+                args.url is None and args.notes is None):
+            warn(_("--repl MUST be used with at least one of --newentry,"
+                   " --group, --user, --pswd, --url, or --notes"))
             fail = True
     if args.action_delete:
-        # if deleting an entry in the DB, we do not care for anything else but --entry
-        # (checked for below)
+        # if deleting an entry in the DB, we do not care for anything else
+        # but --entry (checked for below)
         actions += 1
     if args.action_createDB:
         actions += 1
@@ -268,7 +276,8 @@ def check_options(args):
         args.listGroup = True
 
     if actions > 1:
-        warn(_("ERROR: only one of --createdb, --list, --add, --repl, or --del can be specified"))
+        warn(_("ERROR: only one of --createdb, --list, --add, --repl,"
+               " or --del can be specified"))
         fail = True
 
     # check for list actions
@@ -318,7 +327,8 @@ def find_entry(fuzzy=False):
 
 def action_createDB():
     if os.path.exists(options.filename):
-        warn(_("ERROR: --createdb requested, but there is already a file with the same name"))
+        warn(_("ERROR: --createdb requested, but there is already a"
+               " file with the same name"))
         sys.exit(1)
     debug("creating new db under %s" % os.path.realpath('.'))
     if options.master is None:
@@ -445,7 +455,7 @@ def action_list():
         if options.listNotes and DICT["NOTES"] in record:
             out_line = ""
             if options.action_list:
-               out_line = "Notes: "
+                out_line = "Notes: "
             print("%s%s" % (out_line, record[DICT["NOTES"]]))
         if options.action_list:
             print("")
@@ -516,7 +526,8 @@ if options.newmaster is not None:
     new_master = pswd_file.new_keys(options.newmaster)
     saveDB(backIt=True)
     exit(0)
-if options.action_list or options.listUser or options.listURL or options.listPswd:
+if options.action_list or options.listUser or options.listURL or \
+        options.listPswd:
     action_list()
 elif options.action_add:
     action_add()
