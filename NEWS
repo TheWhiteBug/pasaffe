@@ -7,6 +7,7 @@ For a detailed list of changes, please see ChangeLog.
 
  * Bug fixes:
    - Searches are now accent-insensitive (LP: #1488333)
+   - PEP 8 cleanup
 
 0.45 (2016-02-17)
 
