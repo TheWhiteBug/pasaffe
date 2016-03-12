@@ -791,15 +791,13 @@ class PassSafeFile:
         if find == self.find_value and force is False:
             return
 
-        record_list = (3, 5, 13)
-        pat = re.compile(find, re.IGNORECASE)
-
         find_ascii = unidecode(find)
         if find_ascii != find:
-            pat_ascii = re.compile(unidecode(find), re.IGNORECASE)
+            pat = re.compile(find + "|" + find_ascii, re.IGNORECASE)
         else:
-            pat_ascii = None
+            pat = re.compile(find, re.IGNORECASE)
 
+        record_list = (3, 5, 13)
         results = []
 
         for uuid in self.records:
@@ -811,14 +809,6 @@ class PassSafeFile:
                         found = True
                         break
                     if pat.search(unidecode(
-                            self.records[uuid].get(record_type))):
-                        found = True
-                        break
-                    if pat_ascii and pat_ascii.search(
-                            self.records[uuid].get(record_type)):
-                        found = True
-                        break
-                    if pat_ascii and pat_ascii.search(unidecode(
                             self.records[uuid].get(record_type))):
                         found = True
                         break

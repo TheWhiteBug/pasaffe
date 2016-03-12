@@ -515,5 +515,123 @@ class TestReadDB(unittest.TestCase):
         # OK, do the presave fixup
         self.assertEqual(self.passfile._presave_fixup(uuid_hex, 5), crlf)
 
+    def _create_find_db(self):
+
+        entries = [{3:  "carte de crédit",
+                    4:  "username1",
+                    5:  "This is a note",
+                    6:  "password1",
+                    13: "http://www.example.com"},
+                   {2:  "folder1",
+                    3:  "carte de credit",
+                    4:  "username1",
+                    5:  "anothernote",
+                    6:  "password1"},
+                   {2:  "level1group.level2group.level3group",
+                    3:  "level3entry",
+                    4:  "usernamelevel3",
+                    6:  "passwordlevel3",
+                    13: "http://note.com"}]
+
+        self.passfile.new_db('pasaffe')
+
+        for entry in entries:
+            uuid = self.passfile.new_entry()
+            for key in entry.keys():
+                self.passfile.records[uuid][key] = entry[key]
+
+    def test_update_find_results(self):
+
+        self._create_find_db()
+
+        self.passfile.update_find_results("")
+        self.assertEqual(self.passfile.find_results, [])
+        self.assertEqual(self.passfile.find_results_index, None)
+        self.assertEqual(self.passfile.find_value, "")
+
+        # Test field 3
+        self.passfile.update_find_results("level3entry")
+        self.assertEqual(len(self.passfile.find_results), 1)
+        self.assertEqual(self.passfile.find_results_index, None)
+        self.assertEqual(self.passfile.find_value, "level3entry")
+
+        # Test field 5
+        self.passfile.update_find_results("another")
+        self.assertEqual(len(self.passfile.find_results), 1)
+        self.assertEqual(self.passfile.find_results_index, None)
+        self.assertEqual(self.passfile.find_value, "another")
+
+        # Test field 13
+        self.passfile.update_find_results("example.com")
+        self.assertEqual(len(self.passfile.find_results), 1)
+        self.assertEqual(self.passfile.find_results_index, None)
+        self.assertEqual(self.passfile.find_value, "example.com")
+
+        # Test matching entries with accents
+        self.passfile.update_find_results("credit")
+        self.assertEqual(len(self.passfile.find_results), 2)
+        self.assertEqual(self.passfile.find_results_index, None)
+        self.assertEqual(self.passfile.find_value, "credit")
+
+        # Test specifying search term with accent
+        self.passfile.update_find_results("crédit")
+        self.assertEqual(len(self.passfile.find_results), 2)
+        self.assertEqual(self.passfile.find_results_index, None)
+        self.assertEqual(self.passfile.find_value, "crédit")
+
+        # Test force option
+        self.passfile.find_results = []
+        self.passfile.update_find_results("crédit")
+        self.assertEqual(len(self.passfile.find_results), 0)
+        self.passfile.update_find_results("crédit", True)
+        self.assertEqual(len(self.passfile.find_results), 2)
+
+        # Test clearing out values
+        self.passfile.update_find_results("")
+        self.assertEqual(self.passfile.find_results, [])
+        self.assertEqual(self.passfile.find_results_index, None)
+        self.assertEqual(self.passfile.find_value, "")
+
+    def test_get_next_find_result(self):
+
+        self._create_find_db()
+
+        self.assertEqual(self.passfile.get_next_find_result(), None)
+        self.assertEqual(self.passfile.get_next_find_result(True), None)
+
+        self.passfile.update_find_results("note")
+        self.assertEqual(len(self.passfile.find_results), 3)
+        self.assertEqual(self.passfile.find_results_index, None)
+        self.assertEqual(self.passfile.find_value, "note")
+
+        self.assertEqual(self.passfile.find_results_index, None)
+
+        uuid1 = self.passfile.get_next_find_result()
+        self.assertEqual(self.passfile.find_results_index, 0)
+        self.assertNotEqual(uuid1, None)
+
+        uuid2 = self.passfile.get_next_find_result()
+        self.assertEqual(self.passfile.find_results_index, 1)
+        self.assertNotEqual(uuid2, None)
+        self.assertNotEqual(uuid1, uuid2)
+
+        uuid3 = self.passfile.get_next_find_result()
+        self.assertEqual(self.passfile.find_results_index, 2)
+        self.assertNotEqual(uuid3, None)
+        self.assertNotEqual(uuid1, uuid3)
+        self.assertNotEqual(uuid2, uuid3)
+
+        # This should wrap around
+        uuid4 = self.passfile.get_next_find_result()
+        self.assertEqual(self.passfile.find_results_index, 0)
+        self.assertNotEqual(uuid4, None)
+        self.assertEqual(uuid1, uuid4)
+
+        # And now try backwards
+        uuid5 = self.passfile.get_next_find_result(True)
+        self.assertEqual(self.passfile.find_results_index, 2)
+        self.assertNotEqual(uuid5, None)
+        self.assertEqual(uuid3, uuid5)
+
 if __name__ == '__main__':
     unittest.main()
