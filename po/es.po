@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-03-13 11:22-0400\n"
-"PO-Revision-Date: 2014-08-02 04:57+0000\n"
-"Last-Translator: Marc Deslauriers <marc.deslauriers@canonical.com>\n"
+"PO-Revision-Date: 2016-03-30 22:23+0000\n"
+"Last-Translator: Adolfo Jayme <fitoschido@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-03-29 05:28+0000\n"
+"X-Launchpad-Export-Date: 2016-03-31 05:37+0000\n"
 "X-Generator: Launchpad (build 17967)\n"
 
 #: ../pasaffe/__init__.py:39
@@ -101,11 +101,11 @@ msgstr "Ay_uda"
 #: ../data/ui/PreferencesPasaffeDialog.ui.h:18
 #: ../data/ui/PasaffeWindow.ui.h:17
 msgid "_Close"
-msgstr ""
+msgstr "_Cerrar"
 
 #: ../pasaffe_lib/helpers.py:400
 msgid "error running apg"
-msgstr ""
+msgstr "error al ejecutar apg"
 
 #: ../pasaffe.desktop.in.h:1 ../data/ui/PasaffeWindow.ui.h:12
 msgid "Pasaffe"
@@ -165,7 +165,7 @@ msgstr ""
 
 #: ../bin/pasaffe-cli.py:162
 msgid "create a new Pasaffe database"
-msgstr ""
+msgstr "crear una base de datos de Pasaffe nueva"
 
 #: ../bin/pasaffe-cli.py:166
 msgid "specify Pasaffe database master password"
@@ -201,7 +201,7 @@ msgstr ""
 
 #: ../bin/pasaffe-cli.py:199
 msgid "URL for this entry"
-msgstr ""
+msgstr "URL de esta entrada"
 
 #: ../bin/pasaffe-cli.py:203
 msgid "free-format notes for this entry"
