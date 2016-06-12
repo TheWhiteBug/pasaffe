@@ -131,6 +131,61 @@ class TestReadDB(unittest.TestCase):
 
         self.assertTrue(old_time != new_time)
 
+    def test_get_title(self):
+
+        self.passfile.new_db("test")
+        uuid_hex = self.passfile.new_entry()
+
+        test_title = "Test title"
+        self.passfile.records[uuid_hex][3] = test_title
+
+        title = self.passfile.get_title(uuid_hex)
+        self.assertTrue(title == test_title)
+
+    def test_get_username(self):
+
+        self.passfile.new_db("test")
+        uuid_hex = self.passfile.new_entry()
+
+        test_username = "awesomeuser"
+        self.passfile.records[uuid_hex][4] = test_username
+
+        username = self.passfile.get_username(uuid_hex)
+        self.assertTrue(username == test_username)
+
+    def test_get_notes(self):
+
+        self.passfile.new_db("test")
+        uuid_hex = self.passfile.new_entry()
+
+        test_note = "This is a note."
+        self.passfile.records[uuid_hex][5] = test_note
+
+        note = self.passfile.get_notes(uuid_hex)
+        self.assertTrue(note == test_note)
+
+    def test_get_password(self):
+
+        self.passfile.new_db("test")
+        uuid_hex = self.passfile.new_entry()
+
+        test_password = "s3cr3tp4ssw0rd"
+        self.passfile.records[uuid_hex][6] = test_password
+
+        password = self.passfile.get_password(uuid_hex)
+        self.assertTrue(password == test_password)
+
+    def test_get_url(self):
+
+        self.passfile.new_db("test")
+        uuid_hex = self.passfile.new_entry()
+
+        test_url = "http://www.example.com"
+        self.passfile.records[uuid_hex][13] = test_url
+
+        url = self.passfile.get_url(uuid_hex)
+        self.assertTrue(url == test_url)
+
     def test_update_folder_list(self):
 
         self.passfile.new_db("test")
@@ -482,11 +537,13 @@ class TestReadDB(unittest.TestCase):
         uuid_hex = self.passfile.new_entry()
 
         # New entry should have empty strings
+        self.assertEqual(self.passfile.records[uuid_hex][3], '')
         self.assertEqual(self.passfile.records[uuid_hex][4], '')
         self.assertEqual(self.passfile.records[uuid_hex][5], '')
         self.assertEqual(self.passfile.records[uuid_hex][6], '')
 
-        # Delete username and password
+        # Delete title, username and password
+        del self.passfile.records[uuid_hex][3]
         del self.passfile.records[uuid_hex][4]
         del self.passfile.records[uuid_hex][6]
 
@@ -501,6 +558,7 @@ class TestReadDB(unittest.TestCase):
 
         self.passfile.records[uuid_hex][5] = crlf
 
+        self.assertTrue(3 not in self.passfile.records[uuid_hex])
         self.assertTrue(4 not in self.passfile.records[uuid_hex])
         self.assertTrue(6 not in self.passfile.records[uuid_hex])
         self.assertEqual(self.passfile.records[uuid_hex][5], crlf)
@@ -508,6 +566,7 @@ class TestReadDB(unittest.TestCase):
         # Now do the postread fixup
         self.passfile._postread_fixup()
 
+        self.assertEqual(self.passfile.records[uuid_hex][3], '')
         self.assertEqual(self.passfile.records[uuid_hex][4], '')
         self.assertEqual(self.passfile.records[uuid_hex][5], lf)
         self.assertEqual(self.passfile.records[uuid_hex][6], '')

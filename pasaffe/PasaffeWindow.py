@@ -257,7 +257,11 @@ class PasaffeWindow(Window):
 
         # Then add records
         for uuid in self.passfile.records:
-            entry = PathEntry(self.passfile.records[uuid][3],
+            title = self.passfile.get_title(uuid)
+            # Empty names don't display properly in tree
+            if title in [None, ""]:
+                title = _("[Untitled]")
+            entry = PathEntry(title,
                               uuid,
                               self.passfile.get_folder_list(uuid))
             entries.append(entry)
@@ -513,19 +517,24 @@ class PasaffeWindow(Window):
 
         # title
         data_buffer.insert(data_buffer.get_start_iter(), "\n")
+        title = self.passfile.get_title(entry_uuid)
+        # Fixup Empty names
+        if title in [None, ""]:
+            title = _("[Untitled]")
+
         data_buffer.insert_with_tags(data_buffer.get_end_iter(),
-                                     self.passfile.records[entry_uuid].get(3),
+                                     title,
                                      ttt.lookup('title'))
         data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
 
         # url
-        if 13 in self.passfile.records[entry_uuid]:
+        if self.passfile.get_url(entry_uuid):
             data_buffer.insert_with_tags(data_buffer.get_end_iter(),
                                          _("URL:") + "\n",
                                          ttt.lookup('section'))
             data_buffer.insert_with_tags(
                 data_buffer.get_end_iter(),
-                self.passfile.records[entry_uuid].get(13),
+                self.passfile.get_url(entry_uuid),
                 ttt.lookup('url'))
             data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
 
@@ -541,7 +550,7 @@ class PasaffeWindow(Window):
                                          _("Username:") + "\n",
                                          ttt.lookup('section'))
             data_buffer.insert(data_buffer.get_end_iter(),
-                               self.passfile.records[entry_uuid].get(4))
+                               self.passfile.get_username(entry_uuid))
             data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
 
             # password
@@ -552,18 +561,18 @@ class PasaffeWindow(Window):
             if show_secrets is True or \
                     self.settings.get_boolean('visible-secrets') is True:
                 data_buffer.insert(data_buffer.get_end_iter(),
-                                   self.passfile.records[entry_uuid].get(6))
+                                   self.passfile.get_password(entry_uuid))
             else:
                 data_buffer.insert(data_buffer.get_end_iter(), '*****')
             data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
 
             # notes
-            if 5 in self.passfile.records[entry_uuid]:
+            if self.passfile.get_notes(entry_uuid):
                 data_buffer.insert_with_tags(data_buffer.get_end_iter(),
                                              _("Notes:") + "\n",
                                              ttt.lookup('section'))
                 data_buffer.insert(data_buffer.get_end_iter(),
-                                   self.passfile.records[entry_uuid].get(5))
+                                   self.passfile.get_notes(entry_uuid))
                 data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
 
             # modification time
@@ -591,18 +600,18 @@ class PasaffeWindow(Window):
         self.set_menu_for_entry(True)
 
         # Now disable menus for blank entries
-        if self.passfile.records[entry_uuid].get(13) in [None, ""]:
+        if self.passfile.get_url(entry_uuid) in [None, ""]:
             self.ui.url_copy.set_sensitive(False)
             self.ui.mnu_open_url.set_sensitive(False)
             self.ui.url_copy1.set_sensitive(False)
             self.ui.open_url.set_sensitive(False)
 
-        if self.passfile.records[entry_uuid].get(4) in [None, ""]:
+        if self.passfile.get_username(entry_uuid) in [None, ""]:
             self.ui.username_copy.set_sensitive(False)
             self.ui.username_copy1.set_sensitive(False)
             self.ui.copy_username.set_sensitive(False)
 
-        if self.passfile.records[entry_uuid].get(6) in [None, ""]:
+        if self.passfile.get_password(entry_uuid) in [None, ""]:
             self.ui.password_copy.set_sensitive(False)
             self.ui.password_copy1.set_sensitive(False)
             self.ui.copy_password.set_sensitive(False)
@@ -686,7 +695,7 @@ class PasaffeWindow(Window):
             if "pasaffe_treenode." in entry_uuid:
                 return
 
-            url = self.passfile.records[entry_uuid].get(13)
+            url = self.passfile.get_url(entry_uuid)
         if url is not None:
             if not url.startswith('http://') and \
                not url.startswith('https://'):
@@ -742,7 +751,7 @@ class PasaffeWindow(Window):
             path = self.ui.treeview1.get_model().get_path(treeiter)
             self.ui.treeview1.expand_row(path, False)
 
-            self.passfile.records[uuid_hex][2] = folder_list_to_field(folder)
+            self.passfile.update_folder_list(uuid_hex, folder)
 
         response = self.edit_entry(uuid_hex, True)
         if response != Gtk.ResponseType.OK:
@@ -923,13 +932,17 @@ class PasaffeWindow(Window):
                     combobox = \
                         self.editdetails_dialog.builder.get_object(
                             'folder_combo')
-                    if 2 in self.passfile.records[entry_uuid]:
+                    if self.passfile.get_folder_list(entry_uuid):
                         self.populate_folders(
                             liststore,
                             combobox,
                             self.passfile.get_folder_list(entry_uuid))
                     else:
                         self.populate_folders(liststore, combobox, [])
+                elif record_type == 3:
+                    self.editdetails_dialog.builder.get_object(
+                        widget_name).set_text(
+                        self.passfile.get_title(entry_uuid))
                 elif record_type in self.passfile.records[entry_uuid]:
                     self.editdetails_dialog.builder.get_object(
                         widget_name).set_text(

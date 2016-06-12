@@ -7,6 +7,8 @@ For a detailed list of changes, please see ChangeLog.
    - Updated translations
 
  * Bug fixes:
+   - Error when opening database containing missing entry titles
+     (LP: #1586335)
 
 0.46 (2016-03-13)
 
