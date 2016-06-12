@@ -472,10 +472,12 @@ class PassSafeFile:
         if folder_list is None:
             return field
 
+        have_folders = False
         for folder in folder_list:
-            if field != "":
+            if have_folders is True:
                 field += "."
             field += folder.replace(".", "\\.")
+            have_folders = True
         return field
 
     def _field_to_folder_list(self, field):
@@ -490,7 +492,15 @@ class PassSafeFile:
 
         index = 0
         location = 0
+
         while index < len(field):
+
+            if field[index] == ".":
+                folders.append("")
+                location += 1
+                index += 1
+                continue
+
             location = field.find(".", location + 1)
 
             if location == -1:

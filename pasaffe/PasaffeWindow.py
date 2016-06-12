@@ -247,23 +247,31 @@ class PasaffeWindow(Window):
                 node = self.ui.liststore1.iter_children(parent)
         return parent
 
+    def _fixup_folders(self, folder_list):
+        if folder_list:
+            return [_("[Untitled]") if x=="" else x for x in folder_list]
+        else:
+            return None
+
     def display_entries(self):
         entries = []
 
         # Add empty folders first
         for folder in self.passfile.get_empty_folders():
+            folder = self._fixup_folders(folder)
             entry = PathEntry("", "", folder)
             entries.append(entry)
 
         # Then add records
         for uuid in self.passfile.records:
             title = self.passfile.get_title(uuid)
+            folder = self._fixup_folders(self.passfile.get_folder_list(uuid))
             # Empty names don't display properly in tree
             if title in [None, ""]:
                 title = _("[Untitled]")
             entry = PathEntry(title,
                               uuid,
-                              self.passfile.get_folder_list(uuid))
+                              folder)
             entries.append(entry)
 
         self.ui.liststore1.clear()
@@ -1049,6 +1057,8 @@ class PasaffeWindow(Window):
                 title.set_markup("<big><b>New folder</b></big>")
 
             folder_name = treemodel.get_value(treeiter, 1)
+            if folder_name == _("[Untitled]"):
+                folder_name = ""
             self.editfolder_dialog.ui.folder_name_entry.set_text(folder_name)
             self.editfolder_dialog.ui.folder_name_entry.select_region(0, -1)
 

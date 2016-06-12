@@ -45,6 +45,10 @@ class TestReadDB(unittest.TestCase):
                        [["folder.a", "folder.b"], "folder\.a.folder\.b"],
                        [["folder.a", "folder.b", "folder.c"],
                         "folder\.a.folder\.b.folder\.c"],
+                       [["", "foldera", "folderb"], ".foldera.folderb"],
+                       [["", "", "folderb"], "..folderb"],
+                       [["foldera", "", "folderb"], "foldera..folderb"],
+                       [["foldera", "folderb", ""], "foldera.folderb."],
                        ]
 
         for (folder, field) in folder_list:
@@ -65,6 +69,10 @@ class TestReadDB(unittest.TestCase):
                        ["folder\.a.folder\.b", ["folder.a", "folder.b"]],
                        ["folder\.a.folder\.b.folder\.c",
                        ["folder.a", "folder.b", "folder.c"]],
+                       [".foldera.folderb", ["", "foldera", "folderb"]],
+                       ["..folderb", ["", "", "folderb"]],
+                       ["foldera..folderb", ["foldera", "", "folderb"]],
+                       ["foldera.folderb.", ["foldera", "folderb", ""]],
                        ]
 
         for (field, folder) in folder_list:
