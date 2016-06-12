@@ -10,3 +10,4 @@ List of stuff to do:
 - Implement sanity check after saving db temp file
 - Implement translations for the help files
 - Add manpages for command-line tools
+- Add error dialog if attempting to add blank entry or folder name
