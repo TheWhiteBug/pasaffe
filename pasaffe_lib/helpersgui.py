@@ -49,4 +49,7 @@ def get_builder(builder_file_name):
 
 def show_uri(parent, link):
     screen = parent.get_screen()
-    Gtk.show_uri(screen, link, Gtk.get_current_event_time())
+    try:
+        Gtk.show_uri(screen, link, Gtk.get_current_event_time())
+    except:
+        pass

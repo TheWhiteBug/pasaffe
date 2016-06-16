@@ -10,6 +10,7 @@ For a detailed list of changes, please see ChangeLog.
    - Error when opening database containing missing entry titles
      (LP: #1586335)
    - Properly handle blank entry and folder titles
+   - Don't crash if yelp is not installed
 
 0.46 (2016-03-13)
 
