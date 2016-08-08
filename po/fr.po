@@ -8,75 +8,77 @@ msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-16 17:01+0300\n"
-"PO-Revision-Date: 2016-06-16 13:12+0000\n"
-"Last-Translator: Marc Deslauriers <marc.deslauriers@canonical.com>\n"
+"PO-Revision-Date: 2016-08-07 08:40+0000\n"
+"Last-Translator: londumas <helion331990@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-06-17 05:33+0000\n"
-"X-Generator: Launchpad (build 18097)\n"
+"X-Launchpad-Export-Date: 2016-08-08 05:27+0000\n"
+"X-Generator: Launchpad (build 18169)\n"
 "Language: fr\n"
 
 #: ../bin/pasaffe-cli.py:94
 msgid "run with debug"
-msgstr ""
+msgstr "lance avec déboguage"
 
 #: ../bin/pasaffe-cli.py:98
 msgid "specify alternate GPass database file"
-msgstr ""
+msgstr "spécifie une base de donnée GPass alternative"
 
 #: ../bin/pasaffe-cli.py:104
 msgid "add a new entry to the database"
-msgstr ""
+msgstr "Ajoute une nouvelle entrée à la base de donnée"
 
 #: ../bin/pasaffe-cli.py:109
 msgid "replace an entry in the database"
-msgstr ""
+msgstr "remplace une entrée dans la base de donnée"
 
 #: ../bin/pasaffe-cli.py:114
 msgid "remove an entry from the database"
-msgstr ""
+msgstr "supprime une entrée de la base de donnée"
 
 #: ../bin/pasaffe-cli.py:119 ../bin/pasaffe-cli.py:125
 msgid "print out a full entry in the database, except the password"
 msgstr ""
+"affiche une entrée complète dans la base de donnée, excepté le mot de passe"
 
 #: ../bin/pasaffe-cli.py:131
 msgid "look for --entry as a substring (default: False)"
 msgstr ""
+"cherche pour --entry en tant que composante d'un mot (défault : False)"
 
 #: ../bin/pasaffe-cli.py:137
 msgid "print out the group field of the given entry"
-msgstr ""
+msgstr "affiche le champ group de l'entrée donnée"
 
 #: ../bin/pasaffe-cli.py:142
 msgid "print out the user field of the given entry"
-msgstr ""
+msgstr "affiche le champ utilisateur de l'entrée donnée"
 
 #: ../bin/pasaffe-cli.py:147
 msgid "print out the Notes filed of the given entry"
-msgstr ""
+msgstr "affiche le champ notes de l'entrée donnée"
 
 #: ../bin/pasaffe-cli.py:152
 msgid "print out the password for the given entry"
-msgstr ""
+msgstr "affiche le champ mot de passe de l'entrée donnée"
 
 #: ../bin/pasaffe-cli.py:157
 msgid "print out the URL field of the given entry"
-msgstr ""
+msgstr "affiche le champ URL de l'entrée donnée"
 
 #: ../bin/pasaffe-cli.py:162
 msgid "create a new Pasaffe database"
-msgstr ""
+msgstr "créé une nouvelle base de donnée Pasaffe"
 
 #: ../bin/pasaffe-cli.py:166
 msgid "specify Pasaffe database master password"
-msgstr ""
+msgstr "stipule le mot de passe maître de la base de donnée Pasaffe"
 
 #: ../bin/pasaffe-cli.py:170
 msgid "specify new Pasaffe database master password"
-msgstr ""
+msgstr "stipule le nouveau mot de passe maître de la base de donnée Pasaffe"
 
 #: ../bin/pasaffe-cli.py:175
 msgid "quiet messages"
@@ -84,7 +86,7 @@ msgstr ""
 
 #: ../bin/pasaffe-cli.py:179
 msgid "act on this database entry"
-msgstr ""
+msgstr "agit sur cette entrée de la base de donnée"
 
 #: ../bin/pasaffe-cli.py:183
 msgid "replacement entry string"
@@ -92,56 +94,62 @@ msgstr ""
 
 #: ../bin/pasaffe-cli.py:187
 msgid "group for this entry"
-msgstr ""
+msgstr "groupe pour cette entrée"
 
 #: ../bin/pasaffe-cli.py:191
 msgid "userId for this entry"
-msgstr ""
+msgstr "utilisateur pour cette entrée"
 
 #: ../bin/pasaffe-cli.py:195
 msgid "password/passphrase for this entry"
-msgstr ""
+msgstr "mot de passe / phrase de chiffrement pour cette entrée"
 
 #: ../bin/pasaffe-cli.py:199
 msgid "URL for this entry"
-msgstr ""
+msgstr "URL pour cette entrée"
 
 #: ../bin/pasaffe-cli.py:203
 msgid "free-format notes for this entry"
-msgstr ""
+msgstr "notes en format libre pour cette entrée"
 
 #: ../bin/pasaffe-cli.py:256
 msgid "when adding an entry, at least the userId must be provided"
 msgstr ""
+"lors de l'ajout d'une entrée, au moins le champ utilisateur doit être fournit"
 
 #: ../bin/pasaffe-cli.py:264
 msgid ""
 "--repl MUST be used with at least one of --newentry, --group, --user, --"
 "pswd, --url, or --notes"
 msgstr ""
+"--repl DOIT être utilisé avec au moins un des --newentry, --group, --user, --"
+"pswd, --url, ou --notes"
 
 #: ../bin/pasaffe-cli.py:279
 msgid ""
 "ERROR: only one of --createdb, --list, --add, --repl, or --del can be "
 "specified"
 msgstr ""
+"ERREUR : seulement un des --createdb, --list, --add, --repl, ou --del peut "
+"être spécifié"
 
 #: ../bin/pasaffe-cli.py:288
 msgid "cannot use --list* with any of --add, --del, or --repl"
-msgstr ""
+msgstr "ne peut pas utiliser --list* avec un des --add, --del, ou --repl"
 
 #: ../bin/pasaffe-cli.py:295
 msgid "one of --entry, --createdb, or --genpswd MUST be provided"
-msgstr ""
+msgstr "un des --entry, --createdb, ou --genpswd DOIT être fournit"
 
 #: ../bin/pasaffe-cli.py:330
 msgid ""
 "ERROR: --createdb requested, but there is already a file with the same name"
 msgstr ""
+"ERREUR : --createdb demandé, mais il y a déjà un ficher avec le même nom"
 
 #: ../bin/pasaffe-cli.py:335 ../bin/pasaffe-cli.py:509
 msgid "Password> "
-msgstr ""
+msgstr "Mot de passe> "
 
 #: ../bin/pasaffe-cli.py:341
 msgid "error creating new database"
