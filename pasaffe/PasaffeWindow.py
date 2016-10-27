@@ -684,9 +684,17 @@ class PasaffeWindow(Window):
     def textview_event_handler(self, textview, event):
         loc_x, loc_y = textview.window_to_buffer_coords(
             Gtk.TextWindowType.WIDGET, int(event.x), int(event.y))
-        itera = textview.get_iter_at_location(loc_x, loc_y)
+
+        # Fix dumb Gtk 3.20 API change
+        try:
+            itera = textview.get_iter_at_location(loc_x, loc_y)
+            tags = itera.get_tags()
+        except AttributeError:
+            (over, itera) = textview.get_iter_at_location(loc_x, loc_y)
+            tags = itera.get_tags()
+
         cursor = Gdk.Cursor.new(Gdk.CursorType.XTERM)
-        for tag in itera.get_tags():
+        for tag in tags:
             if tag.get_property('name') == 'url':
                 cursor = Gdk.Cursor.new(Gdk.CursorType.HAND2)
                 break

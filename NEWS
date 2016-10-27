@@ -6,6 +6,8 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
 
  * Bug fixes:
+   - Fixed compatibility with GTK+ 3.20. Thanks to Mathieu Trudel-Lapierre
+     for reporting the issue and for the initial patch.
 
 0.47 (2016-06-16)
 
