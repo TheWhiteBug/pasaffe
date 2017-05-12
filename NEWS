@@ -5,6 +5,8 @@ For a detailed list of changes, please see ChangeLog.
 
  * Enhancements:
    - Updated translations
+   - Add support for opening psafe3 files from the file manager. Thanks to
+     Tristan Hill.
 
  * Bug fixes:
    - Raised password iteration limit from 50k to 100k. Thanks to
