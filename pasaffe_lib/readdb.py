@@ -537,7 +537,7 @@ class PassSafeFile:
         self.keys['SALT'] = self.dbfile.read(32)
         self.keys['ITER'] = struct.unpack("<i", self.dbfile.read(4))[0]
         # Sanity check so we don't gobble up massive amounts of ram
-        if self.keys['ITER'] > 50000:
+        if self.keys['ITER'] > 100000:
             raise RuntimeError("Too many iterations: %s. Aborting." %
                                self.keys['ITER'])
         logger.debug("Number of iters is %d" % self.keys['ITER'])
