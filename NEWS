@@ -4,8 +4,11 @@ For a detailed list of changes, please see ChangeLog.
 0.49 (UNRELEASED)
 
  * Enhancements:
+   - Updated translations
 
  * Bug fixes:
+   - Raised password iteration limit from 50k to 100k. Thanks to
+     Joshua C. Randall. (LP: #1689784)
 
 0.48 (2017-03-13)
 
