@@ -1661,14 +1661,10 @@ class PasaffeWindow(Window):
             os.path.basename(self.database),
             "*" if self.needs_saving else ""))
 
-    def set_save_status(self, needed=False):
+    def set_save_status(self, needed):
         self.needs_saving = needed
-        if needed is True:
-            self.ui.save.set_sensitive(True)
-            self.ui.mnu_save.set_sensitive(True)
-        else:
-            self.ui.save.set_sensitive(False)
-            self.ui.mnu_save.set_sensitive(False)
+        self.ui.save.set_sensitive(needed)
+        self.ui.mnu_save.set_sensitive(needed)
         self._set_title()
 
     def get_save_status(self):
