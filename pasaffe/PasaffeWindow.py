@@ -851,7 +851,8 @@ class PasaffeWindow(Window):
 
             information = \
                 _('<big><b>Are you sure you wish to'
-                  ' remove "%s"?</b></big>\n\n') % entry_name
+                  ' remove "%s"?</b></big>\n\n') % \
+                    GLib.markup_escape_text(entry_name)
             information += _('Contents of the entry will be lost.\n')
 
             info_dialog = Gtk.MessageDialog(
@@ -873,7 +874,8 @@ class PasaffeWindow(Window):
 
             information = \
                 _('<big><b>Are you sure you wish'
-                  ' to remove folder "%s"?</b></big>\n\n') % folder_name
+                  ' to remove folder "%s"?</b></big>\n\n') % \
+                    GLib.markup_escape_text(folder_name)
             information += _('All entries in this folder will be lost.\n')
 
             info_dialog = Gtk.MessageDialog(
@@ -1371,6 +1373,7 @@ class PasaffeWindow(Window):
                 self.passfile.get_saved_application()
         information += '\n'
         information += _('Database location:\n%s\n') % self.database
+        information = GLib.markup_escape_text(information)
 
         info_dialog = Gtk.MessageDialog(transient_for=self,
                                         modal=True,
