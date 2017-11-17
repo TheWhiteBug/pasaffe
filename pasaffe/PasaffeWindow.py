@@ -83,7 +83,6 @@ class PasaffeWindow(Window):
         self.ui.textview1.connect("motion-notify-event",
                                   self.textview_event_handler)
 
-        self.set_save_status(False)
         self.passfile = None
         self.is_locked = False
         self.idle_id = None
@@ -94,6 +93,7 @@ class PasaffeWindow(Window):
             self.database = self.settings.get_string('database-path')
         else:
             self.database = database
+        self.set_save_status(False)
 
         self.settings = Gio.Settings.new("net.launchpad.pasaffe")
         self.settings.connect('changed', self.on_preferences_changed)
@@ -1656,16 +1656,20 @@ class PasaffeWindow(Window):
             self.ui.mnu_display_secrets.set_sensitive(True)
             self.ui.display_secrets.set_sensitive(True)
 
+    def _set_title(self):
+        self.set_title("%s - %sPasaffe" % (
+            os.path.basename(self.database),
+            "*" if self.needs_saving else ""))
+
     def set_save_status(self, needed=False):
         self.needs_saving = needed
         if needed is True:
-            self.set_title("*Pasaffe")
             self.ui.save.set_sensitive(True)
             self.ui.mnu_save.set_sensitive(True)
         else:
-            self.set_title("Pasaffe")
             self.ui.save.set_sensitive(False)
             self.ui.mnu_save.set_sensitive(False)
+        self._set_title()
 
     def get_save_status(self):
         return self.needs_saving
