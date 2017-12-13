@@ -6,6 +6,7 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
 
  * Bug fixes:
+   - Make password window non-resizable
 
 0.49 (2017-05-17)
 
