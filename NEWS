@@ -4,9 +4,11 @@ For a detailed list of changes, please see ChangeLog.
 0.50 (UNRELEASED)
 
  * Enhancements:
+   - Set window title based on current loaded file. Thanks to Tristan Hill.
 
  * Bug fixes:
    - Make password window non-resizable
+   - Escape text e.g. in case of & in entry name. Thanks to Tristan Hill.
 
 0.49 (2017-05-17)
 

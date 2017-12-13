@@ -83,7 +83,6 @@ class PasaffeWindow(Window):
         self.ui.textview1.connect("motion-notify-event",
                                   self.textview_event_handler)
 
-        self.set_save_status(False)
         self.passfile = None
         self.is_locked = False
         self.idle_id = None
@@ -94,6 +93,9 @@ class PasaffeWindow(Window):
             self.database = self.settings.get_string('database-path')
         else:
             self.database = database
+        self.default_database = database is None
+        
+        self.set_save_status(False)
 
         self.settings = Gio.Settings.new("net.launchpad.pasaffe")
         self.settings.connect('changed', self.on_preferences_changed)
@@ -851,7 +853,8 @@ class PasaffeWindow(Window):
 
             information = \
                 _('<big><b>Are you sure you wish to'
-                  ' remove "%s"?</b></big>\n\n') % entry_name
+                  ' remove "%s"?</b></big>\n\n') % \
+                    GLib.markup_escape_text(entry_name)
             information += _('Contents of the entry will be lost.\n')
 
             info_dialog = Gtk.MessageDialog(
@@ -873,7 +876,8 @@ class PasaffeWindow(Window):
 
             information = \
                 _('<big><b>Are you sure you wish'
-                  ' to remove folder "%s"?</b></big>\n\n') % folder_name
+                  ' to remove folder "%s"?</b></big>\n\n') % \
+                    GLib.markup_escape_text(folder_name)
             information += _('All entries in this folder will be lost.\n')
 
             info_dialog = Gtk.MessageDialog(
@@ -1371,6 +1375,7 @@ class PasaffeWindow(Window):
                 self.passfile.get_saved_application()
         information += '\n'
         information += _('Database location:\n%s\n') % self.database
+        information = GLib.markup_escape_text(information)
 
         info_dialog = Gtk.MessageDialog(transient_for=self,
                                         modal=True,
@@ -1656,16 +1661,19 @@ class PasaffeWindow(Window):
             self.ui.mnu_display_secrets.set_sensitive(True)
             self.ui.display_secrets.set_sensitive(True)
 
-    def set_save_status(self, needed=False):
+    def _set_title(self):
+        prefix = ""
+        if not self.default_database:
+            prefix = "%s - " % os.path.basename(self.database)
+        self.set_title("%s%sPasaffe" % (
+            prefix,
+            "*" if self.needs_saving else ""))
+
+    def set_save_status(self, needed):
         self.needs_saving = needed
-        if needed is True:
-            self.set_title("*Pasaffe")
-            self.ui.save.set_sensitive(True)
-            self.ui.mnu_save.set_sensitive(True)
-        else:
-            self.set_title("Pasaffe")
-            self.ui.save.set_sensitive(False)
-            self.ui.mnu_save.set_sensitive(False)
+        self.ui.save.set_sensitive(needed)
+        self.ui.mnu_save.set_sensitive(needed)
+        self._set_title()
 
     def get_save_status(self):
         return self.needs_saving
