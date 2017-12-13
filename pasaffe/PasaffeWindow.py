@@ -93,6 +93,8 @@ class PasaffeWindow(Window):
             self.database = self.settings.get_string('database-path')
         else:
             self.database = database
+        self.default_database = database is None
+        
         self.set_save_status(False)
 
         self.settings = Gio.Settings.new("net.launchpad.pasaffe")
@@ -1660,8 +1662,11 @@ class PasaffeWindow(Window):
             self.ui.display_secrets.set_sensitive(True)
 
     def _set_title(self):
-        self.set_title("%s - %sPasaffe" % (
-            os.path.basename(self.database),
+        prefix = ""
+        if not self.default_database:
+            prefix = "%s - " % os.path.basename(self.database)
+        self.set_title("%s%sPasaffe" % (
+            prefix,
             "*" if self.needs_saving else ""))
 
     def set_save_status(self, needed):
