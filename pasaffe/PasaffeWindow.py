@@ -24,9 +24,6 @@ from gi.repository import Gio, Gtk  # pylint: disable=E0611
 from gi.repository import Gdk, Pango, GLib  # pylint: disable=E0611
 import logging
 import os
-import struct
-import sys
-import time
 import webbrowser
 
 logger = logging.getLogger('pasaffe')
@@ -94,7 +91,7 @@ class PasaffeWindow(Window):
         else:
             self.database = database
         self.default_database = database is None
-        
+
         self.set_save_status(False)
 
         self.settings = Gio.Settings.new("net.launchpad.pasaffe")
@@ -219,19 +216,19 @@ class PasaffeWindow(Window):
     def create_folders(self, folders):
         parent = None
 
-        if folders is None or len(folders) == 0:
+        if not folders:
             return None
 
         node = self.ui.liststore1.get_iter_first()
 
         for folder in folders:
-            if len(folder) == 0:
+            if not folder:
                 return parent
             found = False
             while node is not None and not found:
                 if (self.ui.liststore1.get_value(node, 1) == folder) and \
                    ("pasaffe_treenode." in self.ui.liststore1.get_value(
-                        node, 2)):
+                           node, 2)):
                     found = True
                     parent = node
                     if self.ui.liststore1.iter_has_child(node):
@@ -251,9 +248,9 @@ class PasaffeWindow(Window):
 
     def _fixup_folders(self, folder_list):
         if folder_list:
-            return [_("[Untitled]") if x=="" else x for x in folder_list]
-        else:
-            return None
+            return [_("[Untitled]") if x == "" else x for x in folder_list]
+
+        return None
 
     def display_entries(self):
         entries = []
@@ -368,8 +365,8 @@ class PasaffeWindow(Window):
 
         self.passfile.set_tree_status(expansion_status)
 
-    def drag_data_received_data(self, treeview, context, x, y, selection,
-                                info, etime):
+    def drag_data_received_data(self, treeview, _context, x, y, _selection,
+                                _info, _etime):
         sourcemodel, sourceiter = treeview.get_selection().get_selected()
         source_uuid = sourcemodel.get_value(sourceiter, 2)
 
@@ -440,7 +437,7 @@ class PasaffeWindow(Window):
     def goto_uuid(self, uuid):
         item = self.search_uuid(uuid)
 
-        if (item is not None):
+        if item is not None:
             treemodel = self.ui.treeview1.get_model()
 
             # See if we need to expand some folders
@@ -457,7 +454,7 @@ class PasaffeWindow(Window):
 
     def goto_folder(self, folders):
         item = self.search_folder(folders)
-        if (item is not None):
+        if item is not None:
             self.ui.treeview1.get_selection().select_iter(item)
             self.display_folder(self.ui.liststore1.get_value(item, 1))
             path = self.ui.treeview1.get_model().get_path(item)
@@ -479,19 +476,19 @@ class PasaffeWindow(Window):
     def search_folder(self, folders):
         parent = None
 
-        if folders is None or len(folders) == 0:
+        if not folders:
             return None
 
         node = self.ui.liststore1.get_iter_first()
 
         for folder in folders:
-            if len(folder) == 0:
+            if not folder:
                 return parent
             found = False
             while node is not None and not found:
                 if (self.ui.liststore1.get_value(node, 1) == folder) and \
                    ("pasaffe_treenode." in self.ui.liststore1.get_value(
-                       node, 2)):
+                           node, 2)):
                     found = True
                     parent = node
                     if self.ui.liststore1.iter_has_child(node):
@@ -548,7 +545,6 @@ class PasaffeWindow(Window):
                 ttt.lookup('url'))
             data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
 
-        contents = ''
         if show_secrets is False and \
            self.settings.get_boolean('only-passwords-are-secret') is False \
            and self.settings.get_boolean('visible-secrets') is False:
@@ -692,7 +688,7 @@ class PasaffeWindow(Window):
             itera = textview.get_iter_at_location(loc_x, loc_y)
             tags = itera.get_tags()
         except AttributeError:
-            (over, itera) = textview.get_iter_at_location(loc_x, loc_y)
+            (_over, itera) = textview.get_iter_at_location(loc_x, loc_y)
             tags = itera.get_tags()
 
         cursor = Gdk.Cursor.new(Gdk.CursorType.XTERM)
@@ -962,11 +958,11 @@ class PasaffeWindow(Window):
                 elif record_type == 3:
                     self.editdetails_dialog.builder.get_object(
                         widget_name).set_text(
-                        self.passfile.get_title(entry_uuid))
+                            self.passfile.get_title(entry_uuid))
                 elif record_type in self.passfile.records[entry_uuid]:
                     self.editdetails_dialog.builder.get_object(
                         widget_name).set_text(
-                        self.passfile.records[entry_uuid][record_type])
+                            self.passfile.records[entry_uuid][record_type])
 
             self.set_entry_window_size()
             self.editdetails_dialog.set_transient_for(self)
@@ -991,10 +987,10 @@ class PasaffeWindow(Window):
                     elif record_type == 5:
                         new_value = self.editdetails_dialog.builder.get_object(
                             widget_name).get_text(
-                            self.editdetails_dialog.builder.get_object(
-                                widget_name).get_start_iter(),
-                            self.editdetails_dialog.builder.get_object(
-                                widget_name).get_end_iter(), True)
+                                self.editdetails_dialog.builder.get_object(
+                                    widget_name).get_start_iter(),
+                                self.editdetails_dialog.builder.get_object(
+                                    widget_name).get_end_iter(), True)
                     else:
                         new_value = self.editdetails_dialog.builder.get_object(
                             widget_name).get_text()
@@ -1522,7 +1518,7 @@ class PasaffeWindow(Window):
         self.is_locked = False
         self.set_idle_timeout()
 
-    def on_lock_quit_button_clicked(self, button):
+    def on_lock_quit_button_clicked(self, _button):
         if self.save_warning() is False:
             Gtk.main_quit()
             return

@@ -34,7 +34,7 @@ from pasaffe_lib.helpers import get_database_path
 def parse_options():
     """Support for command line options"""
     parser = optparse.OptionParser(usage="Usage: %prog [filename] [options]",
-        version="%%prog %s" % get_version())
+                                   version="%%prog %s" % get_version())
     parser.add_option(
         "-v", "--verbose", action="count", dest="verbose",
         help=_("Show debug messages (-vv debugs pasaffe_lib also)"))
@@ -45,7 +45,7 @@ def parse_options():
         "-s", "--set-default", dest="set_default",
         help=_("set database as default"), action='store_true')
     (options, args) = parser.parse_args()
-    if len(args) > 0 and options.filename is None:
+    if args and options.filename is None:
         options.filename = args[0]
     set_up_logging(options)
     return options
