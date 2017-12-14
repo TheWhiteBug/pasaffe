@@ -937,7 +937,7 @@ class PasaffeWindow(Window):
             self.editdetails_dialog = self.EditDetailsDialog()
             if new_entry is True:
                 title = self.editdetails_dialog.builder.get_object('title')
-                title.set_markup("<big><b>New entry</b></big>")
+                title.set_markup(_("<big><b>New entry</b></big>"))
 
             for record_type, widget_name in list(record_dict.items()):
                 # Handle folders separately
@@ -1062,7 +1062,7 @@ class PasaffeWindow(Window):
 
             if new_folder is True:
                 title = self.editfolder_dialog.builder.get_object('title')
-                title.set_markup("<big><b>New folder</b></big>")
+                title.set_markup(_("<big><b>New folder</b></big>"))
 
             folder_name = treemodel.get_value(treeiter, 1)
             if folder_name == _("[Untitled]"):
