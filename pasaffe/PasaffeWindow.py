@@ -1351,8 +1351,8 @@ class PasaffeWindow(Window):
         self.lock_screen()
 
     def on_mnu_info_activate(self, _menuitem):
-        information = _('<big><b>Database Information</b></big>\n\n')
-        information += _('Number of entries: %s\n') % \
+        header = _('<big><b>Database Information</b></big>\n\n')
+        information = _('Number of entries: %s\n') % \
             len(self.passfile.records)
         information += '\n'
         if self.passfile.get_saved_name():
@@ -1371,7 +1371,7 @@ class PasaffeWindow(Window):
                 self.passfile.get_saved_application()
         information += '\n'
         information += _('Database location:\n%s\n') % self.database
-        information = GLib.markup_escape_text(information)
+        information = header + GLib.markup_escape_text(information)
 
         info_dialog = Gtk.MessageDialog(transient_for=self,
                                         modal=True,
