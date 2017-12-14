@@ -73,7 +73,7 @@ class TestPasswordGorilla1537(unittest.TestCase):
     def test_entry_2(self):
         uuid = 'd68cee64c2794300561837e248abddd1'
         self.assertFalse(2 in self.passfile.records[uuid])
-        self.assertEqual(self.passfile.get_folder_list(uuid), None)
+        self.assertEqual(self.passfile.get_folder_list(uuid), [])
         self.assertEqual(self.passfile.records[uuid][3], 'toplevel1')
         self.assertEqual(self.passfile.records[uuid][4], 'usernametop')
         self.assertEqual(self.passfile.records[uuid][5], 'This is a note')
@@ -116,7 +116,7 @@ class TestPasswordGorilla1537(unittest.TestCase):
     def test_entry_5(self):
         uuid = '11fbf64e83e240a25e8bb657cea6edcd'
         self.assertFalse(2 in self.passfile.records[uuid])
-        self.assertEqual(self.passfile.get_folder_list(uuid), None)
+        self.assertEqual(self.passfile.get_folder_list(uuid), [])
         self.assertEqual(self.passfile.records[uuid][3], 'topnopass')
         self.assertEqual(self.passfile.records[uuid][4], 'topusername')
         self.assertFalse(5 in self.passfile.records[uuid])
@@ -129,7 +129,7 @@ class TestPasswordGorilla1537(unittest.TestCase):
     def test_entry_6(self):
         uuid = 'd0b7295a7fc447fa4d8c1aa701ba8c30'
         self.assertFalse(2 in self.passfile.records[uuid])
-        self.assertEqual(self.passfile.get_folder_list(uuid), None)
+        self.assertEqual(self.passfile.get_folder_list(uuid), [])
         self.assertEqual(self.passfile.records[uuid][3], 'topnouser')
         self.assertEqual(self.passfile.records[uuid][4], '')
         self.assertFalse(5 in self.passfile.records[uuid])

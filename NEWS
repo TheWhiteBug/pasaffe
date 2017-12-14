@@ -9,6 +9,8 @@ For a detailed list of changes, please see ChangeLog.
  * Bug fixes:
    - Make password window non-resizable
    - Escape text e.g. in case of & in entry name. Thanks to Tristan Hill.
+   - Fix issue where Pasaffe would think a save was required when no fields
+     were changed in an entry.
 
 0.49 (2017-05-17)
 

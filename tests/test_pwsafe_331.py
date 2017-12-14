@@ -77,7 +77,7 @@ class TestPasswordSafe331(unittest.TestCase):
     def test_entry_1(self):
         uuid = '4a32a8ad616343b692e85c721bfce0e2'
         self.assertFalse(2 in self.passfile.records[uuid])
-        self.assertEqual(self.passfile.get_folder_list(uuid), None)
+        self.assertEqual(self.passfile.get_folder_list(uuid), [])
         self.assertEqual(self.passfile.records[uuid][3], 'topentry1')
         self.assertEqual(self.passfile.records[uuid][4], 'username1')
         self.assertEqual(self.passfile.records[uuid][5],

@@ -218,7 +218,7 @@ class TestReadDB(unittest.TestCase):
         uuid_hex = self.passfile.new_entry()
 
         self.assertTrue(2 not in self.passfile.records[uuid_hex])
-        self.assertTrue(self.passfile.get_folder_list(uuid_hex) is None)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex) == [])
 
         folder = ['folderA', 'folderB', 'folderC']
         folder_field = 'folderA.folderB.folderC'
@@ -229,7 +229,7 @@ class TestReadDB(unittest.TestCase):
         self.assertTrue(self.passfile.records[uuid_hex][2] == folder_field)
         self.assertTrue(self.passfile.get_folder_list(uuid_hex) == folder)
 
-        self.assertTrue(self.passfile.get_folder_list('nonexistent') is None)
+        self.assertTrue(self.passfile.get_folder_list('nonexistent') == [])
 
     def test_get_empty_folders(self):
 
@@ -385,7 +385,7 @@ class TestReadDB(unittest.TestCase):
         self.assertTrue(self.passfile.get_folder_list(uuid_hex_A) == folderA)
         self.assertTrue(self.passfile.get_folder_list(uuid_hex_B) == folderB)
         self.assertTrue(self.passfile.get_folder_list(uuid_hex_C) == folderC)
-        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) is None)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) == [])
 
         # Ok, let's rename one
         new_folderA = ['firstA', 'renamedB']
@@ -399,7 +399,7 @@ class TestReadDB(unittest.TestCase):
         self.assertTrue(
             self.passfile.get_folder_list(uuid_hex_C) == folderC)
         self.assertTrue(
-            self.passfile.get_folder_list(uuid_hex_D) is None)
+            self.passfile.get_folder_list(uuid_hex_D) == [])
 
         # Now add some empty_folders
         folder_fields = ['firstA',
@@ -427,7 +427,7 @@ class TestReadDB(unittest.TestCase):
         self.assertTrue(
             self.passfile.get_folder_list(uuid_hex_C) == folderC)
         self.assertTrue(
-            self.passfile.get_folder_list(uuid_hex_D) is None)
+            self.passfile.get_folder_list(uuid_hex_D) == [])
 
         self.assertTrue(
             self.passfile.get_empty_folders() == new_empty_folders)
@@ -453,7 +453,7 @@ class TestReadDB(unittest.TestCase):
         self.assertTrue(self.passfile.get_folder_list(uuid_hex_A) == folderA)
         self.assertTrue(self.passfile.get_folder_list(uuid_hex_B) == folderB)
         self.assertTrue(self.passfile.get_folder_list(uuid_hex_C) == folderC)
-        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) is None)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) == [])
 
         self.assertTrue(self.passfile.get_empty_folders() == [])
 
@@ -465,7 +465,7 @@ class TestReadDB(unittest.TestCase):
         self.assertTrue(self.passfile.get_folder_list(uuid_hex_A) == folderA)
         self.assertTrue(self.passfile.get_folder_list(uuid_hex_B) == folderB)
         self.assertTrue(self.passfile.get_folder_list(uuid_hex_C) == folderC)
-        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) is None)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) == [])
 
         self.assertTrue(self.passfile.get_empty_folders() == [])
 
@@ -475,7 +475,7 @@ class TestReadDB(unittest.TestCase):
         self.assertTrue(self.passfile.get_folder_list(uuid_hex_A) == folderA)
         self.assertTrue(uuid_hex_B not in self.passfile.records)
         self.assertTrue(self.passfile.get_folder_list(uuid_hex_C) == folderC)
-        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) is None)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) == [])
         self.assertTrue(uuid_hex_D in self.passfile.records)
         self.assertTrue(self.passfile.get_empty_folders() == [])
 
@@ -493,7 +493,7 @@ class TestReadDB(unittest.TestCase):
 
         self.assertTrue(self.passfile.get_folder_list(uuid_hex_A) == folderA)
         self.assertTrue(self.passfile.get_folder_list(uuid_hex_C) == folderC)
-        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) is None)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) == [])
         self.assertTrue(uuid_hex_D in self.passfile.records)
 
         # Now delete a top level
@@ -501,13 +501,13 @@ class TestReadDB(unittest.TestCase):
         self.assertTrue(self.passfile.get_empty_folders() == [])
         self.assertTrue(uuid_hex_A not in self.passfile.records)
         self.assertTrue(self.passfile.get_folder_list(uuid_hex_C) == folderC)
-        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) is None)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) == [])
         self.assertTrue(uuid_hex_D in self.passfile.records)
 
         # Delete the remaining second level. We should gain an empty folder.
         self.passfile.delete_folder(['secondA', 'secondB'])
         self.assertTrue(uuid_hex_C not in self.passfile.records)
-        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) is None)
+        self.assertTrue(self.passfile.get_folder_list(uuid_hex_D) == [])
         self.assertTrue(uuid_hex_D in self.passfile.records)
         self.assertTrue(self.passfile.get_empty_folders() == [['secondA']])
 

@@ -73,7 +73,7 @@ class TestPasswdSafeAndroid510(unittest.TestCase):
     def test_entry_2(self):
         uuid = '7f1f06b3a36c3213061dc476b88f83fd'
         self.assertFalse(2 in self.passfile.records[uuid])
-        self.assertEqual(self.passfile.get_folder_list(uuid), None)
+        self.assertEqual(self.passfile.get_folder_list(uuid), [])
         self.assertEqual(self.passfile.records[uuid][3], 'Toplevel')
         self.assertEqual(self.passfile.records[uuid][4], 'topuser')
         self.assertEqual(self.passfile.records[uuid][5], 'This is a note\n' +

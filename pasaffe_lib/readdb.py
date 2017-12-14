@@ -256,10 +256,10 @@ class PassSafeFile:
     def get_folder_list(self, uuid):
         '''Returns a list of folders an entry belongs to'''
         if uuid not in self.records:
-            return None
+            return []
 
         if 2 not in self.records[uuid]:
-            return None
+            return []
 
         return (self._field_to_folder_list(self.records[uuid][2]))
 

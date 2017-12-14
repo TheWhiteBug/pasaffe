@@ -76,7 +76,7 @@ class TestPasaffe025(unittest.TestCase):
     def test_entry_1(self):
         uuid = '2db404cb1cf50cb15b16e8df8629530b'
         self.assertFalse(2 in self.passfile.records[uuid])
-        self.assertEqual(self.passfile.get_folder_list(uuid), None)
+        self.assertEqual(self.passfile.get_folder_list(uuid), [])
         self.assertEqual(self.passfile.records[uuid][3], 'topentry1')
         self.assertEqual(self.passfile.records[uuid][4], 'username1')
         self.assertEqual(self.passfile.records[uuid][5], 'This is a note')

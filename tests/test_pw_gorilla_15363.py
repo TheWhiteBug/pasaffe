@@ -73,7 +73,7 @@ class TestPasswordGorilla15363(unittest.TestCase):
     def test_entry_2(self):
         uuid = '666b02ae0f574d4549f8f57ddae70d77'
         self.assertFalse(2 in self.passfile.records[uuid])
-        self.assertEqual(self.passfile.get_folder_list(uuid), None)
+        self.assertEqual(self.passfile.get_folder_list(uuid), [])
         self.assertEqual(self.passfile.records[uuid][3], 'toplevel1')
         self.assertEqual(self.passfile.records[uuid][4], 'usernametop')
         self.assertEqual(self.passfile.records[uuid][5], 'This is a note')
