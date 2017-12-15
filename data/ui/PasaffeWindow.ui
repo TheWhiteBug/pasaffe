@@ -611,7 +611,7 @@
                 <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">Edit</property>
                 <property name="use_underline">True</property>
-                <property name="icon-name">document-edit-symbolic</property>
+                <property name="icon-name">document-properties-symbolic</property>
               </object>
               <packing>
                 <property name="expand">False</property>
