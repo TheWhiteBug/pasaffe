@@ -6,6 +6,7 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
    - Set window title based on current loaded file. Thanks to Tristan Hill.
    - Switch to symbolic icons
+   - Updated translations
 
  * Bug fixes:
    - Make password window non-resizable
