@@ -280,7 +280,7 @@ class PasaffeWindow(Window):
             parent = self.create_folders(record.path)
             if record.name != "":
                 self.ui.liststore1.append(parent,
-                                          ["gtk-file",
+                                          ["text-x-generic-symbolic",
                                            record.name,
                                            record.uuid])
         self.set_tree_expansion()
@@ -797,7 +797,7 @@ class PasaffeWindow(Window):
         # TODO: make sure folder name is unique in same level
 
         new_iter = self.ui.liststore1.append(treeiter,
-                                             ['gtk-directory',
+                                             ['inode-directory-symbolic',
                                               _('New Folder'),
                                               "pasaffe_treenode.New Folder"])
         if treeiter is not None:

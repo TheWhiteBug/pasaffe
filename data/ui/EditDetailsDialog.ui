@@ -299,7 +299,7 @@
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="icon-name">gtk-execute</property>
+    <property name="icon-name">system-run-symbolic</property>
   </object>
   <object class="GtkTextBuffer" id="notes_buffer"/>
   <object class="GtkMenu" id="password_menu">
