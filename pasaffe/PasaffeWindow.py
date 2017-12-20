@@ -239,7 +239,7 @@ class PasaffeWindow(Window):
                     node = self.ui.liststore1.iter_next(node)
             if not found:
                 parent = self.ui.liststore1.append(parent,
-                                                   ["gtk-directory",
+                                                   ["inode-directory-symbolic",
                                                     folder,
                                                     "pasaffe_treenode." +
                                                     folder])
