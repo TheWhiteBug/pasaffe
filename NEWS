@@ -1,7 +1,7 @@
 This file summarizes the major and interesting changes for each release.
 For a detailed list of changes, please see ChangeLog.
 
-0.50 (UNRELEASED)
+0.50 (2017-12-19)
 
  * Enhancements:
    - Set window title based on current loaded file. Thanks to Tristan Hill.
