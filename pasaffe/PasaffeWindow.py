@@ -742,7 +742,11 @@ class PasaffeWindow(Window):
                 path, col, _cellx, _celly = pthinfo
                 treeview.grab_focus()
                 treeview.set_cursor(path, col, 0)
-                self.ui.menu_popup.popup(None, None, None, None, 3, event_time)
+
+                if not Gtk.check_version(3, 22, 0):
+                    self.ui.menu_popup.popup_at_pointer(event)
+                else:
+                    self.ui.menu_popup.popup(None, None, None, None, 3, event_time)
 
     def add_entry(self):
         self.disable_idle_timeout()

@@ -17,6 +17,7 @@
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gio, Gtk  # pylint: disable=E0611
+from gi.repository import Gdk  # pylint: disable=E0611
 
 from pasaffe_lib.helpersgui import get_builder
 from pasaffe_lib.helpers import gen_password
@@ -71,16 +72,16 @@ class EditDetailsDialog(Gtk.Dialog):
         """
         pass
 
-    def on_password_button_clicked(self, _widget):
+    def on_password_button_clicked(self, widget):
         """The user has clicked the password button"""
-        self.show_passwords_menu()
+        self.show_passwords_menu(widget)
 
     def on_menuitem_activate(self, widget):
         """The user has clicked on a menu item"""
         label = widget.get_label()
         self.ui.password_entry.set_text(label)
 
-    def show_passwords_menu(self):
+    def show_passwords_menu(self, widget):
         """Generate some new passwords"""
         try:
             passwords = gen_password(6, self.password_length)
@@ -90,10 +91,19 @@ class EditDetailsDialog(Gtk.Dialog):
             self.ui.password4.set_label(passwords[3].decode('utf-8'))
             self.ui.password5.set_label(passwords[4].decode('utf-8'))
             self.ui.password6.set_label(passwords[5].decode('utf-8'))
-            self.ui.password_menu.popup(None, None, None, None,
-                                        0, Gtk.get_current_event_time())
+
         except:
             pass
+
+        if not Gtk.check_version(3, 22, 0):
+            self.ui.password_menu.popup_at_widget(widget,
+                                                  Gdk.Gravity.SOUTH_WEST,
+                                                  Gdk.Gravity.NORTH_WEST,
+                                                  None)
+        else:
+            self.ui.password_menu.popup(None, None, None, None,
+                                        0, Gtk.get_current_event_time())
+
 
 if __name__ == "__main__":
     dialog = EditDetailsDialog()
