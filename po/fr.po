@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-20 12:34-0500\n"
-"PO-Revision-Date: 2017-12-15 17:02+0000\n"
+"PO-Revision-Date: 2018-12-07 12:09+0000\n"
 "Last-Translator: Marc Deslauriers <marc.deslauriers@canonical.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-12-21 05:23+0000\n"
-"X-Generator: Launchpad (build 18511)\n"
+"X-Launchpad-Export-Date: 2018-12-08 05:36+0000\n"
+"X-Generator: Launchpad (build 18831)\n"
 "Language: fr\n"
 
 #: ../data/ui/EditDetailsDialog.ui.h:1 ../data/ui/NewDatabaseDialog.ui.h:1
@@ -135,11 +135,11 @@ msgstr ""
 "\n"
 "Launchpad Contributions:\n"
 "  Binnette https://launchpad.net/~binnette\n"
+"  Cedric Puchalver https://launchpad.net/~cpuchalver\n"
 "  Eliovir https://launchpad.net/~eliovir\n"
 "  Jean-Marc https://launchpad.net/~m-balthazar\n"
 "  LEROY Jean-Christophe https://launchpad.net/~celtic2-deactivatedaccount\n"
 "  Marc Deslauriers https://launchpad.net/~mdeslaur\n"
-"  demonipuch https://launchpad.net/~demonipuch\n"
 "  londumas https://launchpad.net/~helion331990"
 
 #: ../data/ui/PasaffeWindow.ui.h:2
@@ -308,7 +308,7 @@ msgstr "Résultat suivant"
 
 #: ../data/ui/PasaffeWindow.ui.h:43
 msgid "<big><b>The password database is currently locked.</b></big>"
-msgstr "<big><b>La base de données est vérouillée.</b></big>"
+msgstr "<big><b>La base de données est verrouillée.</b></big>"
 
 #: ../data/ui/PasaffeWindow.ui.h:44
 msgid "_Quit"
