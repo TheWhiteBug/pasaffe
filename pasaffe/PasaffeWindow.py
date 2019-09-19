@@ -264,10 +264,13 @@ class PasaffeWindow(Window):
         # Then add records
         for uuid in self.passfile.records:
             title = self.passfile.get_title(uuid)
+            username = self.passfile.get_username(uuid)
             folder = self._fixup_folders(self.passfile.get_folder_list(uuid))
             # Empty names don't display properly in tree
             if title in [None, ""]:
                 title = _("[Untitled]")
+            elif username not in [None, ""]:
+                title = title + " [" + username + "]"
             entry = PathEntry(title,
                               uuid,
                               folder)
@@ -1020,7 +1023,7 @@ class PasaffeWindow(Window):
                         self.passfile.records[entry_uuid][record_type] = \
                             new_value
                         # Reset the entire tree on name and path changes
-                        if record_type in [2, 3]:
+                        if record_type in [2, 3, 4]:
                             tree_changed = True
 
                         # Update the password changed date
