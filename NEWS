@@ -4,6 +4,8 @@ For a detailed list of changes, please see ChangeLog.
 0.52 (UNRELEASED)
 
  * Enhancements:
+   - Show copy menu items first in the tree item context menu
+   - Display username in the tree view item title
 
  * Bug fixes:
    - Fix copy truncates password containing pound sign (LP: #1819141)
