@@ -1321,9 +1321,9 @@ class PasaffeWindow(Window):
             if item in self.passfile.records[entry_uuid]:
                 for atom in [Gdk.SELECTION_CLIPBOARD, Gdk.SELECTION_PRIMARY]:
                     clipboard = Gtk.Clipboard.get(atom)
-                    clipboard.set_text(
-                        self.passfile.records[entry_uuid][item],
-                        len(self.passfile.records[entry_uuid][item]))
+                    value = self.passfile.records[entry_uuid][item]
+                    length = len(value.encode('utf-8'))
+                    clipboard.set_text(value, length)
                     clipboard.store()
                 self.set_clipboard_timeout()
 
