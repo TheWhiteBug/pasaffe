@@ -793,6 +793,36 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
+      <object class="GtkMenuItem" id="username_copy1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Copy Username</property>
+        <signal name="activate" handler="on_username_copy_activate" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="password_copy1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Copy Password</property>
+        <signal name="activate" handler="on_password_copy_activate" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="url_copy1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Copy URL</property>
+        <signal name="activate" handler="on_url_copy_activate" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="separatormenuitem3">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+      </object>
+    </child>
+    <child>
       <object class="GtkMenuItem" id="mnu_add1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
@@ -837,36 +867,6 @@
         <property name="use_underline">True</property>
         <property name="use_stock">False</property>
         <signal name="activate" handler="on_mnu_delete_activate" swapped="no"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkSeparatorMenuItem" id="separatormenuitem3">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="url_copy1">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Copy URL</property>
-        <signal name="activate" handler="on_url_copy_activate" swapped="no"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="username_copy1">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Copy Username</property>
-        <signal name="activate" handler="on_username_copy_activate" swapped="no"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="password_copy1">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Copy Password</property>
-        <signal name="activate" handler="on_password_copy_activate" swapped="no"/>
       </object>
     </child>
   </object>
