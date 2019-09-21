@@ -1249,6 +1249,17 @@ class PasaffeWindow(Window):
         folder = self.get_folders_from_iter(treemodel, treeiter)
         self.set_folder_state(folder, False)
 
+    def on_treeview1_key_pressed(self, treeview, event):
+        if event.keyval in [Gdk.KEY_Return, Gdk.KEY_KP_Enter]:
+            treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+            if treeiter is not None:
+                entry_uuid = treemodel.get_value(treeiter, 2)
+                if "pasaffe_treenode." in entry_uuid:
+                    return
+                else:
+                    self.edit_entry(entry_uuid)
+                    return True
+
     def save_db(self):
         if self.get_save_status() is True:
             self.save_tree_expansion()
