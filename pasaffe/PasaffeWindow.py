@@ -1227,9 +1227,17 @@ class PasaffeWindow(Window):
         treemodel, treeiter = treeview.get_selection().get_selected()
         entry_uuid = treemodel.get_value(treeiter, 2)
         if "pasaffe_treenode." in entry_uuid:
-            self.edit_folder(treemodel, treeiter)
+            # Toggle expanded state of folder
+            folder = self.get_folders_from_iter(treemodel, treeiter)
+            folder_field = folder_list_to_field(folder)
+            path = self.ui.treeview1.get_model().get_path(treeiter)
+            if folder_field in self.folder_state and self.folder_state[folder_field] is True:
+                self.ui.treeview1.collapse_row(path)
+            else:
+                self.ui.treeview1.expand_row(path, False)
         else:
-            self.edit_entry(entry_uuid)
+            # Copy password
+            self.copy_selected_entry_item(6)
 
     def on_treeview1_row_expanded(self, treeview, treeiter, _path):
         treemodel = treeview.get_model()
