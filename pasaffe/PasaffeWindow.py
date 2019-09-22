@@ -452,18 +452,21 @@ class PasaffeWindow(Window):
                 self.ui.treeview1.expand_row(path, False)
                 parent = treemodel.iter_parent(parent)
 
-            self.ui.treeview1.get_selection().select_iter(item)
-            self.display_data(uuid)
+            if "pasaffe_treenode." in uuid:
+                self.display_folder(treemodel.get_value(item, 1))
+            else:
+                self.display_data(uuid)
             path = treemodel.get_path(item)
             self.ui.treeview1.scroll_to_cell(path)
+            self.ui.treeview1.set_cursor(path)
 
     def goto_folder(self, folders):
         item = self.search_folder(folders)
         if item is not None:
-            self.ui.treeview1.get_selection().select_iter(item)
             self.display_folder(self.ui.liststore1.get_value(item, 1))
             path = self.ui.treeview1.get_model().get_path(item)
             self.ui.treeview1.scroll_to_cell(path)
+            self.ui.treeview1.set_cursor(path)
 
     def search_uuid(self, uuid, item=None, toplevel=True):
         if toplevel is True:
@@ -1281,7 +1284,6 @@ class PasaffeWindow(Window):
                 folders = self.get_folders_from_iter(treemodel, treeiter)
             if folders:
                 # Select parent folder
-                print("Folders", folder_list_to_field(folders))
                 self.goto_folder(folders)
             return True
         if event.keyval == Gdk.KEY_Right:
@@ -1292,6 +1294,10 @@ class PasaffeWindow(Window):
                     self.expand_folder(folder)
                     return True
                 # Select first child item
+                iterchild = self.ui.treeview1.get_model().iter_children(treeiter)
+                if iterchild:
+                    uuid = treemodel.get_value(iterchild, 2)
+                    self.goto_uuid(uuid)
                 return True
 
     def save_db(self):
