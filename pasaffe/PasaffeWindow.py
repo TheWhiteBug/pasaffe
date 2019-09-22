@@ -304,7 +304,9 @@ class PasaffeWindow(Window):
                                   self.drag_data_received_data)
 
     def set_tree_expansion(self):
-        for folder in self.folder_state:
+        folders = list(self.folder_state.copy().keys())
+        folders.sort()
+        for folder in folders:
             folder_iter = self.search_folder(field_to_folder_list(folder))
             if folder_iter is not None:
                 path = self.ui.treeview1.get_model().get_path(folder_iter)
@@ -1230,14 +1232,21 @@ class PasaffeWindow(Window):
             # Toggle expanded state of folder
             folder = self.get_folders_from_iter(treemodel, treeiter)
             folder_field = folder_list_to_field(folder)
-            path = self.ui.treeview1.get_model().get_path(treeiter)
             if folder_field in self.folder_state and self.folder_state[folder_field] is True:
-                self.ui.treeview1.collapse_row(path)
+                self.collapse_folder(folder)
             else:
-                self.ui.treeview1.expand_row(path, False)
+                self.expand_folder(folder)
         else:
             # Copy password
             self.copy_selected_entry_item(6)
+
+    def collapse_folder(self, folder):
+        self.set_folder_state(folder, False)
+        self.set_tree_expansion()
+
+    def expand_folder(self, folder):
+        self.set_folder_state(folder, True)
+        self.set_tree_expansion()
 
     def on_treeview1_row_expanded(self, treeview, treeiter, _path):
         treemodel = treeview.get_model()
@@ -1250,15 +1259,40 @@ class PasaffeWindow(Window):
         self.set_folder_state(folder, False)
 
     def on_treeview1_key_pressed(self, treeview, event):
+        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+        if treeiter is None:
+            return
+        entry_uuid = treemodel.get_value(treeiter, 2)
         if event.keyval in [Gdk.KEY_Return, Gdk.KEY_KP_Enter]:
-            treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
-            if treeiter is not None:
-                entry_uuid = treemodel.get_value(treeiter, 2)
-                if "pasaffe_treenode." in entry_uuid:
-                    return
-                else:
-                    self.edit_entry(entry_uuid)
+            if "pasaffe_treenode." in entry_uuid:
+                return
+            else:
+                self.edit_entry(entry_uuid)
+                return True
+        if event.keyval == Gdk.KEY_Left:
+            if "pasaffe_treenode." in entry_uuid:
+                folder = self.get_folders_from_iter(treemodel, treeiter)
+                folder_field = folder_list_to_field(folder)
+                if folder_field in self.folder_state and self.folder_state[folder_field] is True:
+                    self.collapse_folder(folder)
                     return True
+                folders = self.get_folders_from_iter(treemodel, treeiter)[:-1]
+            else:
+                folders = self.get_folders_from_iter(treemodel, treeiter)
+            if folders:
+                # Select parent folder
+                print("Folders", folder_list_to_field(folders))
+                self.goto_folder(folders)
+            return True
+        if event.keyval == Gdk.KEY_Right:
+            if "pasaffe_treenode." in entry_uuid:
+                folder = self.get_folders_from_iter(treemodel, treeiter)
+                folder_field = folder_list_to_field(folder)
+                if folder_field not in self.folder_state or self.folder_state[folder_field] is False:
+                    self.expand_folder(folder)
+                    return True
+                # Select first child item
+                return True
 
     def save_db(self):
         if self.get_save_status() is True:
