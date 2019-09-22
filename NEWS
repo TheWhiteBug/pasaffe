@@ -1,7 +1,7 @@
 This file summarizes the major and interesting changes for each release.
 For a detailed list of changes, please see ChangeLog.
 
-0.53 (UNRELEASED)
+0.53 (2019-09-22)
 
  * Enhancements:
    - Double click on tree item toggles folder expanded state or copies password.
