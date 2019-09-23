@@ -84,6 +84,7 @@ class PasaffeWindow(Window):
         self.is_locked = False
         self.idle_id = None
         self.clipboard_id = None
+        self.last_copied = None
         self.folder_state = {}
 
         if database is None:
@@ -1386,6 +1387,7 @@ class PasaffeWindow(Window):
                     value = self.passfile.records[entry_uuid][item]
                     length = len(value.encode('utf-8'))
                     clipboard.set_text(value, length)
+                    self.last_copied = value
                     clipboard.store()
                 self.set_clipboard_timeout()
 
@@ -1553,11 +1555,16 @@ class PasaffeWindow(Window):
 
     def lock_screen(self):
         self.disable_idle_timeout()
+        self.clear_clipboard()
         self.is_locked = True
         self.ui.pasaffe_vbox.reparent(self.ui.empty_window)
         self.ui.lock_vbox.reparent(self.ui.pasaffe_window)
         self.set_menu_sensitive(False)
         self.ui.lock_unlock_button.grab_focus()
+
+    def on_pasaffe_window_delete_event(self, _window, event):
+        # Pasaffe window is closing
+        self.clear_clipboard()
 
     def on_lock_unlock_button_clicked(self, _button):
         success = False
@@ -1702,13 +1709,24 @@ class PasaffeWindow(Window):
                 clipboard_time, self.clipboard_timeout_reached)
 
     def clipboard_timeout_reached(self):
+        self.clear_clipboard()
+
+    def clear_clipboard(self):
         if self.clipboard_id is not None:
             GLib.source_remove(self.clipboard_id)
             self.clipboard_id = None
+        found_copy_in_clipboard = False
         for atom in [Gdk.SELECTION_CLIPBOARD, Gdk.SELECTION_PRIMARY]:
             clipboard = Gtk.Clipboard.get(atom)
-            clipboard.set_text("", 0)
-            clipboard.store()
+            text = clipboard.wait_for_text()
+            if text is not None and self.last_copied is not None and text == self.last_copied:
+                found_copy_in_clipboard = True
+        if found_copy_in_clipboard:
+            for atom in [Gdk.SELECTION_CLIPBOARD, Gdk.SELECTION_PRIMARY]:
+                clipboard = Gtk.Clipboard.get(atom)
+                clipboard.set_text("", 0)
+                clipboard.store()
+        self.last_copied = None
 
     def set_show_password_status(self):
         visible = self.settings.get_boolean('visible-secrets')
