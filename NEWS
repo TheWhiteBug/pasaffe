@@ -4,6 +4,8 @@ For a detailed list of changes, please see ChangeLog.
 0.54 (UNRELEASED)
 
  * Enhancements:
+   - Clear the clipboard when locking or closing the window.
+     Do not clear clipboard content from another program.
 
  * Bug fixes:
 
