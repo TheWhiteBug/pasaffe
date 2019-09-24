@@ -978,6 +978,12 @@ class PasaffeWindow(Window):
                         widget_name).set_text(
                             self.passfile.records[entry_uuid][record_type])
 
+            # Set a Mono font so certain characters don't look alike
+            # How do I do this in the glade file?
+            password_entry = self.editdetails_dialog.builder.get_object(
+                'password_entry')
+            password_entry.modify_font(Pango.FontDescription('Mono'))
+
             self.set_entry_window_size()
             self.editdetails_dialog.set_transient_for(self)
             response = self.editdetails_dialog.run()

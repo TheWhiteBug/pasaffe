@@ -8,6 +8,8 @@ For a detailed list of changes, please see ChangeLog.
      Do not clear clipboard content from another program.
    - Make Double-click behaviour configurable.
    - Make displaying usernames in tree configurable.
+   - Password field is now displayed in a monospaced font to prevent
+     certain characters from looking the same.
 
  * Bug fixes:
 
