@@ -16,12 +16,16 @@ For a detailed list of changes, please see ChangeLog.
 0.53 (2019-09-22)
 
  * Enhancements:
-   - Double click on tree item toggles folder expanded state or copies password.
-   - On enter, toggles folder expanded state or opens password entry for edit.
-   - Navigate tree with left & right key presses: toggling expanded state or going to parent / child.
+   - Double click on tree item toggles folder expanded state or copies
+     password.
+   - On enter, toggles folder expanded state or opens password entry for
+     edit.
+   - Navigate tree with left & right key presses: toggling expanded state
+     or going to parent / child.
 
  * Bug fixes:
-   - Fixed bug in set_tree_expansion which could result in only partial expansion of the tree.
+   - Fixed bug in set_tree_expansion which could result in only partial
+     expansion of the tree.
    - goto_uuid now also correctly displays folders.
 
 0.52 (2019-09-19)
