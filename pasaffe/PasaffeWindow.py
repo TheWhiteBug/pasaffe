@@ -84,6 +84,7 @@ class PasaffeWindow(Window):
         self.is_locked = False
         self.idle_id = None
         self.clipboard_id = None
+        self.last_copied = None
         self.folder_state = {}
 
         if database is None:
@@ -264,10 +265,13 @@ class PasaffeWindow(Window):
         # Then add records
         for uuid in self.passfile.records:
             title = self.passfile.get_title(uuid)
+            username = self.passfile.get_username(uuid)
             folder = self._fixup_folders(self.passfile.get_folder_list(uuid))
             # Empty names don't display properly in tree
             if title in [None, ""]:
                 title = _("[Untitled]")
+            elif username not in [None, ""]:
+                title = title + " [" + username + "]"
             entry = PathEntry(title,
                               uuid,
                               folder)
@@ -301,7 +305,9 @@ class PasaffeWindow(Window):
                                   self.drag_data_received_data)
 
     def set_tree_expansion(self):
-        for folder in self.folder_state:
+        folders = list(self.folder_state.copy().keys())
+        folders.sort()
+        for folder in folders:
             folder_iter = self.search_folder(field_to_folder_list(folder))
             if folder_iter is not None:
                 path = self.ui.treeview1.get_model().get_path(folder_iter)
@@ -447,18 +453,21 @@ class PasaffeWindow(Window):
                 self.ui.treeview1.expand_row(path, False)
                 parent = treemodel.iter_parent(parent)
 
-            self.ui.treeview1.get_selection().select_iter(item)
-            self.display_data(uuid)
+            if "pasaffe_treenode." in uuid:
+                self.display_folder(treemodel.get_value(item, 1))
+            else:
+                self.display_data(uuid)
             path = treemodel.get_path(item)
             self.ui.treeview1.scroll_to_cell(path)
+            self.ui.treeview1.set_cursor(path)
 
     def goto_folder(self, folders):
         item = self.search_folder(folders)
         if item is not None:
-            self.ui.treeview1.get_selection().select_iter(item)
             self.display_folder(self.ui.liststore1.get_value(item, 1))
             path = self.ui.treeview1.get_model().get_path(item)
             self.ui.treeview1.scroll_to_cell(path)
+            self.ui.treeview1.set_cursor(path)
 
     def search_uuid(self, uuid, item=None, toplevel=True):
         if toplevel is True:
@@ -1020,7 +1029,7 @@ class PasaffeWindow(Window):
                         self.passfile.records[entry_uuid][record_type] = \
                             new_value
                         # Reset the entire tree on name and path changes
-                        if record_type in [2, 3]:
+                        if record_type in [2, 3, 4]:
                             tree_changed = True
 
                         # Update the password changed date
@@ -1224,9 +1233,24 @@ class PasaffeWindow(Window):
         treemodel, treeiter = treeview.get_selection().get_selected()
         entry_uuid = treemodel.get_value(treeiter, 2)
         if "pasaffe_treenode." in entry_uuid:
-            self.edit_folder(treemodel, treeiter)
+            # Toggle expanded state of folder
+            folder = self.get_folders_from_iter(treemodel, treeiter)
+            folder_field = folder_list_to_field(folder)
+            if folder_field in self.folder_state and self.folder_state[folder_field] is True:
+                self.collapse_folder(folder)
+            else:
+                self.expand_folder(folder)
         else:
-            self.edit_entry(entry_uuid)
+            # Copy password
+            self.copy_selected_entry_item(6)
+
+    def collapse_folder(self, folder):
+        self.set_folder_state(folder, False)
+        self.set_tree_expansion()
+
+    def expand_folder(self, folder):
+        self.set_folder_state(folder, True)
+        self.set_tree_expansion()
 
     def on_treeview1_row_expanded(self, treeview, treeiter, _path):
         treemodel = treeview.get_model()
@@ -1237,6 +1261,45 @@ class PasaffeWindow(Window):
         treemodel = treeview.get_model()
         folder = self.get_folders_from_iter(treemodel, treeiter)
         self.set_folder_state(folder, False)
+
+    def on_treeview1_key_pressed(self, treeview, event):
+        treemodel, treeiter = self.ui.treeview1.get_selection().get_selected()
+        if treeiter is None:
+            return
+        entry_uuid = treemodel.get_value(treeiter, 2)
+        if event.keyval in [Gdk.KEY_Return, Gdk.KEY_KP_Enter]:
+            if "pasaffe_treenode." in entry_uuid:
+                return
+            else:
+                self.edit_entry(entry_uuid)
+                return True
+        if event.keyval == Gdk.KEY_Left:
+            if "pasaffe_treenode." in entry_uuid:
+                folder = self.get_folders_from_iter(treemodel, treeiter)
+                folder_field = folder_list_to_field(folder)
+                if folder_field in self.folder_state and self.folder_state[folder_field] is True:
+                    self.collapse_folder(folder)
+                    return True
+                folders = self.get_folders_from_iter(treemodel, treeiter)[:-1]
+            else:
+                folders = self.get_folders_from_iter(treemodel, treeiter)
+            if folders:
+                # Select parent folder
+                self.goto_folder(folders)
+            return True
+        if event.keyval == Gdk.KEY_Right:
+            if "pasaffe_treenode." in entry_uuid:
+                folder = self.get_folders_from_iter(treemodel, treeiter)
+                folder_field = folder_list_to_field(folder)
+                if folder_field not in self.folder_state or self.folder_state[folder_field] is False:
+                    self.expand_folder(folder)
+                    return True
+                # Select first child item
+                iterchild = self.ui.treeview1.get_model().iter_children(treeiter)
+                if iterchild:
+                    uuid = treemodel.get_value(iterchild, 2)
+                    self.goto_uuid(uuid)
+                return True
 
     def save_db(self):
         if self.get_save_status() is True:
@@ -1321,9 +1384,10 @@ class PasaffeWindow(Window):
             if item in self.passfile.records[entry_uuid]:
                 for atom in [Gdk.SELECTION_CLIPBOARD, Gdk.SELECTION_PRIMARY]:
                     clipboard = Gtk.Clipboard.get(atom)
-                    clipboard.set_text(
-                        self.passfile.records[entry_uuid][item],
-                        len(self.passfile.records[entry_uuid][item]))
+                    value = self.passfile.records[entry_uuid][item]
+                    length = len(value.encode('utf-8'))
+                    clipboard.set_text(value, length)
+                    self.last_copied = value
                     clipboard.store()
                 self.set_clipboard_timeout()
 
@@ -1491,11 +1555,16 @@ class PasaffeWindow(Window):
 
     def lock_screen(self):
         self.disable_idle_timeout()
+        self.clear_clipboard()
         self.is_locked = True
         self.ui.pasaffe_vbox.reparent(self.ui.empty_window)
         self.ui.lock_vbox.reparent(self.ui.pasaffe_window)
         self.set_menu_sensitive(False)
         self.ui.lock_unlock_button.grab_focus()
+
+    def on_pasaffe_window_delete_event(self, _window, event):
+        # Pasaffe window is closing
+        self.clear_clipboard()
 
     def on_lock_unlock_button_clicked(self, _button):
         success = False
@@ -1640,13 +1709,24 @@ class PasaffeWindow(Window):
                 clipboard_time, self.clipboard_timeout_reached)
 
     def clipboard_timeout_reached(self):
+        self.clear_clipboard()
+
+    def clear_clipboard(self):
         if self.clipboard_id is not None:
             GLib.source_remove(self.clipboard_id)
             self.clipboard_id = None
+        found_copy_in_clipboard = False
         for atom in [Gdk.SELECTION_CLIPBOARD, Gdk.SELECTION_PRIMARY]:
             clipboard = Gtk.Clipboard.get(atom)
-            clipboard.set_text("", 0)
-            clipboard.store()
+            text = clipboard.wait_for_text()
+            if text is not None and self.last_copied is not None and text == self.last_copied:
+                found_copy_in_clipboard = True
+        if found_copy_in_clipboard:
+            for atom in [Gdk.SELECTION_CLIPBOARD, Gdk.SELECTION_PRIMARY]:
+                clipboard = Gtk.Clipboard.get(atom)
+                clipboard.set_text("", 0)
+                clipboard.store()
+        self.last_copied = None
 
     def set_show_password_status(self):
         visible = self.settings.get_boolean('visible-secrets')

@@ -41,6 +41,7 @@
     <property name="default_width">600</property>
     <property name="default_height">600</property>
     <property name="icon_name">pasaffe</property>
+    <signal name="delete-event" handler="on_pasaffe_window_delete_event" swapped="no"/>
     <child>
       <object class="GtkBox" id="pasaffe_vbox">
         <property name="visible">True</property>
@@ -552,6 +553,7 @@
                     <signal name="row-activated" handler="on_treeview1_row_activated" swapped="no"/>
                     <signal name="row-collapsed" handler="on_treeview1_row_collapsed" swapped="no"/>
                     <signal name="row-expanded" handler="on_treeview1_row_expanded" swapped="no"/>
+                    <signal name="key-press-event" handler="on_treeview1_key_pressed" swapped="no"/>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection" id="treeview-selection1"/>
                     </child>
@@ -793,6 +795,36 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
+      <object class="GtkMenuItem" id="username_copy1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Copy Username</property>
+        <signal name="activate" handler="on_username_copy_activate" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="password_copy1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Copy Password</property>
+        <signal name="activate" handler="on_password_copy_activate" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="url_copy1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Copy URL</property>
+        <signal name="activate" handler="on_url_copy_activate" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="separatormenuitem3">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+      </object>
+    </child>
+    <child>
       <object class="GtkMenuItem" id="mnu_add1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
@@ -837,36 +869,6 @@
         <property name="use_underline">True</property>
         <property name="use_stock">False</property>
         <signal name="activate" handler="on_mnu_delete_activate" swapped="no"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkSeparatorMenuItem" id="separatormenuitem3">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="url_copy1">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Copy URL</property>
-        <signal name="activate" handler="on_url_copy_activate" swapped="no"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="username_copy1">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Copy Username</property>
-        <signal name="activate" handler="on_username_copy_activate" swapped="no"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="password_copy1">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Copy Password</property>
-        <signal name="activate" handler="on_password_copy_activate" swapped="no"/>
       </object>
     </child>
   </object>
