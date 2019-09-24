@@ -56,5 +56,11 @@ class PreferencesPasaffeDialog(PreferencesDialog):
         widget = self.builder.get_object('tree-expansion')
         settings.bind("tree-expansion", widget, "active-id",
                       Gio.SettingsBindFlags.DEFAULT)
+        widget = self.builder.get_object('double-click')
+        settings.bind("double-click", widget, "active-id",
+                      Gio.SettingsBindFlags.DEFAULT)
+        widget = self.builder.get_object('display-usernames')
+        settings.bind("display-usernames", widget, "active",
+                      Gio.SettingsBindFlags.DEFAULT)
 
         # Code for other initialization actions should be added here.

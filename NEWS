@@ -6,6 +6,8 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
    - Clear the clipboard when locking or closing the window.
      Do not clear clipboard content from another program.
+   - Make Double-click behaviour configurable.
+   - Make displaying usernames in tree configurable.
 
  * Bug fixes:
 

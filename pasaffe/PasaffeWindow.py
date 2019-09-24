@@ -270,7 +270,8 @@ class PasaffeWindow(Window):
             # Empty names don't display properly in tree
             if title in [None, ""]:
                 title = _("[Untitled]")
-            elif username not in [None, ""]:
+            elif (username not in [None, ""] and
+                  self.settings.get_boolean('display-usernames') is True):
                 title = title + " [" + username + "]"
             entry = PathEntry(title,
                               uuid,
@@ -1241,8 +1242,11 @@ class PasaffeWindow(Window):
             else:
                 self.expand_folder(folder)
         else:
-            # Copy password
-            self.copy_selected_entry_item(6)
+            if self.settings.get_string('double-click') == "copies":
+                # Copy password
+                self.copy_selected_entry_item(6)
+            else:
+                self.edit_entry(entry_uuid)
 
     def collapse_folder(self, folder):
         self.set_folder_state(folder, False)

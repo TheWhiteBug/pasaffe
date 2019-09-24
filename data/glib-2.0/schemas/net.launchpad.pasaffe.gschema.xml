@@ -11,6 +11,16 @@
       <summary>Pasaffe folder expansion preference</summary>
       <description>How Pasaffe expands the folder tree when starting.</description>
     </key>
+    <key name="double-click" type="s">
+      <default>"edits"</default>
+      <summary>Pasaffe double-click behaviour</summary>
+      <description>How Pasaffe handles an entry being double-clicked.</description>
+    </key>
+    <key name="display-usernames" type="b">
+      <default>false</default>
+      <summary>Display usernames next to entry names</summary>
+      <description>When this is true, Pasaffe will display usernames next to entry names.</description>
+    </key>
     <key name="idle-timeout" type="i">
       <default>5</default>
       <summary>Timeout before Pasaffe is locked</summary>
