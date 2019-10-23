@@ -1,7 +1,7 @@
 This file summarizes the major and interesting changes for each release.
 For a detailed list of changes, please see ChangeLog.
 
-0.54 (UNRELEASED)
+0.54 (2019-10-23)
 
  * Enhancements:
    - Clear the clipboard when locking or closing the window.
