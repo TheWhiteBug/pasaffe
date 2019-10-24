@@ -7,280 +7,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-09-24 09:57-0400\n"
+"POT-Creation-Date: 2019-10-23 08:05-0400\n"
 "PO-Revision-Date: 2019-09-25 07:00+0000\n"
 "Last-Translator: Marc Deslauriers <marc.deslauriers@canonical.com>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2019-09-26 06:21+0000\n"
-"X-Generator: Launchpad (build 19048)\n"
+"X-Launchpad-Export-Date: 2019-10-24 06:37+0000\n"
+"X-Generator: Launchpad (build 469f241f4e73cc0bdffa4e30654052a2af068e06)\n"
 
-#: ../data/ui/PasswordEntryDialog.ui.h:1 ../data/ui/EditDetailsDialog.ui.h:1
-#: ../data/ui/SaveChangesDialog.ui.h:2 ../data/ui/NewDatabaseDialog.ui.h:1
-#: ../data/ui/NewPasswordDialog.ui.h:1 ../data/ui/EditFolderDialog.ui.h:1
-msgid "_Cancel"
-msgstr "_Cancel"
-
-#: ../data/ui/PasswordEntryDialog.ui.h:2 ../data/ui/EditDetailsDialog.ui.h:2
-#: ../data/ui/NewDatabaseDialog.ui.h:2 ../data/ui/NewPasswordDialog.ui.h:2
-#: ../data/ui/EditFolderDialog.ui.h:2
-msgid "_OK"
-msgstr "_OK"
-
-#: ../data/ui/PasswordEntryDialog.ui.h:3
-msgid "<big><b>Please enter your master password:</b></big>"
-msgstr "<big><b>Please enter your master password:</b></big>"
-
-#: ../data/ui/PasswordEntryDialog.ui.h:4
-msgid "Invalid password! Please try again."
-msgstr "Invalid password! Please try again."
-
-#: ../data/ui/EditDetailsDialog.ui.h:3
-msgid "<big><b>Edit entry</b></big>"
-msgstr "<big><b>Edit entry</b></big>"
-
-#: ../data/ui/EditDetailsDialog.ui.h:4
-msgid "The name for this entry"
-msgstr "The name for this entry"
-
-#: ../data/ui/EditDetailsDialog.ui.h:5
-msgid "The folder for this entry"
-msgstr "The folder for this entry"
-
-#: ../data/ui/EditDetailsDialog.ui.h:6
-msgid "The entry's username"
-msgstr "The entry's username"
-
-#: ../data/ui/EditDetailsDialog.ui.h:7
-msgid "Title:"
-msgstr "Title:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:8
-msgid "Folder:"
-msgstr "Folder:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:9 ../pasaffe/PasaffeWindow.py:566
-msgid "Username:"
-msgstr "Username:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:10 ../pasaffe/PasaffeWindow.py:574
-msgid "Password:"
-msgstr "Password:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:11 ../pasaffe/PasaffeWindow.py:588
-msgid "Notes:"
-msgstr "Notes:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:12 ../pasaffe/PasaffeWindow.py:550
-msgid "URL:"
-msgstr "URL:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:13
-msgid "The website for this entry"
-msgstr "The website for this entry"
-
-#: ../data/ui/EditDetailsDialog.ui.h:14
-msgid "Pick a random password"
-msgstr "Pick a random password"
-
-#: ../pasaffe.desktop.in.h:1 ../data/ui/PasaffeWindow.ui.h:1
+#: ../data/ui/PasaffeWindow.ui.h:1 ../pasaffe.desktop.in.h:1
 msgid "Pasaffe"
 msgstr "Pasaffe"
-
-#: ../pasaffe.desktop.in.h:2
-msgid "Pasaffe password manager"
-msgstr "Pasaffe password manager"
-
-#: ../data/ui/SaveChangesDialog.ui.h:1
-msgid "Close without Saving"
-msgstr "Close without Saving"
-
-#: ../data/ui/SaveChangesDialog.ui.h:3 ../data/ui/PasaffeWindow.ui.h:3
-msgid "_Save"
-msgstr "_Save"
-
-#: ../data/ui/SaveChangesDialog.ui.h:4
-msgid ""
-"<big><b>Save changes to your password database before closing?</b></big>"
-msgstr ""
-"<big><b>Save changes to your password database before closing?</b></big>"
-
-#: ../data/ui/SaveChangesDialog.ui.h:5
-msgid "Your changes will be lost if you don't save them."
-msgstr "Your changes will be lost if you don't save them."
-
-#: ../data/ui/NewDatabaseDialog.ui.h:3
-msgid "<big><b>Welcome to Pasaffe!</b></big>"
-msgstr "<big><b>Welcome to Pasaffe!</b></big>"
-
-#: ../data/ui/NewDatabaseDialog.ui.h:4
-msgid ""
-"No existing database was found.\n"
-"A new one will be created.\n"
-"Please enter a master password to protect it."
-msgstr ""
-"No existing database was found.\n"
-"A new one will be created.\n"
-"Please enter a master password to protect it."
-
-#: ../data/ui/NewDatabaseDialog.ui.h:7 ../pasaffe/PasaffeWindow.py:1543
-msgid "Passwords don't match! Please try again."
-msgstr "Passwords don't match! Please try again."
-
-#: ../data/ui/NewDatabaseDialog.ui.h:8
-msgid "Enter password:"
-msgstr "Enter password:"
-
-#: ../data/ui/NewDatabaseDialog.ui.h:9
-msgid "Confirm password:"
-msgstr "Confirm password:"
-
-#: ../data/ui/NewPasswordDialog.ui.h:3
-msgid "<big><b>Change master password</b></big>"
-msgstr "<big><b>Change master password</b></big>"
-
-#: ../data/ui/NewPasswordDialog.ui.h:4
-msgid ""
-"Enter your old master password,\n"
-"and a new master password.\n"
-"You must confirm the new password."
-msgstr ""
-"Enter your old master password,\n"
-"and a new master password.\n"
-"You must confirm the new password."
-
-#: ../data/ui/NewPasswordDialog.ui.h:7
-msgid "error message"
-msgstr "error message"
-
-#: ../data/ui/NewPasswordDialog.ui.h:8
-msgid "Old password:"
-msgstr "Old password:"
-
-#: ../data/ui/NewPasswordDialog.ui.h:9
-msgid "New password:"
-msgstr "New password:"
-
-#: ../data/ui/NewPasswordDialog.ui.h:10
-msgid "Confirm new password:"
-msgstr "Confirm new password:"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:1
-msgid "start expanded"
-msgstr "start expanded"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:2
-msgid "start collapsed"
-msgstr "start collapsed"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:3
-msgid "are remembered from last save"
-msgstr "are remembered from last save"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:4
-msgid "edits entry"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:5
-msgid "copies password"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:6
-msgid "Pasaffe Preferences"
-msgstr "Pasaffe Preferences"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:7 ../data/ui/PasaffeWindow.ui.h:21
-msgid "_Help"
-msgstr "_Help"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:8 ../data/ui/PasaffeWindow.ui.h:6
-msgid "_Close"
-msgstr "_Close"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:9
-msgid "Automatically save changes"
-msgstr "Automatically save changes"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:10
-msgid "Display secrets by default"
-msgstr "Display secrets by default"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:11
-msgid "Only passwords are secret"
-msgstr "Only passwords are secret"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:12
-msgid "<b>Secrets</b>"
-msgstr "<b>Secrets</b>"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:13
-msgid "Lock database after"
-msgstr "Lock database after"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:14
-msgid "minutes"
-msgstr "minutes"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:15
-msgid "<b>Lock</b>"
-msgstr "<b>Lock</b>"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:16
-msgid "Passwords are"
-msgstr "Passwords are"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:17
-msgid "characters long"
-msgstr "characters long"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:18
-msgid "<b>Password Generator</b>"
-msgstr "<b>Password Generator</b>"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:19
-msgid "Folders"
-msgstr "Folders"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:20
-msgid "Double-click"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:21
-msgid "Display usernames in tree"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:22
-msgid "<b>Folder Preferences</b>"
-msgstr "<b>Folder Preferences</b>"
-
-#: ../data/ui/AboutPasaffeDialog.ui.h:1
-msgid "http://www.launchpad.net/pasaffe"
-msgstr "http://www.launchpad.net/pasaffe"
-
-#: ../data/ui/AboutPasaffeDialog.ui.h:2
-msgid "translator-credits"
-msgstr ""
-"Launchpad Contributions:\n"
-"  Anthony Harrington https://launchpad.net/~linuxchemist\n"
-"  Marc Deslauriers https://launchpad.net/~mdeslaur"
-
-#: ../pasaffe/__init__.py:40
-msgid "Show debug messages (-vv debugs pasaffe_lib also)"
-msgstr "Show debug messages (-vv debugs pasaffe_lib also)"
-
-#: ../pasaffe/__init__.py:43
-msgid "use database FILE"
-msgstr "use database FILE"
-
-#: ../pasaffe/__init__.py:46
-msgid "set database as default"
-msgstr "set database as default"
 
 #: ../data/ui/PasaffeWindow.ui.h:2
 msgid "_File"
 msgstr "_File"
+
+#: ../data/ui/PasaffeWindow.ui.h:3 ../data/ui/SaveChangesDialog.ui.h:3
+msgid "_Save"
+msgstr "_Save"
 
 #: ../data/ui/PasaffeWindow.ui.h:4
 msgid "Lock"
@@ -289,6 +36,10 @@ msgstr "Lock"
 #: ../data/ui/PasaffeWindow.ui.h:5
 msgid "Change Master Password"
 msgstr "Change Master Password"
+
+#: ../data/ui/PasaffeWindow.ui.h:6 ../data/ui/PreferencesPasaffeDialog.ui.h:8
+msgid "_Close"
+msgstr "_Close"
 
 #: ../data/ui/PasaffeWindow.ui.h:7
 msgid "_Edit"
@@ -345,6 +96,10 @@ msgstr "Open URL"
 #: ../data/ui/PasaffeWindow.ui.h:20
 msgid "Database Information"
 msgstr "Database Information"
+
+#: ../data/ui/PasaffeWindow.ui.h:21 ../data/ui/PreferencesPasaffeDialog.ui.h:7
+msgid "_Help"
+msgstr "_Help"
 
 #: ../data/ui/PasaffeWindow.ui.h:22
 msgid "Contents"
@@ -441,6 +196,321 @@ msgstr "_Quit"
 #: ../data/ui/PasaffeWindow.ui.h:45
 msgid "Unlock"
 msgstr "Unlock"
+
+#: ../pasaffe_lib/helpers.py:400
+msgid "error running apg"
+msgstr ""
+
+#: ../data/ui/SaveChangesDialog.ui.h:1
+msgid "Close without Saving"
+msgstr "Close without Saving"
+
+#: ../data/ui/SaveChangesDialog.ui.h:2 ../data/ui/EditDetailsDialog.ui.h:1
+#: ../data/ui/NewDatabaseDialog.ui.h:1 ../data/ui/NewPasswordDialog.ui.h:1
+#: ../data/ui/EditFolderDialog.ui.h:1 ../data/ui/PasswordEntryDialog.ui.h:1
+msgid "_Cancel"
+msgstr "_Cancel"
+
+#: ../data/ui/SaveChangesDialog.ui.h:4
+msgid ""
+"<big><b>Save changes to your password database before closing?</b></big>"
+msgstr ""
+"<big><b>Save changes to your password database before closing?</b></big>"
+
+#: ../data/ui/SaveChangesDialog.ui.h:5
+msgid "Your changes will be lost if you don't save them."
+msgstr "Your changes will be lost if you don't save them."
+
+#: ../data/ui/AboutPasaffeDialog.ui.h:1
+msgid "http://www.launchpad.net/pasaffe"
+msgstr "http://www.launchpad.net/pasaffe"
+
+#: ../data/ui/AboutPasaffeDialog.ui.h:2
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Anthony Harrington https://launchpad.net/~linuxchemist\n"
+"  Marc Deslauriers https://launchpad.net/~mdeslaur"
+
+#: ../pasaffe.desktop.in.h:2
+msgid "Pasaffe password manager"
+msgstr "Pasaffe password manager"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:1
+msgid "start expanded"
+msgstr "start expanded"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:2
+msgid "start collapsed"
+msgstr "start collapsed"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:3
+msgid "are remembered from last save"
+msgstr "are remembered from last save"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:4
+msgid "edits entry"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:5
+msgid "copies password"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:6
+msgid "Pasaffe Preferences"
+msgstr "Pasaffe Preferences"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:9
+msgid "Automatically save changes"
+msgstr "Automatically save changes"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:10
+msgid "Display secrets by default"
+msgstr "Display secrets by default"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:11
+msgid "Only passwords are secret"
+msgstr "Only passwords are secret"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:12
+msgid "<b>Secrets</b>"
+msgstr "<b>Secrets</b>"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:13
+msgid "Lock database after"
+msgstr "Lock database after"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:14
+msgid "minutes"
+msgstr "minutes"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:15
+msgid "<b>Lock</b>"
+msgstr "<b>Lock</b>"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:16
+msgid "Passwords are"
+msgstr "Passwords are"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:17
+msgid "characters long"
+msgstr "characters long"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:18
+msgid "<b>Password Generator</b>"
+msgstr "<b>Password Generator</b>"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:19
+msgid "Folders"
+msgstr "Folders"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:20
+msgid "Double-click"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:21
+msgid "Display usernames in tree"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:22
+msgid "<b>Folder Preferences</b>"
+msgstr "<b>Folder Preferences</b>"
+
+#: ../pasaffe/__init__.py:40
+msgid "Show debug messages (-vv debugs pasaffe_lib also)"
+msgstr "Show debug messages (-vv debugs pasaffe_lib also)"
+
+#: ../pasaffe/__init__.py:43
+msgid "use database FILE"
+msgstr "use database FILE"
+
+#: ../pasaffe/__init__.py:46
+msgid "set database as default"
+msgstr "set database as default"
+
+#: ../pasaffe/PasaffeWindow.py:252 ../pasaffe/PasaffeWindow.py:272
+#: ../pasaffe/PasaffeWindow.py:540 ../pasaffe/PasaffeWindow.py:1088
+msgid "[Untitled]"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:550 ../data/ui/EditDetailsDialog.ui.h:12
+msgid "URL:"
+msgstr "URL:"
+
+#: ../pasaffe/PasaffeWindow.py:562
+msgid "Secrets are currently hidden."
+msgstr "Secrets are currently hidden."
+
+#: ../pasaffe/PasaffeWindow.py:566 ../data/ui/EditDetailsDialog.ui.h:9
+msgid "Username:"
+msgstr "Username:"
+
+#: ../pasaffe/PasaffeWindow.py:574 ../data/ui/EditDetailsDialog.ui.h:10
+msgid "Password:"
+msgstr "Password:"
+
+#: ../pasaffe/PasaffeWindow.py:588 ../data/ui/EditDetailsDialog.ui.h:11
+msgid "Notes:"
+msgstr "Notes:"
+
+#: ../pasaffe/PasaffeWindow.py:598
+msgid "Last updated:"
+msgstr "Last updated:"
+
+#: ../pasaffe/PasaffeWindow.py:608
+msgid "Password updated:"
+msgstr "Password updated:"
+
+#: ../pasaffe/PasaffeWindow.py:641
+msgid "Welcome to Pasaffe!"
+msgstr "Welcome to Pasaffe!"
+
+#: ../pasaffe/PasaffeWindow.py:646
+msgid ""
+"Pasaffe is an easy to use\n"
+"password manager."
+msgstr ""
+"Pasaffe is an easy to use\n"
+"password manager."
+
+#: ../pasaffe/PasaffeWindow.py:661
+msgid "This is a folder."
+msgstr "This is a folder."
+
+#: ../pasaffe/PasaffeWindow.py:815
+msgid "New Folder"
+msgstr "New Folder"
+
+#: ../pasaffe/PasaffeWindow.py:865
+#, python-format
+msgid ""
+"<big><b>Are you sure you wish to remove \"%s\"?</b></big>\n"
+"\n"
+msgstr ""
+"<big><b>Are you sure you wish to remove \"%s\"?</b></big>\n"
+"\n"
+
+#: ../pasaffe/PasaffeWindow.py:868
+msgid "Contents of the entry will be lost.\n"
+msgstr "Contents of the entry will be lost.\n"
+
+#: ../pasaffe/PasaffeWindow.py:888
+#, python-format
+msgid ""
+"<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
+"\n"
+msgstr ""
+"<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
+"\n"
+
+#: ../pasaffe/PasaffeWindow.py:891
+msgid "All entries in this folder will be lost.\n"
+msgstr "All entries in this folder will be lost.\n"
+
+#: ../pasaffe/PasaffeWindow.py:954
+msgid "<big><b>New entry</b></big>"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:1085
+msgid "<big><b>New folder</b></big>"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:1432
+msgid ""
+"<big><b>Database Information</b></big>\n"
+"\n"
+msgstr ""
+"<big><b>Database Information</b></big>\n"
+"\n"
+
+#: ../pasaffe/PasaffeWindow.py:1433
+#, python-format
+msgid "Number of entries: %s\n"
+msgstr "Number of entries: %s\n"
+
+#: ../pasaffe/PasaffeWindow.py:1437
+#, python-format
+msgid "Last saved by: %s\n"
+msgstr "Last saved by: %s\n"
+
+#: ../pasaffe/PasaffeWindow.py:1440
+#, python-format
+msgid "Last saved on host: %s\n"
+msgstr "Last saved on host: %s\n"
+
+#: ../pasaffe/PasaffeWindow.py:1442
+#, python-format
+msgid "Last save date: %s\n"
+msgstr "Last save date: %s\n"
+
+#: ../pasaffe/PasaffeWindow.py:1445
+#, python-format
+msgid "Database version: %s\n"
+msgstr "Database version: %s\n"
+
+#: ../pasaffe/PasaffeWindow.py:1448
+#, python-format
+msgid "Application used: %s\n"
+msgstr "Application used: %s\n"
+
+#: ../pasaffe/PasaffeWindow.py:1451
+#, python-format
+msgid ""
+"Database location:\n"
+"%s\n"
+msgstr ""
+"Database location:\n"
+"%s\n"
+
+#: ../pasaffe/PasaffeWindow.py:1543 ../data/ui/NewDatabaseDialog.ui.h:7
+msgid "Passwords don't match! Please try again."
+msgstr "Passwords don't match! Please try again."
+
+#: ../pasaffe/PasaffeWindow.py:1548
+msgid "New password cannot be blank! Please try again."
+msgstr "New password cannot be blank! Please try again."
+
+#: ../pasaffe/PasaffeWindow.py:1553
+msgid "Old password is invalid! Please try again."
+msgstr "Old password is invalid! Please try again."
+
+#: ../data/ui/EditDetailsDialog.ui.h:2 ../data/ui/NewDatabaseDialog.ui.h:2
+#: ../data/ui/NewPasswordDialog.ui.h:2 ../data/ui/EditFolderDialog.ui.h:2
+#: ../data/ui/PasswordEntryDialog.ui.h:2
+msgid "_OK"
+msgstr "_OK"
+
+#: ../data/ui/EditDetailsDialog.ui.h:3
+msgid "<big><b>Edit entry</b></big>"
+msgstr "<big><b>Edit entry</b></big>"
+
+#: ../data/ui/EditDetailsDialog.ui.h:4
+msgid "The name for this entry"
+msgstr "The name for this entry"
+
+#: ../data/ui/EditDetailsDialog.ui.h:5
+msgid "The folder for this entry"
+msgstr "The folder for this entry"
+
+#: ../data/ui/EditDetailsDialog.ui.h:6
+msgid "The entry's username"
+msgstr "The entry's username"
+
+#: ../data/ui/EditDetailsDialog.ui.h:7
+msgid "Title:"
+msgstr "Title:"
+
+#: ../data/ui/EditDetailsDialog.ui.h:8
+msgid "Folder:"
+msgstr "Folder:"
+
+#: ../data/ui/EditDetailsDialog.ui.h:13
+msgid "The website for this entry"
+msgstr "The website for this entry"
+
+#: ../data/ui/EditDetailsDialog.ui.h:14
+msgid "Pick a random password"
+msgstr "Pick a random password"
 
 #: ../bin/pasaffe-cli.py:94
 msgid "run with debug"
@@ -618,131 +688,57 @@ msgid ""
 "ERROR: Could not locate database file!"
 msgstr ""
 
-#: ../pasaffe/PasaffeWindow.py:252 ../pasaffe/PasaffeWindow.py:272
-#: ../pasaffe/PasaffeWindow.py:540 ../pasaffe/PasaffeWindow.py:1088
-msgid "[Untitled]"
-msgstr ""
+#: ../data/ui/NewDatabaseDialog.ui.h:3
+msgid "<big><b>Welcome to Pasaffe!</b></big>"
+msgstr "<big><b>Welcome to Pasaffe!</b></big>"
 
-#: ../pasaffe/PasaffeWindow.py:562
-msgid "Secrets are currently hidden."
-msgstr "Secrets are currently hidden."
-
-#: ../pasaffe/PasaffeWindow.py:598
-msgid "Last updated:"
-msgstr "Last updated:"
-
-#: ../pasaffe/PasaffeWindow.py:608
-msgid "Password updated:"
-msgstr "Password updated:"
-
-#: ../pasaffe/PasaffeWindow.py:641
-msgid "Welcome to Pasaffe!"
-msgstr "Welcome to Pasaffe!"
-
-#: ../pasaffe/PasaffeWindow.py:646
+#: ../data/ui/NewDatabaseDialog.ui.h:4
 msgid ""
-"Pasaffe is an easy to use\n"
-"password manager."
+"No existing database was found.\n"
+"A new one will be created.\n"
+"Please enter a master password to protect it."
 msgstr ""
-"Pasaffe is an easy to use\n"
-"password manager."
+"No existing database was found.\n"
+"A new one will be created.\n"
+"Please enter a master password to protect it."
 
-#: ../pasaffe/PasaffeWindow.py:661
-msgid "This is a folder."
-msgstr "This is a folder."
+#: ../data/ui/NewDatabaseDialog.ui.h:8
+msgid "Enter password:"
+msgstr "Enter password:"
 
-#: ../pasaffe/PasaffeWindow.py:815
-msgid "New Folder"
-msgstr "New Folder"
+#: ../data/ui/NewDatabaseDialog.ui.h:9
+msgid "Confirm password:"
+msgstr "Confirm password:"
 
-#: ../pasaffe/PasaffeWindow.py:865
-#, python-format
+#: ../data/ui/NewPasswordDialog.ui.h:3
+msgid "<big><b>Change master password</b></big>"
+msgstr "<big><b>Change master password</b></big>"
+
+#: ../data/ui/NewPasswordDialog.ui.h:4
 msgid ""
-"<big><b>Are you sure you wish to remove \"%s\"?</b></big>\n"
-"\n"
+"Enter your old master password,\n"
+"and a new master password.\n"
+"You must confirm the new password."
 msgstr ""
-"<big><b>Are you sure you wish to remove \"%s\"?</b></big>\n"
-"\n"
+"Enter your old master password,\n"
+"and a new master password.\n"
+"You must confirm the new password."
 
-#: ../pasaffe/PasaffeWindow.py:868
-msgid "Contents of the entry will be lost.\n"
-msgstr "Contents of the entry will be lost.\n"
+#: ../data/ui/NewPasswordDialog.ui.h:7
+msgid "error message"
+msgstr "error message"
 
-#: ../pasaffe/PasaffeWindow.py:888
-#, python-format
-msgid ""
-"<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
-"\n"
-msgstr ""
-"<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
-"\n"
+#: ../data/ui/NewPasswordDialog.ui.h:8
+msgid "Old password:"
+msgstr "Old password:"
 
-#: ../pasaffe/PasaffeWindow.py:891
-msgid "All entries in this folder will be lost.\n"
-msgstr "All entries in this folder will be lost.\n"
+#: ../data/ui/NewPasswordDialog.ui.h:9
+msgid "New password:"
+msgstr "New password:"
 
-#: ../pasaffe/PasaffeWindow.py:954
-msgid "<big><b>New entry</b></big>"
-msgstr ""
-
-#: ../pasaffe/PasaffeWindow.py:1085
-msgid "<big><b>New folder</b></big>"
-msgstr ""
-
-#: ../pasaffe/PasaffeWindow.py:1432
-msgid ""
-"<big><b>Database Information</b></big>\n"
-"\n"
-msgstr ""
-"<big><b>Database Information</b></big>\n"
-"\n"
-
-#: ../pasaffe/PasaffeWindow.py:1433
-#, python-format
-msgid "Number of entries: %s\n"
-msgstr "Number of entries: %s\n"
-
-#: ../pasaffe/PasaffeWindow.py:1437
-#, python-format
-msgid "Last saved by: %s\n"
-msgstr "Last saved by: %s\n"
-
-#: ../pasaffe/PasaffeWindow.py:1440
-#, python-format
-msgid "Last saved on host: %s\n"
-msgstr "Last saved on host: %s\n"
-
-#: ../pasaffe/PasaffeWindow.py:1442
-#, python-format
-msgid "Last save date: %s\n"
-msgstr "Last save date: %s\n"
-
-#: ../pasaffe/PasaffeWindow.py:1445
-#, python-format
-msgid "Database version: %s\n"
-msgstr "Database version: %s\n"
-
-#: ../pasaffe/PasaffeWindow.py:1448
-#, python-format
-msgid "Application used: %s\n"
-msgstr "Application used: %s\n"
-
-#: ../pasaffe/PasaffeWindow.py:1451
-#, python-format
-msgid ""
-"Database location:\n"
-"%s\n"
-msgstr ""
-"Database location:\n"
-"%s\n"
-
-#: ../pasaffe/PasaffeWindow.py:1548
-msgid "New password cannot be blank! Please try again."
-msgstr "New password cannot be blank! Please try again."
-
-#: ../pasaffe/PasaffeWindow.py:1553
-msgid "Old password is invalid! Please try again."
-msgstr "Old password is invalid! Please try again."
+#: ../data/ui/NewPasswordDialog.ui.h:10
+msgid "Confirm new password:"
+msgstr "Confirm new password:"
 
 #: ../data/ui/EditFolderDialog.ui.h:3
 msgid "<big><b>Edit folder</b></big>"
@@ -760,6 +756,10 @@ msgstr "Folder name:"
 msgid "The parent folder for this new folder"
 msgstr "The parent folder for this new folder"
 
-#: ../pasaffe_lib/helpers.py:400
-msgid "error running apg"
-msgstr ""
+#: ../data/ui/PasswordEntryDialog.ui.h:3
+msgid "<big><b>Please enter your master password:</b></big>"
+msgstr "<big><b>Please enter your master password:</b></big>"
+
+#: ../data/ui/PasswordEntryDialog.ui.h:4
+msgid "Invalid password! Please try again."
+msgstr "Invalid password! Please try again."
