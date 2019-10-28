@@ -576,8 +576,10 @@ class PasaffeWindow(Window):
 
             if show_secrets is True or \
                     self.settings.get_boolean('visible-secrets') is True:
-                data_buffer.insert(data_buffer.get_end_iter(),
-                                   self.passfile.get_password(entry_uuid))
+                data_buffer.insert_with_tags(data_buffer.get_end_iter(),
+                                             self.passfile.get_password( 
+                                                 entry_uuid),
+                                             ttt.lookup('password'))
             else:
                 data_buffer.insert(data_buffer.get_end_iter(), '*****')
             data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
@@ -679,6 +681,10 @@ class PasaffeWindow(Window):
         texttag_url.set_property("underline", Pango.Underline.SINGLE)
         texttag_url.connect("event", self.url_event_handler)
         texttagtable.add(texttag_url)
+
+        texttag_password = Gtk.TextTag.new("password")
+        texttag_password.set_property("font", 'Mono')
+        texttagtable.add(texttag_password)
 
         return texttagtable
 

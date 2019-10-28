@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.55 (UNRELEASED)
 
  * Enhancements:
+   - Passwords are now displayed in a monospaced font in the right pane.
 
  * Bug fixes:
 
