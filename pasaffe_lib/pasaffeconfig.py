@@ -33,10 +33,6 @@ __help_separator__ = '/'
 
 import os
 
-import gettext
-from gettext import gettext as _
-gettext.textdomain('pasaffe')
-
 
 class project_path_not_found(Exception):
     """Raised when we can't find the project directory."""

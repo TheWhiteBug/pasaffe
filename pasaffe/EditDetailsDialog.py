@@ -16,15 +16,11 @@
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gio, Gtk  # pylint: disable=E0611
-from gi.repository import Gdk  # pylint: disable=E0611
+from gi.repository import Gio, Gtk  # noqa: E402
+from gi.repository import Gdk  # noqa: E402
 
-from pasaffe_lib.helpersgui import get_builder
-from pasaffe_lib.helpers import gen_password
-
-import gettext
-from gettext import gettext as _
-gettext.textdomain('pasaffe')
+from pasaffe_lib.helpersgui import get_builder  # noqa: E402
+from pasaffe_lib.helpers import gen_password  # noqa: E402
 
 # pylint: disable=E1101
 
@@ -92,7 +88,7 @@ class EditDetailsDialog(Gtk.Dialog):
             self.ui.password5.set_label(passwords[4].decode('utf-8'))
             self.ui.password6.set_label(passwords[5].decode('utf-8'))
 
-        except:
+        except:  # noqa: E722
             pass
 
         if not Gtk.check_version(3, 22, 0):

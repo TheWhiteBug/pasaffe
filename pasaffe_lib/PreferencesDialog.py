@@ -19,12 +19,12 @@
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
-import logging
+from gi.repository import Gtk  # noqa: E402
+import logging  # noqa: E402
 logger = logging.getLogger('pasaffe_lib')
 
-from . helpers import get_help_uri
-from . helpersgui import get_builder, show_uri
+from . helpers import get_help_uri  # noqa: E402
+from . helpersgui import get_builder, show_uri  # noqa: E402
 
 
 class PreferencesDialog(Gtk.Dialog):

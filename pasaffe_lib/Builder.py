@@ -18,14 +18,14 @@
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import GObject, Gtk
+from gi.repository import GObject, Gtk  # noqa: E402
 
-import inspect
-import functools
-import logging
+import inspect  # noqa: E402
+import functools  # noqa: E402
+import logging  # noqa: E402
 logger = logging.getLogger('pasaffe_lib')
 
-from xml.etree.cElementTree import ElementTree
+from xml.etree.cElementTree import ElementTree  # noqa: E402
 
 # this module is big so uses some conventional prefixes and postfixes
 # *s list, except self.widgets is a dictionary
@@ -217,7 +217,7 @@ def getmembers(obj, check):
     for k in dir(obj):
         try:
             attr = getattr(obj, k)
-        except:
+        except:  # noqa: E722
             continue
         if check(attr):
             members.append((k, attr))

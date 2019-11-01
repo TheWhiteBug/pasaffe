@@ -18,32 +18,33 @@ import gettext
 from gettext import gettext as _
 gettext.textdomain('pasaffe')
 
-import gi
+import gi  # noqa: E402
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gio, Gtk  # pylint: disable=E0611
-from gi.repository import Gdk, Pango, GLib  # pylint: disable=E0611
-import logging
-import os
-import webbrowser
+from gi.repository import Gio, Gtk  # noqa: E402
+from gi.repository import Gdk, Pango, GLib  # noqa: E402
+import logging  # noqa: E402
+import os  # noqa: E402
+import webbrowser  # noqa: E402
+
+from pasaffe_lib.Window import Window  # noqa: E402
+from pasaffe.AboutPasaffeDialog import AboutPasaffeDialog  # noqa: E402
+from pasaffe.EditDetailsDialog import EditDetailsDialog  # noqa: E402
+from pasaffe.EditFolderDialog import EditFolderDialog  # noqa: E402
+from pasaffe.PasswordEntryDialog import PasswordEntryDialog  # noqa: E402
+from pasaffe.SaveChangesDialog import SaveChangesDialog  # noqa: E402
+from pasaffe.NewDatabaseDialog import NewDatabaseDialog  # noqa: E402
+from pasaffe.NewPasswordDialog import NewPasswordDialog  # noqa: E402
+from pasaffe.PreferencesPasaffeDialog import \
+    PreferencesPasaffeDialog  # noqa: E402
+from pasaffe_lib.readdb import PassSafeFile  # noqa: E402
+from pasaffe_lib.helpersgui import get_builder  # noqa: E402
+from pasaffe_lib.helpers import folder_list_to_field  # noqa: E402
+from pasaffe_lib.helpers import field_to_folder_list  # noqa: E402
+from pasaffe_lib.helpers import folder_list_to_path  # noqa: E402
+from pasaffe_lib.helpers import folder_path_to_list  # noqa: E402
+from pasaffe_lib.helpers import PathEntry  # noqa: E402
 
 logger = logging.getLogger('pasaffe')
-
-from pasaffe_lib.Window import Window
-from pasaffe.AboutPasaffeDialog import AboutPasaffeDialog
-from pasaffe.EditDetailsDialog import EditDetailsDialog
-from pasaffe.EditFolderDialog import EditFolderDialog
-from pasaffe.PasswordEntryDialog import PasswordEntryDialog
-from pasaffe.SaveChangesDialog import SaveChangesDialog
-from pasaffe.NewDatabaseDialog import NewDatabaseDialog
-from pasaffe.NewPasswordDialog import NewPasswordDialog
-from pasaffe.PreferencesPasaffeDialog import PreferencesPasaffeDialog
-from pasaffe_lib.readdb import PassSafeFile
-from pasaffe_lib.helpersgui import get_builder
-from pasaffe_lib.helpers import folder_list_to_field
-from pasaffe_lib.helpers import field_to_folder_list
-from pasaffe_lib.helpers import folder_list_to_path
-from pasaffe_lib.helpers import folder_path_to_list
-from pasaffe_lib.helpers import PathEntry
 
 
 # See pasaffe_lib.Window.py for more details about how this class works
@@ -577,7 +578,7 @@ class PasaffeWindow(Window):
             if show_secrets is True or \
                     self.settings.get_boolean('visible-secrets') is True:
                 data_buffer.insert_with_tags(data_buffer.get_end_iter(),
-                                             self.passfile.get_password( 
+                                             self.passfile.get_password(
                                                  entry_uuid),
                                              ttt.lookup('password'))
             else:
@@ -762,7 +763,8 @@ class PasaffeWindow(Window):
                 if not Gtk.check_version(3, 22, 0):
                     self.ui.menu_popup.popup_at_pointer(event)
                 else:
-                    self.ui.menu_popup.popup(None, None, None, None, 3, event_time)
+                    self.ui.menu_popup.popup(None, None, None, None, 3,
+                                             event_time)
 
     def add_entry(self):
         self.disable_idle_timeout()
@@ -869,8 +871,8 @@ class PasaffeWindow(Window):
 
             information = \
                 _('<big><b>Are you sure you wish to'
-                  ' remove "%s"?</b></big>\n\n') % \
-                    GLib.markup_escape_text(entry_name)
+                    ' remove "%s"?</b></big>\n\n') % \
+                GLib.markup_escape_text(entry_name)
             information += _('Contents of the entry will be lost.\n')
 
             info_dialog = Gtk.MessageDialog(
@@ -893,7 +895,7 @@ class PasaffeWindow(Window):
             information = \
                 _('<big><b>Are you sure you wish'
                   ' to remove folder "%s"?</b></big>\n\n') % \
-                    GLib.markup_escape_text(folder_name)
+                GLib.markup_escape_text(folder_name)
             information += _('All entries in this folder will be lost.\n')
 
             info_dialog = Gtk.MessageDialog(
@@ -1249,7 +1251,8 @@ class PasaffeWindow(Window):
             # Toggle expanded state of folder
             folder = self.get_folders_from_iter(treemodel, treeiter)
             folder_field = folder_list_to_field(folder)
-            if folder_field in self.folder_state and self.folder_state[folder_field] is True:
+            if folder_field in self.folder_state and \
+               self.folder_state[folder_field] is True:
                 self.collapse_folder(folder)
             else:
                 self.expand_folder(folder)
@@ -1293,7 +1296,8 @@ class PasaffeWindow(Window):
             if "pasaffe_treenode." in entry_uuid:
                 folder = self.get_folders_from_iter(treemodel, treeiter)
                 folder_field = folder_list_to_field(folder)
-                if folder_field in self.folder_state and self.folder_state[folder_field] is True:
+                if folder_field in self.folder_state and \
+                   self.folder_state[folder_field] is True:
                     self.collapse_folder(folder)
                     return True
                 folders = self.get_folders_from_iter(treemodel, treeiter)[:-1]
@@ -1307,11 +1311,13 @@ class PasaffeWindow(Window):
             if "pasaffe_treenode." in entry_uuid:
                 folder = self.get_folders_from_iter(treemodel, treeiter)
                 folder_field = folder_list_to_field(folder)
-                if folder_field not in self.folder_state or self.folder_state[folder_field] is False:
+                if folder_field not in self.folder_state or \
+                   self.folder_state[folder_field] is False:
                     self.expand_folder(folder)
                     return True
                 # Select first child item
-                iterchild = self.ui.treeview1.get_model().iter_children(treeiter)
+                iterchild = \
+                    self.ui.treeview1.get_model().iter_children(treeiter)
                 if iterchild:
                     uuid = treemodel.get_value(iterchild, 2)
                     self.goto_uuid(uuid)
@@ -1735,7 +1741,8 @@ class PasaffeWindow(Window):
         for atom in [Gdk.SELECTION_CLIPBOARD, Gdk.SELECTION_PRIMARY]:
             clipboard = Gtk.Clipboard.get(atom)
             text = clipboard.wait_for_text()
-            if text is not None and self.last_copied is not None and text == self.last_copied:
+            if text is not None and self.last_copied is not None and \
+               text == self.last_copied:
                 found_copy_in_clipboard = True
         if found_copy_in_clipboard:
             for atom in [Gdk.SELECTION_CLIPBOARD, Gdk.SELECTION_PRIMARY]:

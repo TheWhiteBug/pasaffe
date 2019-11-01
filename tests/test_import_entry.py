@@ -18,15 +18,13 @@
 import sys
 import os.path
 import unittest
-import time
-import struct
 import tempfile
 import shutil
 import subprocess
 sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__),
                                                  "..")))
 
-from pasaffe_lib.readdb import PassSafeFile
+from pasaffe_lib.readdb import PassSafeFile  # noqa: E402
 
 
 class TestImportEntry(unittest.TestCase):
@@ -75,6 +73,7 @@ class TestImportEntry(unittest.TestCase):
         self.assertEqual(passfile.records[uuid][5], note)
         self.assertEqual(passfile.records[uuid][6], password)
         self.assertEqual(passfile.records[uuid][13], url)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -19,14 +19,10 @@ import os
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk  # noqa: E402
 
-from . Builder import Builder
-from . pasaffeconfig import get_data_file
-
-import gettext
-from gettext import gettext as _
-gettext.textdomain('pasaffe')
+from . Builder import Builder  # noqa: E402
+from . pasaffeconfig import get_data_file  # noqa: E402
 
 
 def get_builder(builder_file_name):
@@ -51,5 +47,5 @@ def show_uri(parent, link):
     screen = parent.get_screen()
     try:
         Gtk.show_uri(screen, link, Gtk.get_current_event_time())
-    except:
+    except:  # noqa: E722
         pass

@@ -18,15 +18,14 @@
 import sys
 import os.path
 import unittest
-import time
 sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__),
                                                  "..")))
 
-from pasaffe_lib.helpers import folder_list_to_field
-from pasaffe_lib.helpers import field_to_folder_list
-from pasaffe_lib.helpers import folder_list_to_path
-from pasaffe_lib.helpers import folder_path_to_list
-from pasaffe_lib.helpers import PathEntry
+from pasaffe_lib.helpers import folder_list_to_field  # noqa: E402
+from pasaffe_lib.helpers import field_to_folder_list  # noqa: E402
+from pasaffe_lib.helpers import folder_list_to_path  # noqa: E402
+from pasaffe_lib.helpers import folder_path_to_list  # noqa: E402
+from pasaffe_lib.helpers import PathEntry  # noqa: E402
 
 
 class TestHelpers(unittest.TestCase):
@@ -219,6 +218,7 @@ class TestHelpers(unittest.TestCase):
 
         for i in range(len(test_entries)):
             self.assertEqual(sorted_entries[i], results[i])
+
 
 if __name__ == '__main__':
     unittest.main()

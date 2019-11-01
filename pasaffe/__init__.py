@@ -15,20 +15,19 @@
 #
 
 import optparse
-import os
 
 import gettext
 t = gettext.translation('pasaffe', fallback=True)
 _ = t.gettext
 
-import gi
+import gi  # noqa: E402
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gio, Gtk
+from gi.repository import Gio, Gtk  # noqa: E402
 
-from pasaffe import PasaffeWindow
+from pasaffe import PasaffeWindow  # noqa: E402
 
-from pasaffe_lib import set_up_logging, get_version
-from pasaffe_lib.helpers import get_database_path
+from pasaffe_lib import set_up_logging, get_version  # noqa: E402
+from pasaffe_lib.helpers import get_database_path  # noqa: E402
 
 
 def parse_options():

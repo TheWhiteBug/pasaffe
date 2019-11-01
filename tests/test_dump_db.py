@@ -18,12 +18,9 @@
 import sys
 import os.path
 import unittest
-import time
 import subprocess
 sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__),
                                                  "..")))
-
-from pasaffe_lib.readdb import PassSafeFile
 
 
 class TestDumpDB(unittest.TestCase):

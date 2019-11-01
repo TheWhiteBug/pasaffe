@@ -17,12 +17,10 @@
 
 import sys
 import os.path
-import unittest
-import time
 sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__),
                                                  "..")))
 
-from pasaffe_lib.readdb import PassSafeFile
+from pasaffe_lib.readdb import PassSafeFile  # noqa: E402
 
 
 def get_test_data():
@@ -66,6 +64,7 @@ def create_test_db():
         passfile.add_empty_folder(folder)
 
     return passfile
+
 
 if __name__ == '__main__':
     # This script can be used to create a test database

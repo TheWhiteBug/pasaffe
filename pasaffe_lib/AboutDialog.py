@@ -16,9 +16,9 @@
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk  # noqa: E402
 
-from . helpersgui import get_builder
+from . helpersgui import get_builder  # noqa: E402
 
 
 class AboutDialog(Gtk.AboutDialog):

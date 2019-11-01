@@ -14,15 +14,11 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import gettext
-from gettext import gettext as _
-gettext.textdomain('pasaffe')
-
 import logging
-logger = logging.getLogger('pasaffe')
-
 from pasaffe_lib.AboutDialog import AboutDialog
 from pasaffe_lib import get_version
+
+logger = logging.getLogger('pasaffe')
 
 # pylint: disable=E1101
 

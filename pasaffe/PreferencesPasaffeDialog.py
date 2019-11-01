@@ -15,15 +15,10 @@
 #
 
 from gi.repository import Gio
-
-import gettext
-from gettext import gettext as _
-gettext.textdomain('pasaffe')
-
 import logging
-logger = logging.getLogger('pasaffe')
-
 from pasaffe_lib.PreferencesDialog import PreferencesDialog
+
+logger = logging.getLogger('pasaffe')
 
 
 class PreferencesPasaffeDialog(PreferencesDialog):

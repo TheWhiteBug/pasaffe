@@ -16,13 +16,9 @@
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk  # noqa: E402
 
-from pasaffe_lib.helpersgui import get_builder
-
-import gettext
-from gettext import gettext as _
-gettext.textdomain('pasaffe')
+from pasaffe_lib.helpersgui import get_builder  # noqa: E402
 
 
 class SaveChangesDialog(Gtk.Dialog):

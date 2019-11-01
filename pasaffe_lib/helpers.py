@@ -17,7 +17,6 @@
 """Helpers for an Ubuntu application."""
 import logging
 import os
-import sys
 import subprocess
 
 from . pasaffeconfig import get_data_file
@@ -352,9 +351,6 @@ def confirm(prompt=None, resp=False):
 
     """
 
-    if options.yes:
-        return resp
-
     if prompt is None:
         prompt = 'Confirm'
 
@@ -396,7 +392,7 @@ def gen_password(number, size):
                "-x", str(size)]
     try:
         passwords = subprocess.check_output(command).splitlines()
-    except:
+    except:  # noqa: E722
         print(_("error running apg"))
         passwords = None
     return passwords

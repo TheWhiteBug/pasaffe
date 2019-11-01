@@ -16,12 +16,12 @@
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gio, Gtk
-import logging
+from gi.repository import Gio, Gtk  # noqa: E402
+import logging  # noqa: E402
 logger = logging.getLogger('pasaffe_lib')
 
-from . helpers import get_help_uri
-from . helpersgui import get_builder, show_uri
+from . helpers import get_help_uri  # noqa: E402
+from . helpersgui import get_builder, show_uri  # noqa: E402
 
 
 # This class is meant to be subclassed by PasaffeWindow.  It provides
@@ -75,7 +75,7 @@ class Window(Gtk.Window):
         if self.AboutDialog is not None:
             about = self.AboutDialog()  # pylint: disable=E1102
             about.set_transient_for(self)
-            response = about.run()
+            about.run()
             about.destroy()
 
     def on_mnu_preferences_activate(self, widget, data=None):

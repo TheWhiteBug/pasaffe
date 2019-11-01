@@ -49,7 +49,6 @@ The author of CTR changes is:
 """
 
 import struct
-import types
 
 __author__ = "Michael Gilfix <mgilfix@eecs.tufts.edu>"
 
@@ -594,7 +593,7 @@ class Blowfish:
         with this method one after the other without any intermediate work.
         """
         if type(data) != bytes:
-            raise RuntimeException("Can only work on 8-bit strings")
+            raise Exception("Can only work on 8-bit strings")
         result = bytearray()
         for ch in data:
             result.append(ch ^ self._nextCTRByte())
@@ -636,6 +635,7 @@ class Blowfish:
 
 ##############################################################
 # Module testing
+
 
 if __name__ == '__main__':
     if not Blowfish.testVectors():

@@ -25,7 +25,8 @@ class TestPylint(unittest.TestCase):
 
         your code may well work even with pylint errors
         but have some unusual code'''
-        return_code = subprocess.call(["pylint", '-E', 'pasaffe'])
+        subprocess.call(["pylint", '-E', 'pasaffe'])
+
 
 if __name__ == '__main__':
     'you will get better results with nosetests'

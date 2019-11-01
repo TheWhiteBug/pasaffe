@@ -7,6 +7,7 @@ For a detailed list of changes, please see ChangeLog.
    - Passwords are now displayed in a monospaced font in the right pane.
 
  * Bug fixes:
+   - PEP 8 cleanup
 
 0.54 (2019-10-23)
 

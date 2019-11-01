@@ -40,6 +40,9 @@ try:
 except ImportError:
     pass
 
+import struct
+import sys
+
 block_size = 16
 key_size = 32
 
@@ -131,9 +134,6 @@ class Twofish:
 # Private.
 #
 
-import struct
-import sys
-
 WORD_BIGENDIAN = 0
 if sys.byteorder == 'big':
     WORD_BIGENDIAN = 1
@@ -166,6 +166,7 @@ class TWI:
 
 def byte(x, n):
     return (x >> (8 * n)) & 0xff
+
 
 tab_5b = [0, 90, 180, 238]
 tab_ef = [0, 238, 180, 90]
@@ -472,6 +473,7 @@ def decrypt(pkey, in_blk):
         in_blk[2] = blk[0] ^ pkey.l_key[2]
         in_blk[3] = blk[1] ^ pkey.l_key[3]
     return
+
 
 __testkey = b'\xD4\x3B\xB7\x55\x6E\xA3\x2E\x46\xF2\xA2\x82\xB7\xD4' + \
             b'\x5B\x4E\x0D\x57\xFF\x73\x9D\x4D\xC9\x2C\x1B\xD7\xFC' + \

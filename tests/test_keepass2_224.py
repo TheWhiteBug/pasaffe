@@ -23,7 +23,7 @@ import struct
 sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__),
                                                  "..")))
 
-from pasaffe_lib.keepassx import KeePassX
+from pasaffe_lib.keepassx import KeePassX  # noqa: E402
 
 
 class TestKeePass2224(unittest.TestCase):

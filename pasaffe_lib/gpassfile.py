@@ -14,12 +14,11 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import sys
 import struct
 import hashlib
 import os
 import time
-from binascii import hexlify, unhexlify
+from binascii import hexlify
 
 from . import blowfish
 import logging

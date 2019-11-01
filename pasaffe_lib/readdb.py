@@ -14,7 +14,6 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import sys
 import struct
 import hashlib
 import hmac
@@ -29,14 +28,14 @@ if os.name is "posix":
 elif os.name is "nt":
     import getpass
 # import pwd
-from binascii import hexlify, unhexlify
-from unidecode import unidecode
-from pasaffe_lib.helpers import PathEntry
+from binascii import hexlify  # noqa: E402
+from unidecode import unidecode  # noqa: E402
+from pasaffe_lib.helpers import PathEntry  # noqa: E402
 
-from . import pytwofishcbc
-import logging
+from . import pytwofishcbc  # noqa: E402
+import logging  # noqa: E402
 logger = logging.getLogger('pasaffe_lib')
-from . pasaffeconfig import get_version
+from . pasaffeconfig import get_version  # noqa: E402
 
 
 class PassSafeFile:
@@ -69,7 +68,7 @@ class PassSafeFile:
             self.cipher = pytwofishcbc.TwofishCBC()
             self.cipher_block_size = self.cipher.get_block_size()
         else:
-            raise ValueError("Sorry, we don't support %s yet." % cipher)
+            raise ValueError("Sorry, we don't support %s yet." % req_cipher)
 
         if filename is not None:
             self.readfile(filename, password, fixup=fixup)
@@ -661,8 +660,6 @@ class PassSafeFile:
 
     def _writerecords(self):
         self.cipher.set_key(self.keys['K'])
-
-        record = {}
 
         for uuid in self.records:
             for field in list(self.records[uuid].keys()):

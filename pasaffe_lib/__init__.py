@@ -17,5 +17,5 @@
 '''facade - makes pasaffe_lib package easy to refactor
 
 while keeping its api constant'''
-from . helpers import set_up_logging
-from . pasaffeconfig import get_version
+from . helpers import set_up_logging  # noqa: F401
+from . pasaffeconfig import get_version  # noqa: F401

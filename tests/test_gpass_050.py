@@ -23,7 +23,7 @@ import struct
 sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__),
                                                  "..")))
 
-from pasaffe_lib.gpassfile import GPassFile
+from pasaffe_lib.gpassfile import GPassFile  # noqa: E402
 
 
 class TestGPass50(unittest.TestCase):

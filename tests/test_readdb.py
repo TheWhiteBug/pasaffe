@@ -19,12 +19,12 @@ import sys
 import os.path
 import unittest
 import time
-from binascii import hexlify, unhexlify
+from binascii import hexlify
 
 sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__),
                                     "..")))
 
-from pasaffe_lib.readdb import PassSafeFile
+from pasaffe_lib.readdb import PassSafeFile  # noqa: E402
 
 
 class TestReadDB(unittest.TestCase):
@@ -305,8 +305,6 @@ class TestReadDB(unittest.TestCase):
                          'folderA.folderB',
                          'folderA.folderB.folderC']
 
-        folder = ['folderA', 'folderB', 'folderC']
-
         # pass by value
         self.passfile.empty_folders = folder_fields[:]
 
@@ -358,7 +356,7 @@ class TestReadDB(unittest.TestCase):
         folderB = ['OtherFolderA', 'OtherFolderB']
 
         uuid_hex_B = self.passfile.new_entry()
-        uuid_hex_C = self.passfile.new_entry()
+        self.passfile.new_entry()
         self.passfile.update_folder_list(uuid_hex_B, folderB)
 
         all_folders = folder_list + [folderB]
@@ -699,6 +697,7 @@ class TestReadDB(unittest.TestCase):
         self.assertEqual(self.passfile.find_results_index, 2)
         self.assertNotEqual(uuid5, None)
         self.assertEqual(uuid3, uuid5)
+
 
 if __name__ == '__main__':
     unittest.main()

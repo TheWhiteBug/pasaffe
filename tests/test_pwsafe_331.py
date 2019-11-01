@@ -18,11 +18,10 @@
 import sys
 import os.path
 import unittest
-import time
 sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__),
                                                  "..")))
 
-from pasaffe_lib.readdb import PassSafeFile
+from pasaffe_lib.readdb import PassSafeFile  # noqa: E402
 
 
 class TestPasswordSafe331(unittest.TestCase):
@@ -112,6 +111,7 @@ class TestPasswordSafe331(unittest.TestCase):
         self.assertEqual(self.passfile.records[uuid][6], 'passwordlevel3')
         self.assertEqual(self.passfile.get_creation_time(uuid, False),
                          'Thu, 25 Jul 2013 00:26:36')
+
 
 if __name__ == '__main__':
     unittest.main()
