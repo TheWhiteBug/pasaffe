@@ -1,7 +1,7 @@
 This file summarizes the major and interesting changes for each release.
 For a detailed list of changes, please see ChangeLog.
 
-0.55 (UNRELEASED)
+0.55 (2019-11-15)
 
  * Enhancements:
    - Passwords are now displayed in a monospaced font in the right pane.
