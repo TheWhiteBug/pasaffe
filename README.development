@@ -1,7 +1,7 @@
 Please run the following before submitting fixes:
 
 Test suite:
-pyunit-3
+pytest-3
 
 Code checker:
 flake8
