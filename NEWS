@@ -6,6 +6,7 @@ For a detailed list of changes, please see ChangeLog.
  * Enhancements:
 
  * Bug fixes:
+   - Fix some warnings with a newer version of flake8 (LP: #1860613)
 
 0.55 (2019-11-15)
 

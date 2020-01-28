@@ -35,12 +35,14 @@ class TestReadDB(unittest.TestCase):
 
         folder_list = [[[], ""],
                        [["foldera"], "foldera"],
-                       [["folder.a"], "folder\.a"],
-                       [["foldera."], "foldera\."],
-                       [[".foldera"], "\.foldera"],
-                       [["foldera.", "folderb."], "foldera\..folderb\."],
+                       [["folder.a"], "folder\.a"],  # noqa: W605
+                       [["foldera."], "foldera\."],  # noqa: W605
+                       [[".foldera"], "\.foldera"],  # noqa: W605
+                       [["foldera.", "folderb."],
+                         "foldera\..folderb\."],  # noqa: W605
                        [["foldera", "folderb"], "foldera.folderb"],
-                       [["folder.a", "folderb"], "folder\.a.folderb"],
+                       [["folder.a", "folderb"],
+                         "folder\.a.folderb"],  # noqa: W605
                        [["foldera", "folder.b"], "foldera.folder\.b"],
                        [["folder.a", "folder.b"], "folder\.a.folder\.b"],
                        [["folder.a", "folder.b", "folder.c"],
@@ -59,10 +61,11 @@ class TestReadDB(unittest.TestCase):
 
         folder_list = [["", []],
                        ["foldera", ["foldera"]],
-                       ["folder\.a", ["folder.a"]],
-                       ["foldera\.", ["foldera."]],
-                       ["\.foldera", [".foldera"]],
-                       ["foldera\..folderb\.", ["foldera.", "folderb."]],
+                       ["folder\.a", ["folder.a"]],  # noqa: W605
+                       ["foldera\.", ["foldera."]],  # noqa: W605
+                       ["\.foldera", [".foldera"]],  # noqa: W605
+                       ["foldera\..folderb\.",
+                        ["foldera.", "folderb."]],  # noqa: W605
                        ["foldera.folderb", ["foldera", "folderb"]],
                        ["folder\.a.folderb", ["folder.a", "folderb"]],
                        ["foldera.folder\.b", ["foldera", "folder.b"]],

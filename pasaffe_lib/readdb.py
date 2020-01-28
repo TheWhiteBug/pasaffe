@@ -23,9 +23,9 @@ import os
 import time
 import tempfile
 import shutil
-if os.name is "posix":
+if os.name == "posix":
     import pwd
-elif os.name is "nt":
+elif os.name == "nt":
     import getpass
 # import pwd
 from binascii import hexlify  # noqa: E402
@@ -153,9 +153,9 @@ class PassSafeFile:
         '''Writes database file'''
 
         # Set username
-        if os.name is "posix":
+        if os.name == "posix":
             self.header[7] = pwd.getpwuid(os.getuid())[0]
-        elif os.name is "nt":
+        elif os.name == "nt":
             self.header[7] = getpass.getuser()
         # Remove the old deprecated username field if it exists
         if 5 in self.header:

@@ -283,7 +283,7 @@ def field_to_folder_list(field):
 
 def folder_list_to_path(folders, index=None):
     '''Converts a folder list to a folder path'''
-    if len(folders) is 0 or folders is None:
+    if len(folders) == 0 or folders is None:
         return "/"
 
     if index is None:

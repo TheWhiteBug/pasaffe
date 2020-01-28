@@ -49,7 +49,7 @@ def update_config(values={}):
         fout.close()
         fin.close()
         os.rename(fout.name, fin.name)
-    except (OSError, IOError) as e:
+    except (OSError, IOError):
         print("ERROR: Can't find pasaffe_lib/pasaffeconfig.py")
         sys.exit(1)
     return oldvalues
