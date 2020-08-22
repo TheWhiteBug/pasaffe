@@ -828,7 +828,7 @@ class PassSafeFile:
         else:
             pat = re.compile(find, re.IGNORECASE)
 
-        record_list = (3, 5, 13)
+        record_list = (2, 3, 4, 5, 6, 13, 20, 22)
         results = []
 
         for uuid in self.records:
