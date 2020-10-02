@@ -12,6 +12,8 @@ Since I was not interested in bzr, I cloned to bzr repo, converted it to git and
   It now properly finds any record that matches the pattern in the title, username, url, password, notes, folder, etc.
   The "find" now works to my liking but is unlikely to be clean enough to be submitted as is upstream as a PR.
 
+* notes field in the Edit dialog now expands when resizing the window.
+
 # How
 
 Install the official pasaffe package to get any missing dependencies.
