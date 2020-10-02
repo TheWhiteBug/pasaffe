@@ -828,21 +828,24 @@ class PassSafeFile:
         else:
             pat = re.compile(find, re.IGNORECASE)
 
-        record_list = (3, 5, 13)
+        record_list = (2, 3, 4, 5, 6, 13, 20, 22)
         results = []
 
         for uuid in self.records:
             found = False
             for record_type in record_list:
                 if record_type in self.records[uuid]:
-                    if pat.search(
-                            self.records[uuid].get(record_type)):
-                        found = True
-                        break
-                    if pat.search(unidecode(
-                            self.records[uuid].get(record_type))):
-                        found = True
-                        break
+                    try:
+                        if pat.search(
+                                self.records[uuid].get(record_type)):
+                            found = True
+                            break
+                        if pat.search(unidecode(
+                                self.records[uuid].get(record_type))):
+                            found = True
+                            break
+                    except:
+                        pass
 
             if found is True:
                 entry = PathEntry(
