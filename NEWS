@@ -7,6 +7,7 @@ For a detailed list of changes, please see ChangeLog.
 
  * Bug fixes:
    - Fixed deprecated ElementTree API (LP: #1907304)
+   - Fix some deprecation warnings in the test suite
 
 0.56 (2020-01-28)
 
