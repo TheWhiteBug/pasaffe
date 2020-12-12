@@ -7,83 +7,41 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pasaffe\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-01-28 14:20-0500\n"
+"POT-Creation-Date: 2020-12-11 10:58-0500\n"
 "PO-Revision-Date: 2019-09-25 07:00+0000\n"
 "Last-Translator: Marc Deslauriers <marc.deslauriers@canonical.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2020-01-29 05:52+0000\n"
-"X-Generator: Launchpad (build b8d1327fd820d6bf500589d6da587d5037c7d88e)\n"
+"X-Launchpad-Export-Date: 2020-12-12 06:21+0000\n"
+"X-Generator: Launchpad (build 4853cb86c14c5a9e513816c8a61121c639b30835)\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 "X-Poedit-Language: Russian\n"
 
-#: ../data/ui/EditFolderDialog.ui.h:1 ../data/ui/NewDatabaseDialog.ui.h:1
-#: ../data/ui/PasswordEntryDialog.ui.h:1 ../data/ui/SaveChangesDialog.ui.h:2
-#: ../data/ui/NewPasswordDialog.ui.h:1 ../data/ui/EditDetailsDialog.ui.h:1
-msgid "_Cancel"
-msgstr "О_тменить"
+#: ../data/ui/AboutPasaffeDialog.ui.h:1
+msgid "http://www.launchpad.net/pasaffe"
+msgstr "http://www.launchpad.net/pasaffe"
 
-#: ../data/ui/EditFolderDialog.ui.h:2 ../data/ui/NewDatabaseDialog.ui.h:2
-#: ../data/ui/PasswordEntryDialog.ui.h:2 ../data/ui/NewPasswordDialog.ui.h:2
-#: ../data/ui/EditDetailsDialog.ui.h:2
-msgid "_OK"
-msgstr "_ОК"
-
-#: ../data/ui/EditFolderDialog.ui.h:3
-msgid "<big><b>Edit folder</b></big>"
-msgstr "<big><b>Изменить папку</b></big>"
-
-#: ../data/ui/EditFolderDialog.ui.h:4
-msgid "Parent folder:"
-msgstr "Родительская папка:"
-
-#: ../data/ui/EditFolderDialog.ui.h:5
-msgid "Folder name:"
-msgstr "Имя папки:"
-
-#: ../data/ui/EditFolderDialog.ui.h:6
-msgid "The parent folder for this new folder"
-msgstr "Родительская папка для этой новой папки"
-
-#: ../data/ui/NewDatabaseDialog.ui.h:3
-msgid "<big><b>Welcome to Pasaffe!</b></big>"
-msgstr "<big><b>Добро пожаловать в Pasaffe!</b></big>"
-
-#: ../data/ui/NewDatabaseDialog.ui.h:4
-msgid ""
-"No existing database was found.\n"
-"A new one will be created.\n"
-"Please enter a master password to protect it."
+#: ../data/ui/AboutPasaffeDialog.ui.h:2
+msgid "translator-credits"
 msgstr ""
-"База данных не найдена.\n"
-"Будет создана новая база данных.\n"
-"Укажите главный пароль для её защиты."
+"Launchpad Contributions:\n"
+"  Aleksey Kabanov https://launchpad.net/~ak099\n"
+"  Eugene Roskin https://launchpad.net/~lowrider\n"
+"  Karma Dorje https://launchpad.net/~taaroa\n"
+"  Marc Deslauriers https://launchpad.net/~mdeslaur"
 
-#: ../data/ui/NewDatabaseDialog.ui.h:7 ../pasaffe/PasaffeWindow.py:1555
-msgid "Passwords don't match! Please try again."
-msgstr "Пароли не совпадают! Попробуйте снова."
-
-#: ../data/ui/NewDatabaseDialog.ui.h:8
-msgid "Enter password:"
-msgstr "Введите пароль:"
-
-#: ../data/ui/NewDatabaseDialog.ui.h:9
-msgid "Confirm password:"
-msgstr "Подтвердите пароль:"
-
-#: ../data/ui/PasswordEntryDialog.ui.h:3
-msgid "<big><b>Please enter your master password:</b></big>"
-msgstr "<big><b>Введите свой главный пароль:</b></big>"
-
-#: ../data/ui/PasswordEntryDialog.ui.h:4
-msgid "Invalid password! Please try again."
-msgstr "Неправильный пароль! Попробуйте снова."
-
+#. Code for other initialization actions should be added here.
 #: ../data/ui/SaveChangesDialog.ui.h:1
 msgid "Close without Saving"
 msgstr "Закрыть без сохранения"
+
+#: ../data/ui/SaveChangesDialog.ui.h:2 ../data/ui/PasswordEntryDialog.ui.h:1
+#: ../data/ui/NewPasswordDialog.ui.h:1 ../data/ui/NewDatabaseDialog.ui.h:1
+#: ../data/ui/EditFolderDialog.ui.h:1 ../data/ui/EditDetailsDialog.ui.h:1
+msgid "_Cancel"
+msgstr "О_тменить"
 
 #: ../data/ui/SaveChangesDialog.ui.h:3 ../data/ui/PasaffeWindow.ui.h:3
 msgid "_Save"
@@ -98,6 +56,45 @@ msgstr ""
 #: ../data/ui/SaveChangesDialog.ui.h:5
 msgid "Your changes will be lost if you don't save them."
 msgstr "Если не сохранить изменения, они будут утеряны."
+
+#: ../data/ui/PasswordEntryDialog.ui.h:2 ../data/ui/NewPasswordDialog.ui.h:2
+#: ../data/ui/NewDatabaseDialog.ui.h:2 ../data/ui/EditFolderDialog.ui.h:2
+#: ../data/ui/EditDetailsDialog.ui.h:2
+msgid "_OK"
+msgstr "_ОК"
+
+#: ../data/ui/PasswordEntryDialog.ui.h:3
+msgid "<big><b>Please enter your master password:</b></big>"
+msgstr "<big><b>Введите свой главный пароль:</b></big>"
+
+#: ../data/ui/PasswordEntryDialog.ui.h:4
+msgid "Invalid password! Please try again."
+msgstr "Неправильный пароль! Попробуйте снова."
+
+#: ../pasaffe.desktop.in.h:1 ../data/ui/PasaffeWindow.ui.h:1
+msgid "Pasaffe"
+msgstr "Pasaffe"
+
+#: ../pasaffe.desktop.in.h:2
+msgid "Pasaffe password manager"
+msgstr "Менеджер паролей Pasaffe"
+
+#: ../pasaffe/__init__.py:39
+msgid "Show debug messages (-vv debugs pasaffe_lib also)"
+msgstr "Показывать отладочные сообщения (-vv — отлаживать также pasaffe_lib)"
+
+#: ../pasaffe/__init__.py:42
+msgid "use database FILE"
+msgstr "использовать ФАЙЛ базы данных"
+
+#: ../pasaffe/__init__.py:45
+msgid "set database as default"
+msgstr "установить базу данных по умолчанию"
+
+#. noqa: E722
+#: ../pasaffe_lib/helpers.py:396
+msgid "error running apg"
+msgstr ""
 
 #: ../data/ui/NewPasswordDialog.ui.h:3
 msgid "<big><b>Change master password</b></big>"
@@ -129,78 +126,239 @@ msgstr "Новый пароль:"
 msgid "Confirm new password:"
 msgstr "Подтвердите новый пароль:"
 
-#: ../data/ui/AboutPasaffeDialog.ui.h:1
-msgid "http://www.launchpad.net/pasaffe"
-msgstr "http://www.launchpad.net/pasaffe"
-
-#: ../data/ui/AboutPasaffeDialog.ui.h:2
-msgid "translator-credits"
+#: ../pasaffe/PasaffeWindow.py:253 ../pasaffe/PasaffeWindow.py:273
+#: ../pasaffe/PasaffeWindow.py:541 ../pasaffe/PasaffeWindow.py:1096
+msgid "[Untitled]"
 msgstr ""
-"Launchpad Contributions:\n"
-"  Aleksey Kabanov https://launchpad.net/~ak099\n"
-"  Eugene Roskin https://launchpad.net/~lowrider\n"
-"  Karma Dorje https://launchpad.net/~taaroa\n"
-"  Marc Deslauriers https://launchpad.net/~mdeslaur"
 
-#: ../pasaffe/__init__.py:39
-msgid "Show debug messages (-vv debugs pasaffe_lib also)"
-msgstr "Показывать отладочные сообщения (-vv — отлаживать также pasaffe_lib)"
-
-#: ../pasaffe/__init__.py:42
-msgid "use database FILE"
-msgstr "использовать ФАЙЛ базы данных"
-
-#: ../pasaffe/__init__.py:45
-msgid "set database as default"
-msgstr "установить базу данных по умолчанию"
-
-#: ../data/ui/EditDetailsDialog.ui.h:3
-msgid "<big><b>Edit entry</b></big>"
-msgstr "<big><b>Изменить запись</b></big>"
-
-#: ../data/ui/EditDetailsDialog.ui.h:4
-msgid "The name for this entry"
-msgstr "Имя для этой записи"
-
-#: ../data/ui/EditDetailsDialog.ui.h:5
-msgid "The folder for this entry"
-msgstr "Эта папка пуста"
-
-#: ../data/ui/EditDetailsDialog.ui.h:6
-msgid "The entry's username"
-msgstr "Имя пользователя для записи"
-
-#: ../data/ui/EditDetailsDialog.ui.h:7
-msgid "Title:"
-msgstr "Заголовок:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:8
-msgid "Folder:"
-msgstr "Папка:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:9 ../pasaffe/PasaffeWindow.py:567
-msgid "Username:"
-msgstr "Имя пользователя:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:10 ../pasaffe/PasaffeWindow.py:575
-msgid "Password:"
-msgstr "Пароль:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:11 ../pasaffe/PasaffeWindow.py:591
-msgid "Notes:"
-msgstr "Примечания:"
-
-#: ../data/ui/EditDetailsDialog.ui.h:12 ../pasaffe/PasaffeWindow.py:551
+#: ../pasaffe/PasaffeWindow.py:551 ../data/ui/EditDetailsDialog.ui.h:12
 msgid "URL:"
 msgstr "URL:"
 
-#: ../data/ui/EditDetailsDialog.ui.h:13
-msgid "The website for this entry"
-msgstr "Веб-сайт для этой записи"
+#: ../pasaffe/PasaffeWindow.py:563
+msgid "Secrets are currently hidden."
+msgstr "Секретные данные сейчас скрыты."
 
-#: ../data/ui/EditDetailsDialog.ui.h:14
-msgid "Pick a random password"
-msgstr "Выбрать случайный пароль"
+#: ../pasaffe/PasaffeWindow.py:567 ../data/ui/EditDetailsDialog.ui.h:9
+msgid "Username:"
+msgstr "Имя пользователя:"
+
+#: ../pasaffe/PasaffeWindow.py:575 ../data/ui/EditDetailsDialog.ui.h:10
+msgid "Password:"
+msgstr "Пароль:"
+
+#: ../pasaffe/PasaffeWindow.py:591 ../data/ui/EditDetailsDialog.ui.h:11
+msgid "Notes:"
+msgstr "Примечания:"
+
+#: ../pasaffe/PasaffeWindow.py:601
+msgid "Last updated:"
+msgstr "Последнее обновление:"
+
+#: ../pasaffe/PasaffeWindow.py:611
+msgid "Password updated:"
+msgstr "Обновление пароля:"
+
+#: ../pasaffe/PasaffeWindow.py:644
+msgid "Welcome to Pasaffe!"
+msgstr "Добро пожаловать в Pasaffe!"
+
+#: ../pasaffe/PasaffeWindow.py:649
+msgid ""
+"Pasaffe is an easy to use\n"
+"password manager."
+msgstr ""
+"Pasaffe — это простой в использовании\n"
+"менеджер паролей."
+
+#: ../pasaffe/PasaffeWindow.py:664
+msgid "This is a folder."
+msgstr "Это папка."
+
+#: ../pasaffe/PasaffeWindow.py:823
+msgid "New Folder"
+msgstr "Новая папка"
+
+#: ../pasaffe/PasaffeWindow.py:873
+#, python-format
+msgid ""
+"<big><b>Are you sure you wish to remove \"%s\"?</b></big>\n"
+"\n"
+msgstr ""
+"<big><b>Вы действительно хотите удалить \"%s\"?</b></big>\n"
+"\n"
+
+#: ../pasaffe/PasaffeWindow.py:876
+msgid "Contents of the entry will be lost.\n"
+msgstr "Содержимое записи будет утеряно.\n"
+
+#: ../pasaffe/PasaffeWindow.py:896
+#, python-format
+msgid ""
+"<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
+"\n"
+msgstr ""
+"<big><b>Вы действительно хотите удалить папку \"%s\"?</b></big>\n"
+"\n"
+
+#: ../pasaffe/PasaffeWindow.py:899
+msgid "All entries in this folder will be lost.\n"
+msgstr "Все записи в этой папке будут потеряны.\n"
+
+#: ../pasaffe/PasaffeWindow.py:962
+msgid "<big><b>New entry</b></big>"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:1093
+msgid "<big><b>New folder</b></big>"
+msgstr ""
+
+#: ../pasaffe/PasaffeWindow.py:1444
+msgid ""
+"<big><b>Database Information</b></big>\n"
+"\n"
+msgstr ""
+"<big><b>Информация о базе данных</b></big>\n"
+"\n"
+
+#: ../pasaffe/PasaffeWindow.py:1445
+#, python-format
+msgid "Number of entries: %s\n"
+msgstr "Число записей: %s\n"
+
+#: ../pasaffe/PasaffeWindow.py:1449
+#, python-format
+msgid "Last saved by: %s\n"
+msgstr "Последним сохранил пользователь: %s\n"
+
+#: ../pasaffe/PasaffeWindow.py:1452
+#, python-format
+msgid "Last saved on host: %s\n"
+msgstr "Последнее сохранение на компьютере: %s\n"
+
+#: ../pasaffe/PasaffeWindow.py:1454
+#, python-format
+msgid "Last save date: %s\n"
+msgstr "Дата последнего сохранения: %s\n"
+
+#: ../pasaffe/PasaffeWindow.py:1457
+#, python-format
+msgid "Database version: %s\n"
+msgstr "Версия базы данных: %s\n"
+
+#: ../pasaffe/PasaffeWindow.py:1460
+#, python-format
+msgid "Application used: %s\n"
+msgstr "Использовалось приложение: %s\n"
+
+#: ../pasaffe/PasaffeWindow.py:1463
+#, python-format
+msgid ""
+"Database location:\n"
+"%s\n"
+msgstr ""
+"Расположение базы данных:\n"
+"%s\n"
+
+#: ../pasaffe/PasaffeWindow.py:1555 ../data/ui/NewDatabaseDialog.ui.h:7
+msgid "Passwords don't match! Please try again."
+msgstr "Пароли не совпадают! Попробуйте снова."
+
+#: ../pasaffe/PasaffeWindow.py:1560
+msgid "New password cannot be blank! Please try again."
+msgstr "Новый пароль не должен быть пустым! Попробуйте снова."
+
+#: ../pasaffe/PasaffeWindow.py:1565
+msgid "Old password is invalid! Please try again."
+msgstr "Старый пароль введён неверно! Попробуйте снова."
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:1
+msgid "start expanded"
+msgstr "развернуть все при запуске"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:2
+msgid "start collapsed"
+msgstr "свернуть все при запуске"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:3
+msgid "are remembered from last save"
+msgstr "как при последнем сохранении"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:4
+msgid "edits entry"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:5
+msgid "copies password"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:6
+msgid "Pasaffe Preferences"
+msgstr "Параметры Pasaffe"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:7 ../data/ui/PasaffeWindow.ui.h:21
+msgid "_Help"
+msgstr "_Справка"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:8 ../data/ui/PasaffeWindow.ui.h:6
+msgid "_Close"
+msgstr "_Закрыть"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:9
+msgid "Automatically save changes"
+msgstr "Автоматически сохранять изменения"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:10
+msgid "Display secrets by default"
+msgstr "Не скрывать секретные данные по умолчанию"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:11
+msgid "Only passwords are secret"
+msgstr "Секретным является только пароль"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:12
+msgid "<b>Secrets</b>"
+msgstr "<b>Секретные данные</b>"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:13
+msgid "Lock database after"
+msgstr "Заблокировать базу данных через"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:14
+msgid "minutes"
+msgstr "минут"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:15
+msgid "<b>Lock</b>"
+msgstr "<b>Заблокировать</b>"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:16
+msgid "Passwords are"
+msgstr "Пароли"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:17
+msgid "characters long"
+msgstr "символов в длину"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:18
+msgid "<b>Password Generator</b>"
+msgstr "<b>Генератор паролей</b>"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:19
+msgid "Folders"
+msgstr "Папки"
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:20
+msgid "Double-click"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:21
+msgid "Display usernames in tree"
+msgstr ""
+
+#: ../data/ui/PreferencesPasaffeDialog.ui.h:22
+msgid "<b>Folder Preferences</b>"
+msgstr "<b>Параматеры папок</b>"
 
 #: ../bin/pasaffe-cli.py:94
 msgid "run with debug"
@@ -378,11 +536,75 @@ msgid ""
 "ERROR: Could not locate database file!"
 msgstr ""
 
-#. noqa: F401
-#. noqa: F401
-#: ../data/ui/PasaffeWindow.ui.h:1 ../pasaffe.desktop.in.h:1
-msgid "Pasaffe"
-msgstr "Pasaffe"
+#: ../data/ui/NewDatabaseDialog.ui.h:3
+msgid "<big><b>Welcome to Pasaffe!</b></big>"
+msgstr "<big><b>Добро пожаловать в Pasaffe!</b></big>"
+
+#: ../data/ui/NewDatabaseDialog.ui.h:4
+msgid ""
+"No existing database was found.\n"
+"A new one will be created.\n"
+"Please enter a master password to protect it."
+msgstr ""
+"База данных не найдена.\n"
+"Будет создана новая база данных.\n"
+"Укажите главный пароль для её защиты."
+
+#: ../data/ui/NewDatabaseDialog.ui.h:8
+msgid "Enter password:"
+msgstr "Введите пароль:"
+
+#: ../data/ui/NewDatabaseDialog.ui.h:9
+msgid "Confirm password:"
+msgstr "Подтвердите пароль:"
+
+#: ../data/ui/EditFolderDialog.ui.h:3
+msgid "<big><b>Edit folder</b></big>"
+msgstr "<big><b>Изменить папку</b></big>"
+
+#: ../data/ui/EditFolderDialog.ui.h:4
+msgid "Parent folder:"
+msgstr "Родительская папка:"
+
+#: ../data/ui/EditFolderDialog.ui.h:5
+msgid "Folder name:"
+msgstr "Имя папки:"
+
+#: ../data/ui/EditFolderDialog.ui.h:6
+msgid "The parent folder for this new folder"
+msgstr "Родительская папка для этой новой папки"
+
+#: ../data/ui/EditDetailsDialog.ui.h:3
+msgid "<big><b>Edit entry</b></big>"
+msgstr "<big><b>Изменить запись</b></big>"
+
+#: ../data/ui/EditDetailsDialog.ui.h:4
+msgid "The name for this entry"
+msgstr "Имя для этой записи"
+
+#: ../data/ui/EditDetailsDialog.ui.h:5
+msgid "The folder for this entry"
+msgstr "Эта папка пуста"
+
+#: ../data/ui/EditDetailsDialog.ui.h:6
+msgid "The entry's username"
+msgstr "Имя пользователя для записи"
+
+#: ../data/ui/EditDetailsDialog.ui.h:7
+msgid "Title:"
+msgstr "Заголовок:"
+
+#: ../data/ui/EditDetailsDialog.ui.h:8
+msgid "Folder:"
+msgstr "Папка:"
+
+#: ../data/ui/EditDetailsDialog.ui.h:13
+msgid "The website for this entry"
+msgstr "Веб-сайт для этой записи"
+
+#: ../data/ui/EditDetailsDialog.ui.h:14
+msgid "Pick a random password"
+msgstr "Выбрать случайный пароль"
 
 #: ../data/ui/PasaffeWindow.ui.h:2
 msgid "_File"
@@ -395,10 +617,6 @@ msgstr "Блокировать"
 #: ../data/ui/PasaffeWindow.ui.h:5
 msgid "Change Master Password"
 msgstr "Изменить главный пароль"
-
-#: ../data/ui/PasaffeWindow.ui.h:6 ../data/ui/PreferencesPasaffeDialog.ui.h:8
-msgid "_Close"
-msgstr "_Закрыть"
 
 #: ../data/ui/PasaffeWindow.ui.h:7
 msgid "_Edit"
@@ -455,10 +673,6 @@ msgstr "Открыть URL"
 #: ../data/ui/PasaffeWindow.ui.h:20
 msgid "Database Information"
 msgstr "Информация о базе данных"
-
-#: ../data/ui/PasaffeWindow.ui.h:21 ../data/ui/PreferencesPasaffeDialog.ui.h:7
-msgid "_Help"
-msgstr "_Справка"
 
 #: ../data/ui/PasaffeWindow.ui.h:22
 msgid "Contents"
@@ -555,218 +769,3 @@ msgstr "В_ыйти"
 #: ../data/ui/PasaffeWindow.ui.h:45
 msgid "Unlock"
 msgstr "Разблокировать"
-
-#. noqa: E722
-#: ../pasaffe_lib/helpers.py:396
-msgid "error running apg"
-msgstr ""
-
-#: ../pasaffe.desktop.in.h:2
-msgid "Pasaffe password manager"
-msgstr "Менеджер паролей Pasaffe"
-
-#: ../pasaffe/PasaffeWindow.py:253 ../pasaffe/PasaffeWindow.py:273
-#: ../pasaffe/PasaffeWindow.py:541 ../pasaffe/PasaffeWindow.py:1096
-msgid "[Untitled]"
-msgstr ""
-
-#: ../pasaffe/PasaffeWindow.py:563
-msgid "Secrets are currently hidden."
-msgstr "Секретные данные сейчас скрыты."
-
-#: ../pasaffe/PasaffeWindow.py:601
-msgid "Last updated:"
-msgstr "Последнее обновление:"
-
-#: ../pasaffe/PasaffeWindow.py:611
-msgid "Password updated:"
-msgstr "Обновление пароля:"
-
-#: ../pasaffe/PasaffeWindow.py:644
-msgid "Welcome to Pasaffe!"
-msgstr "Добро пожаловать в Pasaffe!"
-
-#: ../pasaffe/PasaffeWindow.py:649
-msgid ""
-"Pasaffe is an easy to use\n"
-"password manager."
-msgstr ""
-"Pasaffe — это простой в использовании\n"
-"менеджер паролей."
-
-#: ../pasaffe/PasaffeWindow.py:664
-msgid "This is a folder."
-msgstr "Это папка."
-
-#: ../pasaffe/PasaffeWindow.py:823
-msgid "New Folder"
-msgstr "Новая папка"
-
-#: ../pasaffe/PasaffeWindow.py:873
-#, python-format
-msgid ""
-"<big><b>Are you sure you wish to remove \"%s\"?</b></big>\n"
-"\n"
-msgstr ""
-"<big><b>Вы действительно хотите удалить \"%s\"?</b></big>\n"
-"\n"
-
-#: ../pasaffe/PasaffeWindow.py:876
-msgid "Contents of the entry will be lost.\n"
-msgstr "Содержимое записи будет утеряно.\n"
-
-#: ../pasaffe/PasaffeWindow.py:896
-#, python-format
-msgid ""
-"<big><b>Are you sure you wish to remove folder \"%s\"?</b></big>\n"
-"\n"
-msgstr ""
-"<big><b>Вы действительно хотите удалить папку \"%s\"?</b></big>\n"
-"\n"
-
-#: ../pasaffe/PasaffeWindow.py:899
-msgid "All entries in this folder will be lost.\n"
-msgstr "Все записи в этой папке будут потеряны.\n"
-
-#: ../pasaffe/PasaffeWindow.py:962
-msgid "<big><b>New entry</b></big>"
-msgstr ""
-
-#: ../pasaffe/PasaffeWindow.py:1093
-msgid "<big><b>New folder</b></big>"
-msgstr ""
-
-#: ../pasaffe/PasaffeWindow.py:1444
-msgid ""
-"<big><b>Database Information</b></big>\n"
-"\n"
-msgstr ""
-"<big><b>Информация о базе данных</b></big>\n"
-"\n"
-
-#: ../pasaffe/PasaffeWindow.py:1445
-#, python-format
-msgid "Number of entries: %s\n"
-msgstr "Число записей: %s\n"
-
-#: ../pasaffe/PasaffeWindow.py:1449
-#, python-format
-msgid "Last saved by: %s\n"
-msgstr "Последним сохранил пользователь: %s\n"
-
-#: ../pasaffe/PasaffeWindow.py:1452
-#, python-format
-msgid "Last saved on host: %s\n"
-msgstr "Последнее сохранение на компьютере: %s\n"
-
-#: ../pasaffe/PasaffeWindow.py:1454
-#, python-format
-msgid "Last save date: %s\n"
-msgstr "Дата последнего сохранения: %s\n"
-
-#: ../pasaffe/PasaffeWindow.py:1457
-#, python-format
-msgid "Database version: %s\n"
-msgstr "Версия базы данных: %s\n"
-
-#: ../pasaffe/PasaffeWindow.py:1460
-#, python-format
-msgid "Application used: %s\n"
-msgstr "Использовалось приложение: %s\n"
-
-#: ../pasaffe/PasaffeWindow.py:1463
-#, python-format
-msgid ""
-"Database location:\n"
-"%s\n"
-msgstr ""
-"Расположение базы данных:\n"
-"%s\n"
-
-#: ../pasaffe/PasaffeWindow.py:1560
-msgid "New password cannot be blank! Please try again."
-msgstr "Новый пароль не должен быть пустым! Попробуйте снова."
-
-#: ../pasaffe/PasaffeWindow.py:1565
-msgid "Old password is invalid! Please try again."
-msgstr "Старый пароль введён неверно! Попробуйте снова."
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:1
-msgid "start expanded"
-msgstr "развернуть все при запуске"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:2
-msgid "start collapsed"
-msgstr "свернуть все при запуске"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:3
-msgid "are remembered from last save"
-msgstr "как при последнем сохранении"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:4
-msgid "edits entry"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:5
-msgid "copies password"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:6
-msgid "Pasaffe Preferences"
-msgstr "Параметры Pasaffe"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:9
-msgid "Automatically save changes"
-msgstr "Автоматически сохранять изменения"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:10
-msgid "Display secrets by default"
-msgstr "Не скрывать секретные данные по умолчанию"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:11
-msgid "Only passwords are secret"
-msgstr "Секретным является только пароль"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:12
-msgid "<b>Secrets</b>"
-msgstr "<b>Секретные данные</b>"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:13
-msgid "Lock database after"
-msgstr "Заблокировать базу данных через"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:14
-msgid "minutes"
-msgstr "минут"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:15
-msgid "<b>Lock</b>"
-msgstr "<b>Заблокировать</b>"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:16
-msgid "Passwords are"
-msgstr "Пароли"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:17
-msgid "characters long"
-msgstr "символов в длину"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:18
-msgid "<b>Password Generator</b>"
-msgstr "<b>Генератор паролей</b>"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:19
-msgid "Folders"
-msgstr "Папки"
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:20
-msgid "Double-click"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:21
-msgid "Display usernames in tree"
-msgstr ""
-
-#: ../data/ui/PreferencesPasaffeDialog.ui.h:22
-msgid "<b>Folder Preferences</b>"
-msgstr "<b>Параматеры папок</b>"
