@@ -222,6 +222,15 @@
                       </object>
                     </child>
                     <child>
+                      <object class="GtkMenuItem" id="email_copy">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Copy Email</property>
+                        <signal name="activate" handler="on_email_copy_activate" swapped="no"/>
+                        <accelerator key="e" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkSeparatorMenuItem" id="separatormenuitem4">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -468,6 +477,21 @@
                 <property name="use_underline">True</property>
                 <property name="icon_name">star-new-symbolic</property>
                 <signal name="clicked" handler="on_copy_password_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="copy_email">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Copy the email</property>
+                <property name="label" translatable="yes">Copy Email</property>
+                <property name="use_underline">True</property>
+                <property name="icon_name">mail-message-new-symbolic</property>
+                <signal name="clicked" handler="on_copy_email_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -808,6 +832,14 @@
         <property name="can_focus">False</property>
         <property name="label" translatable="yes">Copy Password</property>
         <signal name="activate" handler="on_password_copy_activate" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="email_copy1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Copy Email</property>
+        <signal name="activate" handler="on_email_copy_activate" swapped="no"/>
       </object>
     </child>
     <child>

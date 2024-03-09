@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright (C) 2011-2013 Marc Deslauriers <marc.deslauriers@canonical.com>
+# Copyright (C) 2011-2024 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
@@ -59,7 +59,7 @@ class PassSafeFile:
 
         # These fields need converting between strings and bytes
         self.header_text = [0x03, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x11]
-        self.record_text = [0x02, 0x03, 0x04, 0x05, 0x06, 0x0d]
+        self.record_text = [0x02, 0x03, 0x04, 0x05, 0x06, 0x0d, 0x14]
 
         # Use version 0x030B, since we support saving empty folders
         self.db_version = b'\x0B\x03'
@@ -435,6 +435,10 @@ class PassSafeFile:
         '''Returns the entry URL'''
         return self.records[uuid].get(13)
 
+    def get_email(self, uuid):
+        '''Returns the entry email'''
+        return self.records[uuid].get(20)
+
     def get_modification_time(self, uuid, localtime=True):
         '''Returns a string of the entry modification time'''
         return self.get_time(uuid, 12, localtime)
@@ -520,7 +524,8 @@ class PassSafeFile:
         uuid_hex = hexlify(uuid).decode('utf-8')
         timestamp = struct.pack("<I", int(time.time()))
         new_entry = {1: uuid, 3: '', 4: '', 5: '', 6: '',
-                     7: timestamp, 8: timestamp, 12: timestamp, 13: ''}
+                     7: timestamp, 8: timestamp, 12: timestamp, 13: '',
+                     20: ''}
         self.records[uuid_hex] = new_entry
 
         return uuid_hex

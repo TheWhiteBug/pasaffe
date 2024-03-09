@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright (C) 2011-2013 Marc Deslauriers <marc.deslauriers@canonical.com>
+# Copyright (C) 2011-2024 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
@@ -585,6 +585,15 @@ class PasaffeWindow(Window):
                 data_buffer.insert(data_buffer.get_end_iter(), '*****')
             data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
 
+            # email
+            if self.passfile.get_email(entry_uuid):
+                data_buffer.insert_with_tags(data_buffer.get_end_iter(),
+                                             _("Email:") + "\n",
+                                             ttt.lookup('section'))
+                data_buffer.insert(data_buffer.get_end_iter(),
+                                   self.passfile.get_email(entry_uuid))
+                data_buffer.insert(data_buffer.get_end_iter(), "\n\n")
+
             # notes
             if self.passfile.get_notes(entry_uuid):
                 data_buffer.insert_with_tags(data_buffer.get_end_iter(),
@@ -634,6 +643,11 @@ class PasaffeWindow(Window):
             self.ui.password_copy.set_sensitive(False)
             self.ui.password_copy1.set_sensitive(False)
             self.ui.copy_password.set_sensitive(False)
+
+        if self.passfile.get_email(entry_uuid) in [None, ""]:
+            self.ui.email_copy.set_sensitive(False)
+            self.ui.email_copy1.set_sensitive(False)
+            self.ui.copy_email.set_sensitive(False)
 
     def display_welcome(self):
         ttt = self.get_texttagtable()
@@ -836,7 +850,7 @@ class PasaffeWindow(Window):
             self.delete_folder(new_folder, save=False)
 
     def clone_entry(self, entry_uuid):
-        record_list = (2, 3, 4, 5, 6, 13)
+        record_list = (2, 3, 4, 5, 6, 13, 20)
         self.disable_idle_timeout()
 
         # Make sure dialog isn't already open
@@ -947,7 +961,8 @@ class PasaffeWindow(Window):
                        4: 'username_entry',
                        5: 'notes_buffer',
                        6: 'password_entry',
-                       13: 'url_entry'}
+                       13: 'url_entry',
+                       20: 'email_entry'}
 
         # Make sure dialog isn't already open
         if self.editdetails_dialog is not None:
@@ -1033,7 +1048,7 @@ class PasaffeWindow(Window):
                                 entry_uuid, new_value)
                             data_changed = True
                             tree_changed = True
-                    elif ((record_type in [5, 13]) and
+                    elif ((record_type in [5, 13, 20]) and
                           new_value == "" and
                           record_type in self.passfile.records[entry_uuid]):
                         del self.passfile.records[entry_uuid][record_type]
@@ -1362,6 +1377,9 @@ class PasaffeWindow(Window):
     def on_password_copy_activate(self, _menuitem):
         self.copy_selected_entry_item(6)
 
+    def on_email_copy_activate(self, _menuitem):
+        self.copy_selected_entry_item(20)
+
     def on_url_copy_activate(self, _menuitem):
         self.copy_selected_entry_item(13)
 
@@ -1370,6 +1388,9 @@ class PasaffeWindow(Window):
 
     def on_copy_password_clicked(self, _toolbutton):
         self.copy_selected_entry_item(6)
+
+    def on_copy_email_clicked(self, _toolbutton):
+        self.copy_selected_entry_item(20)
 
     def on_display_secrets_toggled(self, toolbutton):
         is_active = toolbutton.get_active()
@@ -1630,6 +1651,7 @@ class PasaffeWindow(Window):
         self.ui.url_copy.set_sensitive(status)
         self.ui.username_copy.set_sensitive(status)
         self.ui.password_copy.set_sensitive(status)
+        self.ui.email_copy.set_sensitive(status)
         self.ui.mnu_preferences.set_sensitive(status)
         self.ui.mnu_open_url.set_sensitive(status)
         self.ui.mnu_info.set_sensitive(status)
@@ -1655,6 +1677,7 @@ class PasaffeWindow(Window):
         self.ui.url_copy.set_sensitive(status)
         self.ui.username_copy.set_sensitive(status)
         self.ui.password_copy.set_sensitive(status)
+        self.ui.email_copy.set_sensitive(status)
         self.ui.mnu_open_url.set_sensitive(status)
 
         # context menu
@@ -1662,11 +1685,13 @@ class PasaffeWindow(Window):
         self.ui.url_copy1.set_sensitive(status)
         self.ui.username_copy1.set_sensitive(status)
         self.ui.password_copy1.set_sensitive(status)
+        self.ui.email_copy1.set_sensitive(status)
 
         # Toolbar
         self.ui.open_url.set_sensitive(status)
         self.ui.copy_username.set_sensitive(status)
         self.ui.copy_password.set_sensitive(status)
+        self.ui.copy_email.set_sensitive(status)
 
         if status is False:
             self.ui.mnu_display_secrets.set_sensitive(False)

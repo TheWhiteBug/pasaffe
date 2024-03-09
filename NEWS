@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.58 (UNRELEASED)
 
  * Enhancements:
+   - Add email field
 
  * Bug fixes:
    - Fix some deprecation warnings in the test suite
