@@ -53,7 +53,7 @@ from pasaffe_lib.helpers import get_database_path
 
 parser = OptionParser()
 parser.add_option("-f", "--file", dest="filename",
-                  help="specify alternate GPass database file", metavar="FILE")
+                  help="specify alternate Pasaffe database file", metavar="FILE")
 parser.add_option("-m", "--masterpassword", dest="master", default=None,
                   help="specify Pasaffe database master password")
 parser.add_option("-q", "--quiet", dest="quiet", action="store_true",
