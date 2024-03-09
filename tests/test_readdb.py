@@ -104,7 +104,7 @@ class TestReadDB(unittest.TestCase):
         self.assertEqual(len(uuid_hex), 32)
         self.assertTrue(uuid_hex in self.passfile.records)
 
-        for field in [1, 3, 4, 5, 6, 7, 8, 12, 13]:
+        for field in [1, 3, 4, 5, 6, 7, 8, 12, 13, 20]:
             self.assertTrue(field in self.passfile.records[uuid_hex])
 
     def test_delete_entry(self):
@@ -196,6 +196,17 @@ class TestReadDB(unittest.TestCase):
 
         url = self.passfile.get_url(uuid_hex)
         self.assertTrue(url == test_url)
+
+    def test_get_email(self):
+
+        self.passfile.new_db("test")
+        uuid_hex = self.passfile.new_entry()
+
+        test_email = "test@example.com"
+        self.passfile.records[uuid_hex][20] = test_email
+
+        email = self.passfile.get_email(uuid_hex)
+        self.assertTrue(email == test_email)
 
     def test_update_folder_list(self):
 
