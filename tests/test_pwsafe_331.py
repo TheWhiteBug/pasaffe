@@ -63,7 +63,7 @@ class TestPasswordSafe331(unittest.TestCase):
         self.assertEqual(self.passfile.get_saved_name(), "mdeslaur")
 
     def test_get_saved_host(self):
-        self.assertEqual(self.passfile.get_saved_host(), "mdlinux")
+        self.assertEqual(self.passfile.get_saved_host(), "MDLINUX")
 
     def test_get_saved_application(self):
         self.assertEqual(self.passfile.get_saved_application(),
@@ -71,7 +71,7 @@ class TestPasswordSafe331(unittest.TestCase):
 
     def test_get_saved_date_string(self):
         self.assertEqual(self.passfile.get_saved_date_string(False),
-                         'Thu, 25 Jul 2013 23:57:08')
+                         'Sat, 09 Mar 2024 20:46:09')
 
     def test_entry_1(self):
         uuid = '4a32a8ad616343b692e85c721bfce0e2'
@@ -83,6 +83,7 @@ class TestPasswordSafe331(unittest.TestCase):
                          'This is a note\nThis is a second line\n'
                          'Unicode: éléphant')
         self.assertEqual(self.passfile.records[uuid][6], 'password1')
+        self.assertEqual(self.passfile.records[uuid][20], 'test@example.com')
         self.assertEqual(self.passfile.get_creation_time(uuid, False),
                          'Thu, 25 Jul 2013 00:21:00')
         self.assertEqual(self.passfile.records[uuid][13],
