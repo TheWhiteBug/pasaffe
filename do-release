@@ -30,7 +30,7 @@ version=$(grep '(UNRELEASED)' NEWS | cut -f1 -d' ')
 ./setup.py build
 ./setup.py sdist -o
 ./setup.py clean -a
-missing=$(for f in `find -type f ! -path '*.bzr*' ! -name '*.pyc' ! -name 'MANIFEST*' ! -name do-release ! -name TODO`; do grep -qFx "${f#./}" < MANIFEST || echo $f; done)
+missing=$(for f in `find -type f ! -path '*.bzr*' ! -path '*.git*' ! -name '*.pyc' ! -name 'MANIFEST*' ! -name do-release ! -name TODO`; do grep -qFx "${f#./}" < MANIFEST || echo $f; done)
 if [ -n "$missing" ]; then
     echo "MANIFEST is missing the following files:"
     echo "$missing"
