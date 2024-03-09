@@ -56,8 +56,9 @@ class TestPasaffe058(unittest.TestCase):
         self.assertEqual(self.passfile.get_database_version_string(), "03.0b")
 
     def test_get_database_uuid(self):
-        self.assertEqual(self.passfile.header[1],
-                         b'\xa6\x95\x8d\xb5\xf6;\x03^\x84.\x84\x9d\xf4F\x8b\xd6')
+        self.assertEqual(
+            self.passfile.header[1],
+            b'\xa6\x95\x8d\xb5\xf6;\x03^\x84.\x84\x9d\xf4F\x8b\xd6')
 
     def test_get_saved_name(self):
         self.assertEqual(self.passfile.get_saved_name(), "mdeslaur")
