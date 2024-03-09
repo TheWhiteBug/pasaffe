@@ -33,20 +33,20 @@ class TestHelpers(unittest.TestCase):
 
         folder_list = [[[], ""],
                        [["foldera"], "foldera"],
-                       [["folder.a"], r"folder\.a"],  # noqa: W605
-                       [["foldera."], r"foldera\."],  # noqa: W605
-                       [[".foldera"], r"\.foldera"],  # noqa: W605
+                       [["folder.a"], r"folder\.a"],
+                       [["foldera."], r"foldera\."],
+                       [[".foldera"], r"\.foldera"],
                        [["foldera.", "folderb."],
-                         r"foldera\..folderb\."],  # noqa: W605
+                        r"foldera\..folderb\."],
                        [["foldera", "folderb"], "foldera.folderb"],
                        [["folder.a", "folderb"],
-                         r"folder\.a.folderb"],  # noqa: W605
+                        r"folder\.a.folderb"],
                        [["foldera", "folder.b"],
-                         r"foldera.folder\.b"],  # noqa: W605
+                        r"foldera.folder\.b"],
                        [["folder.a", "folder.b"],
-                         r"folder\.a.folder\.b"],  # noqa: W605
+                        r"folder\.a.folder\.b"],
                        [["folder.a", "folder.b", "folder.c"],
-                           r"folder\.a.folder\.b.folder\.c"]]  # noqa: W605
+                        r"folder\.a.folder\.b.folder\.c"]]
 
         for (folder, field) in folder_list:
             self.assertEqual(folder_list_to_field(folder), field)
@@ -55,16 +55,16 @@ class TestHelpers(unittest.TestCase):
 
         folder_list = [["", []],
                        ["foldera", ["foldera"]],
-                       [r"folder\.a", ["folder.a"]],  # noqa: W605
-                       [r"foldera\.", ["foldera."]],  # noqa: W605
-                       [r"\.foldera", [".foldera"]],  # noqa: W605
+                       [r"folder\.a", ["folder.a"]],
+                       [r"foldera\.", ["foldera."]],
+                       [r"\.foldera", [".foldera"]],
                        [r"foldera\..folderb\.",
-                        ["foldera.", "folderb."]],  # noqa: W605
+                        ["foldera.", "folderb."]],
                        ["foldera.folderb", ["foldera", "folderb"]],
                        [r"folder\.a.folderb",
-                        ["folder.a", "folderb"]],  # noqa: W605
+                        ["folder.a", "folderb"]],
                        [r"foldera.folder\.b",
-                        ["foldera", "folder.b"]],  # noqa: W605
+                        ["foldera", "folder.b"]],
                        [r"folder\.a.folder\.b", ["folder.a", "folder.b"]],
                        [r"folder\.a.folder\.b.folder\.c",
                            ["folder.a", "folder.b", "folder.c"]]]
@@ -77,18 +77,18 @@ class TestHelpers(unittest.TestCase):
         folder_list = [[[], "/"],
                        [["foldera"], "/foldera/"],
                        [["folder.a"], "/folder.a/"],
-                       [["folder/a"], r"/folder\/a/"],  # noqa: W605
+                       [["folder/a"], r"/folder\/a/"],
                        [["foldera."], "/foldera./"],
-                       [["foldera/"], r"/foldera\//"],  # noqa: W605
+                       [["foldera/"], r"/foldera\//"],
                        [[".foldera"], "/.foldera/"],
-                       [["/foldera"], r"/\/foldera/"],  # noqa: W605
+                       [["/foldera"], r"/\/foldera/"],
                        [["foldera.", "folderb."], "/foldera./folderb./"],
                        [["foldera/", "folderb/"],
-                         r"/foldera\//folderb\//"],  # noqa: W605
+                        r"/foldera\//folderb\//"],
                        [["foldera", "folderb"], "/foldera/folderb/"],
                        [["folder.a", "folderb"], "/folder.a/folderb/"],
                        [["folder/a", "folderb"],
-                         r"/folder\/a/folderb/"],  # noqa: W605
+                        r"/folder\/a/folderb/"],
                        [["foldera", "folder.b"], "/foldera/folder.b/"],
                        [["foldera", "folder/b"], r"/foldera/folder\/b/"],
                        [["folder.a", "folder.b"], "/folder.a/folder.b/"],
@@ -106,14 +106,14 @@ class TestHelpers(unittest.TestCase):
         folder_list = [["/", []],
                        ["/foldera/", ["foldera"]],
                        ["/folder.a/", ["folder.a"]],
-                       [r"/folder\/a/", ["folder/a"]],  # noqa: W605
+                       [r"/folder\/a/", ["folder/a"]],
                        ["/foldera./", ["foldera."]],
-                       [r"/foldera\//", ["foldera/"]],  # noqa: W605
+                       [r"/foldera\//", ["foldera/"]],
                        ["/.foldera/", [".foldera"]],
-                       [r"/\/foldera/", ["/foldera"]],  # noqa: W605
+                       [r"/\/foldera/", ["/foldera"]],
                        ["/foldera./folderb./", ["foldera.", "folderb."]],
                        [r"/foldera\//folderb\//",
-                        ["foldera/", "folderb/"]],  # noqa: W605
+                        ["foldera/", "folderb/"]],
                        ["/foldera/folderb/", ["foldera", "folderb"]],
                        ["/folder.a/folderb/", ["folder.a", "folderb"]],
                        [r"/folder\/a/folderb/", ["folder/a", "folderb"]],
