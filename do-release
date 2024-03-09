@@ -4,7 +4,7 @@
 # should solely be used by upstream developers, distributors do not need to
 # worry about it.
 
-[ -z "`bzr status`" ] || {
+[ -z "`git status -s`" ] || {
     echo "Uncommitted changes, aborting" >&2
     exit 1
 }
@@ -18,6 +18,7 @@ rm -f data/glib-2.0/schemas/gschemas.compiled
 # remove Python 3 cache files
 rm -rf pasaffe/__pycache__
 rm -rf pasaffe_lib/__pycache__
+rm -rf tests/__pycache__
 
 version=$(grep '(UNRELEASED)' NEWS | cut -f1 -d' ')
 [ -n "$version" ] || {
@@ -41,10 +42,11 @@ set -x
 sed -i -r "s/(^[[:space:]]*version[[:space:]]*=[[:space:]]*').*\$/\\1${version}',/" setup.py
 sed -i "s/(UNRELEASED)/$(date '+(%Y-%m-%d)')/" NEWS
 #dch -v ${version}-1 "New version"
-bzr commit -m "release $version"
-bzr tag "$version"
+git add -A
+git commit -a -m "release $version"
+git tag "$version"
 
-bzr log -v --gnu-changelog > ChangeLog
+git2cl > ChangeLog
 ./setup.py sdist -d ..
 ./setup.py clean -a
 rm ChangeLog MANIFEST
