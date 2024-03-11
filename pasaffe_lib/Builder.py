@@ -133,6 +133,7 @@ class Builder(Gtk.Builder):
                             filename)
 
         # connect glade define handlers
+        # pylint: disable=E1101
         Gtk.Builder.connect_signals(self, connection_dict)
 
         # let's tell the user how we applied the glade design

@@ -62,7 +62,7 @@ class PasaffeWindow(Window):
         new_object.finish_initializing(builder, database)
         return new_object
 
-    def finish_initializing(self, builder, database):  # pylint: disable=E1002
+    def finish_initializing(self, builder, database):
         """Set up the main window"""
         super(PasaffeWindow, self).finish_initializing(builder)
 

@@ -27,7 +27,7 @@ logger = logging.getLogger('pasaffe')
 class AboutPasaffeDialog(AboutDialog):
     __gtype_name__ = "AboutPasaffeDialog"
 
-    def finish_initializing(self, builder):  # pylint: disable=E1002
+    def finish_initializing(self, builder):
         """Set up the about dialog"""
         super(AboutPasaffeDialog, self).finish_initializing(builder)
 
