@@ -4,9 +4,9 @@ Here are some current issues with interopability:
 
 Password Safe for Windows v3.31, Password Gorilla v1.5.3.6.3 on Ubuntu
 13.04 and PasswdSafe for Android create notes with CRLF line terminators,
-while Pasaffe creates them with LF line terminators. This doesn't seem to
-create an issue, but perhaps Pasaffe should make sure they are CRLF in the
-database, and migrate existing entries on import.
+while Pasaffe used to create them with LF line terminators. This didn't
+seem to create an issue, but Pasaffe now makes sure they are CRLF in the
+database, and migrates existing entries on import.
 
 2- Missing passwords
 
@@ -36,7 +36,7 @@ entries with no usernames with a username field composed of a blank string.
 
 PasswdSafe for Android will create entries with no username field.
 
-3- Password Modification Time
+4- Password Modification Time
 
 When Password Gorilla doesn't save a password entry, it also doesn't save
 a Password Modification Time field.
@@ -44,7 +44,7 @@ a Password Modification Time field.
 PasswdSafe on Android doesn't seem to save a Password Modification Time
 field.
 
-4- Last Modification Time
+5- Last Modification Time
 
 PasswdSafe on Android doesn't seem to save a Last Modification Time field.
 
