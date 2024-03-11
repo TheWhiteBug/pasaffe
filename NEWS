@@ -8,6 +8,7 @@ For a detailed list of changes, please see ChangeLog.
 
  * Bug fixes:
    - Don't include .pytest_cache directory in release tarball
+   - Fix test_lint.py so that it actually works
 
 0.58 (2024-03-09)
 
