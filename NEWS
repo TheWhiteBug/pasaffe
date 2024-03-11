@@ -4,6 +4,7 @@ For a detailed list of changes, please see ChangeLog.
 0.59 (UNRELEASED)
 
  * Enhancements:
+   - Added flake8 test script
 
  * Bug fixes:
    - Don't include .pytest_cache directory in release tarball
