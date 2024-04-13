@@ -1,11 +1,31 @@
 This file summarizes the major and interesting changes for each release.
 For a detailed list of changes, please see ChangeLog.
 
-0.57 (UNRELEASED)
+0.59 (UNRELEASED)
+
+ * Enhancements:
+   - Added flake8 test script
+
+ * Bug fixes:
+   - Don't include .pytest_cache directory in release tarball
+   - Fix test_lint.py so that it actually works
+
+0.58 (2024-03-09)
+
+ * Enhancements:
+   - Add email field
+   - Updated translations
+
+ * Bug fixes:
+   - Fix some deprecation warnings in the test suite
+
+0.57 (2020-12-11)
 
  * Enhancements:
 
  * Bug fixes:
+   - Fixed deprecated ElementTree API (LP: #1907304)
+   - Fix some deprecation warnings in the test suite
 
 0.56 (2020-01-28)
 

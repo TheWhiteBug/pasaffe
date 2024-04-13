@@ -53,7 +53,7 @@ from pasaffe_lib.helpers import get_database_path
 
 parser = OptionParser()
 parser.add_option("-f", "--file", dest="filename",
-                  help="specify alternate GPass database file", metavar="FILE")
+                  help="specify alternate Pasaffe database file", metavar="FILE")
 parser.add_option("-m", "--masterpassword", dest="master", default=None,
                   help="specify Pasaffe database master password")
 parser.add_option("-q", "--quiet", dest="quiet", action="store_true",
@@ -102,7 +102,8 @@ record_dict = {'Entry': 3,
                'Username': 4,
                'Notes': 5,
                'Password': 6,
-               'URL': 13
+               'URL': 13,
+               'Email': 20
                }
 
 if options.dump:
@@ -113,7 +114,7 @@ if options.dump:
 for record in sorted(list(passfile.records.values()),
                      key=lambda entry: entry[3].lower()):
     # specify order of labels and values
-    for label in ['Entry', 'Username', 'Password', 'URL', 'Notes']:
+    for label in ['Entry', 'Username', 'Password', 'Email', 'URL', 'Notes']:
         record_type = record_dict[label]
         if record_type in record and record[record_type] != "":
             print(("%s: %s" % (label, record[record_type])))

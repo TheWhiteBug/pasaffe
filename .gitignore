@@ -2,3 +2,5 @@ data/glib-2.0/schemas/gschemas.compiled
 pasaffe/__pycache__
 pasaffe_lib/__pycache__
 tests/__pycache__
+MANIFEST
+.pytest_cache

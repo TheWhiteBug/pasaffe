@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright (C) 2013 Marc Deslauriers <marc.deslauriers@canonical.com>
+# Copyright (C) 2013-2024 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
@@ -29,7 +29,7 @@ class TestDumpDB(unittest.TestCase):
 
     def test_dump_db(self):
         out = subprocess.check_output(['bin/pasaffe-dump-db', '-q', '-f',
-                                       './tests/databases/pasaffe-025.psafe3',
+                                       './tests/databases/pasaffe-058.psafe3',
                                        '-m', 'pasaffe'])
 
         expected_out = b'''Entry: level1entry
@@ -44,6 +44,7 @@ Password: passwordlevel3
 Entry: topentry1
 Username: username1
 Password: password1
+Email: test@example.com
 URL: http://www.example.com
 Notes: This is a note
 
@@ -52,7 +53,7 @@ Notes: This is a note
 
     def test_dump_db_verbose(self):
         out = subprocess.check_output(['bin/pasaffe-dump-db', '-f',
-                                       './tests/databases/pasaffe-025.psafe3',
+                                       './tests/databases/pasaffe-058.psafe3',
                                        '-m', 'pasaffe'])
 
         self.assertTrue(b'WARNING: this will display all password entries.'

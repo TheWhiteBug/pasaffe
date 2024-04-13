@@ -1,6 +1,7 @@
+#!/usr/bin/python3
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright (C) 2011-2013 Marc Deslauriers <marc.deslauriers@canonical.com>
+# Copyright (C) 2011-2024 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
@@ -14,21 +15,16 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import logging
-from pasaffe_lib.AboutDialog import AboutDialog
-from pasaffe_lib import get_version
-
-logger = logging.getLogger('pasaffe')
-
-# pylint: disable=E1101
+import unittest
+import subprocess
 
 
-# See pasaffe_lib.AboutDialog.py for more details about how this class works.
-class AboutPasaffeDialog(AboutDialog):
-    __gtype_name__ = "AboutPasaffeDialog"
+class TestFlake8(unittest.TestCase):
+    def test_project(self):
+        '''run flake8'''
+        rc = subprocess.call(["flake8"])
+        self.assertEqual(rc, 0)
 
-    def finish_initializing(self, builder):
-        """Set up the about dialog"""
-        super(AboutPasaffeDialog, self).finish_initializing(builder)
 
-        self.set_version(get_version())
+if __name__ == '__main__':
+    unittest.main()

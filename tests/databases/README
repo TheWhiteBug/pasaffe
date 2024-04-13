@@ -17,6 +17,9 @@ pw-gorilla-1537.psafe3:
 pasaffe-025.psafe3
 - Created with Pasaffe 0.25 and the generate_pasaffe_db.py script
 
+pasaffe-058.psafe3
+- Created with Pasaffe 0.58 and the generate_pasaffe_db.py script
+
 gpass-050.gps
 - Created with GPass v0.5.0 on Ubuntu 10.04
 

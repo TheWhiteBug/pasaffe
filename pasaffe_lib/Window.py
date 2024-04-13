@@ -91,8 +91,9 @@ class Window(Gtk.Window):
             self.preferences_dialog.present()
         elif self.PreferencesDialog is not None:
             logger.debug('create new preferences_dialog')
+            # pylint: disable=E1102
             self.preferences_dialog = \
-                self.PreferencesDialog()  # pylint: disable=E1102
+                self.PreferencesDialog()
             self.preferences_dialog.set_transient_for(self)
             self.preferences_dialog.connect(
                 'destroy', self.on_preferences_dialog_destroyed)
@@ -112,13 +113,13 @@ class Window(Gtk.Window):
         logger.debug('preference changed: %s = %s' %
                      (key, str(settings.get_value(key))))
         if key == 'visible-secrets':
-            self.set_show_password_status()
+            self.set_show_password_status()  # pylint: disable=E1101
             treemodel, treeiter = \
                 self.ui.treeview1.get_selection().get_selected()
             if treeiter is not None:
                 entry_uuid = treemodel.get_value(treeiter, 2)
                 if "pasaffe_treenode." not in entry_uuid:
-                    self.display_data(entry_uuid,
+                    self.display_data(entry_uuid,  # pylint: disable=E1101
                                       show_secrets=settings.get_boolean(key))
 
     def on_preferences_dialog_destroyed(self, widget, data=None):

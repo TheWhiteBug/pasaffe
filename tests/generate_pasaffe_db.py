@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright (C) 2013 Marc Deslauriers <marc.deslauriers@canonical.com>
+# Copyright (C) 2013-2024 Marc Deslauriers <marc.deslauriers@canonical.com>
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
@@ -35,7 +35,8 @@ def get_test_data():
                 4: "username1",
                 5: "This is a note",
                 6: "password1",
-                13: "http://www.example.com"},
+                13: "http://www.example.com",
+                20: "test@example.com"},
                {2: "level1group",
                 3: "level1entry",
                 4: "username1",
