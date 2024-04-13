@@ -1,10 +1,8 @@
 # About
 
-This is a fork of the excellent pasaffe project from https://launchpad.net/pasaffe
+This is a fork of the excellent pasaffe project from https://git.launchpad.net/pasaffe
 
 Refer to this site for latest updates in case this here gets out-of-date.
-
-Since I was not interested in bzr, I cloned to bzr repo, converted it to git and pushed it here on github.
 
 # Changes
 
